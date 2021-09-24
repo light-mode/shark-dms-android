@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name" translatable="false">Shark DMS</string>
+
+    <string name="fragment_splash_text_view_app_name_text" translatable="false">SHARK DMS</string>
+
+    <string name="fragment_login_text_view_1_text">Đăng Nhập</string>
+    <string name="fragment_login_text_view_2_text">Dành Cho Nhân Viên Thị Trường Và Đại Lý</string>
+    <string name="fragment_login_edit_text_username_hint">Tài Khoản</string>
+    <string name="fragment_login_edit_text_password_hint">Mật Khẩu</string>
+    <string name="fragment_login_text_view_forgot_password_text">Quên Mật Khẩu?</string>
+    <string name="fragment_login_button_login_text">Đăng Nhập</string>
+
+    <string name="content_description" translatable="false">none</string>
+</resources>
