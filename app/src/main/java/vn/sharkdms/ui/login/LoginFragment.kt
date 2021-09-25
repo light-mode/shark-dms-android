@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentLoginBinding
@@ -32,6 +33,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val binding = FragmentLoginBinding.bind(view)
         setUsernameEditTextListener(binding, clearIcon)
         setPasswordEditTextListener(binding, hideIcon, showIcon)
+        setForgotPasswordTextViewListener(binding)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -213,5 +215,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
         passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(passwordIcon, 0, endIcon,
             0)
+    }
+
+    private fun setForgotPasswordTextViewListener(binding: FragmentLoginBinding) {
+        binding.textViewForgotPassword.setOnClickListener {
+            val action = LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
+            findNavController().navigate(action)
+        }
     }
 }
