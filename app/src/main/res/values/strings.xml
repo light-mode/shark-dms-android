@@ -9,6 +9,14 @@
     <string name="fragment_login_edit_text_password_hint">Mật Khẩu</string>
     <string name="fragment_login_text_view_forgot_password_text">Quên Mật Khẩu?</string>
     <string name="fragment_login_button_login_text">Đăng Nhập</string>
+    <string name="fragment_customer_header_text">Khách Hàng</string>
+    <string name="fragment_add_customer_header_text">Thêm Khách Hàng</string>
+    <string name="fragment_search_customer_by_name_phone_number">Tên hoặc SĐT khách hàng</string>
+    <string name="fragment_customer_type_all">Tất cả</string>
+    <string name="fragment_customer_type_a">Xếp loại: A</string>
+    <string name="fragment_customer_type_b">Xếp loại: B</string>
+    <string name="fragment_customer_type_c">Xếp loại: C</string>
+    <string name="fragment_customer_type_d">Xếp loại: D</string>
 
     <string name="content_description" translatable="false">none</string>
 </resources>
