@@ -10,5 +10,10 @@
     <string name="fragment_login_text_view_forgot_password_text">Quên Mật Khẩu?</string>
     <string name="fragment_login_button_login_text">Đăng Nhập</string>
 
+    <string name="fragment_forgot_password_text_view_1_text">Xác nhận tài khoản</string>
+    <string name="fragment_forgot_password_text_view_2_text">Bạn Hãy Nhập Tài Khoản Đã Đăng Ký\nTrên Shark DMS</string>
+    <string name="fragment_forgot_password_edit_text_username_hint">Tài Khoản</string>
+    <string name="fragment_forgot_password_button_send_text">Gửi</string>
+
     <string name="content_description" translatable="false">none</string>
 </resources>
