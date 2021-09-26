@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.ForgotPasswordRequest
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,18 +24,21 @@ class ForgotPasswordViewModel @Inject constructor(private val baseApi: BaseApi) 
     fun sendForgotPasswordRequest(username: String) {
         viewModelScope.launch {
             val body = ForgotPasswordRequest(username)
-            val response = baseApi.forgotPassword(body)
             try {
+                val response = baseApi.forgotPassword(body)
                 val code = response.code.toInt()
                 forgotPasswordEventChannel.send(
                     ForgotPasswordEvent.OnResponse(code, response.message))
             } catch (nfe: NumberFormatException) {
                 Log.e(TAG, nfe.message, nfe)
+            } catch (ste: SocketTimeoutException) {
+                forgotPasswordEventChannel.send(ForgotPasswordEvent.OnFailure)
             }
         }
     }
 
     sealed class ForgotPasswordEvent {
         data class OnResponse(val code: Int, val message: String) : ForgotPasswordEvent()
+        object OnFailure : ForgotPasswordEvent()
     }
 }

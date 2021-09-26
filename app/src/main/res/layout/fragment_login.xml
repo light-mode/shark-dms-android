@@ -84,4 +84,15 @@
         android:textColor="@color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_view_forgot_password" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/progress_bar"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/button_login"
+        app:layout_constraintLeft_toLeftOf="@id/button_login"
+        app:layout_constraintRight_toRightOf="@id/button_login"
+        app:layout_constraintTop_toTopOf="@id/button_login"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

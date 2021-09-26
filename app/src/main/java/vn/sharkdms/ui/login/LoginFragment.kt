@@ -7,23 +7,36 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
+import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentLoginBinding
+import vn.sharkdms.util.ResponseCode
+import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Validator
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
     companion object {
+        const val TAG = "LoginFragment"
         private const val CHANGE_USERNAME = Activity.RESULT_FIRST_USER
         private const val CHANGE_PASSWORD = CHANGE_USERNAME + 1
     }
+
+    private val viewModel by viewModels<LoginViewModel>()
+    private var connectivity: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +47,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         setUsernameEditTextListener(binding, clearIcon)
         setPasswordEditTextListener(binding, hideIcon, showIcon)
         setForgotPasswordTextViewListener(binding)
+        setLoginButtonListener(binding)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            viewModel.loginEvent.collect { event ->
+                when (event) {
+                    is LoginViewModel.LoginEvent.OnResponse -> handleLoginResponse(binding,
+                        event.code, event.message)
+                    is LoginViewModel.LoginEvent.OnFailure -> handleLoginRequestFailure(binding)
+                }
+            }
+        }
+        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -222,5 +247,56 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val action = LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
             findNavController().navigate(action)
         }
+    }
+
+    private fun setLoginButtonListener(binding: FragmentLoginBinding) {
+        binding.apply {
+            buttonLogin.setOnClickListener {
+                if (!connectivity) {
+                    Toast.makeText(requireContext(),
+                        getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnClickListener
+                }
+                buttonLogin.isEnabled = false
+                buttonLogin.text = ""
+                progressBar.visibility = View.VISIBLE
+                val username = editTextUsername.text.toString()
+                val password = editTextPassword.text.toString()
+                viewModel.sendLoginRequest(username, password)
+            }
+        }
+    }
+
+    private fun handleLoginResponse(binding: FragmentLoginBinding, code: String, message: String) {
+        binding.apply {
+            progressBar.visibility = View.GONE
+            buttonLogin.text = getString(R.string.fragment_login_button_login_text)
+            buttonLogin.isEnabled = true
+        }
+        try {
+            when (code.toInt()) {
+                HttpStatus.OK -> Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(), message,
+                    Toast.LENGTH_SHORT).show()
+                else -> Log.e(TAG, code)
+            }
+        } catch (nfe: NumberFormatException) {
+            if (code == ResponseCode.E001) {
+                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            } else {
+                Log.e(TAG, nfe.message, nfe)
+            }
+        }
+    }
+
+    private fun handleLoginRequestFailure(binding: FragmentLoginBinding) {
+        binding.apply {
+            progressBar.visibility = View.GONE
+            buttonLogin.text = getString(R.string.fragment_login_button_login_text)
+            buttonLogin.isEnabled = true
+        }
+        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
+            Toast.LENGTH_SHORT).show()
     }
 }

@@ -13,11 +13,13 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
+import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentForgotPasswordBinding
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Validator
@@ -29,6 +31,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
     }
 
     private val viewModel by viewModels<ForgotPasswordViewModel>()
+    private var connectivity: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,9 +46,14 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
                     is ForgotPasswordViewModel.ForgotPasswordEvent.OnResponse -> {
                         handleForgotPasswordResponse(binding, event.code, event.message)
                     }
+                    is ForgotPasswordViewModel.ForgotPasswordEvent.OnFailure -> {
+                        handleForgotPasswordRequestFailure(binding)
+                    }
                 }
             }
         }
+        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
     }
 
     private fun setBackIconListener(binding: FragmentForgotPasswordBinding) {
@@ -141,6 +149,13 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
     private fun setSendButtonListener(binding: FragmentForgotPasswordBinding) {
         binding.apply {
             buttonSend.setOnClickListener {
+                if (!connectivity) {
+                    Toast.makeText(requireContext(),
+                        getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT)
+                        .show()
+                    return@setOnClickListener
+                }
+                buttonSend.isEnabled = false
                 buttonSend.text = ""
                 progressBar.visibility = View.VISIBLE
                 val username = binding.editTextUsername.text.toString()
@@ -154,6 +169,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
         binding.apply {
             progressBar.visibility = View.GONE
             buttonSend.text = getString(R.string.fragment_forgot_password_button_send_text)
+            buttonSend.isEnabled = true
         }
         when (code) {
             HttpStatus.OK -> Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
@@ -161,5 +177,15 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
                 message, Toast.LENGTH_SHORT).show()
             else -> Log.e(TAG, code.toString())
         }
+    }
+
+    private fun handleForgotPasswordRequestFailure(binding: FragmentForgotPasswordBinding) {
+        binding.apply {
+            progressBar.visibility = View.GONE
+            buttonSend.text = getString(R.string.fragment_forgot_password_button_send_text)
+            buttonSend.isEnabled = true
+        }
+        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
+            Toast.LENGTH_SHORT).show()
     }
 }
