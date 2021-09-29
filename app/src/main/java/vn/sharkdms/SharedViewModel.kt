@@ -8,4 +8,5 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel @Inject constructor() : ViewModel() {
     val connectivity = MutableLiveData<Boolean>()
+    var token = ""
 }

@@ -12,6 +12,6 @@ interface BaseApi {
     suspend fun forgotPassword(
         @Body forgotPasswordRequest: ForgotPasswordRequest): BaseResponse<Nothing>
 
-    @POST("user/login")
+    @POST("customer/login")
     suspend fun login(@Body body: LoginRequest): BaseResponse<LoginResponseData>
 }
