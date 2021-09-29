@@ -11,7 +11,7 @@ import vn.sharkdms.R
 class SplashFragment : Fragment(R.layout.fragment_splash) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val action = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+        val action = SplashFragmentDirections.actionSplashFragmentToCustomerFragment()
         findNavController().navigate(action)
     }
 }

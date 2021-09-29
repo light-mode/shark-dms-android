@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_customerFragment"
+            app:destination="@id/customerFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -27,4 +30,9 @@
         android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/customerFragment"
+        android:name="vn.sharkdms.ui.customer.CustomerListFragment"
+        android:label="CustomerFragment"
+        tools:layout="@layout/fragment_customer_list"/>
 </navigation>

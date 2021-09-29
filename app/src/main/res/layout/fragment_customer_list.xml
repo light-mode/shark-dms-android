@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e5e5e5">
+    android:background="#e5e5e5"
+    tools:context=".ui.customer.CustomerListFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_header"
@@ -30,7 +31,7 @@
         app:layout_constraintTop_toTopOf="@+id/toolbar_header" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_back"
         android:layout_width="24dp"
         android:layout_height="26dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
@@ -39,10 +40,11 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar_header"
         app:layout_constraintTop_toTopOf="@+id/toolbar_header"
         app:layout_constraintVertical_bias="0.592"
-        app:srcCompat="@drawable/back_arrow" />
+        app:srcCompat="@drawable/back_arrow"
+        android:contentDescription="Back Button"/>
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/iv_add_customer"
         android:layout_width="24dp"
         android:layout_height="31dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
@@ -51,10 +53,11 @@
         app:layout_constraintStart_toEndOf="@+id/tv_header_customer"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.541"
-        app:srcCompat="@drawable/btn_create" />
+        app:srcCompat="@drawable/btn_create"
+        android:contentDescription="Create Customer"/>
 
     <EditText
-        android:id="@+id/edit_text_username"
+        android:id="@+id/edit_text_customer"
         style="@style/edit_text"
         android:layout_width="372dp"
         android:layout_height="60dp"
@@ -69,74 +72,99 @@
         tools:ignore="LabelFor" />
 
     <HorizontalScrollView
+        android:id="@+id/hsv_customer_rank"
         android:layout_width="391dp"
-        android:layout_height="37dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_username">
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="42dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customer_rank_all"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/bg_button_active"
-                android:text="@string/fragment_customer_type_all"
+                android:text="@string/fragment_customer_rank_all"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customer_rank_a"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_button_inactive"
-                android:text="@string/fragment_customer_type_a"
-                android:textAllCaps="false" />
+                android:text="@string/fragment_customer_rank_a"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customer_rank_b"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_button_inactive"
-                android:text="@string/fragment_customer_type_b"
-                android:textAllCaps="false" />
+                android:text="@string/fragment_customer_rank_b"
+                android:textAllCaps="false"
+                android:textColor="@color/black"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customer_rank_c"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_marginRight="8dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_button_inactive"
-                android:text="@string/fragment_customer_type_c"
-                android:textAllCaps="false" />
+                android:text="@string/fragment_customer_rank_c"
+                android:textAllCaps="false"
+                android:textColor="@color/black"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_customer_rank_d"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
+                android:layout_height="42dp"
                 android:background="@drawable/bg_button_inactive"
-                android:text="@string/fragment_customer_type_d"
-                android:textAllCaps="false" />
+                android:text="@string/fragment_customer_rank_d"
+                android:textAllCaps="false"
+                android:textColor="@color/black"/>
 
         </LinearLayout>
     </HorizontalScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/fab_gps"
+        android:layout_width="59dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="48dp"
         android:layout_weight="1"
-        android:background="@color/primary"
+        android:backgroundTint="@color/primary"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/btn_gps" />
+        app:srcCompat="@drawable/ic_gps"
+        app:tint="@color/white"
+        app:maxImageSize="30dp"
+        android:tintMode="multiply" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_customer"
+        android:layout_width="367dp"
+        android:layout_height="493dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hsv_customer_rank" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
