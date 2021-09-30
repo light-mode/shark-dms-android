@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import vn.sharkdms.ui.customer.CustomerListFragment
 import vn.sharkdms.ui.overview.OverviewFragment
 import vn.sharkdms.ui.tasks.TasksFragment
 
@@ -74,6 +75,8 @@ class SaleActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_overview -> supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, OverviewFragment()).commit()
+            R.id.nav_customers -> supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment, CustomerListFragment()).commit()
             R.id.nav_tasks -> supportFragmentManager.beginTransaction()
                 .replace(R.id.nav_host_fragment, TasksFragment()).commit()
         }
