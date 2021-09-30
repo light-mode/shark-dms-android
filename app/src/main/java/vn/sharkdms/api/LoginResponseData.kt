@@ -1,5 +1,8 @@
 package vn.sharkdms.api
 
-data class LoginResponseData(val token: String, val bhId: Int, val bhName: String,
-    val bhPhone: String, val bhAvatar: String, val bhCreatedAt: String, val bhEmail: String,
-    val bhPosition: String, val bhCompany: String)
+import com.google.gson.annotations.SerializedName
+
+data class LoginResponseData(val token: String, val id: Int, val name: String, val phone: String,
+    val avatar: String, val createdAt: String, val email: String, val position: String,
+    val company: String, @SerializedName("roleId") val roleId: Int,
+    @SerializedName("roleName") val roleName: String)

@@ -22,9 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
+import vn.sharkdms.api.LoginResponseData
 import vn.sharkdms.databinding.FragmentLoginBinding
-import vn.sharkdms.util.ResponseCode
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.ResponseCode
 import vn.sharkdms.util.Validator
 
 @AndroidEntryPoint
@@ -52,8 +53,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.loginEvent.collect { event ->
                 when (event) {
                     is LoginViewModel.LoginEvent.OnResponse -> handleLoginResponse(binding,
-                        event.code, event.message)
+                        event.code, event.message, event.data)
                     is LoginViewModel.LoginEvent.OnFailure -> handleLoginRequestFailure(binding)
+                    is LoginViewModel.LoginEvent.ShowOverviewScreen -> navigateToOverviewScreen(
+                        event.token)
+                    is LoginViewModel.LoginEvent.ShowProductsScreen -> navigateToProductsScreen(
+                        event.token)
                 }
             }
         }
@@ -253,9 +258,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.apply {
             buttonLogin.setOnClickListener {
                 if (!connectivity) {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
+                        Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 buttonLogin.isEnabled = false
@@ -268,7 +272,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    private fun handleLoginResponse(binding: FragmentLoginBinding, code: String, message: String) {
+    private fun handleLoginResponse(binding: FragmentLoginBinding, code: String, message: String,
+        data: LoginResponseData?) {
         binding.apply {
             progressBar.visibility = View.GONE
             buttonLogin.text = getString(R.string.fragment_login_button_login_text)
@@ -276,9 +281,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
         try {
             when (code.toInt()) {
-                HttpStatus.OK -> Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-                HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(), message,
-                    Toast.LENGTH_SHORT).show()
+                HttpStatus.OK -> {
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+                    viewModel.saveUserInfo(data!!)
+                }
+                HttpStatus.FORBIDDEN, HttpStatus.BAD_REQUEST -> Toast.makeText(requireContext(),
+                    message, Toast.LENGTH_SHORT).show()
                 else -> Log.e(TAG, code)
             }
         } catch (nfe: NumberFormatException) {
@@ -298,5 +306,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
         Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun navigateToOverviewScreen(token: String) {
+        ViewModelProvider(requireActivity()).get(SharedViewModel::class.java).token = token
+        val action = LoginFragmentDirections.actionLoginFragmentToOverviewFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToProductsScreen(token: String) {
+        ViewModelProvider(requireActivity()).get(SharedViewModel::class.java).token = token
+        val action = LoginFragmentDirections.actionLoginFragmentToProductsFragment()
+        findNavController().navigate(action)
     }
 }
