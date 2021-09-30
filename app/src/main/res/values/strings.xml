@@ -31,5 +31,7 @@
     <string name="fragment_forgot_password_edit_text_username_hint">Tài Khoản</string>
     <string name="fragment_forgot_password_button_send_text">Gửi</string>
 
+    <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
+
     <string name="content_description" translatable="false">none</string>
 </resources>

@@ -2,6 +2,7 @@ package vn.sharkdms.ui.customer
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,22 +19,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentCustomerListBinding
 
-import vn.sharkdms.util.HttpStatus
 import androidx.appcompat.app.AppCompatActivity
-
-
+import dagger.hilt.android.internal.Contexts
 
 
 @AndroidEntryPoint
 class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
     private var TAG: String = "CustomerListFragment"
-    private val viewModel by viewModels<CustomerListViewModel>()
+    lateinit var viewModel: CustomerListViewModel
     private lateinit var customerAdapter: CustomerAdapter
 
     companion object {
@@ -45,26 +43,22 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         val binding = FragmentCustomerListBinding.bind(view)
-//        val customerListObserver = Observer<ArrayList<Customer>> {
-//
-//        }
+        viewModel = ViewModelProvider(this).get(CustomerListViewModel::class.java)
+
+        viewModel.customerList.observe(viewLifecycleOwner, Observer<ArrayList<Customer>> {
+//            initViewModel(binding, binding.editTextCustomer.text.toString())
+            if (it != null)
+                viewModel.setAdapterData(it)
+            else
+                Toast.makeText(context, "Error in fetching data", Toast.LENGTH_LONG).show()
+        })
 
         initRecyclerView(binding)
-        initViewModel(binding)
+        initViewModel(binding, binding.editTextCustomer.text.toString())
 
-//        updateListCustomer(page, "")
-        setUsernameEditTextListener(binding)
+        setCustomerEditTextListener(binding)
         setBackButtonOnClickListener(binding)
         setAddCustomerButtonOnClickListener(binding)
-//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-//            viewModel.customerListEvent.collectLatest { event ->
-//                when (event) {
-//                    is CustomerListViewModel.CustomerListEvent.OnResponse -> {
-//                        handleCustomerListResponse(event.code, event.message)
-//                    }
-//                }
-//            }
-//        }
     }
 
     private fun initRecyclerView(binding: FragmentCustomerListBinding) {
@@ -77,17 +71,16 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         }
     }
 
-    private fun initViewModel(binding: FragmentCustomerListBinding) {
-        val viewModel = ViewModelProvider(this).get(CustomerListViewModel::class.java)
+    private fun initViewModel(binding: FragmentCustomerListBinding, customerName: String) {
         lifecycleScope.launchWhenCreated {
-            viewModel.getListData(binding.editTextCustomer.text.toString()).collectLatest {
+            viewModel.getListData(customerName).collectLatest {
                 customerAdapter.submitData(it)
             }
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun setUsernameEditTextListener(binding: FragmentCustomerListBinding) {
+    private fun setCustomerEditTextListener(binding: FragmentCustomerListBinding) {
         setCustomerEditTextTextChangedListener(binding)
     }
 
@@ -100,13 +93,9 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-//                updateListCustomer(page, p0.toString())
+                initViewModel(binding, binding.editTextCustomer.text.toString())
             }
         })
-    }
-
-    private fun updateListCustomer(page: Int, customerName: String) {
-        viewModel.customerListRequest(page, customerName)
     }
 
     private fun setBackButtonOnClickListener(binding: FragmentCustomerListBinding) {
@@ -121,19 +110,4 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         }
     }
 
-//    private fun handleCustomerListResponse(code: Int, message: String) {
-//        viewModel.getCustomerListDataObserver().observe(viewLifecycleOwner, Observer<CustomerList> {
-//            if (it != null) {
-//                viewModel.setAdapterData(it.customers)
-//            } else {
-//                Toast.makeText(activity, "Error in fetching data", Toast.LENGTH_LONG)
-//            }
-//        })
-//        when (code) {
-//            HttpStatus.OK -> Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-//            HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
-//                message, Toast.LENGTH_SHORT).show()
-//            else -> Log.e(TAG, code.toString())
-//        }
-//    }
 }

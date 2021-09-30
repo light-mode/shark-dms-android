@@ -24,7 +24,7 @@ class CustomerPagingSource(val apiService: BaseApi, val customerName: String): P
             val response = apiService.listCustomer(body)
 
             return LoadResult.Page(
-                data = response.data.customers,
+                data = response.data,
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
                 nextKey = nextPage + 1
             )

@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.customer
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,8 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemCustomerBinding
 
 class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerViewHolder>(DiffUtilCallBack()) {
-//    private var customers = List<Customer>()
+
+    var customers = ArrayList<Customer>()
 
     class CustomerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivAvatarListCustomer = itemView.findViewById<ImageView>(R.id.iv_avatar_list_customer)
@@ -25,22 +27,19 @@ class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerView
         val tvCustomerCheckIn = itemView.findViewById<TextView>(R.id.tv_customer_check_in)
 
         fun bind(data: Customer) {
-            tvCustomerName.text = data.name
-            tvCustomerPhoneNumber.text = data.phoneNumber
-            tvCustomerRank.text = R.string.fragment_customer_rank.toString().plus(" ").plus(data.rank)
-            tvCustomerAddress.text = R.string.fragment_customer_address.toString().plus(" ").plus(data.address)
-            tvCustomerCheckIn.text = R.string.fragment_customer_check_in.toString().plus(" ").plus(data.checkIn.toString())
-            Glide.with(ivAvatarListCustomer).load(data.avatar).circleCrop()
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .error(R.drawable.ic_launcher_foreground)
-                .fallback(R.drawable.ic_launcher_foreground)
+            tvCustomerName.text = data.customerName
+            tvCustomerPhoneNumber.text = data.customerPhone
+            tvCustomerRank.text = "Xếp loại: ".plus(data.rankName)
+            tvCustomerAddress.text = "Địa chỉ: ".plus(data.customerAddress)
+            tvCustomerCheckIn.text = "Ngày check-in: ".plus(data.checkInDate)
+            Glide.with(ivAvatarListCustomer).load(data.customerAvatar).circleCrop()
                 .into(ivAvatarListCustomer)
         }
     }
 
     class DiffUtilCallBack: DiffUtil.ItemCallback<Customer>() {
         override fun areItemsTheSame(oldItem: Customer, newItem: Customer): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.customerName == newItem.customerName
         }
 
         override fun areContentsTheSame(oldItem: Customer, newItem: Customer): Boolean {
@@ -48,10 +47,6 @@ class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerView
         }
 
     }
-
-//    fun setDataList(data: List<Customer>) {
-//        this.customers = data
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         return CustomerViewHolder(
@@ -65,5 +60,9 @@ class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerView
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         holder.bind(getItem(position)!!)
+    }
+
+    fun setDataList(data: ArrayList<Customer>) {
+        customers = data
     }
 }
