@@ -15,4 +15,9 @@
         <item name="android:indeterminateDrawable">@drawable/progress_bar_circular</item>
         <item name="android:visibility">gone</item>
     </style>
+
+    <style name="avatar">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

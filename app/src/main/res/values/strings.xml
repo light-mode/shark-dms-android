@@ -31,6 +31,14 @@
     <string name="fragment_forgot_password_edit_text_username_hint">Tài Khoản</string>
     <string name="fragment_forgot_password_button_send_text">Gửi</string>
 
+    <string name="fragment_account_title">Thông tin thành viên</string>
+    <string name="fragment_account_text_view_username_text">Tên đăng nhập:</string>
+    <string name="fragment_account_text_view_email_text">Email:</string>
+    <string name="fragment_account_text_view_company_text">Công ty:</string>
+    <string name="fragment_account_text_view_position_text">Vị trí:</string>
+    <string name="fragment_account_text_view_discount_text">Bảng giá chiết khấu cho nhân viên</string>
+    <string name="fragment_account_text_view_change_password_text">Đổi mật khẩu</string>
+
     <string name="fragment_overview_title">Tổng quan</string>
     <string name="fragment_customers_title">Khách hàng</string>
     <string name="fragment_history_title">Lịch sử</string>

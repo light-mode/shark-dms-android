@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.Navigation
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.ui.customer.CustomerListFragment
@@ -50,6 +51,11 @@ class SaleActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         roleTextView.text = intent.getStringExtra("role_name").toString()
         navView.setNavigationItemSelectedListener(this)
         navView.setCheckedItem(R.id.nav_overview)
+        headerView.setOnClickListener {
+            Navigation.findNavController(this, R.id.nav_host_fragment)
+                .navigate(R.id.action_global_accountFragment)
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
     }
 
     override fun onStart() {

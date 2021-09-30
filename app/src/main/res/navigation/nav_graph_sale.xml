@@ -9,4 +9,12 @@
         android:name="vn.sharkdms.ui.overview.OverviewFragment"
         android:label="fragment_overview"
         tools:layout="@layout/fragment_overview" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="vn.sharkdms.ui.account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <action
+        android:id="@+id/action_global_accountFragment"
+        app:destination="@id/accountFragment" />
 </navigation>
