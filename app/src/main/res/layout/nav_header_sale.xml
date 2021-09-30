@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:background="@color/primary"
+    android:gravity="bottom"
+    android:padding="16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <TextView
+        android:id="@+id/nav_header_text_view_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_semi_bold"
+        android:text="@string/content_description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp"
+        tools:text="Đinh Thị Tươi" />
+
+    <TextView
+        android:id="@+id/nav_header_text_view_role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nav_header_text_view_username"
+        android:fontFamily="@font/inter_semi_bold"
+        android:text="@string/content_description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:text="Nhân viên thị trường - SR" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/nav_header_text_view_role"
+        android:layout_alignEnd="@id/nav_header_text_view_role"
+        android:layout_alignBottom="@id/nav_header_text_view_role"
+        android:contentDescription="@string/content_description"
+        android:src="@drawable/ic_arrow_forward"
+        app:tint="@color/white" />
+</RelativeLayout>

@@ -43,9 +43,9 @@ class LoginViewModel @Inject constructor(private val baseApi: BaseApi,
                 userDao.insert(user)
                 when (roleId) {
                     Constant.ROLE_ID_SR -> loginEventChannel.send(
-                        LoginEvent.ShowOverviewScreen(token))
+                        LoginEvent.ShowOverviewScreen(token, name, roleName))
                     Constant.ROLE_ID_KH -> loginEventChannel.send(
-                        LoginEvent.ShowProductsScreen(token))
+                        LoginEvent.ShowProductsScreen(token, name, roleName))
                 }
             }
         }
@@ -56,7 +56,10 @@ class LoginViewModel @Inject constructor(private val baseApi: BaseApi,
             val data: LoginResponseData?) : LoginEvent()
 
         object OnFailure : LoginEvent()
-        data class ShowOverviewScreen(val token: String) : LoginEvent()
-        data class ShowProductsScreen(val token: String) : LoginEvent()
+        data class ShowOverviewScreen(val token: String, val username: String,
+            val roleName: String) : LoginEvent()
+
+        data class ShowProductsScreen(val token: String, val username: String,
+            val roleName: String) : LoginEvent()
     }
 }

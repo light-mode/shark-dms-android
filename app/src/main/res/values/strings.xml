@@ -15,7 +15,19 @@
     <string name="fragment_forgot_password_edit_text_username_hint">Tài Khoản</string>
     <string name="fragment_forgot_password_button_send_text">Gửi</string>
 
+    <string name="fragment_overview_title">Tổng quan</string>
+    <string name="fragment_customers_title">Khách hàng</string>
+    <string name="fragment_history_title">Lịch sử</string>
+    <string name="fragment_report_title">Báo cáo</string>
+    <string name="fragment_tasks_title">Công việc</string>
+    <string name="fragment_discounts_title">Chiết khấu</string>
+    <string name="fragment_policy_title">Chính sách</string>
+    <string name="fragment_introduction_title">Hướng dẫn sử dụng</string>
+
     <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
+    <string name="support_call">039 666 8760</string>
+    <string name="support_email">hotro@sharkdms.vn</string>
+    <string name="logout">Đăng xuất</string>
 
     <string name="content_description" translatable="false">none</string>
 </resources>
