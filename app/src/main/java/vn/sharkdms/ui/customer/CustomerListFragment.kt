@@ -46,7 +46,6 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         viewModel = ViewModelProvider(this).get(CustomerListViewModel::class.java)
 
         viewModel.customerList.observe(viewLifecycleOwner, Observer<ArrayList<Customer>> {
-//            initViewModel(binding, binding.editTextCustomer.text.toString())
             if (it != null)
                 viewModel.setAdapterData(it)
             else
@@ -59,6 +58,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         setCustomerEditTextListener(binding)
         setBackButtonOnClickListener(binding)
         setAddCustomerButtonOnClickListener(binding)
+        setBtnGpsOnClickListener(binding)
     }
 
     private fun initRecyclerView(binding: FragmentCustomerListBinding) {
@@ -107,6 +107,13 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     private fun setAddCustomerButtonOnClickListener(binding: FragmentCustomerListBinding) {
         binding.ivAddCustomer.setOnClickListener {
 
+        }
+    }
+
+    private fun setBtnGpsOnClickListener(binding: FragmentCustomerListBinding) {
+        binding.fabGps.setOnClickListener {
+            val action = CustomerListFragmentDirections.actionCustomerFragmentToMapsFragment()
+            findNavController().navigate(action)
         }
     }
 

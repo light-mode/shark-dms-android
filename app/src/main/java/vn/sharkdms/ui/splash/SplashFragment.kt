@@ -19,20 +19,22 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.splashEvent.collect { event ->
-                when (event) {
-                    is SplashViewModel.SplashEvent.ShowLoginScreen -> navigateToLoginScreen()
-                    is SplashViewModel.SplashEvent.ShowOverviewScreen -> navigateToOverviewScreen(
-                        event.token)
-                    is SplashViewModel.SplashEvent.ShowProductsScreen -> navigateToProductsScreen(
-                        event.token)
-                }
-            }
-        }
-        viewModel.users.observe(viewLifecycleOwner) {
-            viewModel.checkLoginStatus(it)
-        }
+        val action = SplashFragmentDirections.actionSplashFragmentToCustomerFragment()
+        findNavController().navigate(action)
+//        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+//            viewModel.splashEvent.collect { event ->
+//                when (event) {
+//                    is SplashViewModel.SplashEvent.ShowLoginScreen -> navigateToLoginScreen()
+//                    is SplashViewModel.SplashEvent.ShowOverviewScreen -> navigateToOverviewScreen(
+//                        event.token)
+//                    is SplashViewModel.SplashEvent.ShowProductsScreen -> navigateToProductsScreen(
+//                        event.token)
+//                }
+//            }
+//        }
+//        viewModel.users.observe(viewLifecycleOwner) {
+//            viewModel.checkLoginStatus(it)
+//        }
     }
 
     private fun navigateToLoginScreen() {

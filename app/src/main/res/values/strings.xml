@@ -34,4 +34,6 @@
     <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
 
     <string name="content_description" translatable="false">none</string>
+
+<!--    <string name="google_maps_key">AIzaSyCmTWjTci6G_q8bkr3dph4dz10JG5SFk0U</string>-->
 </resources>

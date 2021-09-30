@@ -11,13 +11,12 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_splashFragment_to_customerFragment"
-            app:destination="@id/customerFragment" />
             app:destination="@id/loginFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_customerFragment"
+            app:destination="@id/customerFragment" />
         <action
             android:id="@+id/action_splashFragment_to_overviewFragment"
             app:destination="@id/overviewFragment"
@@ -57,7 +56,11 @@
         android:id="@+id/customerFragment"
         android:name="vn.sharkdms.ui.customer.CustomerListFragment"
         android:label="CustomerFragment"
-        tools:layout="@layout/fragment_customer_list"/>
+        tools:layout="@layout/fragment_customer_list">
+        <action
+            android:id="@+id/action_customerFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/overviewFragment"
         android:name="vn.sharkdms.ui.overview.OverviewFragment"
@@ -68,4 +71,9 @@
         android:name="vn.sharkdms.ui.products.ProductsFragment"
         android:label="fragment_products"
         tools:layout="@layout/fragment_products" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="vn.sharkdms.ui.customer.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>

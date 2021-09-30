@@ -24,7 +24,7 @@ interface BaseApi {
      *
      */
     @POST("list-customer")
-    @Headers("Authorization: Bearer 163290524017e62166fc8586dfa4d1bc0e1742c08b")
+    @Headers("Authorization: Bearer 163299309517e62166fc8586dfa4d1bc0e1742c08b")
     suspend fun listCustomer(
         @Body customerListRequest: CustomerListRequest): BaseResponse<List<Customer>>
 
