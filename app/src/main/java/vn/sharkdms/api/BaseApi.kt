@@ -21,6 +21,10 @@ interface BaseApi {
     @POST("customer/login")
     suspend fun login(@Body body: LoginRequest): BaseResponse<LoginResponseData>
 
+    @POST("change-password")
+    suspend fun changePassword(@Header("Authorization") authorization: String,
+        @Body body: ChangePasswordRequest) : BaseResponse<Nothing>
+
     /** Customer API
      *
      */

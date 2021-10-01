@@ -23,6 +23,11 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
             iconBack.setOnClickListener {
                 findNavController().navigateUp()
             }
+            cardViewChangePassword.setOnClickListener {
+                val action = AccountFragmentDirections
+                    .actionAccountFragmentToChangePasswordFragment()
+                findNavController().navigate(action)
+            }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.accountEvent.collect { event ->

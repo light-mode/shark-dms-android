@@ -4,5 +4,6 @@ class Constant {
     companion object {
         const val ROLE_ID_SR = 7
         const val ROLE_ID_KH = 8
+        const val TOKEN_PREFIX = "Bearer "
     }
 }
