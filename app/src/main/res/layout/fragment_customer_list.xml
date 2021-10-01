@@ -34,27 +34,27 @@
         android:id="@+id/iv_back"
         android:layout_width="24dp"
         android:layout_height="26dp"
+        android:contentDescription="Back Button"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
         app:layout_constraintEnd_toStartOf="@+id/tv_header_customer"
-        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="@+id/toolbar_header"
         app:layout_constraintTop_toTopOf="@+id/toolbar_header"
-        app:layout_constraintVertical_bias="0.592"
-        app:srcCompat="@drawable/back_arrow"
-        android:contentDescription="Back Button"/>
+        app:layout_constraintVertical_bias="0.537"
+        app:srcCompat="@drawable/back_arrow" />
 
     <ImageView
         android:id="@+id/iv_add_customer"
         android:layout_width="24dp"
-        android:layout_height="31dp"
+        android:layout_height="26dp"
+        android:contentDescription="Create Customer"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
         app:layout_constraintEnd_toEndOf="@+id/toolbar_header"
-        app:layout_constraintHorizontal_bias="0.801"
+        app:layout_constraintHorizontal_bias="0.869"
         app:layout_constraintStart_toEndOf="@+id/tv_header_customer"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.541"
-        app:srcCompat="@drawable/btn_create"
-        android:contentDescription="Create Customer"/>
+        app:layout_constraintVertical_bias="0.489"
+        app:srcCompat="@drawable/btn_create" />
 
     <EditText
         android:id="@+id/edit_text_customer"

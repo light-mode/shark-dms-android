@@ -2,6 +2,7 @@ package vn.sharkdms.ui.login
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
@@ -20,7 +21,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import vn.sharkdms.CustomerActivity
 import vn.sharkdms.R
+import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.LoginResponseData
 import vn.sharkdms.databinding.FragmentLoginBinding
@@ -56,9 +59,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         event.code, event.message, event.data)
                     is LoginViewModel.LoginEvent.OnFailure -> handleLoginRequestFailure(binding)
                     is LoginViewModel.LoginEvent.ShowOverviewScreen -> navigateToOverviewScreen(
-                        event.token)
+                        event.token, event.username, event.roleName)
                     is LoginViewModel.LoginEvent.ShowProductsScreen -> navigateToProductsScreen(
-                        event.token)
+                        event.token, event.username, event.roleName)
                 }
             }
         }
@@ -308,15 +311,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             Toast.LENGTH_SHORT).show()
     }
 
-    private fun navigateToOverviewScreen(token: String) {
-        ViewModelProvider(requireActivity()).get(SharedViewModel::class.java).token = token
-        val action = LoginFragmentDirections.actionLoginFragmentToOverviewFragment()
-        findNavController().navigate(action)
+    private fun navigateToOverviewScreen(token: String, username: String, roleName: String) {
+        val intent = Intent(requireContext(), SaleActivity::class.java)
+        intent.putExtra("token", token)
+        intent.putExtra("username", username)
+        intent.putExtra("role_name", roleName)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
-    private fun navigateToProductsScreen(token: String) {
-        ViewModelProvider(requireActivity()).get(SharedViewModel::class.java).token = token
-        val action = LoginFragmentDirections.actionLoginFragmentToProductsFragment()
-        findNavController().navigate(action)
+    private fun navigateToProductsScreen(token: String, username: String, roleName: String) {
+        val intent = Intent(requireContext(), CustomerActivity::class.java)
+        intent.putExtra("token", token)
+        intent.putExtra("username", username)
+        intent.putExtra("role_name", roleName)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 }

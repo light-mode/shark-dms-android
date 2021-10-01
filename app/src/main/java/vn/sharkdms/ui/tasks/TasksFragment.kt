@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.overview
+package vn.sharkdms.ui.tasks
 
 import android.os.Bundle
 import android.view.View
@@ -6,13 +6,13 @@ import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
-import vn.sharkdms.databinding.FragmentOverviewBinding
+import vn.sharkdms.databinding.FragmentTasksBinding
 
 @AndroidEntryPoint
-class OverviewFragment : Fragment(R.layout.fragment_overview) {
+class TasksFragment : Fragment(R.layout.fragment_tasks) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentOverviewBinding.bind(view)
+        val binding = FragmentTasksBinding.bind(view)
         binding.iconMenu.setOnClickListener {
             (requireActivity() as SaleActivity).toggleNavigationDrawer(it)
         }
