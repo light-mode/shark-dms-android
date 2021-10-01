@@ -1,18 +1,15 @@
 package vn.sharkdms.ui.customer
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import vn.sharkdms.R
-import vn.sharkdms.databinding.ItemCustomerBinding
 
 class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerViewHolder>(DiffUtilCallBack()) {
 

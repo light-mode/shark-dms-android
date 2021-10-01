@@ -11,10 +11,19 @@
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_splashFragment_to_customerFragment"
-            app:destination="@id/customerFragment" />
+            android:id="@+id/action_splashFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_productsFragment"
+            app:destination="@id/productsFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
             app:destination="@id/loginFragment"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
@@ -33,11 +42,6 @@
         android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
-    <fragment
-        android:id="@+id/customerFragment"
-        android:name="vn.sharkdms.ui.customer.CustomerListFragment"
-        android:label="CustomerFragment"
-        tools:layout="@layout/fragment_customer_list"/>
     <fragment
         android:id="@+id/overviewFragment"
         android:name="vn.sharkdms.ui.overview.OverviewFragment"

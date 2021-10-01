@@ -1,14 +1,15 @@
 package vn.sharkdms.ui.customer
 
+import androidx.activity.viewModels
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CustomerListRequest
 import java.lang.Exception
 import java.security.Key
 
-class CustomerPagingSource(val apiService: BaseApi, val customerName: String): PagingSource<Int, Customer>() {
-
+class CustomerPagingSource(val apiService: BaseApi, val token: String, val customerName: String): PagingSource<Int, Customer>() {
     companion object {
         private const val FIRST_PAGE_INDEX = 1
     }
@@ -21,7 +22,7 @@ class CustomerPagingSource(val apiService: BaseApi, val customerName: String): P
         return try {
             val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
             val body = CustomerListRequest(nextPage, customerName)
-            val response = apiService.listCustomer(body)
+            val response = apiService.listCustomer(token, body)
 
             return LoadResult.Page(
                 data = response.data,

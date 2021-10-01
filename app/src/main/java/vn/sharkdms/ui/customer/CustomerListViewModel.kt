@@ -40,9 +40,9 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
     private val customerListEventChannel = Channel<CustomerListEvent>()
     val customerListEvent = customerListEventChannel.receiveAsFlow()
 
-    fun getListData(customerName: String): Flow<PagingData<Customer>> {
+    fun getListData(token: String, customerName: String): Flow<PagingData<Customer>> {
         return Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {CustomerPagingSource(baseApi, customerName)}).flow.cachedIn(viewModelScope)
+            pagingSourceFactory = {CustomerPagingSource(baseApi, token, customerName)}).flow.cachedIn(viewModelScope)
     }
 
     fun setAdapterData(data: ArrayList<Customer>) {

@@ -54,4 +54,6 @@
     <string name="logout">Đăng xuất</string>
 
     <string name="content_description" translatable="false">none</string>
+
+<!--    <string name="google_maps_key">AIzaSyCmTWjTci6G_q8bkr3dph4dz10JG5SFk0U</string>-->
 </resources>

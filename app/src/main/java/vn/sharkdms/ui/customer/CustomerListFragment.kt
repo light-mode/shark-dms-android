@@ -25,6 +25,7 @@ import vn.sharkdms.databinding.FragmentCustomerListBinding
 
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.internal.Contexts
+import vn.sharkdms.SharedViewModel
 
 
 @AndroidEntryPoint
@@ -33,6 +34,8 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     private var TAG: String = "CustomerListFragment"
     lateinit var viewModel: CustomerListViewModel
     private lateinit var customerAdapter: CustomerAdapter
+    private val sharedViewModel by viewModels<SharedViewModel>()
+    private lateinit var token: String
 
     companion object {
         private const val CHANGE_CUSTOMER = Activity.RESULT_FIRST_USER
@@ -45,8 +48,9 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         val binding = FragmentCustomerListBinding.bind(view)
         viewModel = ViewModelProvider(this).get(CustomerListViewModel::class.java)
 
+        token = "Bearer ".plus(sharedViewModel.token)
+
         viewModel.customerList.observe(viewLifecycleOwner, Observer<ArrayList<Customer>> {
-//            initViewModel(binding, binding.editTextCustomer.text.toString())
             if (it != null)
                 viewModel.setAdapterData(it)
             else
@@ -59,6 +63,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         setCustomerEditTextListener(binding)
         setBackButtonOnClickListener(binding)
         setAddCustomerButtonOnClickListener(binding)
+        setBtnGpsOnClickListener(binding)
     }
 
     private fun initRecyclerView(binding: FragmentCustomerListBinding) {
@@ -73,7 +78,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
     private fun initViewModel(binding: FragmentCustomerListBinding, customerName: String) {
         lifecycleScope.launchWhenCreated {
-            viewModel.getListData(customerName).collectLatest {
+            viewModel.getListData(token, customerName).collectLatest {
                 customerAdapter.submitData(it)
             }
         }
@@ -107,6 +112,13 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     private fun setAddCustomerButtonOnClickListener(binding: FragmentCustomerListBinding) {
         binding.ivAddCustomer.setOnClickListener {
 
+        }
+    }
+
+    private fun setBtnGpsOnClickListener(binding: FragmentCustomerListBinding) {
+        binding.fabGps.setOnClickListener {
+            val action = CustomerListFragmentDirections.actionCustomerListFragmentToMapsFragment()
+            findNavController().navigate(action)
         }
     }
 

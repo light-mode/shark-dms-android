@@ -34,6 +34,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         viewModel.users.observe(viewLifecycleOwner) {
             viewModel.checkLoginStatus(it)
         }
+//        val action = SplashFragmentDirections.actionSplashFragmentToCustomerFragment()
+//        findNavController().navigate(action)
     }
 
     private fun navigateToLoginScreen() {

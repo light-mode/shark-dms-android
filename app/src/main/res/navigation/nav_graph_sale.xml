@@ -17,4 +17,23 @@
     <action
         android:id="@+id/action_global_accountFragment"
         app:destination="@id/accountFragment" />
+        tools:layout="@layout/fragment_overview" >
+        <action
+            android:id="@+id/action_overviewFragment_to_customerListFragment"
+            app:destination="@id/customerListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerListFragment"
+        android:name="vn.sharkdms.ui.customer.CustomerListFragment"
+        android:label="fragment_customer_list"
+        tools:layout="@layout/fragment_customer_list" >
+        <action
+            android:id="@+id/action_customerListFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="vn.sharkdms.ui.customer.MapsFragment"
+        android:label="fragment_maps"
+        tools:layout="@layout/fragment_maps" />
 </navigation>
