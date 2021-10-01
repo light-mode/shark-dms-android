@@ -3,10 +3,12 @@ package vn.sharkdms.ui.customer
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.widget.Toast
@@ -24,8 +26,10 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentCustomerListBinding
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import dagger.hilt.android.internal.Contexts
 import vn.sharkdms.SharedViewModel
+import vn.sharkdms.ui.login.LoginFragment
 
 
 @AndroidEntryPoint
@@ -46,6 +50,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         val binding = FragmentCustomerListBinding.bind(view)
+        val clearIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
         viewModel = ViewModelProvider(this).get(CustomerListViewModel::class.java)
 
         token = "Bearer ".plus(sharedViewModel.token)
@@ -60,7 +65,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         initRecyclerView(binding)
         initViewModel(binding, binding.editTextCustomer.text.toString())
 
-        setCustomerEditTextListener(binding)
+        setCustomerEditTextListener(binding, clearIcon)
         setBackButtonOnClickListener(binding)
         setAddCustomerButtonOnClickListener(binding)
         setBtnGpsOnClickListener(binding)
@@ -85,8 +90,10 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun setCustomerEditTextListener(binding: FragmentCustomerListBinding) {
+    private fun setCustomerEditTextListener(binding: FragmentCustomerListBinding, clearIcon: Drawable?) {
         setCustomerEditTextTextChangedListener(binding)
+        setCustomerEditTextOnTouchListener(binding, clearIcon)
+        setCustomerEditTextFocusChangeListener(binding, clearIcon)
     }
 
     private fun setCustomerEditTextTextChangedListener(binding: FragmentCustomerListBinding) {
@@ -98,9 +105,55 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                afterTextChanged(binding)
                 initViewModel(binding, binding.editTextCustomer.text.toString())
             }
         })
+    }
+
+    private fun setCustomerEditTextOnTouchListener(binding: FragmentCustomerListBinding, clearIcon: Drawable?) {
+        binding.apply {
+            editTextCustomer.apply {
+                setOnTouchListener(object : View.OnTouchListener {
+                    @SuppressLint("ClickableViewAccessibility")
+                    override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                        if (view == null || event == null || clearIcon == null || event.action !=
+                            MotionEvent.ACTION_UP) return false
+                        val currentClearIcon = editTextCustomer.compoundDrawablesRelative[2]
+                        if (event.rawX < editTextCustomer.right - clearIcon.bounds.width() -
+                            editTextCustomer.paddingEnd * 2 || currentClearIcon == null) {
+                            return false
+                        }
+                        editTextCustomer.text.clear()
+                        afterTextChanged(binding)
+                        return true
+                    }
+                })
+            }
+        }
+    }
+
+    private fun setCustomerEditTextFocusChangeListener(binding: FragmentCustomerListBinding, clearIcon: Drawable?) {
+        binding.apply {
+            editTextCustomer.apply {
+                onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+                    val currentUsernameIcon = editTextCustomer.compoundDrawablesRelative[0]
+                    editTextCustomer.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        currentUsernameIcon, null,
+                        if (hasFocus && editTextCustomer.text.toString().isNotEmpty()) clearIcon
+                        else null, null)
+                }
+            }
+        }
+    }
+
+    private fun afterTextChanged(binding: FragmentCustomerListBinding) {
+        val customer = binding.editTextCustomer.text.toString()
+        val usernameIcon = R.drawable.ic_username_invalid
+        val clearIcon = if (customer.isNotEmpty() && binding.editTextCustomer.hasFocus()) R.drawable
+            .ic_clear else 0
+        binding.editTextCustomer.setCompoundDrawablesRelativeWithIntrinsicBounds(usernameIcon, 0, clearIcon,
+            0)
     }
 
     private fun setBackButtonOnClickListener(binding: FragmentCustomerListBinding) {
@@ -111,7 +164,8 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
     private fun setAddCustomerButtonOnClickListener(binding: FragmentCustomerListBinding) {
         binding.ivAddCustomer.setOnClickListener {
-
+            val action = CustomerListFragmentDirections.actionCustomerListFragmentToCreateCustomerFragment()
+            findNavController().navigate(action)
         }
     }
 
