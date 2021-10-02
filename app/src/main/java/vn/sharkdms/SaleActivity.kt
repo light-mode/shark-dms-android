@@ -6,21 +6,20 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import vn.sharkdms.ui.customer.CustomerListFragment
-import vn.sharkdms.ui.overview.OverviewFragment
-import vn.sharkdms.ui.tasks.TasksFragment
 
 @AndroidEntryPoint
-class SaleActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class SaleActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<SharedViewModel>()
     private val connectivityChangeReceiver = object : BroadcastReceiver() {
@@ -48,8 +47,16 @@ class SaleActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         usernameTextView.text = intent.getStringExtra("username").toString()
         val roleTextView = headerView.findViewById<TextView>(R.id.nav_header_text_view_role)
         roleTextView.text = intent.getStringExtra("role_name").toString()
-        navView.setNavigationItemSelectedListener(this)
-        navView.setCheckedItem(R.id.nav_overview)
+        val navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        NavigationUI.setupWithNavController(navView, navController)
+        navView.setCheckedItem(R.id.overviewFragment)
+        headerView.setOnClickListener {
+            Navigation.findNavController(this, R.id.nav_host_fragment)
+                .navigate(R.id.action_global_accountFragment)
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
     }
 
     override fun onStart() {
@@ -69,19 +76,6 @@ class SaleActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             super.onBackPressed()
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_overview -> supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, OverviewFragment()).commit()
-            R.id.nav_customers -> supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, CustomerListFragment()).commit()
-            R.id.nav_tasks -> supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, TasksFragment()).commit()
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
     }
 
     fun toggleNavigationDrawer(view: View) {

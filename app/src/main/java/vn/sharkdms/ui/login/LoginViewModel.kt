@@ -35,11 +35,11 @@ class LoginViewModel @Inject constructor(private val baseApi: BaseApi,
         }
     }
 
-    fun saveUserInfo(data: LoginResponseData) {
+    fun saveUserInfo(data: LoginResponseData, username: String) {
         viewModelScope.launch {
             data.apply {
                 val user = User(token, id, name, phone, avatar, createdAt, email, position, company,
-                    roleId, roleName, 1)
+                    roleId, roleName, 1, username)
                 userDao.insert(user)
                 when (roleId) {
                     Constant.ROLE_ID_SR -> loginEventChannel.send(

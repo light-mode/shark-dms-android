@@ -31,7 +31,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         val binding = FragmentCreateCustomerBinding.bind(view)
         val clearIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)

@@ -286,7 +286,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (code.toInt()) {
                 HttpStatus.OK -> {
                     Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-                    viewModel.saveUserInfo(data!!)
+                    viewModel.saveUserInfo(data!!, binding.editTextUsername.text.toString())
                 }
                 HttpStatus.FORBIDDEN, HttpStatus.BAD_REQUEST -> Toast.makeText(requireContext(),
                     message, Toast.LENGTH_SHORT).show()
