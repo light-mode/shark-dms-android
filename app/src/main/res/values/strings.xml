@@ -26,6 +26,21 @@
     <string name="fragment_customer_check_in">Ngày check-in:</string>
     <string name="fragment_customer_check_in_sample">Ngày check-in: 19/03/2021</string>
 
+    <string name="fragment_create_customer_header_text">Thêm Khách Hàng</string>
+    <string name="fragment_create_customer_add_avatar_text">Thêm ảnh đại diện</string>
+    <string name="fragment_create_customer_add_customer_info_text">THÔNG TIN KHÁCH HÀNG</string>
+    <string name="fragment_create_customer_account_description">Tài khoản dành cho khách hàng đăng nhập vào ứng dụng</string>
+    <string name="fragment_create_customer_name">Tên khách hàng: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_account">Tài khoản đăng nhập: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_password">Mật khẩu: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_phone">Số điện thoai: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_email">Email (không bắt buộc):</string>
+    <string name="fragment_create_customer_address">Địa chỉ: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_account_note">Tài khoản đăng nhập viết liền không dấu, chỉ bao gồm chữ cái, chữ số </string>
+    <string name="fragment_create_customer_password_note">Mật khẩu phải dài hơn 6 ký tự</string>
+    <string name="fragment_create_customer_gps_button">Lấy tọa độ địa điểm</string>
+    <string name="fragment_create_customer_create_button">TẠO KHÁCH HÀNG</string>
+
     <string name="fragment_forgot_password_text_view_1_text">Xác nhận tài khoản</string>
     <string name="fragment_forgot_password_text_view_2_text">Bạn Hãy Nhập Tài Khoản Đã Đăng Ký\nTrên Shark DMS</string>
     <string name="fragment_forgot_password_edit_text_username_hint">Tài Khoản</string>
