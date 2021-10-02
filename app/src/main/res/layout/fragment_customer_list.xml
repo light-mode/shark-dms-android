@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/fragment_customer_header_text"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
         app:layout_constraintEnd_toEndOf="@+id/toolbar_header"
         app:layout_constraintStart_toStartOf="parent"
