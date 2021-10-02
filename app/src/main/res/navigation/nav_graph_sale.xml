@@ -49,4 +49,9 @@
         android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="vn.sharkdms.ui.tasks.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
 </navigation>

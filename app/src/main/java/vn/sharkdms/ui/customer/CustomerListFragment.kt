@@ -34,7 +34,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     private var TAG: String = "CustomerListFragment"
     lateinit var viewModel: CustomerListViewModel
     private lateinit var customerAdapter: CustomerAdapter
-    private val sharedViewModel by viewModels<SharedViewModel>()
+    private lateinit var sharedViewModel : SharedViewModel
     private lateinit var token: String
 
     companion object {
@@ -43,11 +43,12 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         val binding = FragmentCustomerListBinding.bind(view)
         viewModel = ViewModelProvider(this).get(CustomerListViewModel::class.java)
 
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         token = "Bearer ".plus(sharedViewModel.token)
 
         viewModel.customerList.observe(viewLifecycleOwner, Observer<ArrayList<Customer>> {

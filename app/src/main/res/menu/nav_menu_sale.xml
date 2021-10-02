@@ -6,11 +6,11 @@
         android:id="@+id/group_1"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_overview"
+            android:id="@+id/overviewFragment"
             android:icon="@drawable/ic_overview"
             android:title="@string/fragment_overview_title" />
         <item
-            android:id="@+id/nav_customers"
+            android:id="@+id/customerListFragment"
             android:icon="@drawable/ic_customers"
             android:title="@string/fragment_customers_title" />
         <item
@@ -22,7 +22,7 @@
             android:icon="@drawable/ic_report"
             android:title="@string/fragment_report_title" />
         <item
-            android:id="@+id/nav_tasks"
+            android:id="@+id/tasksFragment"
             android:icon="@drawable/ic_tasks"
             android:title="@string/fragment_tasks_title" />
         <item
