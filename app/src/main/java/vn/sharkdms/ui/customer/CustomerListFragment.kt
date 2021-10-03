@@ -152,8 +152,8 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         val usernameIcon = R.drawable.ic_username_invalid
         val clearIcon = if (customer.isNotEmpty() && binding.editTextCustomer.hasFocus()) R.drawable
             .ic_clear else 0
-        binding.editTextCustomer.setCompoundDrawablesRelativeWithIntrinsicBounds(usernameIcon, 0,
-            clearIcon, 0)
+        binding.editTextCustomer.setCompoundDrawablesRelativeWithIntrinsicBounds(usernameIcon, 0, clearIcon,
+            0)
     }
 
     private fun setBackButtonOnClickListener(binding: FragmentCustomerListBinding) {
