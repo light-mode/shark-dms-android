@@ -50,7 +50,15 @@
     <string name="fragment_customers_title">Khách hàng</string>
     <string name="fragment_history_title">Lịch sử</string>
     <string name="fragment_report_title">Báo cáo</string>
+
     <string name="fragment_tasks_title">Công việc</string>
+    <string name="fragment_task_details_title">Chi tiết công việc</string>
+    <string name="task_status_new">Mới</string>
+    <string name="task_status_processing">Đang xử lý</string>
+    <string name="task_status_checking">Đợi kiểm tra</string>
+    <string name="task_status_completed">Hoàn thành</string>
+    <string name="task_status_not_completed">Không hoàn thành</string>
+
     <string name="fragment_discounts_title">Chiết khấu</string>
     <string name="fragment_policy_title">Chính sách</string>
     <string name="fragment_introduction_title">Hướng dẫn sử dụng</string>

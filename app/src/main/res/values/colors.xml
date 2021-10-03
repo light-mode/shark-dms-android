@@ -13,4 +13,9 @@
     <color name="hint">#828282</color>
     <color name="primary">#00549A</color>
     <color name="primary_variant">#002d6b</color>
+    <color name="task_new">#6CABDD</color>
+    <color name="task_processing">#7E77C2</color>
+    <color name="task_checking">#F2B447</color>
+    <color name="task_completed">#B4D67B</color>
+    <color name="task_not_completed">#EE7567</color>
 </resources>

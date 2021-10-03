@@ -5,6 +5,7 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import vn.sharkdms.ui.customer.Customer
+import vn.sharkdms.ui.tasks.Task
 
 interface BaseApi {
     companion object {
@@ -24,6 +25,10 @@ interface BaseApi {
     @POST("change-password")
     suspend fun changePassword(@Header("Authorization") authorization: String,
         @Body body: ChangePasswordRequest) : BaseResponse<Nothing>
+
+    @POST("staff/task")
+    suspend fun listTask(@Header("Authorization") authorization: String,
+    @Body body: TaskListRequest) : BaseResponse<List<Task>>
 
     /** Customer API
      *
