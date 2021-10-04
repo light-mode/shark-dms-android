@@ -46,6 +46,7 @@
             android:icon="@drawable/ic_email"
             android:title="@string/support_email" />
         <item
+            android:id="@+id/logoutDialogFragment"
             android:icon="@drawable/ic_logout"
             android:title="@string/logout" />
     </group>

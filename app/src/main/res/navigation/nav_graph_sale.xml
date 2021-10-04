@@ -67,4 +67,9 @@
             android:name="task"
             app:argType="vn.sharkdms.ui.tasks.Task" />
     </fragment>
+    <dialog
+        android:id="@+id/logoutDialogFragment"
+        android:name="vn.sharkdms.ui.logout.LogoutDialogFragment"
+        android:label="fragment_logout_dialog"
+        tools:layout="@layout/fragment_logout_dialog" />
 </navigation>
