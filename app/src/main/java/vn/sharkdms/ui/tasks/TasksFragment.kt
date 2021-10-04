@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
@@ -13,7 +14,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentTasksBinding
 
 @AndroidEntryPoint
-class TasksFragment : Fragment(R.layout.fragment_tasks) {
+class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickListener {
 
     private val viewModel by viewModels<TasksViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
@@ -21,7 +22,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentTasksBinding.bind(view)
-        val adapter = TaskAdapter()
+        val adapter = TaskAdapter(this)
         binding.apply {
             iconMenu.setOnClickListener {
                 (requireActivity() as SaleActivity).toggleNavigationDrawer(it)
@@ -35,5 +36,10 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
         }
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         viewModel.searchTasks(sharedViewModel.token, "")
+    }
+
+    override fun onItemClick(task: Task) {
+        val action = TasksFragmentDirections.actionTasksFragmentToTaskDetailsFragment(task)
+        findNavController().navigate(action)
     }
 }

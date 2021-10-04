@@ -9,7 +9,10 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemTaskBinding
 import vn.sharkdms.util.Constant
 
-class TaskAdapter : PagingDataAdapter<Task, TaskAdapter.TaskViewHolder>(DiffCallback()) {
+class TaskAdapter(
+    private val listener: OnItemClickListener) : PagingDataAdapter<Task, TaskAdapter
+.TaskViewHolder>(
+    DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,8 +26,20 @@ class TaskAdapter : PagingDataAdapter<Task, TaskAdapter.TaskViewHolder>(DiffCall
         }
     }
 
-    class TaskViewHolder(private val binding: ItemTaskBinding) : RecyclerView.ViewHolder(
+    inner class TaskViewHolder(private val binding: ItemTaskBinding) : RecyclerView.ViewHolder(
         binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position)
+                    if (item != null) {
+                        listener.onItemClick(item)
+                    }
+                }
+            }
+        }
 
         fun bind(task: Task) {
             binding.apply {
@@ -72,5 +87,9 @@ class TaskAdapter : PagingDataAdapter<Task, TaskAdapter.TaskViewHolder>(DiffCall
     class DiffCallback : DiffUtil.ItemCallback<Task>() {
         override fun areItemsTheSame(oldItem: Task, newItem: Task) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Task, newItem: Task) = oldItem == newItem
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(task: Task)
     }
 }

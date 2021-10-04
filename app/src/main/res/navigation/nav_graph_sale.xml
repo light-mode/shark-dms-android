@@ -53,5 +53,18 @@
         android:id="@+id/tasksFragment"
         android:name="vn.sharkdms.ui.tasks.TasksFragment"
         android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/fragment_tasks">
+        <action
+            android:id="@+id/action_tasksFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailsFragment"
+        android:name="vn.sharkdms.ui.taskdetails.TaskDetailsFragment"
+        android:label="fragment_task_details"
+        tools:layout="@layout/fragment_task_details">
+        <argument
+            android:name="task"
+            app:argType="vn.sharkdms.ui.tasks.Task" />
+    </fragment>
 </navigation>
