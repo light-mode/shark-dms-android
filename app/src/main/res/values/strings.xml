@@ -47,6 +47,13 @@
     <string name="fragment_change_password_button_confirm_text">Xong</string>
 
     <string name="fragment_overview_title">Tổng quan</string>
+    <string name="fragment_overview_text_view_total_amount_title_text">Tổng doanh thu 3 tháng gần đây:</string>
+    <string name="fragment_overview_title_y">Doanh thu (VNĐ)</string>
+    <string name="fragment_overview_format_tooltip_y">{%Value}{groupsSeparator: } VNĐ</string>
+    <string name="fragment_overview_format_x">%1$d/%2$d</string>
+    <string name="fragment_overview_format_y">{%Value}{groupsSeparator: }</string>
+    <string name="fragment_overview_format_total_revenue">%1$s VNĐ</string>
+
     <string name="fragment_customers_title">Khách hàng</string>
     <string name="fragment_history_title">Lịch sử</string>
     <string name="fragment_report_title">Báo cáo</string>
@@ -69,6 +76,7 @@
     <string name="logout">Đăng xuất</string>
 
     <string name="content_description" translatable="false">none</string>
+    <string name="color_primary" translatable="false">#00549A</string>
 
 <!--    <string name="google_maps_key">AIzaSyCmTWjTci6G_q8bkr3dph4dz10JG5SFk0U</string>-->
 </resources>

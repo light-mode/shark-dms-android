@@ -1,10 +1,8 @@
 package vn.sharkdms.api
 
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 import vn.sharkdms.ui.customer.Customer
+import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.tasks.Task
 
 interface BaseApi {
@@ -34,6 +32,9 @@ interface BaseApi {
     @POST("staff/edit-status-task")
     suspend fun updateTaskStatus(@Header(AUTHORIZATION) authorization: String,
         @Body body: UpdateTaskStatusRequest): BaseResponse<UpdateTaskStatusResponseData?>
+
+    @GET("amount")
+    suspend fun getAmounts(@Header(AUTHORIZATION) authorization: String): BaseResponse<List<Amount>>
 
     /** Customer API
      *
