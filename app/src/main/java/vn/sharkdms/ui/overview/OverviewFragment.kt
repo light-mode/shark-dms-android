@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.overview
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -7,16 +8,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.anychart.AnyChart
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
-import com.anychart.enums.Anchor
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentOverviewBinding
+import vn.sharkdms.util.Formatter
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -40,6 +47,8 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                     is OverviewViewModel.OverviewEvent.OnResponse -> handleGetAmountsResponse(
                         binding, event.amounts)
                     is OverviewViewModel.OverviewEvent.OnFailure -> handleRequestFailure(binding)
+                    is OverviewViewModel.OverviewEvent.BindWelcomeView -> bindWelcomeView(binding,
+                        event.name)
                 }
             }
         }
@@ -51,6 +60,9 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             } else if (mustLoad) {
                 handleRequestFailure(binding)
             }
+        }
+        viewModel.users.observe(viewLifecycleOwner) {
+            viewModel.getName(it)
         }
     }
 
@@ -87,36 +99,57 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         Amount("" + 0, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR), 0)
 
     private fun bindChart(binding: FragmentOverviewBinding, amounts: List<Amount>) {
-        val data = ArrayList<DataEntry>()
-        amounts.forEach { amount ->
-            val x = getString(R.string.fragment_overview_format_x, amount.month, amount.year)
-            data.add(ValueDataEntry(x, amount.revenue.toBigDecimal()))
+        val entries = ArrayList<BarEntry>()
+        amounts.forEachIndexed { index, amount ->
+            entries.add(BarEntry(index.toFloat(), amount.revenue.toFloat()))
         }
-        val color = getString(R.string.color_primary)
-        val chart = AnyChart.column()
-        chart.column(data).apply {
-            color(color)
-            tooltip().anchor(Anchor.CENTER)
-                .format(getString(R.string.fragment_overview_format_tooltip_y))
+        val dataSet = BarDataSet(entries, "")
+        dataSet.apply {
+            setDrawValues(false)
+            color = Color.parseColor(getString(R.string.color_primary))
         }
-        chart.apply {
-            animation(true)
-            xAxis(0).apply {
-                title().fontColor(color)
-                labels().fontColor(color)
+        binding.chart.apply {
+            data = BarData(dataSet)
+            description.isEnabled = false
+            axisLeft.axisMinimum = 0f
+            axisRight.isEnabled = false
+            legend.isEnabled = false
+            xAxis.apply {
+                granularity = 1f
+                setDrawGridLines(false)
+                position = XAxis.XAxisPosition.BOTTOM
+                valueFormatter = object : ValueFormatter() {
+                    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                        val month = amounts[value.toInt()].month
+                        val year = amounts[value.toInt()].year
+                        return getString(R.string.fragment_overview_format_x, month, year)
+                    }
+                }
             }
-            yAxis(0).apply {
-                title().fontColor(color)
-                title(getString(R.string.fragment_overview_title_y))
-                labels().format(getString(R.string.fragment_overview_format_y)).fontColor(color)
-            }
+            highlightValue(Highlight(viewModel.selectedColumnIndex.value!!.toFloat(), 0, 0))
+            setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
+                    if (entry == null) return
+                    viewModel.selectedColumnIndex.postValue(entry.x.toInt())
+                    val formattedRevenue = Formatter.formatCurrency(entry.y.toString())
+                    binding.textViewRevenue.text = getString(
+                        R.string.fragment_overview_format_total_revenue, formattedRevenue)
+                }
+
+                override fun onNothingSelected() { //
+                }
+            })
         }
-        binding.anyChartView.apply {
-            setChart(chart)
-            setProgressBar(binding.progressBar)
-            setOnRenderedListener {
-                bindTotalRevenue(binding, amounts)
-            }
+        bindRevenue(binding, amounts[viewModel.selectedColumnIndex.value!!].revenue)
+        bindTotalRevenue(binding, amounts)
+    }
+
+    private fun bindRevenue(binding: FragmentOverviewBinding, revenue: String) {
+        val formattedRevenue = Formatter.formatCurrency(revenue)
+        binding.apply {
+            textViewRevenue.text = getString(R.string.fragment_overview_format_total_revenue,
+                formattedRevenue)
+            cardViewRevenue.visibility = View.VISIBLE
         }
     }
 
@@ -133,6 +166,8 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                 formattedTotalRevenue)
             textViewTotalAmount.visibility = View.VISIBLE
             textViewTotalAmountTitle.visibility = View.VISIBLE
+            textViewWelcome.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
         }
     }
 
@@ -140,5 +175,11 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         binding.progressBar.visibility = View.GONE
         Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun bindWelcomeView(binding: FragmentOverviewBinding, name: String) {
+        binding.apply {
+            textViewWelcome.text = getString(R.string.fragment_overview_format_welcome, name)
+        }
     }
 }

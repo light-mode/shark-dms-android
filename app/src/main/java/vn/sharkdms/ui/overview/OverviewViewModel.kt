@@ -1,21 +1,28 @@
 package vn.sharkdms.ui.overview
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
+import vn.sharkdms.data.User
+import vn.sharkdms.data.UserDao
 import vn.sharkdms.util.Constant
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
-class OverviewViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
+class OverviewViewModel @Inject constructor(private val baseApi: BaseApi,
+    userDao: UserDao) : ViewModel() {
 
     private val overviewEventChannel = Channel<OverviewEvent>()
     val overviewEvent = overviewEventChannel.receiveAsFlow()
+    val users = userDao.getUsers().asLiveData()
+    val selectedColumnIndex = MutableLiveData(2)
 
     fun sendGetAmountsRequest(token: String) {
         viewModelScope.launch {
@@ -29,8 +36,16 @@ class OverviewViewModel @Inject constructor(private val baseApi: BaseApi) : View
         }
     }
 
+    fun getName(users: List<User>) {
+        viewModelScope.launch {
+            val user = users[0]
+            overviewEventChannel.send(OverviewEvent.BindWelcomeView(user.name))
+        }
+    }
+
     sealed class OverviewEvent {
         data class OnResponse(val amounts: List<Amount>?) : OverviewEvent()
         object OnFailure : OverviewEvent()
+        data class BindWelcomeView(val name: String) : OverviewEvent()
     }
 }
