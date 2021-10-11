@@ -1,14 +1,18 @@
 package vn.sharkdms.api
 
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import vn.sharkdms.ui.customer.Customer
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
+import vn.sharkdms.ui.customer.create.CreateCustomerAccount
+import vn.sharkdms.ui.customer.discount.DiscountInfo
+import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.ui.overview.Amount
+import vn.sharkdms.ui.tasks.Task
 
 interface BaseApi {
     companion object {
         const val BASE_URL = "http://be.sharkdms.vn/api/"
+        private const val AUTHORIZATION = "Authorization"
     }
 
     /** User API
@@ -25,12 +29,47 @@ interface BaseApi {
     suspend fun changePassword(@Header("Authorization") authorization: String,
         @Body body: ChangePasswordRequest) : BaseResponse<Nothing>
 
+    @POST("staff/task")
+    suspend fun listTask(@Header("Authorization") authorization: String,
+    @Body body: TaskListRequest) : BaseResponse<List<Task>>
+
+    @POST("staff/edit-status-task")
+    suspend fun updateTaskStatus(@Header(AUTHORIZATION) authorization: String,
+        @Body body: UpdateTaskStatusRequest): BaseResponse<UpdateTaskStatusResponseData?>
+
+    @GET("amount")
+    suspend fun getAmounts(@Header(AUTHORIZATION) authorization: String): BaseResponse<List<Amount>>
+
     /** Customer API
      *
      */
     @POST("list-customer")
     suspend fun listCustomer(
-        @Header("Authorization") token: String,
+        @Header(AUTHORIZATION) token: String,
         @Body customerListRequest: CustomerListRequest): BaseResponse<List<Customer>>
+
+    @Multipart
+    @POST("create-customer")
+    suspend fun createCustomer(
+        @Header(AUTHORIZATION) token: String,
+        @Part("name") name: RequestBody,
+        @Part("account") account: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("lat") lat: RequestBody,
+        @Part("long") long: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part image: MultipartBody.Part?): BaseResponse<CreateCustomerAccount>
+
+    @GET("config/discount/{id}")
+    suspend fun getDiscount(
+        @Header(AUTHORIZATION) authorization: String,
+        @Path("id") id: Int?): BaseResponse<List<DiscountInfo>>
+
+    @POST("checkin-customer")
+    suspend fun checkInCustomer(
+        @Header(AUTHORIZATION) authorization: String,
+        @Body checkInRequest: CheckInRequest): BaseResponse<Nothing>
 
 }
