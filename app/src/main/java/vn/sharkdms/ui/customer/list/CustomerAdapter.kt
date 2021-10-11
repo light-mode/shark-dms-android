@@ -1,17 +1,20 @@
-package vn.sharkdms.ui.customer
+package vn.sharkdms.ui.customer.list
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import vn.sharkdms.R
 
-class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerViewHolder>(DiffUtilCallBack()) {
+class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerViewHolder>(
+    DiffUtilCallBack()
+) {
 
     var customers = ArrayList<Customer>()
 
@@ -22,6 +25,8 @@ class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerView
         val tvCustomerRank = itemView.findViewById<TextView>(R.id.tv_customer_rank)
         val tvCustomerAddress = itemView.findViewById<TextView>(R.id.tv_customer_address)
         val tvCustomerCheckIn = itemView.findViewById<TextView>(R.id.tv_customer_check_in)
+
+
 
         fun bind(data: Customer) {
             tvCustomerName.text = data.customerName
@@ -48,15 +53,17 @@ class CustomerAdapter : PagingDataAdapter<Customer, CustomerAdapter.CustomerView
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         return CustomerViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_customer,
-                parent,
-                false
-            )
-        )
+            R.layout.item_customer,
+            parent,
+            false))
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         holder.bind(getItem(position)!!)
+        holder.itemView.setOnClickListener {
+            val action = CustomerListFragmentDirections.actionCustomerListFragmentToCustomerInfoFragment(getItem(position)!!)
+            it.findNavController().navigate(action)
+        }
     }
 
     fun setDataList(data: ArrayList<Customer>) {

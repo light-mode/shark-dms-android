@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.customer
+package vn.sharkdms.ui.customer.map
 
 import android.Manifest
 import android.content.pm.PackageManager

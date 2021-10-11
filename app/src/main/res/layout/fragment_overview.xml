@@ -7,6 +7,7 @@
     tools:context=".ui.overview.OverviewFragment">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary">
@@ -46,4 +47,52 @@
                 app:tint="@color/white" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <com.anychart.AnyChartView
+            android:id="@+id/any_chart_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/text_view_total_amount_title"
+            android:layout_marginTop="16dp" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/progress_bar_color"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/text_view_total_amount_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/text_view_total_amount"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/fragment_overview_text_view_total_amount_title_text"
+            android:textColor="@color/primary"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/text_view_total_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_semi_bold"
+            android:maxLines="1"
+            android:textColor="@color/primary"
+            android:visibility="gone"
+            tools:text="48 765 000 VNĐ"
+            tools:visibility="visible" />
+    </RelativeLayout>
 </RelativeLayout>

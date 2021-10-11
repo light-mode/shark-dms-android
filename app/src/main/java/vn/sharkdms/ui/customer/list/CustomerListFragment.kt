@@ -1,35 +1,30 @@
-package vn.sharkdms.ui.customer
+package vn.sharkdms.ui.customer.list
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.Window
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentCustomerListBinding
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import dagger.hilt.android.internal.Contexts
 import vn.sharkdms.SharedViewModel
-import vn.sharkdms.ui.login.LoginFragment
+import vn.sharkdms.util.Constant
 
 
 class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
@@ -46,20 +41,20 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
         val binding = FragmentCustomerListBinding.bind(view)
         val clearIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_clear)
-        viewModel = ViewModelProvider(this).get(CustomerListViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[CustomerListViewModel::class.java]
 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        token = "Bearer ".plus(sharedViewModel.token)
+        token = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
 
         viewModel.customerList.observe(viewLifecycleOwner, Observer<ArrayList<Customer>> {
-            if (it != null)
+            if (it != null) {
                 viewModel.setAdapterData(it)
-            else
-                Toast.makeText(context, "Error in fetching data", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(requireContext(), "Error in fetching data", Toast.LENGTH_LONG).show()
+            }
         })
 
         initRecyclerView(binding)

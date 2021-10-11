@@ -1,13 +1,10 @@
-package vn.sharkdms.ui.customer
+package vn.sharkdms.ui.customer.list
 
-import androidx.activity.viewModels
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CustomerListRequest
 import java.lang.Exception
-import java.security.Key
 
 class CustomerPagingSource(val apiService: BaseApi, val token: String, val customerName: String): PagingSource<Int, Customer>() {
     companion object {
