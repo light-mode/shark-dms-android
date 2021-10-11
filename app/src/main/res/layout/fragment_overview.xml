@@ -51,14 +51,58 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar">
+        android:layout_below="@id/toolbar"
+        android:background="@color/background">
 
-        <com.anychart.AnyChartView
-            android:id="@+id/any_chart_view"
+        <TextView
+            android:id="@+id/text_view_welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            tools:text="Xin chào, Đinh Thị Tươi"
+            tools:visibility="visible" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view_revenue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_welcome"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:visibility="gone"
+            app:cardCornerRadius="10dp"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/text_view_revenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_bold"
+                android:maxLines="1"
+                android:textColor="@color/primary"
+                android:textSize="24sp"
+                tools:text="3 850 000 VNĐ" />
+        </androidx.cardview.widget.CardView>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/text_view_total_amount_title"
-            android:layout_marginTop="16dp" />
+            android:layout_below="@id/card_view_revenue"
+            android:layout_marginBottom="16dp" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

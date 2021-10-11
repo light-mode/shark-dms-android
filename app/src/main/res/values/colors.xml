@@ -10,6 +10,7 @@
 
     <color name="background">#E5E5E5</color>
     <color name="disable">#4D111111</color>
+    <color name="divider">#BCBCBC</color>
     <color name="hint">#828282</color>
     <color name="primary">#00549A</color>
     <color name="primary_variant">#002d6b</color>

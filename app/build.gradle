@@ -75,7 +75,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-beta01'
     implementation 'androidx.paging:paging-runtime:3.1.0-alpha03'
 
-    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
 kapt {
     correctErrorTypes true
