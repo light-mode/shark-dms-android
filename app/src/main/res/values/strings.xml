@@ -32,11 +32,15 @@
     <string name="fragment_create_customer_add_customer_info_text">THÔNG TIN KHÁCH HÀNG</string>
     <string name="fragment_create_customer_account_description">Tài khoản dành cho khách hàng đăng nhập vào ứng dụng</string>
     <string name="fragment_create_customer_name">Tên khách hàng: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_name_error">Tên khách hàng không được chứa số, kí tự đặc biệt và không quá 25 ký tự</string>
     <string name="fragment_create_customer_account">Tài khoản đăng nhập: <font color='#FF0000'>*</font></string>
     <string name="fragment_create_customer_password">Mật khẩu: <font color='#FF0000'>*</font></string>
     <string name="fragment_create_customer_phone">Số điện thoai: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_phone_error">Số điện thoai phải là 10 hoặc 11 số</string>
     <string name="fragment_create_customer_email">Email (không bắt buộc):</string>
+    <string name="fragment_create_customer_email_error">Format email chưa đúng</string>
     <string name="fragment_create_customer_address">Địa chỉ: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_address_error">Địa chỉ không được để trống</string>
     <string name="fragment_create_customer_account_note">Tài khoản đăng nhập viết liền không dấu, chỉ bao gồm chữ cái, chữ số </string>
     <string name="fragment_create_customer_password_note">Mật khẩu phải dài hơn 6 ký tự</string>
     <string name="fragment_create_customer_gps_button">Lấy tọa độ địa điểm</string>
@@ -63,6 +67,10 @@
     <string name="fragment_customer_discount_threshold_max">30.000.000 &lt; STDH</string>
     <string name="fragment_customer_discount_percent_max">10%</string>
     <string name="fragment_customer_discount_none_message">Chưa có bảng giá chiết khấu!</string>
+
+    <string name="fragment_customer_gallery_title">Phòng trưng bày</string>
+    <string name="fragment_customer_gallery_instruct">Chọn ảnh trưng bày (Tối đa 30 ảnh)</string>
+    <string name="fragment_customer_gallery_upload">TẢI LÊN</string>
 
     <string name="fragment_forgot_password_text_view_1_text">Xác nhận tài khoản</string>
     <string name="fragment_forgot_password_text_view_2_text">Bạn Hãy Nhập Tài Khoản Đã Đăng Ký\nTrên Shark DMS</string>

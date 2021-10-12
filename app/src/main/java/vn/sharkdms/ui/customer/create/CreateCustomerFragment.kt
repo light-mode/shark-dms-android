@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.location.Location
 import android.location.LocationManager
@@ -228,7 +229,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
         val phone = binding.etCreateCustomerPhone.text.toString()
         val email = binding.etCreateCustomerEmail.text.toString()
         val address = binding.etCreateCustomerAddress.text.toString()
-        val validName = Validator.isValidUsername(name)
+        val validName = Validator.isValidName(name)
         val validUsername = Validator.isValidUsername(username)
         val validPassword = Validator.isValidPassword(password)
         val validPhone = Validator.isValidPhone(phone)
@@ -276,17 +277,28 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                     clearIcon, 0)
             }
         }
-        // Need change to capture email case
         if ((validAddress && validName && validPassword && validPhone && validUsername && email.trim().isNotEmpty() && validEmail)
                 || (validAddress && validName && validPassword && validPhone && validUsername && email.trim().isEmpty())) {
-            binding.btnCreateCustomer.apply {
-                isEnabled = true
-                setBackgroundResource(R.drawable.button_primary)
+            binding.apply {
+                btnCreateCustomer.isEnabled = true
+                btnCreateCustomer.setBackgroundResource(R.drawable.button_primary)
+                tvCustomerNameError.visibility = View.GONE
+                tvCustomerPhoneError.visibility = View.GONE
+                tvCustomerEmailError.visibility = View.GONE
+                tvCustomerAddressError.visibility = View.GONE
+                tvCustomerAccountNote.setTextColor(Color.parseColor("#00549A"))
+                tvCustomerPasswordNote.setTextColor(Color.parseColor("#00549A"))
             }
         } else {
-            binding.btnCreateCustomer.apply {
-                isEnabled = false
-                setBackgroundResource(R.drawable.button_disable)
+            binding.apply {
+                btnCreateCustomer.isEnabled = false
+                btnCreateCustomer.setBackgroundResource(R.drawable.button_disable)
+                if(!validName) tvCustomerNameError.visibility = View.VISIBLE
+                if(!validUsername) tvCustomerAccountNote.setTextColor(Color.RED)
+                if(!validPassword) tvCustomerPasswordNote.setTextColor(Color.RED)
+                if(!validPhone) tvCustomerPhoneError.visibility = View.VISIBLE
+                if(!validAddress) tvCustomerAddressError.visibility = View.VISIBLE
+                if(email.trim().isNotEmpty() && !validEmail) tvCustomerEmailError.visibility = View.VISIBLE
             }
         }
     }
