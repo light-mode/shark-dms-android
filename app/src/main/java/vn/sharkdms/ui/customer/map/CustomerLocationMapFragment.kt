@@ -39,7 +39,7 @@ class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
         val locationArray = args.customer.customerPosition.split("_").toTypedArray()
         val location = LatLng(locationArray[0].toDouble(), locationArray[1].toDouble())
         googleMap.addMarker(MarkerOptions().position(location).title(args.customer.customerName)
-            .snippet(args.customer.customerAddress))
+            .snippet("Địa chỉ: " + args.customer.customerAddress))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
     }
 }
