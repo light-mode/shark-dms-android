@@ -90,5 +90,16 @@
         <argument
             android:name="customer"
             app:argType="vn.sharkdms.ui.customer.list.Customer" />
+        <action
+            android:id="@+id/action_customerInfoFragment_to_customerLocationMapFragment"
+            app:destination="@id/customerLocationMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerLocationMapFragment"
+        android:name="vn.sharkdms.ui.customer.map.CustomerLocationMapFragment"
+        android:label="CustomerLocationMapFragment" >
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer" />
     </fragment>
 </navigation>

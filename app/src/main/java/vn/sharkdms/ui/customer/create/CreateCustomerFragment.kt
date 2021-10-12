@@ -74,7 +74,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
     private var longitude: String = ""
     private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
-    private var image: MultipartBody.Part? = null
+    private var image: List<MultipartBody.Part>? = null
     private lateinit var authorization: String
     private lateinit var sharedViewModel : SharedViewModel
 
@@ -318,8 +318,8 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                     MediaType.parse("multipart/form-data"), latitude)
                 val long: RequestBody = RequestBody.create(
                     MediaType.parse("multipart/form-data"), longitude)
-                if(imageUri != null) image = prepareImagePartFromUri("image", imageUri)
-                else if (bitmap != null) image = prepareImagePartFromBitmap("image", bitmap)
+                if(imageUri != null) image = listOf(prepareImagePartFromUri("image", imageUri))
+                else if (bitmap != null) image = listOf(prepareImagePartFromBitmap("image", bitmap))
                 viewModel.sendCreateCustomerRequest(authorization, name, username, password, address,
                     lat, long, phone, email, image)
             }

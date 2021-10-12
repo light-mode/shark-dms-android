@@ -25,7 +25,7 @@ class CreateCustomerViewModel @Inject constructor(private val baseApi: BaseApi) 
     val createCustomerEvent = createCustomerEventChannel.receiveAsFlow()
 
     fun sendCreateCustomerRequest(authorization: String, name: RequestBody, account: RequestBody, password: RequestBody, address: RequestBody,
-            lat: RequestBody, long: RequestBody, phone: RequestBody, email: RequestBody, image: MultipartBody.Part?) {
+            lat: RequestBody, long: RequestBody, phone: RequestBody, email: RequestBody, image: List<MultipartBody.Part>?) {
         viewModelScope.launch {
             try {
                 val response = baseApi.createCustomer(authorization, name, account, password,

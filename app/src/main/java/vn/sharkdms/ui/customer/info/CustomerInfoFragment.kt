@@ -27,6 +27,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.CheckInRequest
 import vn.sharkdms.databinding.FragmentCustomerInfoBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
+import vn.sharkdms.ui.customer.list.CustomerListFragmentDirections
 import vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
@@ -78,7 +79,9 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     private fun setBtnMapOnClickListener(binding: FragmentCustomerInfoBinding) {
         binding.btnCustomerInfoMap.setOnClickListener {
-
+            val action = CustomerInfoFragmentDirections.
+                actionCustomerInfoFragmentToCustomerLocationMapFragment(args.customer)
+            findNavController().navigate(action)
         }
     }
 
