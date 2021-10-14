@@ -93,7 +93,9 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     private fun setBtnCameraOnClickListener(binding: FragmentCustomerInfoBinding) {
         binding.btnCustomerInfoCamera.setOnClickListener {
-
+            val action = CustomerInfoFragmentDirections.
+            actionCustomerInfoFragmentToCustomerGalleryFragment(args.customer)
+            findNavController().navigate(action)
         }
     }
 
@@ -117,7 +119,6 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     }
 
     private fun bind(binding: FragmentCustomerInfoBinding) {
-        Toast.makeText(requireContext(), args.customer.toString(), Toast.LENGTH_LONG).show()
         binding.apply {
             if (args.customer.customerAvatar.isNotEmpty()) {
                 Glide.with(this@CustomerInfoFragment).load(args.customer.customerAvatar).circleCrop()
