@@ -3,6 +3,7 @@ package vn.sharkdms.ui.customer.gallery
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -13,6 +14,7 @@ import java.lang.NumberFormatException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
+@HiltViewModel
 class CustomerGalleryViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
 
     companion object {
