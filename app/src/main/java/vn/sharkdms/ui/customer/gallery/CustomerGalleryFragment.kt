@@ -81,7 +81,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
     }
 
     private fun bind(binding: FragmentCustomerGalleryBinding) {
-        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_customer))
+        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter

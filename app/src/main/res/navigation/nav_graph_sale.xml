@@ -114,4 +114,9 @@
             android:name="customer"
             app:argType="vn.sharkdms.ui.customer.list.Customer" />
     </fragment>
+    <fragment
+        android:id="@+id/historyOrderListFragment"
+        android:name="vn.sharkdms.ui.history.HistoryOrderListFragment"
+        android:label="fragment_history_order_list"
+        tools:layout="@layout/fragment_history_order_list" />
 </navigation>

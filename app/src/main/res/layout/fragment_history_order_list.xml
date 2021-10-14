@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e5e5e5"
-    tools:context=".ui.customer.list.CustomerListFragment">
+    tools:context=".ui.history.HistoryOrderListFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_header"
@@ -34,92 +34,79 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="@string/fragment_customer_header_text"
+                android:text="@string/fragment_history_title"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 tools:ignore="RelativeOverlap" />
-
-            <ImageView
-                android:id="@+id/iv_add_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="16dp"
-                android:contentDescription="@string/content_description"
-                app:srcCompat="@drawable/ic_add_customer" />
-
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
-        android:id="@+id/edit_text_customer"
+        android:id="@+id/et_search_order"
         style="@style/search_edit_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:drawableStart="@drawable/ic_customer_name"
-        android:hint="@string/fragment_search_customer_by_name_phone_number"
+        android:hint="@string/fragment_history_search_bar_hint"
         android:importantForAutofill="no"
         android:inputType="text"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
         tools:ignore="LabelFor" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_gps"
-        android:layout_width="59dp"
-        android:layout_height="57dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="48dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/primary"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/tv_date_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginEnd="10dp"
+        android:paddingStart="9dp"
+        android:paddingEnd="9dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/bg_search_edit_text"
+        android:text="@string/fragment_history_date_picker_sample"
+        android:textColor="#363853"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_gps"
-        app:tint="@color/white"
-        app:maxImageSize="30dp"
-        android:tintMode="multiply" />
+        app:layout_constraintStart_toEndOf="@id/et_search_order"
+        app:layout_constraintTop_toTopOf="@+id/et_search_order"
+        app:drawableStartCompat="@drawable/ic_date_picker"
+        android:drawablePadding="6dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_history_order"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tv_date_picker"
+        app:layout_constraintStart_toStartOf="@+id/et_search_order"
+        app:layout_constraintTop_toBottomOf="@+id/et_search_order" />
 
     <ImageView
-        android:id="@+id/iv_no_customer"
-        android:layout_width="135dp"
-        android:layout_height="93dp"
+        android:id="@+id/iv_no_order"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/raw_no_customer_display"
         android:layout_marginTop="60dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/raw_no_history_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search_order" />
 
     <TextView
-        android:id="@+id/tv_no_customer"
+        android:id="@+id/tv_no_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/fragment_no_customer_display"
-        android:layout_marginTop="15dp"
+        android:text="@string/fragment_history_no_order_text"
+        android:layout_marginTop="36dp"
         android:textColor="#6E6E70"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_no_customer" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_customer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/edit_text_customer"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_customer"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_no_order" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

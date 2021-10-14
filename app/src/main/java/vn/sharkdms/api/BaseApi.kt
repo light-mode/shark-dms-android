@@ -6,6 +6,7 @@ import retrofit2.http.*
 import vn.sharkdms.ui.customer.create.CreateCustomerAccount
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.ui.history.HistoryOrder
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.tasks.Task
 
@@ -81,4 +82,12 @@ interface BaseApi {
         @Part("lat") lat: RequestBody,
         @Part("long") long: RequestBody,
         @Part image: List<MultipartBody.Part>?): BaseResponse<Nothing>
+
+    /** History Order API
+     *
+     */
+    @POST("list-history-order")
+    suspend fun getHistoryOrder(
+        @Header(AUTHORIZATION) token: String,
+        @Body body: HistoryOrderListRequest): BaseResponse<List<HistoryOrder>>
 }

@@ -29,15 +29,11 @@ import vn.sharkdms.util.Constant
 
 class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
-    private var TAG: String = "CustomerListFragment"
+    private val TAG: String = "CustomerListFragment"
     lateinit var viewModel: CustomerListViewModel
     private lateinit var customerAdapter: CustomerAdapter
     private lateinit var sharedViewModel : SharedViewModel
     private lateinit var token: String
-
-    companion object {
-        private const val CHANGE_CUSTOMER = Activity.RESULT_FIRST_USER
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +54,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         })
 
         initRecyclerView(binding)
-        initViewModel(binding, binding.editTextCustomer.text.toString())
+        initViewModel(binding.editTextCustomer.text.toString())
 
         setCustomerEditTextListener(binding, clearIcon)
         setBackButtonOnClickListener(binding)
@@ -71,12 +67,10 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
             customerAdapter = CustomerAdapter()
             rvCustomer.adapter = customerAdapter
             rvCustomer.layoutManager = LinearLayoutManager(activity)
-            val decoration = DividerItemDecoration(activity?.applicationContext, DividerItemDecoration.VERTICAL)
-            rvCustomer.addItemDecoration(decoration)
         }
     }
 
-    private fun initViewModel(binding: FragmentCustomerListBinding, customerName: String) {
+    private fun initViewModel(customerName: String) {
         lifecycleScope.launchWhenCreated {
             viewModel.getListData(token, customerName).collectLatest {
                 customerAdapter.submitData(it)
@@ -101,7 +95,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
             override fun afterTextChanged(p0: Editable?) {
                 afterTextChanged(binding)
-                initViewModel(binding, binding.editTextCustomer.text.toString())
+                initViewModel(binding.editTextCustomer.text.toString())
             }
         })
     }

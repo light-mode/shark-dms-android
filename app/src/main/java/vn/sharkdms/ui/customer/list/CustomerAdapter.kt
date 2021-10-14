@@ -53,9 +53,11 @@ class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomerViewHolder {
         return CustomerViewHolder(
             LayoutInflater.from(parent.context).inflate(
-            R.layout.item_customer,
-            parent,
-            false))
+                R.layout.item_customer,
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
