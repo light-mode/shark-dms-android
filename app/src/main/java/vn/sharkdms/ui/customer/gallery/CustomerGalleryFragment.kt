@@ -60,6 +60,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
 
         binding = FragmentCustomerGalleryBinding.bind(view)
         bind(binding)
+        setBtnBackOnClickListener(binding)
         setBtnUploadOnClickListener(binding)
         viewModel = ViewModelProvider(requireActivity())[CustomerGalleryViewModel::class.java]
 
@@ -91,6 +92,12 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
                     dialog.setTargetFragment(this@CustomerGalleryFragment, REQUEST_CODE)
                 }
             }
+        }
+    }
+
+    private fun setBtnBackOnClickListener(binding: FragmentCustomerGalleryBinding) {
+        binding.ivBack.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
