@@ -11,7 +11,7 @@ import vn.sharkdms.ui.tasks.Task
 
 interface BaseApi {
     companion object {
-        const val BASE_URL = "http://be.sharkdms.vn/api/"
+        const val BASE_URL = "https://be.sharkdms.vn/api/"
         private const val AUTHORIZATION = "Authorization"
     }
 
