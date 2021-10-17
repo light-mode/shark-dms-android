@@ -72,4 +72,9 @@
         android:name="vn.sharkdms.ui.logout.LogoutDialogFragment"
         android:label="fragment_logout_dialog"
         tools:layout="@layout/fragment_logout_dialog" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="vn.sharkdms.ui.report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
 </navigation>

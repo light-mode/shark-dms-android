@@ -58,6 +58,9 @@
     <string name="fragment_customers_title">Khách hàng</string>
     <string name="fragment_history_title">Lịch sử</string>
     <string name="fragment_report_title">Báo cáo</string>
+    <string name="fragment_report_edit_text_title_hint">Tiêu đề</string>
+    <string name="fragment_report_edit_text_description_hint">Nhập chi tiết báo cáo…</string>
+    <string name="fragment_report_button_send_text">Gửi</string>
 
     <string name="fragment_tasks_title">Công việc</string>
     <string name="fragment_task_details_title">Chi tiết công việc</string>

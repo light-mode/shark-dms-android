@@ -7,7 +7,7 @@ import vn.sharkdms.ui.tasks.Task
 
 interface BaseApi {
     companion object {
-        const val BASE_URL = "http://be.sharkdms.vn/api/"
+        const val BASE_URL = "https://be.sharkdms.vn/api/"
         private const val AUTHORIZATION = "Authorization"
     }
 
@@ -35,6 +35,18 @@ interface BaseApi {
 
     @GET("amount")
     suspend fun getAmounts(@Header(AUTHORIZATION) authorization: String): BaseResponse<List<Amount>>
+
+    @GET("get-report")
+    suspend fun getReport(
+        @Header(AUTHORIZATION) authorization: String): BaseResponse<Any>
+
+    @POST("create-report")
+    suspend fun createReport(@Header(AUTHORIZATION) authorization: String,
+        @Body body: CreateReportRequest): BaseResponse<Nothing>
+
+    @POST("edit-report")
+    suspend fun editReport(@Header(AUTHORIZATION) authorization: String,
+        @Body body: UpdateReportRequest): BaseResponse<Nothing>
 
     /** Customer API
      *
