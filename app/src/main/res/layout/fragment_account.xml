@@ -45,9 +45,12 @@
             android:id="@+id/image_view_avatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            android:background="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/avatar"
+            app:strokeColor="@color/black"
+            app:strokeWidth="1.5dp"
             tools:src="@drawable/ic_avatar" />
 
         <LinearLayout
@@ -76,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="@color/hint"
                 tools:text="0385518234" />
         </LinearLayout>
 
@@ -84,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_view_avatar">
@@ -103,7 +108,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fragment_account_text_view_username_text" />
+                        android:text="@string/fragment_account_text_view_username_text"
+                        android:textColor="@color/hint" />
 
                     <TextView
                         android:id="@+id/text_view_username"
@@ -128,7 +134,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fragment_account_text_view_email_text" />
+                        android:text="@string/fragment_account_text_view_email_text"
+                        android:textColor="@color/hint" />
 
                     <TextView
                         android:id="@+id/text_view_email"
@@ -153,7 +160,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fragment_account_text_view_company_text" />
+                        android:text="@string/fragment_account_text_view_company_text"
+                        android:textColor="@color/hint" />
 
                     <TextView
                         android:id="@+id/text_view_company"
@@ -178,7 +186,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/fragment_account_text_view_position_text" />
+                        android:text="@string/fragment_account_text_view_position_text"
+                        android:textColor="@color/hint" />
 
                     <TextView
                         android:id="@+id/text_view_position"
@@ -197,6 +206,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_view_info">
@@ -228,6 +238,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/card_view_discount">
