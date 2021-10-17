@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -17,6 +18,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import vn.sharkdms.ui.customer.list.CustomerListFragment
+import vn.sharkdms.ui.history.HistoryOrderListFragment
+import vn.sharkdms.ui.manual.ManualFragment
+import vn.sharkdms.ui.overview.OverviewFragment
+import vn.sharkdms.ui.policy.PolicyFragment
+import vn.sharkdms.ui.report.ReportFragment
+import vn.sharkdms.ui.tasks.TasksFragment
 
 @AndroidEntryPoint
 class SaleActivity : AppCompatActivity() {
@@ -57,6 +65,28 @@ class SaleActivity : AppCompatActivity() {
                 .navigate(R.id.action_global_accountFragment)
             drawerLayout.closeDrawer(GravityCompat.START)
         }
+        navView.menu.apply {
+            findItem(R.id.action_call).setOnMenuItemClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:" + getString(R.string.support_call))
+                startActivity(intent)
+                true
+            }
+            findItem(R.id.action_email).setOnMenuItemClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                val intent = Intent(Intent.ACTION_SENDTO)
+                intent.data = Uri.parse("mailto:" + getString(R.string.support_email))
+                startActivity(intent)
+                true
+            }
+            findItem(R.id.action_logout).setOnMenuItemClickListener {
+                drawerLayout.closeDrawer(GravityCompat.START)
+                Navigation.findNavController(this@SaleActivity, R.id.nav_host_fragment)
+                    .navigate(R.id.action_global_logoutDialogFragment)
+                true
+            }
+        }
     }
 
     override fun onStart() {
@@ -74,7 +104,13 @@ class SaleActivity : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            val currentFragment = supportFragmentManager.findFragmentById(
+                R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
+            if (currentFragment is OverviewFragment || currentFragment is CustomerListFragment ||
+                currentFragment is HistoryOrderListFragment || currentFragment is ReportFragment
+                || currentFragment is TasksFragment || currentFragment is PolicyFragment ||
+                currentFragment is ManualFragment) finish()
+            else super.onBackPressed()
         }
     }
 
