@@ -60,9 +60,9 @@
         android:name="vn.sharkdms.ui.tasks.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
-        <action
-            android:id="@+id/action_tasksFragment_to_taskDetailsFragment"
-            app:destination="@id/taskDetailsFragment" />
+    <action
+        android:id="@+id/action_tasksFragment_to_taskDetailsFragment"
+        app:destination="@id/taskDetailsFragment" />
     <fragment
         android:id="@+id/createCustomerFragment"
         android:name="vn.sharkdms.ui.customer.create.CreateCustomerFragment"
@@ -87,6 +87,7 @@
         android:name="vn.sharkdms.ui.report.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
+    <fragment
         android:id="@+id/customerInfoFragment"
         android:name="vn.sharkdms.ui.customer.info.CustomerInfoFragment"
         android:label="CustomerInfoFragment"
@@ -104,7 +105,7 @@
     <fragment
         android:id="@+id/customerLocationMapFragment"
         android:name="vn.sharkdms.ui.customer.map.CustomerLocationMapFragment"
-        android:label="CustomerLocationMapFragment" >
+        android:label="CustomerLocationMapFragment">
         <argument
             android:name="customer"
             app:argType="vn.sharkdms.ui.customer.list.Customer" />
@@ -113,7 +114,7 @@
         android:id="@+id/customerGalleryFragment"
         android:name="vn.sharkdms.ui.customer.gallery.CustomerGalleryFragment"
         android:label="fragment_customer_gallery"
-        tools:layout="@layout/fragment_customer_gallery" >
+        tools:layout="@layout/fragment_customer_gallery">
         <argument
             android:name="customer"
             app:argType="vn.sharkdms.ui.customer.list.Customer" />
