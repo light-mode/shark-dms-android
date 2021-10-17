@@ -26,10 +26,6 @@
             android:icon="@drawable/ic_tasks"
             android:title="@string/fragment_tasks_title" />
         <item
-            android:id="@+id/nav_discounts"
-            android:icon="@drawable/ic_discounts"
-            android:title="@string/fragment_discounts_title" />
-        <item
             android:id="@+id/nav_policy"
             android:icon="@drawable/ic_policy"
             android:title="@string/fragment_policy_title" />
