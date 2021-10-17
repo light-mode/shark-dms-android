@@ -22,10 +22,12 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentForgotPasswordBinding
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.MessageDialog
 import vn.sharkdms.util.Validator
 
 @AndroidEntryPoint
-class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
+class ForgotPasswordFragment : Fragment(
+    R.layout.fragment_forgot_password), MessageDialog.MessageDialogListener {
     companion object {
         const val TAG = "ForgotPasswordFragment"
     }
@@ -150,9 +152,8 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
         binding.apply {
             buttonSend.setOnClickListener {
                 if (!connectivity) {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
+                        Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 buttonSend.isEnabled = false
@@ -172,7 +173,10 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
             buttonSend.isEnabled = true
         }
         when (code) {
-            HttpStatus.OK -> Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+            HttpStatus.OK -> {
+                val supportFragmentManager = requireActivity().supportFragmentManager
+                MessageDialog(this, message).show(supportFragmentManager, "")
+            }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
                 message, Toast.LENGTH_SHORT).show()
             else -> Log.e(TAG, code.toString())
@@ -187,5 +191,9 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
         }
         Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
             Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onConfirmButtonClick() {
+        findNavController().navigateUp()
     }
 }

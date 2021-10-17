@@ -78,6 +78,9 @@
     <string name="fragment_logout_dialog_button_no_text">Không</string>
     <string name="fragment_logout_dialog_button_yes_text">Có</string>
 
+    <string name="dialog_message_title_text">Thông báo</string>
+    <string name="dialog_message_button_confirm_text">OK</string>
+
     <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
     <string name="support_call">039 666 8760</string>
     <string name="support_email">hotro@sharkdms.vn</string>
