@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e5e5e5"
+    tools:context=".ui.customer.create.CreateCustomerFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_tab_header"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/content_description"
+                app:layout_constraintEnd_toStartOf="@+id/tv_header_customer"
+                app:srcCompat="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tv_header_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_add_customer_header_text"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_centerInParent="true"
+                tools:ignore="RelativeOverlap" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_avatar_create_customer"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/avatar_create_customer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:shapeAppearanceOverlay="@style/avatar"
+        tools:src="@drawable/ic_avatar" />
+
+    <TextView
+        android:id="@+id/tv_add_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="44dp"
+        android:text="@string/fragment_create_customer_add_avatar_text"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_avatar_create_customer"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_header" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_create_customer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="20dp"
+        android:enabled="false"
+        android:background="@drawable/button_disable"
+        android:text="@string/fragment_create_customer_create_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:id="@+id/sv_customer_info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/btn_create_customer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar_create_customer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_avatar_create_customer"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/tv_create_customer_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_create_customer_add_customer_info_text"
+                android:textColor="#065EA8"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_customer_account_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/fragment_create_customer_account_description"
+                android:textSize="13sp"
+                android:textColor="#63637A"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
+
+            <TextView
+                android:id="@+id/tv_create_customer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/fragment_create_customer_name"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_customer_account_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_account_description" />
+
+            <EditText
+                android:id="@+id/et_create_customer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+
+            <TextView
+                android:id="@+id/tv_customer_name_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_create_customer_name_error"
+                android:textSize="13sp"
+                android:textColor="#FF0000"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
+
+            <TextView
+                android:id="@+id/tv_create_customer_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_create_customer_account"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_customer_account_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_account_description" />
+
+            <EditText
+                android:id="@+id/et_create_customer_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+
+            <TextView
+                android:id="@+id/tv_customer_account_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_create_customer_account_note"
+                android:textSize="13sp"
+                android:textColor="#00549A"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
+
+            <TextView
+                android:id="@+id/tv_create_customer_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_create_customer_password"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_customer_account_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_account_description" />
+
+            <EditText
+                android:id="@+id/et_create_customer_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+
+            <TextView
+                android:id="@+id/tv_customer_password_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_create_customer_password_note"
+                android:textSize="13sp"
+                android:textColor="#00549A"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
+
+            <TextView
+                android:id="@+id/tv_create_customer_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_create_customer_phone"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_customer_account_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_account_description" />
+
+            <EditText
+                android:id="@+id/et_create_customer_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="phone"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+
+            <TextView
+                android:id="@+id/tv_customer_phone_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_create_customer_phone_error"
+                android:textSize="13sp"
+                android:textColor="#FF0000"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
+
+            <TextView
+                android:id="@+id/tv_create_customer_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_create_customer_email"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_customer_account_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_account_description" />
+
+            <EditText
+                android:id="@+id/et_create_customer_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+
+            <TextView
+                android:id="@+id/tv_customer_email_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_create_customer_email_error"
+                android:textSize="13sp"
+                android:textColor="#FF0000"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
+
+            <TextView
+                android:id="@+id/tv_create_customer_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/fragment_create_customer_address"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_customer_account_description"
+                app:layout_constraintTop_toBottomOf="@+id/tv_customer_account_description" />
+
+            <EditText
+                android:id="@+id/et_create_customer_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+
+            <TextView
+                android:id="@+id/tv_customer_address_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_create_customer_address_error"
+                android:textSize="13sp"
+                android:textColor="#FF0000"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_add_gps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_primary"
+                        android:backgroundTint="@color/primary"
+                        android:text="@string/fragment_create_customer_gps_button"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/tv_show_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_button_inactive"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+            </TableRow>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/progress_bar"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:layout_constraintBottom_toBottomOf="@id/btn_create_customer"
+        app:layout_constraintLeft_toLeftOf="@id/btn_create_customer"
+        app:layout_constraintRight_toRightOf="@id/btn_create_customer"
+        app:layout_constraintTop_toTopOf="@id/btn_create_customer"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,12 @@
 package vn.sharkdms.api
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
-import vn.sharkdms.ui.customer.Customer
+import vn.sharkdms.ui.customer.create.CreateCustomerAccount
+import vn.sharkdms.ui.customer.discount.DiscountInfo
+import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.ui.history.HistoryOrder
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.tasks.Task
 
@@ -53,7 +58,48 @@ interface BaseApi {
      */
     @POST("list-customer")
     suspend fun listCustomer(
-        @Header("Authorization") token: String,
+        @Header(AUTHORIZATION) token: String,
         @Body customerListRequest: CustomerListRequest): BaseResponse<List<Customer>>
 
+    @Multipart
+    @POST("create-customer")
+    suspend fun createCustomer(
+        @Header(AUTHORIZATION) token: String,
+        @Part("name") name: RequestBody,
+        @Part("account") account: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("lat") lat: RequestBody,
+        @Part("long") long: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part image: List<MultipartBody.Part>?): BaseResponse<CreateCustomerAccount>
+
+    @GET("config/discount/{id}")
+    suspend fun getDiscount(
+        @Header(AUTHORIZATION) authorization: String,
+        @Path("id") id: Int?): BaseResponse<List<DiscountInfo>>
+
+    @POST("checkin-customer")
+    suspend fun checkInCustomer(
+        @Header(AUTHORIZATION) authorization: String,
+        @Body checkInRequest: CheckInRequest): BaseResponse<Nothing>
+
+    @Multipart
+    @POST("create-gallery")
+    suspend fun uploadGallery(
+        @Header(AUTHORIZATION) token: String,
+        @Part("user_kh_id") userKhId: RequestBody,
+        @Part("address") address: RequestBody,
+        @Part("lat") lat: RequestBody,
+        @Part("long") long: RequestBody,
+        @Part image: List<MultipartBody.Part>?): BaseResponse<Nothing>
+
+    /** History Order API
+     *
+     */
+    @POST("list-history-order")
+    suspend fun getHistoryOrder(
+        @Header(AUTHORIZATION) token: String,
+        @Body body: HistoryOrderListRequest): BaseResponse<List<HistoryOrder>>
 }

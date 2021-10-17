@@ -1,28 +1,25 @@
-package vn.sharkdms.ui.customer
+package vn.sharkdms.ui.history
 
-import androidx.activity.viewModels
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.BaseApi
-import vn.sharkdms.api.CustomerListRequest
+import vn.sharkdms.api.HistoryOrderListRequest
 import java.lang.Exception
-import java.security.Key
 
-class CustomerPagingSource(val apiService: BaseApi, val token: String, val customerName: String): PagingSource<Int, Customer>() {
+class HistoryOrderPagingSource(val apiService: BaseApi, val token: String, val customerName: String, val date: String): PagingSource<Int, HistoryOrder>() {
     companion object {
         private const val FIRST_PAGE_INDEX = 1
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Customer>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, HistoryOrder>): Int? {
         return state.anchorPosition
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Customer> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HistoryOrder> {
         return try {
             val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
-            val body = CustomerListRequest(nextPage, customerName)
-            val response = apiService.listCustomer(token, body)
+            val body = HistoryOrderListRequest(nextPage, customerName, date)
+            val response = apiService.getHistoryOrder(token, body)
 
             return LoadResult.Page(
                 data = response.data,
@@ -33,4 +30,5 @@ class CustomerPagingSource(val apiService: BaseApi, val token: String, val custo
             LoadResult.Error(e)
         }
     }
+
 }

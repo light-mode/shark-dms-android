@@ -20,16 +20,22 @@
     </fragment>
     <fragment
         android:id="@+id/customerListFragment"
-        android:name="vn.sharkdms.ui.customer.CustomerListFragment"
+        android:name="vn.sharkdms.ui.customer.list.CustomerListFragment"
         android:label="fragment_customer_list"
         tools:layout="@layout/fragment_customer_list">
         <action
             android:id="@+id/action_customerListFragment_to_mapsFragment"
             app:destination="@id/mapsFragment" />
+        <action
+            android:id="@+id/action_customerListFragment_to_createCustomerFragment"
+            app:destination="@id/createCustomerFragment" />
+        <action
+            android:id="@+id/action_customerListFragment_to_customerInfoFragment"
+            app:destination="@id/customerInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="vn.sharkdms.ui.customer.MapsFragment"
+        android:name="vn.sharkdms.ui.customer.map.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
     <action
@@ -53,11 +59,15 @@
         android:id="@+id/tasksFragment"
         android:name="vn.sharkdms.ui.tasks.TasksFragment"
         android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks">
+        tools:layout="@layout/fragment_tasks" />
         <action
             android:id="@+id/action_tasksFragment_to_taskDetailsFragment"
             app:destination="@id/taskDetailsFragment" />
-    </fragment>
+    <fragment
+        android:id="@+id/createCustomerFragment"
+        android:name="vn.sharkdms.ui.customer.create.CreateCustomerFragment"
+        android:label="CreateCustomerFragment"
+        tools:layout="@layout/fragment_create_customer" />
     <fragment
         android:id="@+id/taskDetailsFragment"
         android:name="vn.sharkdms.ui.taskdetails.TaskDetailsFragment"
@@ -77,4 +87,40 @@
         android:name="vn.sharkdms.ui.report.ReportFragment"
         android:label="fragment_report"
         tools:layout="@layout/fragment_report" />
+        android:id="@+id/customerInfoFragment"
+        android:name="vn.sharkdms.ui.customer.info.CustomerInfoFragment"
+        android:label="CustomerInfoFragment"
+        tools:layout="@layout/fragment_customer_info">
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer" />
+        <action
+            android:id="@+id/action_customerInfoFragment_to_customerLocationMapFragment"
+            app:destination="@id/customerLocationMapFragment" />
+        <action
+            android:id="@+id/action_customerInfoFragment_to_customerGalleryFragment"
+            app:destination="@id/customerGalleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerLocationMapFragment"
+        android:name="vn.sharkdms.ui.customer.map.CustomerLocationMapFragment"
+        android:label="CustomerLocationMapFragment" >
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerGalleryFragment"
+        android:name="vn.sharkdms.ui.customer.gallery.CustomerGalleryFragment"
+        android:label="fragment_customer_gallery"
+        tools:layout="@layout/fragment_customer_gallery" >
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyOrderListFragment"
+        android:name="vn.sharkdms.ui.history.HistoryOrderListFragment"
+        android:label="fragment_history_order_list"
+        tools:layout="@layout/fragment_history_order_list" />
 </navigation>

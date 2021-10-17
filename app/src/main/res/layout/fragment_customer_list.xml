@@ -5,67 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e5e5e5"
-    tools:context=".ui.customer.CustomerListFragment">
+    tools:context=".ui.customer.list.CustomerListFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_header"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_tab_header"
-        android:minHeight="80dp"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
 
-    <TextView
-        android:id="@+id/tv_header_customer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_customer_header_text"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar_header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_header" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="24dp"
-        android:layout_height="26dp"
-        android:contentDescription="Back Button"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
-        app:layout_constraintEnd_toStartOf="@+id/tv_header_customer"
-        app:layout_constraintHorizontal_bias="0.13"
-        app:layout_constraintStart_toStartOf="@+id/toolbar_header"
-        app:layout_constraintTop_toTopOf="@+id/toolbar_header"
-        app:layout_constraintVertical_bias="0.537"
-        app:srcCompat="@drawable/back_arrow" />
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/content_description"
+                app:srcCompat="@drawable/ic_back" />
 
-    <ImageView
-        android:id="@+id/iv_add_customer"
-        android:layout_width="24dp"
-        android:layout_height="26dp"
-        android:contentDescription="Create Customer"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar_header"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar_header"
-        app:layout_constraintHorizontal_bias="0.869"
-        app:layout_constraintStart_toEndOf="@+id/tv_header_customer"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.489"
-        app:srcCompat="@drawable/btn_create" />
+            <TextView
+                android:id="@+id/tv_header_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/fragment_customer_header_text"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/iv_add_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="@string/content_description"
+                app:srcCompat="@drawable/ic_add_customer" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
 
     <EditText
         android:id="@+id/edit_text_customer"
-        style="@style/edit_text"
-        android:layout_width="372dp"
-        android:layout_height="60dp"
+        style="@style/search_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_marginTop="20dp"
-        android:drawableStart="@drawable/ic_username_invalid"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableStart="@drawable/ic_customer_name"
         android:hint="@string/fragment_search_customer_by_name_phone_number"
         android:importantForAutofill="no"
         android:inputType="text"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
@@ -88,17 +87,39 @@
         app:maxImageSize="30dp"
         android:tintMode="multiply" />
 
+    <ImageView
+        android:id="@+id/iv_no_customer"
+        android:layout_width="135dp"
+        android:layout_height="93dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/raw_no_customer_display"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer" />
+
+    <TextView
+        android:id="@+id/tv_no_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/fragment_no_customer_display"
+        android:layout_marginTop="15dp"
+        android:textColor="#6E6E70"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_no_customer" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_customer"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/edit_text_customer"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/edit_text_customer"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

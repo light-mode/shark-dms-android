@@ -1,6 +1,5 @@
-package vn.sharkdms.ui.customer
+package vn.sharkdms.ui.customer.list
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,12 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
-import vn.sharkdms.api.CustomerListRequest
 import vn.sharkdms.di.AppModule
-import vn.sharkdms.ui.forgotpassword.ForgotPasswordViewModel
-import java.lang.NumberFormatException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,7 +37,7 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
 
     fun getListData(token: String, customerName: String): Flow<PagingData<Customer>> {
         return Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = {CustomerPagingSource(baseApi, token, customerName)}).flow.cachedIn(viewModelScope)
+            pagingSourceFactory = { CustomerPagingSource(baseApi, token, customerName) }).flow.cachedIn(viewModelScope)
     }
 
     fun setAdapterData(data: ArrayList<Customer>) {

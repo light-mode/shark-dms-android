@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e5e5e5"
+    tools:context=".ui.customer.info.CustomerInfoFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_tab_header"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/content_description"
+                app:srcCompat="@drawable/ic_back" />
+
+            <TextView
+                android:id="@+id/tv_header_customer_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_customer_info_title"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_centerInParent="true"
+                tools:ignore="RelativeOverlap" />
+
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/iv_customer_info_avatar"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
+        app:srcCompat="@drawable/ic_avatar_customer_info" />
+
+    <TextView
+        android:id="@+id/tv_customer_info_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/fragment_customer_name_sample"
+        android:textColor="#065EA8"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@+id/iv_customer_info_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_header" />
+
+    <TextView
+        android:id="@+id/tv_customer_info_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="6dp"
+        android:textColor="#9595AE"
+        android:text="@string/fragment_customer_phone_number_sample"
+        app:layout_constraintStart_toEndOf="@+id/iv_customer_info_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_customer_info_name" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_item_holder"
+        android:stretchColumns="0,1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_customer_info_avatar">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_customer_info_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/fragment_customer_rank"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_customer_info_rank_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="A"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_span="2"
+                android:background="#BCBCBC" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_customer_info_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/fragment_customer_address"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_customer_info_address_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="20 Nguyễn Trãi, Thanh Xuân, Hà Nội"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_span="2"
+                android:background="#BCBCBC" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_customer_info_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Email:"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_customer_info_email_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="andqk@gmail.com"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black" />
+        </TableRow>
+    </TableLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_customer_info_map"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_item_holder"
+        android:drawableStart="@drawable/customer_info_map"
+        android:drawablePadding="20dp"
+        android:paddingStart="20dp"
+        android:drawableEnd="@drawable/ic_customer_info_details"
+        android:paddingEnd="20dp"
+        android:text="@string/fragment_customer_info_map"
+        android:textAllCaps="false"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/tableLayout"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_customer_info_check_in"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_item_holder"
+        android:drawableStart="@drawable/customer_info_gps"
+        android:drawablePadding="20dp"
+        android:drawableEnd="@drawable/ic_customer_info_details"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/fragment_customer_info_check_in"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/btn_customer_info_map"
+        app:layout_constraintStart_toStartOf="@+id/btn_customer_info_map"
+        app:layout_constraintTop_toBottomOf="@+id/btn_customer_info_map" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_customer_info_camera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_item_holder"
+        android:drawableStart="@drawable/customer_info_camera"
+        android:drawablePadding="20dp"
+        android:drawableEnd="@drawable/ic_customer_info_details"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/fragment_customer_info_camera"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/btn_customer_info_check_in"
+        app:layout_constraintStart_toStartOf="@+id/btn_customer_info_check_in"
+        app:layout_constraintTop_toBottomOf="@+id/btn_customer_info_check_in" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_customer_info_discount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_item_holder"
+        android:drawableStart="@drawable/customer_info_discount"
+        android:drawablePadding="20dp"
+        android:drawableEnd="@drawable/ic_customer_info_details"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/fragment_customer_info_discount"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/btn_customer_info_camera"
+        app:layout_constraintStart_toStartOf="@+id/btn_customer_info_camera"
+        app:layout_constraintTop_toBottomOf="@+id/btn_customer_info_camera" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_customer_info_order"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_item_holder"
+        android:drawableStart="@drawable/customer_info_order"
+        android:drawablePadding="20dp"
+        android:drawableEnd="@drawable/ic_customer_info_details"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:text="@string/fragment_customer_info_order"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/btn_customer_info_discount"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/btn_customer_info_discount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

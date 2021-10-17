@@ -25,6 +25,52 @@
     <string name="fragment_customer_address_sample">Địa chỉ: Mai Đình, Hiệp Hoà, Bắc Giang</string>
     <string name="fragment_customer_check_in">Ngày check-in:</string>
     <string name="fragment_customer_check_in_sample">Ngày check-in: 19/03/2021</string>
+    <string name="fragment_no_customer_display">Hãy thêm mới khách hàng!</string>
+
+    <string name="fragment_create_customer_header_text">Thêm Khách Hàng</string>
+    <string name="fragment_create_customer_add_avatar_text">Thêm ảnh đại diện</string>
+    <string name="fragment_create_customer_add_customer_info_text">THÔNG TIN KHÁCH HÀNG</string>
+    <string name="fragment_create_customer_account_description">Tài khoản dành cho khách hàng đăng nhập vào ứng dụng</string>
+    <string name="fragment_create_customer_name">Tên khách hàng: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_name_error">Tên khách hàng không được chứa số, kí tự đặc biệt và không quá 25 ký tự</string>
+    <string name="fragment_create_customer_account">Tài khoản đăng nhập: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_password">Mật khẩu: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_phone">Số điện thoai: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_phone_error">Số điện thoai phải là 10 hoặc 11 số</string>
+    <string name="fragment_create_customer_email">Email (không bắt buộc):</string>
+    <string name="fragment_create_customer_email_error">Format email chưa đúng</string>
+    <string name="fragment_create_customer_address">Địa chỉ: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_address_error">Địa chỉ không được để trống</string>
+    <string name="fragment_create_customer_account_note">Tài khoản đăng nhập viết liền không dấu, chỉ bao gồm chữ cái, chữ số </string>
+    <string name="fragment_create_customer_password_note">Mật khẩu phải dài hơn 6 ký tự</string>
+    <string name="fragment_create_customer_gps_button">Lấy tọa độ địa điểm</string>
+    <string name="fragment_create_customer_create_button">TẠO KHÁCH HÀNG</string>
+    <string name="fragment_create_customer_cancel_button">HỦY</string>
+    <string name="fragment_create_customer_take_picture">Chụp ảnh</string>
+    <string name="fragment_create_customer_choose_library">Cuộn Camera</string>
+
+    <string name="fragment_customer_info_title">Thông Tin Khách Hàng</string>
+    <string name="fragment_customer_info_map">Xem bản đồ</string>
+    <string name="fragment_customer_info_check_in">Check-in vị trí hiện tại</string>
+    <string name="fragment_customer_info_camera">Chụp ảnh trưng bày</string>
+    <string name="fragment_customer_info_discount">Bảng giá chiết khấu cho khách hàng</string>
+    <string name="fragment_customer_info_order">Đặt hàng</string>
+
+    <string name="fragment_customer_discount_title">Bảng chiết khấu (Khách hàng)</string>
+    <string name="fragment_customer_discount_short">STDH: Số tiền đơn hàng</string>
+    <string name="fragment_customer_discount_threshold">Ngưỡng</string>
+    <string name="fragment_customer_discount_percent">Giảm (%)</string>
+    <string name="fragment_customer_discount_threshold_min">1.000.000 &lt; STDH</string>
+    <string name="fragment_customer_discount_percent_min">1%</string>
+    <string name="fragment_customer_discount_threshold_min_max">2.000.000 &lt;&#61; STDH &lt;&#61; 5.000.000</string>
+    <string name="fragment_customer_discount_percent_min_max">2%</string>
+    <string name="fragment_customer_discount_threshold_max">30.000.000 &lt; STDH</string>
+    <string name="fragment_customer_discount_percent_max">10%</string>
+    <string name="fragment_customer_discount_none_message">Chưa có bảng giá chiết khấu!</string>
+
+    <string name="fragment_customer_gallery_title">Phòng trưng bày</string>
+    <string name="fragment_customer_gallery_instruct">Chọn ảnh trưng bày (Tối đa 30 ảnh)</string>
+    <string name="fragment_customer_gallery_upload">TẢI LÊN</string>
 
     <string name="fragment_forgot_password_text_view_1_text">Xác nhận tài khoản</string>
     <string name="fragment_forgot_password_text_view_2_text">Bạn Hãy Nhập Tài Khoản Đã Đăng Ký\nTrên Shark DMS</string>
@@ -72,6 +118,17 @@
 
     <string name="fragment_policy_title">Chính sách</string>
     <string name="fragment_introduction_title">Hướng dẫn sử dụng</string>
+
+    <string name="fragment_history_search_bar_hint">Nhập mã đơn hoặc tên KH</string>
+    <string name="fragment_history_date_picker_sample">19/03/2021</string>
+    <string name="fragment_history_code_sample">Mã: DH&#8211;58696&#8211;2021&#8211;03&#8211;19</string>
+    <string name="fragment_history_total_price_sample">9.650.000</string>
+    <string name="fragment_history_order_status_title">Trạng thái:</string>
+    <string name="fragment_history_order_status_new"><font color='#065EA8'>Mới</font></string>
+    <string name="fragment_history_order_status_processing"><font color='#E2740F'>Đang xử lý</font></string>
+    <string name="fragment_history_order_status_done"><font color='#069450'>Hoàn thành</font></string>
+    <string name="fragment_history_order_status_cancel"><font color='#FF0000'>Hủy</font></string>
+    <string name="fragment_history_no_order_text">Bạn hiện không có đơn hàng nào</string>
 
     <string name="fragment_logout_dialog_title">Thông báo</string>
     <string name="fragment_logout_dialog_text_view_confirm_text">Bạn có chắc chắn muốn đăng xuất khỏi ứng dụng?</string>
