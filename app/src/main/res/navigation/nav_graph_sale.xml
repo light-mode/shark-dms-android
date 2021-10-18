@@ -37,7 +37,11 @@
         android:id="@+id/mapsFragment"
         android:name="vn.sharkdms.ui.customer.map.MapsFragment"
         android:label="fragment_maps"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps" >
+        <argument
+            android:name="customers"
+            app:argType="vn.sharkdms.ui.customer.list.Customer[]" />
+    </fragment>
     <action
         android:id="@+id/action_global_accountFragment"
         app:destination="@id/accountFragment" />
@@ -116,7 +120,19 @@
     </fragment>
     <fragment
         android:id="@+id/historyOrderListFragment"
-        android:name="vn.sharkdms.ui.history.HistoryOrderListFragment"
+        android:name="vn.sharkdms.ui.history.list.HistoryOrderListFragment"
         android:label="fragment_history_order_list"
-        tools:layout="@layout/fragment_history_order_list" />
+        tools:layout="@layout/fragment_history_order_list" >
+        <action
+            android:id="@+id/action_historyOrderListFragment_to_orderInfoFragment"
+            app:destination="@id/orderInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderInfoFragment"
+        android:name="vn.sharkdms.ui.history.info.OrderDetailFragment"
+        android:label="OrderInfoFragment" >
+        <argument
+            android:name="order"
+            app:argType="vn.sharkdms.ui.history.list.HistoryOrder" />
+    </fragment>
 </navigation>

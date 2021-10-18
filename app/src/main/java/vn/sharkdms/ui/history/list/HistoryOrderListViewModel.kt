@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.history
+package vn.sharkdms.ui.history.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

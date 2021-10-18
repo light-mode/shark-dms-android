@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.history
+package vn.sharkdms.ui.history.list
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

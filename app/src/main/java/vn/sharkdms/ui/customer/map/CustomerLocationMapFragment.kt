@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -31,6 +33,8 @@ class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        setBtnBackOnClickListener(rootView)
+
         return rootView
     }
 
@@ -41,5 +45,12 @@ class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
         googleMap.addMarker(MarkerOptions().position(location).title(args.customer.customerName)
             .snippet("Địa chỉ: " + args.customer.customerAddress))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+    }
+
+    private fun setBtnBackOnClickListener(rootView: View?) {
+        val btnBack = rootView?.findViewById<ImageView>(R.id.iv_back)
+        btnBack?.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }
