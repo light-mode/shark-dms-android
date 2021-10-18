@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
@@ -33,6 +34,18 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
         }
         viewModel.tasks.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+        adapter.addLoadStateListener { combinedLoadStates ->
+            binding.apply {
+                if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
+                    combinedLoadStates.append.endOfPaginationReached && adapter.itemCount == 0) {
+                    iconNoTask.visibility = View.VISIBLE
+                    textViewNoTask.visibility = View.VISIBLE
+                } else {
+                    iconNoTask.visibility = View.GONE
+                    textViewNoTask.visibility = View.GONE
+                }
+            }
         }
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         viewModel.searchTasks(sharedViewModel.token, "")
