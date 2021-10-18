@@ -72,6 +72,9 @@
     <string name="fragment_customer_gallery_instruct">Chọn ảnh trưng bày (Tối đa 30 ảnh)</string>
     <string name="fragment_customer_gallery_upload">TẢI LÊN</string>
 
+    <string name="fragment_customer_gallery_upload_dialog_title">Thông báo</string>
+    <string name="fragment_customer_gallery_upload_dialog_descrip">Tải ảnh lên thành công</string>
+
     <string name="fragment_forgot_password_text_view_1_text">Xác nhận tài khoản</string>
     <string name="fragment_forgot_password_text_view_2_text">Bạn Hãy Nhập Tài Khoản Đã Đăng Ký\nTrên Shark DMS</string>
     <string name="fragment_forgot_password_edit_text_username_hint">Tài Khoản</string>
@@ -118,7 +121,7 @@
     <string name="fragment_introduction_title">Hướng dẫn sử dụng</string>
 
     <string name="fragment_history_search_bar_hint">Nhập mã đơn hoặc tên KH</string>
-    <string name="fragment_history_date_picker_sample">19/03/2021</string>
+    <string name="fragment_history_date_picker_sample">Chọn ngày</string>
     <string name="fragment_history_code_sample">Mã: DH&#8211;58696&#8211;2021&#8211;03&#8211;19</string>
     <string name="fragment_history_total_price_sample">9.650.000</string>
     <string name="fragment_history_order_status_title">Trạng thái:</string>
@@ -127,6 +130,24 @@
     <string name="fragment_history_order_status_done"><font color='#069450'>Hoàn thành</font></string>
     <string name="fragment_history_order_status_cancel"><font color='#FF0000'>Hủy</font></string>
     <string name="fragment_history_no_order_text">Bạn hiện không có đơn hàng nào</string>
+
+    <string name="fragment_order_detail_title">Chi tiết đơn hàng</string>
+    <string name="fragment_order_detail_list">Chi tiết đơn hàng:</string>
+    <string name="fragment_order_detail_num">2 sản phẩm</string>
+    <string name="fragment_order_detail_total">Thanh toán:</string>
+    <string name="fragment_order_detail_customer_title">Khách hàng:</string>
+    <string name="fragment_order_detail_discount">Chiết khấu:</string>
+    <string name="fragment_order_detail_discount_sample">600.000 VNĐ</string>
+    <string name="fragment_order_detail_total_amount">Tổng tiền:</string>
+    <string name="fragment_order_detail_total_amount_sample">5.400.000 VNĐ</string>
+    <string name="fragment_order_detail_note">Ghi chú:</string>
+    <string name="fragment_order_status">Trạng thái đơn hàng:</string>
+    <string name="fragment_order_product_item_name">Tên sản phẩm:</string>
+    <string name="fragment_order_product_item_name_sample">VN- Phin nhôm đại</string>
+    <string name="fragment_order_product_item_quantity">Số lượng:</string>
+    <string name="fragment_order_product_item_quantity_sample">32</string>
+    <string name="fragment_order_product_item_total">Tổng tiền:</string>
+    <string name="fragment_order_product_item_total_sample">4.000.000 VNĐ</string>
 
     <string name="fragment_logout_dialog_title">Thông báo</string>
     <string name="fragment_logout_dialog_text_view_confirm_text">Bạn có chắc chắn muốn đăng xuất khỏi ứng dụng?</string>
