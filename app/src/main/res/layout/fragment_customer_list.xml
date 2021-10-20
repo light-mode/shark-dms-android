@@ -97,7 +97,8 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/raw_no_customer_display"
         android:layout_marginTop="60dp"
-        android:visibility="invisible"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_customer" />
@@ -110,7 +111,8 @@
         android:text="@string/fragment_no_customer_display"
         android:layout_marginTop="15dp"
         android:textColor="#6E6E70"
-        android:visibility="invisible"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_no_customer" />

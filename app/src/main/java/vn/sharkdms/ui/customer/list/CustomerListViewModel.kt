@@ -16,8 +16,8 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
         const val TAG = "CustomerListViewModel"
     }
 
-    lateinit var retroService: BaseApi
-    lateinit var customerAdapter: CustomerAdapter
+    var retroService: BaseApi
+    var customerAdapter: CustomerAdapter
     private var token = ""
     private val customerList = MutableLiveData("")
 
@@ -36,10 +36,6 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
     fun getListData(token: String, customerName: String) =
         Pager(config = PagingConfig(pageSize = 20),
             pagingSourceFactory = { CustomerPagingSource(baseApi, token, customerName) }).liveData
-
-    fun setAdapterData(data: ArrayList<Customer>) {
-        customerAdapter.setDataList(data)
-    }
 
     fun searchCustomer(token: String, customerName: String) {
         this.token = token

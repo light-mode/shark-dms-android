@@ -22,6 +22,7 @@ object AppModule {
     fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl(BaseApi.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(
             GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .setLenient()
                 .create())).build()
 
     @Provides

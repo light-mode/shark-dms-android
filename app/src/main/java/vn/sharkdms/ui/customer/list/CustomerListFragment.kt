@@ -24,6 +24,8 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentCustomerListBinding
 
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.util.Constant
@@ -48,12 +50,24 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         token = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
 
+        initRecyclerView(binding)
+        initViewModel(binding.editTextCustomer.text.toString())
+
         viewModel.customers.observe(viewLifecycleOwner) {
             customerAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
-
-        initRecyclerView(binding)
-        initViewModel(binding.editTextCustomer.text.toString())
+        customerAdapter.addLoadStateListener { combinedLoadStates ->
+            binding.apply {
+                if (customerAdapter.itemCount == 0) {
+                    ivNoCustomer.visibility = View.VISIBLE
+                    tvNoCustomer.visibility = View.VISIBLE
+                } else {
+                    ivNoCustomer.visibility = View.GONE
+                    tvNoCustomer.visibility = View.GONE
+                }
+            }
+        }
+        customers = customerAdapter.getDataList()
 
         setCustomerEditTextListener(binding, clearIcon)
         setAddCustomerButtonOnClickListener(binding)
@@ -67,7 +81,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
             }
             customerAdapter = CustomerAdapter()
             rvCustomer.adapter = customerAdapter
-            rvCustomer.layoutManager = LinearLayoutManager(activity)
+            rvCustomer.layoutManager = LinearLayoutManager(context)
         }
     }
 
@@ -83,18 +97,20 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     }
 
     private fun setCustomerEditTextTextChangedListener(binding: FragmentCustomerListBinding) {
-        binding.editTextCustomer.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
-            }
+        binding.apply {
+            editTextCustomer.addTextChangedListener(object: TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
+                }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
-            }
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
+                }
 
-            override fun afterTextChanged(p0: Editable?) {
-                afterTextChanged(binding)
-                initViewModel(binding.editTextCustomer.text.toString())
-            }
-        })
+                override fun afterTextChanged(p0: Editable?) {
+                    afterTextChanged(binding)
+                    initViewModel(binding.editTextCustomer.text.toString())
+                }
+            })
+        }
     }
 
     private fun setCustomerEditTextOnTouchListener(binding: FragmentCustomerListBinding, clearIcon: Drawable?) {

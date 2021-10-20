@@ -107,8 +107,12 @@
     <string name="fragment_customers_title">Khách hàng</string>
     <string name="fragment_history_title">Lịch sử</string>
     <string name="fragment_report_title">Báo cáo</string>
+    <string name="fragment_report_edit_text_title_hint">Tiêu đề</string>
+    <string name="fragment_report_edit_text_description_hint">Nhập chi tiết báo cáo…</string>
+    <string name="fragment_report_button_send_text">Gửi</string>
 
     <string name="fragment_tasks_title">Công việc</string>
+    <string name="fragment_tasks_text_view_no_task_text">Bạn hiện không có công việc nào</string>
     <string name="fragment_task_details_title">Chi tiết công việc</string>
     <string name="task_status_new">Mới</string>
     <string name="task_status_processing">Đang xử lý</string>
@@ -116,7 +120,6 @@
     <string name="task_status_completed">Hoàn thành</string>
     <string name="task_status_not_completed">Không hoàn thành</string>
 
-    <string name="fragment_discounts_title">Chiết khấu</string>
     <string name="fragment_policy_title">Chính sách</string>
     <string name="fragment_introduction_title">Hướng dẫn sử dụng</string>
 
@@ -153,6 +156,9 @@
     <string name="fragment_logout_dialog_text_view_confirm_text">Bạn có chắc chắn muốn đăng xuất khỏi ứng dụng?</string>
     <string name="fragment_logout_dialog_button_no_text">Không</string>
     <string name="fragment_logout_dialog_button_yes_text">Có</string>
+
+    <string name="dialog_message_title_text">Thông báo</string>
+    <string name="dialog_message_button_confirm_text">OK</string>
 
     <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
     <string name="support_call">039 666 8760</string>

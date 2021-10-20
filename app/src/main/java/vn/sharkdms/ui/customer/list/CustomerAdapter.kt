@@ -61,6 +61,7 @@ class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerVi
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
+        if (!customers.contains(getItem(position))) customers.add(getItem(position)!!)
         holder.bind(getItem(position)!!)
         holder.itemView.setOnClickListener {
             val action = CustomerListFragmentDirections.actionCustomerListFragmentToCustomerInfoFragment(getItem(position)!!)
@@ -68,7 +69,7 @@ class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerVi
         }
     }
 
-    fun setDataList(data: ArrayList<Customer>) {
-        customers = data
+    fun getDataList(): ArrayList<Customer> {
+        return customers
     }
 }

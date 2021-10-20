@@ -21,8 +21,8 @@ class HistoryOrderListViewModel @Inject constructor(private val baseApi: BaseApi
         const val TAG = "HistoryOrderViewModel"
     }
 
-    lateinit var retroService: BaseApi
-    lateinit var historyOrderAdapter: HistoryOrderAdapter
+    var retroService: BaseApi
+    var historyOrderAdapter: HistoryOrderAdapter
     val historyOrderList: MutableLiveData<ArrayList<HistoryOrder>> by lazy {
         MutableLiveData<ArrayList<HistoryOrder>>()
     }

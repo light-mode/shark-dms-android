@@ -42,6 +42,18 @@ interface BaseApi {
     @GET("amount")
     suspend fun getAmounts(@Header(AUTHORIZATION) authorization: String): BaseResponse<List<Amount>>
 
+    @GET("get-report")
+    suspend fun getReport(
+        @Header(AUTHORIZATION) authorization: String): BaseResponse<Any>
+
+    @POST("create-report")
+    suspend fun createReport(@Header(AUTHORIZATION) authorization: String,
+        @Body body: CreateReportRequest): BaseResponse<Nothing>
+
+    @POST("edit-report")
+    suspend fun editReport(@Header(AUTHORIZATION) authorization: String,
+        @Body body: UpdateReportRequest): BaseResponse<Nothing>
+
     /** Customer API
      *
      */
@@ -95,5 +107,5 @@ interface BaseApi {
     @POST("list-history-order-detail")
     suspend fun getOrderInfo(
         @Header(AUTHORIZATION) token: String,
-        @Body orderId: Int): BaseResponse<OrderDetail>
+        @Body orderDetailRequest: OrderDetailRequest): BaseResponse<OrderDetail>
 }

@@ -8,6 +8,8 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
+import vn.sharkdms.api.OrderDetailRequest
+import java.lang.Exception
 import java.lang.NumberFormatException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
@@ -20,12 +22,12 @@ class OrderDetailViewModel @Inject constructor(private val baseApi: BaseApi) : V
     }
 
     private val orderDetailEventChannel = Channel<OrderDetailEvent>()
-    private val orderDetailEvent = orderDetailEventChannel.receiveAsFlow()
+    val orderDetailEvent = orderDetailEventChannel.receiveAsFlow()
 
-    fun getOrderDetail(authorization: String, orderId: Int) {
+    fun getOrderDetail(authorization: String, orderDetailRequest: OrderDetailRequest) {
         viewModelScope.launch {
             try {
-                val response = baseApi.getOrderInfo(authorization, orderId)
+                val response = baseApi.getOrderInfo(authorization, orderDetailRequest)
                 val code = response.code.toInt()
                 orderDetailEventChannel.send(
                     OrderDetailEvent.OnResponse(code, response.message, response.data)
@@ -34,6 +36,8 @@ class OrderDetailViewModel @Inject constructor(private val baseApi: BaseApi) : V
                 Log.e(TAG, nfe.message, nfe)
             } catch (ste: SocketTimeoutException) {
                 orderDetailEventChannel.send(OrderDetailEvent.OnFailure)
+            } catch (e: Exception) {
+                Log.e(TAG, e.message, e)
             }
         }
     }

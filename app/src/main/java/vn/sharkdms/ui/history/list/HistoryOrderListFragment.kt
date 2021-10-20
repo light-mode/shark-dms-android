@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
@@ -43,15 +44,24 @@ class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list) 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         token = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
 
-        viewModel.historyOrderList.observe(viewLifecycleOwner, Observer<ArrayList<HistoryOrder>> {
-            if (it != null)
-                viewModel.setAdapterData(it)
-            else
-                Toast.makeText(requireContext(), "Error in fetching data", Toast.LENGTH_LONG).show()
-        })
-
         initRecyclerView(binding)
         initViewModel(binding.etSearchOrder.text.toString(), "")
+
+        viewModel.historyOrderList.observe(viewLifecycleOwner) {
+            viewModel.setAdapterData(it)
+        }
+        historyOrderAdapter.addLoadStateListener { combinedLoadStates ->
+            binding.apply {
+                if (historyOrderAdapter.itemCount == 0) {
+                    ivNoOrder.visibility = View.VISIBLE
+                    tvNoOrder.visibility = View.VISIBLE
+                } else {
+                    ivNoOrder.visibility = View.GONE
+                    tvNoOrder.visibility = View.GONE
+                }
+            }
+        }
+
         setCustomerEditTextListener(binding, clearIcon)
         setTvDatePickerListener(binding, clearIcon)
     }
@@ -163,12 +173,16 @@ class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list) 
                 val month = calendar.get(Calendar.MONTH)
                 val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-                val dpd = DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                    tvDatePicker.text = dayOfMonth.toString() + "/" + (month + 1).toString() + "/" + year.toString()
-                    initViewModel(etSearchOrder.text.toString(),
-                        date = dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString())
-                    tvDatePickerDateChangeListener(binding, clearIcon)
-                }, year, month, day)
+                val dpd = DatePickerDialog(requireActivity(), R.style.DatePickerDialogStyle,
+                    null, year, month, day)
+                dpd.datePicker.init(year, month, day,
+                    DatePicker.OnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
+                        tvDatePicker.text = dayOfMonth.toString() + "/" + (month + 1).toString() + "/" + year.toString()
+                        initViewModel(etSearchOrder.text.toString(),
+                            date = dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString())
+                        tvDatePickerDateChangeListener(binding, clearIcon)
+                        dpd.dismiss()
+                    })
                 dpd.show()
             }
         }

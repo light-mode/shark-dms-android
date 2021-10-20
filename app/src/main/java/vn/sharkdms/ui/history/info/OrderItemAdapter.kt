@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
 
 class OrderItemAdapter(
-    private val orderItems: MutableList<OrderItem>
+    private val orderItems: List<OrderItem>?
 ) : RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>() {
 
     class OrderItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -18,10 +18,10 @@ class OrderItemAdapter(
         val tvProductTotal = itemView.findViewById<TextView>(R.id.tv_product_total)
 
         @SuppressLint("SetTextI18n")
-        fun bind(data: OrderItem) {
-            tvProductname.text = data.productName
-            tvProductQuantity.text = data.qty.toString()
-            tvProductTotal.text = data.totalPrice.toString() + data.currency
+        fun bind(data: OrderItem?) {
+            tvProductname.text = data?.productName
+            tvProductQuantity.text = data?.qty.toString()
+            tvProductTotal.text = data?.totalPrice.toString() + data?.currency
         }
     }
 
@@ -36,10 +36,10 @@ class OrderItemAdapter(
     }
 
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
-        holder.bind(orderItems[position])
+        holder.bind(orderItems?.get(position))
     }
 
     override fun getItemCount(): Int {
-        return orderItems.size
+        return orderItems?.size ?: 0
     }
 }
