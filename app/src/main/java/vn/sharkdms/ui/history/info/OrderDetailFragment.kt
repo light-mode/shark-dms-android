@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.history.info
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -41,17 +42,17 @@ class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
         token = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
 
         initViewModel(args.order.orderId.toString())
-//        initRecyclerView(binding)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.orderDetailEvent.collect { event ->
                 when(event) {
                     is OrderDetailViewModel.OrderDetailEvent.OnResponse ->
                         handleOrderDetailResponse(binding, event.code, event.message, event.data)
                     is OrderDetailViewModel.OrderDetailEvent.OnFailure ->
-                        handleOrderDetailFailure(binding)
+                        handleOrderDetailFailure()
                 }
             }
         }
+        setBtnBackOnClickListener(binding)
     }
 
     private fun initRecyclerView(binding: FragmentOrderDetailBinding) {
@@ -67,12 +68,14 @@ class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
         viewModel.getOrderDetail(token, orderDetailRequest)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun handleOrderDetailResponse(binding: FragmentOrderDetailBinding, code: Int, message: String, data: OrderDetail?) {
         binding.apply {
             when(code) {
                 HttpStatus.OK -> {
                     tvCustomerName.text = data?.customerName.toString()
                     tvCustomerPhone.text = data?.customerPhone.toString()
+                    tvCustomerOrderDetailNum.text = data?.orderItems?.size.toString() + " sản phẩm"
                     tvOrderDiscountSample.text = data?.discount.toString().plus(" ")
                         .plus(data?.orderItems?.get(0)?.currency)
                     tvOrderTotalAmountSample.text = data?.totalAmount.toString().plus(" ")
@@ -110,8 +113,14 @@ class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
         }
     }
 
-    private fun handleOrderDetailFailure(binding: FragmentOrderDetailBinding) {
+    private fun handleOrderDetailFailure() {
         Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
             Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setBtnBackOnClickListener(binding: FragmentOrderDetailBinding) {
+        binding.ivBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

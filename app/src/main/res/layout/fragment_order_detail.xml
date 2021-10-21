@@ -41,38 +41,40 @@
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        android:stretchColumns="0,1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header">
 
-
-        <TextView
-            android:id="@+id/tv_customer_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/fragment_order_detail_customer_title" />
-
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:stretchColumns="0,1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_header">
 
-            <TableRow
+            <TextView
+                android:id="@+id/tv_customer_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/black"
+                android:text="@string/fragment_order_detail_customer_title" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:background="@color/white">
                 <TextView
                     android:id="@+id/tv_customer_name"
                     android:layout_width="wrap_content"
@@ -83,17 +85,17 @@
 
                 <TextView
                     android:id="@+id/tv_customer_phone"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="16dp"
+                    android:layout_alignParentEnd="true"
                     android:gravity="end"
                     android:text="@string/fragment_customer_phone_number_sample"
-                    android:textColor="@color/black"/>
-            </TableRow>
+                    android:textColor="@color/black" />
+            </RelativeLayout>
 
-            <TableRow
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
@@ -107,27 +109,24 @@
 
                 <TextView
                     android:id="@+id/tv_customer_order_detail_num"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_toEndOf="@id/tv_customer_order_detail_list"
                     android:text="@string/fragment_order_detail_num"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
-            </TableRow>
+            </RelativeLayout>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_product_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_weight="1"/>
-            </TableRow>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_product_item"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                tools:listitem="@layout/item_order_product"/>
 
-            <TableRow
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
@@ -138,16 +137,14 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/fragment_order_detail_total"
                     android:textColor="@color/black"/>
+            </RelativeLayout>
 
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
+                android:paddingBottom="10dp"
+                android:background="@color/white">
                 <TextView
                     android:id="@+id/tv_order_discount"
                     android:layout_width="wrap_content"
@@ -160,33 +157,19 @@
                     android:id="@+id/tv_order_discount_sample"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="16dp"
+                    android:layout_alignParentEnd="true"
                     android:gravity="end"
                     android:text="@string/fragment_order_detail_discount_sample"
-                    android:textColor="@color/black"/>
-            </TableRow>
+                    android:textColor="@color/black" />
+            </RelativeLayout>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="#BCBCBC" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
+                android:paddingBottom="10dp"
+                android:background="@color/white">
                 <TextView
                     android:id="@+id/tv_order_total_amount"
                     android:layout_width="wrap_content"
@@ -197,35 +180,21 @@
 
                 <TextView
                     android:id="@+id/tv_order_total_amount_sample"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="16dp"
+                    android:layout_alignParentEnd="true"
                     android:gravity="end"
                     android:text="@string/fragment_order_detail_total_amount_sample"
                     android:textColor="@color/black"/>
-            </TableRow>
+            </RelativeLayout>
 
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="#BCBCBC" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
-
+                android:paddingBottom="10dp"
+                android:background="@color/white">
                 <TextView
                     android:id="@+id/tv_order_note"
                     android:layout_width="wrap_content"
@@ -236,20 +205,19 @@
 
                 <TextView
                     android:id="@+id/tv_order_note_input"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginEnd="16dp"
                     android:gravity="end"
-                    android:textColor="@color/black"/>
-            </TableRow>
+                    android:textColor="@color/black" />
+            </RelativeLayout>
 
-            <TableRow
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
-
                 <TextView
                     android:id="@+id/tv_customer_order_status"
                     android:layout_width="wrap_content"
@@ -257,14 +225,14 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/fragment_order_status"
                     android:textColor="@color/black" />
+            </RelativeLayout>
 
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
+                android:layout_marginBottom="45dp"
                 android:background="@color/white">
                 <TextView
                     android:id="@+id/tv_customer_order_status_detail"
@@ -275,9 +243,9 @@
                     android:text="Đơn mới"
                     android:textColor="@color/black"
                     app:drawableStartCompat="@drawable/ic_order_status_new" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
