@@ -79,6 +79,8 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
     private lateinit var authorization: String
     private lateinit var sharedViewModel : SharedViewModel
 
+    private var isFull: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -235,7 +237,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
         val validPhone = Validator.isValidPhone(phone)
         var validEmail: Boolean = false
         if (email.trim().isNotEmpty()) validEmail = Validator.isValidEmail(email)
-        val validAddress = Validator.isValidUsername(address)
+        val validAddress = Validator.isValidAddress(address)
         when (change) {
             CHANGE_NAME -> {
                 val clearIcon = if (name.isNotEmpty() && binding.etCreateCustomerName.hasFocus())
@@ -275,6 +277,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                     R.drawable.ic_clear else 0
                 binding.etCreateCustomerAddress.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0,
                     clearIcon, 0)
+                isFull = true
             }
         }
         if ((validAddress && validName && validPassword && validPhone && validUsername && email.trim().isNotEmpty() && validEmail)
@@ -293,12 +296,14 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
             binding.apply {
                 btnCreateCustomer.isEnabled = false
                 btnCreateCustomer.setBackgroundResource(R.drawable.button_disable)
-                if(!validName) tvCustomerNameError.visibility = View.VISIBLE
-                if(!validUsername) tvCustomerAccountNote.setTextColor(Color.RED)
-                if(!validPassword) tvCustomerPasswordNote.setTextColor(Color.RED)
-                if(!validPhone) tvCustomerPhoneError.visibility = View.VISIBLE
-                if(!validAddress) tvCustomerAddressError.visibility = View.VISIBLE
-                if(email.trim().isNotEmpty() && !validEmail) tvCustomerEmailError.visibility = View.VISIBLE
+                if (isFull) {
+                    if(!validName) binding.tvCustomerNameError.visibility = View.VISIBLE
+                    if(!validUsername) binding.tvCustomerAccountNote.setTextColor(Color.RED)
+                    if(!validPassword) binding.tvCustomerPasswordNote.setTextColor(Color.RED)
+                    if(!validPhone) binding.tvCustomerPhoneError.visibility = View.VISIBLE
+                    if(!validAddress) binding.tvCustomerAddressError.visibility = View.VISIBLE
+                    if(email.trim().isNotEmpty() && !validEmail) binding.tvCustomerEmailError.visibility = View.VISIBLE
+                }
             }
         }
     }
