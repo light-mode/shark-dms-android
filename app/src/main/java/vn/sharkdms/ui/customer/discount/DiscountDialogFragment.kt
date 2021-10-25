@@ -1,5 +1,7 @@
 package vn.sharkdms.ui.customer.discount
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
@@ -43,6 +45,7 @@ class DiscountDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         var rootView: View = inflater.inflate(R.layout.fragment_discount_dialog, container, false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         customerId = arguments?.getInt("id")
 
