@@ -12,10 +12,12 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.data.User
 import vn.sharkdms.databinding.FragmentAccountBinding
+import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 
 @AndroidEntryPoint
 class AccountFragment : Fragment(R.layout.fragment_account) {
     private val viewModel by viewModels<AccountViewModel>()
+    private var userId = 1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentAccountBinding.bind(view)
@@ -28,12 +30,18 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
                     .actionAccountFragmentToChangePasswordFragment()
                 findNavController().navigate(action)
             }
+            cardViewDiscount.setOnClickListener {
+                val dialog = DiscountDialogFragment().newInstance(userId)
+                dialog.show(childFragmentManager, "AccountFragment")
+            }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.accountEvent.collect { event ->
                 when (event) {
-                    is AccountViewModel.AccountEvent.BindUserInfoView -> bindUserInfoView(binding,
-                        event.user)
+                    is AccountViewModel.AccountEvent.BindUserInfoView -> {
+                        bindUserInfoView(binding, event.user)
+                        userId = event.user.id
+                    }
                 }
             }
         }
