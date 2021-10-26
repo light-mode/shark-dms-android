@@ -12,54 +12,10 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.data.User
 import vn.sharkdms.databinding.FragmentAccountBinding
+import vn.sharkdms.ui.base.account.AccountViewModel
+import vn.sharkdms.ui.base.account.BaseAccountFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 
 @AndroidEntryPoint
-class AccountFragment : Fragment(R.layout.fragment_account) {
-    private val viewModel by viewModels<AccountViewModel>()
-    private var userId = 1
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentAccountBinding.bind(view)
-        binding.apply {
-            iconBack.setOnClickListener {
-                findNavController().navigateUp()
-            }
-            cardViewChangePassword.setOnClickListener {
-                val action = AccountFragmentDirections
-                    .actionAccountFragmentToChangePasswordFragment()
-                findNavController().navigate(action)
-            }
-            cardViewDiscount.setOnClickListener {
-                val dialog = DiscountDialogFragment().newInstance(userId)
-                dialog.show(childFragmentManager, "AccountFragment")
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.accountEvent.collect { event ->
-                when (event) {
-                    is AccountViewModel.AccountEvent.BindUserInfoView -> {
-                        bindUserInfoView(binding, event.user)
-                        userId = event.user.id
-                    }
-                }
-            }
-        }
-        viewModel.users.observe(viewLifecycleOwner) {
-            viewModel.getUserInfo(it)
-        }
-    }
-
-    private fun bindUserInfoView(binding: FragmentAccountBinding, user: User) {
-        binding.apply {
-            Glide.with(this@AccountFragment).load(user.avatar).error(R.drawable.ic_avatar)
-                .into(imageViewAvatar)
-            textViewName.text = user.name
-            textViewPhone.text = user.phone
-            textViewUsername.text = user.username
-            textViewEmail.text = user.email
-            textViewCompany.text = user.company
-            textViewPosition.text = user.position
-        }
-    }
+class AccountFragment : BaseAccountFragment() {
 }

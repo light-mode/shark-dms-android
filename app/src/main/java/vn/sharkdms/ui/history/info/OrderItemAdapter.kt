@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
+import vn.sharkdms.util.Constant
 
 class OrderItemAdapter(
     private val orderItems: List<OrderItem>?
@@ -19,7 +20,7 @@ class OrderItemAdapter(
 
         @SuppressLint("SetTextI18n")
         fun bind(data: OrderItem?) {
-            tvProductname.text = data?.productName
+            tvProductname.text = Constant.collapseDisplay(data?.productName as String, Constant.PRODUCT_LIMIT)
             tvProductQuantity.text = data?.qty.toString()
             tvProductTotal.text = data?.totalPrice.toString() + data?.currency
         }

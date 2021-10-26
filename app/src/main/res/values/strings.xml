@@ -87,6 +87,7 @@
     <string name="fragment_account_text_view_position_text">Vị trí:</string>
     <string name="fragment_account_text_view_discount_text">Bảng giá chiết khấu cho nhân viên</string>
     <string name="fragment_account_text_view_change_password_text">Đổi mật khẩu</string>
+    <string name="fragment_account_text_view_log_out_text">Đăng xuất</string>
 
     <string name="fragment_change_password_title">Đổi mật khẩu</string>
     <string name="fragment_change_password_edit_text_old_password_hint">Nhập Mật Khẩu Cũ</string>

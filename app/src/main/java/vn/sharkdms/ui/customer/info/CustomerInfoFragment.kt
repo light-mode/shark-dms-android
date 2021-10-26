@@ -127,8 +127,10 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
             tvCustomerInfoName.text = args.customer.customerName
             tvCustomerInfoPhone.text = args.customer.customerPhone
             tvCustomerInfoRankDetail.text = args.customer.rankName
-            tvCustomerInfoAddressDetail.text = args.customer.customerAddress
-            tvCustomerInfoEmailDetail.text = args.customer.customerEmail
+            tvCustomerInfoAddressDetail.text =
+                Constant.collapseDisplay(args.customer.customerAddress, Constant.ADDRESS_LIMIT)
+            tvCustomerInfoEmailDetail.text =
+                Constant.collapseDisplay(args.customer.customerEmail, Constant.ADDRESS_LIMIT)
         }
     }
 

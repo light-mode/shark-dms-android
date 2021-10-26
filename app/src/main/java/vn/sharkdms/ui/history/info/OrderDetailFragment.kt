@@ -75,30 +75,30 @@ class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                 HttpStatus.OK -> {
                     tvCustomerName.text = data?.customerName.toString()
                     tvCustomerPhone.text = data?.customerPhone.toString()
-                    tvCustomerOrderDetailNum.text = data?.orderItems?.size.toString() + " sản phẩm"
+                    tvCustomerOrderDetailNum.text = data?.orderItems?.size.toString() + Constant.ORDER_PRODUCT_AMOUNT
                     tvOrderDiscountSample.text = data?.discount.toString().plus(" ")
                         .plus(data?.orderItems?.get(0)?.currency)
                     tvOrderTotalAmountSample.text = data?.totalAmount.toString().plus(" ")
                         .plus(data?.orderItems?.get(0)?.currency)
                     tvOrderNoteInput.text = data?.note
                     when(data?.status) {
-                        "Mới" -> {
-                            tvCustomerOrderStatusDetail.text = "Mới"
+                        Constant.ORDER_STATUS_NEW -> {
+                            tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_NEW
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_new, 0, 0, 0)
                         }
-                        "Đang xử lí" -> {
-                            tvCustomerOrderStatusDetail.text = "Đang xử lý"
+                        Constant.ORDER_STATUS_PROCESSING_QUERY -> {
+                            tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_PROCESSING
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_processing, 0, 0, 0)
                         }
-                        "Hoàn thành" -> {
-                            tvCustomerOrderStatusDetail.text = "Hoàn thành"
+                        Constant.ORDER_STATUS_DONE -> {
+                            tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_DONE
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_done, 0, 0, 0)
                         }
-                        "Hủy" -> {
-                            tvCustomerOrderStatusDetail.text = "Hủy"
+                        Constant.ORDER_STATUS_CANCEL -> {
+                            tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_CANCEL
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_cancel, 0, 0, 0)
                         }
