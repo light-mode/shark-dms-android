@@ -101,6 +101,9 @@
     <string name="fragment_overview_format_total_revenue">%1$s VNĐ</string>
     <string name="fragment_overview_format_welcome">Xin chào, %1$s</string>
 
+    <string name="fragment_notifications_title">Thông báo</string>
+    <string name="fragment_notifications_text_view_no_notification_text">Bạn hiện không có thông báo nào</string>
+
     <string name="fragment_customers_title">Khách hàng</string>
     <string name="fragment_history_title">Lịch sử</string>
     <string name="fragment_report_title">Báo cáo</string>
@@ -146,6 +149,14 @@
 
     <string name="content_description" translatable="false">none</string>
     <string name="color_primary" translatable="false">#00549A</string>
+
+    <string name="sunday">Chủ nhật</string>
+    <string name="monday">Thứ hai</string>
+    <string name="tuesday">Thứ ba</string>
+    <string name="wednesday">Thứ tư</string>
+    <string name="thursday">Thứ năm</string>
+    <string name="friday">Thứ sáu</string>
+    <string name="saturday">Thứ bảy</string>
 
 <!--    <string name="google_maps_key">AIzaSyCmTWjTci6G_q8bkr3dph4dz10JG5SFk0U</string>-->
 </resources>

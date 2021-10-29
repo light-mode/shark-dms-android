@@ -8,7 +8,11 @@
         android:id="@+id/overviewFragment"
         android:name="vn.sharkdms.ui.overview.OverviewFragment"
         android:label="fragment_overview"
-        tools:layout="@layout/fragment_overview" />
+        tools:layout="@layout/fragment_overview">
+        <action
+            android:id="@+id/action_overviewFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="vn.sharkdms.ui.account.AccountFragment"
@@ -137,4 +141,9 @@
     <action
         android:id="@+id/action_global_logoutDialogFragment"
         app:destination="@id/logoutDialogFragment" />
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="vn.sharkdms.ui.notifications.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
 </navigation>

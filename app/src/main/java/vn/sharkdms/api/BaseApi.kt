@@ -7,6 +7,7 @@ import vn.sharkdms.ui.customer.create.CreateCustomerAccount
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.history.HistoryOrder
+import vn.sharkdms.ui.notifications.Notification
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.tasks.Task
 
@@ -52,6 +53,10 @@ interface BaseApi {
     @POST("edit-report")
     suspend fun editReport(@Header(AUTHORIZATION) authorization: String,
         @Body body: UpdateReportRequest): BaseResponse<Nothing>
+
+    @POST("notification")
+    suspend fun getNotifications(@Header(AUTHORIZATION) authorization: String,
+        @Body body: NotificationListRequest): BaseResponse<List<Notification>>
 
     /** Customer API
      *

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -41,6 +42,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         binding.iconMenu.setOnClickListener {
             (requireActivity() as SaleActivity).toggleNavigationDrawer(it)
         }
+        setNotificationsIconListener(binding)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.overviewEvent.collect { event ->
                 when (event) {
@@ -63,6 +65,13 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         }
         viewModel.users.observe(viewLifecycleOwner) {
             viewModel.getName(it)
+        }
+    }
+
+    private fun setNotificationsIconListener(binding: FragmentOverviewBinding) {
+        binding.iconNotification.setOnClickListener {
+            val action = OverviewFragmentDirections.actionOverviewFragmentToNotificationsFragment()
+            findNavController().navigate(action)
         }
     }
 
