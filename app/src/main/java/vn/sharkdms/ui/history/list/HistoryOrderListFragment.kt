@@ -1,12 +1,15 @@
-package vn.sharkdms.ui.history
+package vn.sharkdms.ui.history.list
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
@@ -17,9 +20,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import vn.sharkdms.R
+import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
 import vn.sharkdms.util.Constant
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list) {
 
@@ -39,22 +45,33 @@ class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list) 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         token = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
 
-        viewModel.historyOrderList.observe(viewLifecycleOwner, Observer<ArrayList<HistoryOrder>> {
-            if (it != null)
-                viewModel.setAdapterData(it)
-            else
-                Toast.makeText(requireContext(), "Error in fetching data", Toast.LENGTH_LONG).show()
-        })
-
         initRecyclerView(binding)
-        initViewModel(binding.etSearchOrder.text.toString(), binding.tvDatePicker.text.toString())
+        initViewModel(binding.etSearchOrder.text.toString(), "")
+
+        viewModel.historyOrderList.observe(viewLifecycleOwner) {
+            viewModel.setAdapterData(it)
+        }
+        historyOrderAdapter.addLoadStateListener { combinedLoadStates ->
+            binding.apply {
+                if (historyOrderAdapter.itemCount == 0) {
+                    ivNoOrder.visibility = View.VISIBLE
+                    tvNoOrder.visibility = View.VISIBLE
+                } else {
+                    ivNoOrder.visibility = View.GONE
+                    tvNoOrder.visibility = View.GONE
+                }
+            }
+        }
+
         setCustomerEditTextListener(binding, clearIcon)
-        setBackButtonOnClickListener(binding)
-        setTvDatePickerOnClickListener(binding)
+        setTvDatePickerListener(binding, clearIcon)
     }
 
     private fun initRecyclerView(binding: FragmentHistoryOrderListBinding) {
         binding.apply {
+            iconMenu.setOnClickListener {
+                (requireActivity() as SaleActivity).toggleNavigationDrawer(it)
+            }
             historyOrderAdapter = HistoryOrderAdapter()
             rvHistoryOrder.adapter = historyOrderAdapter
             rvHistoryOrder.layoutManager = LinearLayoutManager(activity)
@@ -67,6 +84,12 @@ class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list) 
                 historyOrderAdapter.submitData(it)
             }
         }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setTvDatePickerListener(binding: FragmentHistoryOrderListBinding, clearIcon: Drawable?) {
+        setTvDatePickerOnClickListener(binding, clearIcon)
+        setTvDatePickerOnTouchListener(binding, clearIcon)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -86,7 +109,13 @@ class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list) 
 
             override fun afterTextChanged(p0: Editable?) {
                 afterTextChanged(binding)
-                initViewModel(binding.etSearchOrder.text.toString(), binding.tvDatePicker.text.toString())
+                if(binding.tvDatePicker.text != "Chọn ngày") {
+                    val dateNum = binding.tvDatePicker.text.toString().split("/").toTypedArray()
+                    val date = dateNum.joinToString("-")
+                    initViewModel(binding.etSearchOrder.text.toString(), date)
+                }
+                else
+                    initViewModel(binding.etSearchOrder.text.toString(), "")
             }
         })
     }
@@ -136,15 +165,64 @@ class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list) 
             0)
     }
 
-    private fun setBackButtonOnClickListener(binding: FragmentHistoryOrderListBinding) {
-        binding.ivBack.setOnClickListener {
-            findNavController().navigateUp()
+    @SuppressLint("SetTextI18n")
+    private fun setTvDatePickerOnClickListener(binding: FragmentHistoryOrderListBinding, clearIcon: Drawable?) {
+        binding.apply {
+            tvDatePicker.setOnClickListener {
+                val calendar = Calendar.getInstance()
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val dpd = DatePickerDialog(requireActivity(), R.style.DatePickerDialogStyle,
+                    null, year, month, day)
+                dpd.datePicker.init(year, month, day,
+                    DatePicker.OnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
+                        tvDatePicker.text = dayOfMonth.toString() + "/" + (month + 1).toString() + "/" + year.toString()
+                        initViewModel(etSearchOrder.text.toString(),
+                            date = dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString())
+                        tvDatePickerDateChangeListener(binding, clearIcon)
+                        dpd.dismiss()
+                    })
+                dpd.show()
+            }
         }
     }
 
-    private fun setTvDatePickerOnClickListener(binding: FragmentHistoryOrderListBinding) {
-        binding.tvDatePicker.setOnClickListener {
+    private fun setTvDatePickerOnTouchListener(binding: FragmentHistoryOrderListBinding, clearIcon: Drawable?) {
+        binding.apply {
+            tvDatePicker.apply {
+                setOnTouchListener(object : View.OnTouchListener {
+                    @SuppressLint("ClickableViewAccessibility", "SetTextI18n")
+                    override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+                        if (view == null || event == null || clearIcon == null || event.action !=
+                            MotionEvent.ACTION_UP) return false
+                        val currentClearIcon = tvDatePicker.compoundDrawablesRelative[2]
+                        if (event.rawX < tvDatePicker.right - clearIcon.bounds.width() -
+                            tvDatePicker.paddingEnd * 2 || currentClearIcon == null) {
+                            return false
+                        }
+                        tvDatePicker.text = "Chọn ngày"
+                        val dateIcon = R.drawable.ic_date_picker
+                        val clearIc = if (tvDatePicker.text != "Chọn ngày") R.drawable.ic_clear else 0
+                        binding.tvDatePicker.setCompoundDrawablesRelativeWithIntrinsicBounds(dateIcon, 0, clearIc,
+                            0)
+                        initViewModel(etSearchOrder.text.toString(), "")
+                        return true
+                    }
+                })
+            }
+        }
+    }
 
+    private fun tvDatePickerDateChangeListener(binding: FragmentHistoryOrderListBinding, clearIcon: Drawable?) {
+        binding.apply {
+            val datePickerText = tvDatePicker.text.toString()
+            val currentUsernameIcon = tvDatePicker.compoundDrawablesRelative[0]
+            tvDatePicker.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                currentUsernameIcon, null,
+                if (datePickerText != "Chọn ngày") clearIcon
+                else null, null)
         }
     }
 }

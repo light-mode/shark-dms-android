@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import vn.sharkdms.R
+import vn.sharkdms.util.Constant
 
 class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerViewHolder>(
     DiffUtilCallBack()
@@ -31,9 +32,10 @@ class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerVi
         fun bind(data: Customer) {
             tvCustomerName.text = data.customerName
             tvCustomerPhoneNumber.text = data.customerPhone
-            tvCustomerRank.text = "Xếp loại: ".plus(data.rankName)
-            tvCustomerAddress.text = "Địa chỉ: ".plus(data.customerAddress)
-            tvCustomerCheckIn.text = "Ngày check-in: ".plus(data.checkInDate)
+            tvCustomerRank.text = Constant.CUSTOMER_DETAIL_RANK.plus(data.rankName)
+            tvCustomerAddress.text = Constant.CUSTOMER_DETAIL_ADDRESS
+                .plus(Constant.collapseDisplay(data.customerAddress, Constant.ADDRESS_LIMIT))
+            tvCustomerCheckIn.text = Constant.CUSTOMER_DETAIL_CHECK_IN.plus(data.checkInDate)
             Glide.with(ivAvatarListCustomer).load(data.customerAvatar).circleCrop()
                 .into(ivAvatarListCustomer)
         }
@@ -61,6 +63,7 @@ class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerVi
     }
 
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
+        if (!customers.contains(getItem(position))) customers.add(getItem(position)!!)
         holder.bind(getItem(position)!!)
         holder.itemView.setOnClickListener {
             val action = CustomerListFragmentDirections.actionCustomerListFragmentToCustomerInfoFragment(getItem(position)!!)
@@ -68,7 +71,7 @@ class CustomerAdapter() : PagingDataAdapter<Customer, CustomerAdapter.CustomerVi
         }
     }
 
-    fun setDataList(data: ArrayList<Customer>) {
-        customers = data
+    fun getDataList(): ArrayList<Customer> {
+        return customers
     }
 }

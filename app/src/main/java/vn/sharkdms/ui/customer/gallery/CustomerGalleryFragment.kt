@@ -210,7 +210,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
         val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
         initImages.removeLast()
         initImages.add(bitmap)
-        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_customer))
+        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter
@@ -222,7 +222,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
     override fun getImageBitmap(imageBitmap: Bitmap?) {
         initImages.removeLast()
         initImages.add(imageBitmap!!)
-        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_customer))
+        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter
@@ -239,7 +239,8 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
         when (code) {
             HttpStatus.OK -> {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-                findNavController().navigateUp()
+                val dialog = SuccessDialogFragment()
+                dialog.show(requireFragmentManager(), TAG)
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
                 message, Toast.LENGTH_SHORT).show()

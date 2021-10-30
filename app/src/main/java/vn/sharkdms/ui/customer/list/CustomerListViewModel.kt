@@ -1,12 +1,7 @@
 package vn.sharkdms.ui.customer.list
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.lifecycle.*
+import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -21,11 +16,10 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
         const val TAG = "CustomerListViewModel"
     }
 
-    lateinit var  retroService: BaseApi
-    lateinit var customerAdapter: CustomerAdapter
-    val customerList: MutableLiveData<ArrayList<Customer>> by lazy {
-        MutableLiveData<ArrayList<Customer>>()
-    }
+    var retroService: BaseApi
+    var customerAdapter: CustomerAdapter
+    private var token = ""
+    private val customerList = MutableLiveData("")
 
     init {
         customerAdapter = CustomerAdapter()
@@ -35,13 +29,17 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
     private val customerListEventChannel = Channel<CustomerListEvent>()
     val customerListEvent = customerListEventChannel.receiveAsFlow()
 
-    fun getListData(token: String, customerName: String): Flow<PagingData<Customer>> {
-        return Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { CustomerPagingSource(baseApi, token, customerName) }).flow.cachedIn(viewModelScope)
+    val customers = customerList.switchMap { customerName ->
+        getListData(token, customerName).cachedIn(viewModelScope)
     }
 
-    fun setAdapterData(data: ArrayList<Customer>) {
-        customerAdapter.setDataList(data)
+    fun getListData(token: String, customerName: String) =
+        Pager(config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = { CustomerPagingSource(baseApi, token, customerName) }).liveData
+
+    fun searchCustomer(token: String, customerName: String) {
+        this.token = token
+        this.customerList.value = customerName
     }
 
     sealed class CustomerListEvent {

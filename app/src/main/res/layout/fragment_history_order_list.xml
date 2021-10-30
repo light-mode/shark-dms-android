@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e5e5e5"
-    tools:context=".ui.history.HistoryOrderListFragment">
+    tools:context=".ui.history.list.HistoryOrderListFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_header"
@@ -22,12 +22,15 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_back"
+                android:id="@+id/icon_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/content_description"
-                app:srcCompat="@drawable/ic_back" />
+                android:onClick="toggleNavigationDrawer"
+                android:src="@drawable/ic_menu"
+                app:tint="@color/white"
+                tools:ignore="UsingOnClickInXml" />
 
             <TextView
                 android:id="@+id/tv_header_customer"
@@ -44,15 +47,18 @@
     <EditText
         android:id="@+id/et_search_order"
         style="@style/search_edit_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="45dp"
+        app:layout_goneMarginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:drawableStart="@drawable/ic_customer_name"
         android:hint="@string/fragment_history_search_bar_hint"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:textSize="15sp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_date_picker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
         tools:ignore="LabelFor" />
@@ -62,18 +68,17 @@
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_search_edit_text"
+        android:drawablePadding="6dp"
+        android:gravity="center"
         android:paddingStart="9dp"
         android:paddingEnd="9dp"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/bg_search_edit_text"
         android:text="@string/fragment_history_date_picker_sample"
         android:textColor="#363853"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/et_search_order"
-        app:layout_constraintTop_toTopOf="@+id/et_search_order"
+        android:textSize="14sp"
         app:drawableStartCompat="@drawable/ic_date_picker"
-        android:drawablePadding="6dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_search_order" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_history_order"
@@ -83,7 +88,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tv_date_picker"
         app:layout_constraintStart_toStartOf="@+id/et_search_order"
-        app:layout_constraintTop_toBottomOf="@+id/et_search_order" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search_order"
+        tools:listitem="@layout/item_order"/>
 
     <ImageView
         android:id="@+id/iv_no_order"
@@ -92,6 +98,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
         android:adjustViewBounds="true"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:src="@drawable/raw_no_history_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,6 +113,8 @@
         android:text="@string/fragment_history_no_order_text"
         android:layout_marginTop="36dp"
         android:textColor="#6E6E70"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_no_order" />

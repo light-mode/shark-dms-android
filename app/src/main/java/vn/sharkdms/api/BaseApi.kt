@@ -8,6 +8,8 @@ import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.history.HistoryOrder
 import vn.sharkdms.ui.notifications.Notification
+import vn.sharkdms.ui.history.info.OrderDetail
+import vn.sharkdms.ui.history.list.HistoryOrder
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.tasks.Task
 
@@ -107,4 +109,9 @@ interface BaseApi {
     suspend fun getHistoryOrder(
         @Header(AUTHORIZATION) token: String,
         @Body body: HistoryOrderListRequest): BaseResponse<List<HistoryOrder>>
+
+    @POST("list-history-order-detail")
+    suspend fun getOrderInfo(
+        @Header(AUTHORIZATION) token: String,
+        @Body orderDetailRequest: OrderDetailRequest): BaseResponse<OrderDetail>
 }

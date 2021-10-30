@@ -1,5 +1,9 @@
-package vn.sharkdms.ui.history
+package vn.sharkdms.ui.history.list
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class HistoryOrder(
     val stt: Int,
     val orderId: Int,
@@ -10,4 +14,4 @@ data class HistoryOrder(
     val orderTotalAmount: Double,
     val orderStatus: String,
     val orderDate: String
-)
+) : Parcelable

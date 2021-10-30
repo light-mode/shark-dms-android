@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
@@ -23,6 +24,9 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentCustomerListBinding
 
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.paging.LoadState
+import androidx.paging.PagingData
+import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.util.Constant
 
@@ -34,6 +38,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     private lateinit var customerAdapter: CustomerAdapter
     private lateinit var sharedViewModel : SharedViewModel
     private lateinit var token: String
+    private var customers = ArrayList<Customer>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,37 +50,43 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         token = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
 
-        viewModel.customerList.observe(viewLifecycleOwner, Observer<ArrayList<Customer>> {
-            if (it != null) {
-                viewModel.setAdapterData(it)
-            } else {
-                Toast.makeText(requireContext(), "Error in fetching data", Toast.LENGTH_LONG).show()
-            }
-        })
-
         initRecyclerView(binding)
         initViewModel(binding.editTextCustomer.text.toString())
 
+        viewModel.customers.observe(viewLifecycleOwner) {
+            customerAdapter.submitData(viewLifecycleOwner.lifecycle, it)
+        }
+        customerAdapter.addLoadStateListener { combinedLoadStates ->
+            binding.apply {
+                if (customerAdapter.itemCount == 0) {
+                    ivNoCustomer.visibility = View.VISIBLE
+                    tvNoCustomer.visibility = View.VISIBLE
+                } else {
+                    ivNoCustomer.visibility = View.GONE
+                    tvNoCustomer.visibility = View.GONE
+                }
+            }
+        }
+        customers = customerAdapter.getDataList()
+
         setCustomerEditTextListener(binding, clearIcon)
-        setBackButtonOnClickListener(binding)
         setAddCustomerButtonOnClickListener(binding)
         setBtnGpsOnClickListener(binding)
     }
 
     private fun initRecyclerView(binding: FragmentCustomerListBinding) {
         binding.apply {
+            iconMenu.setOnClickListener {
+                (requireActivity() as SaleActivity).toggleNavigationDrawer(it)
+            }
             customerAdapter = CustomerAdapter()
             rvCustomer.adapter = customerAdapter
-            rvCustomer.layoutManager = LinearLayoutManager(activity)
+            rvCustomer.layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun initViewModel(customerName: String) {
-        lifecycleScope.launchWhenCreated {
-            viewModel.getListData(token, customerName).collectLatest {
-                customerAdapter.submitData(it)
-            }
-        }
+        viewModel.searchCustomer(token, customerName)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -86,18 +97,20 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
     }
 
     private fun setCustomerEditTextTextChangedListener(binding: FragmentCustomerListBinding) {
-        binding.editTextCustomer.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
-            }
+        binding.apply {
+            editTextCustomer.addTextChangedListener(object: TextWatcher {
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
+                }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
-            }
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
+                }
 
-            override fun afterTextChanged(p0: Editable?) {
-                afterTextChanged(binding)
-                initViewModel(binding.editTextCustomer.text.toString())
-            }
-        })
+                override fun afterTextChanged(p0: Editable?) {
+                    afterTextChanged(binding)
+                    initViewModel(binding.editTextCustomer.text.toString())
+                }
+            })
+        }
     }
 
     private fun setCustomerEditTextOnTouchListener(binding: FragmentCustomerListBinding, clearIcon: Drawable?) {
@@ -145,12 +158,6 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
             0)
     }
 
-    private fun setBackButtonOnClickListener(binding: FragmentCustomerListBinding) {
-        binding.ivBack.setOnClickListener {
-            findNavController().navigateUp()
-        }
-    }
-
     private fun setAddCustomerButtonOnClickListener(binding: FragmentCustomerListBinding) {
         binding.ivAddCustomer.setOnClickListener {
             val action = CustomerListFragmentDirections.actionCustomerListFragmentToCreateCustomerFragment()
@@ -160,7 +167,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
 
     private fun setBtnGpsOnClickListener(binding: FragmentCustomerListBinding) {
         binding.fabGps.setOnClickListener {
-            val action = CustomerListFragmentDirections.actionCustomerListFragmentToMapsFragment()
+            val action = CustomerListFragmentDirections.actionCustomerListFragmentToMapsFragment(customers.toTypedArray())
             findNavController().navigate(action)
         }
     }
