@@ -6,7 +6,6 @@ import retrofit2.http.*
 import vn.sharkdms.ui.customer.create.CreateCustomerAccount
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
-import vn.sharkdms.ui.history.HistoryOrder
 import vn.sharkdms.ui.notifications.Notification
 import vn.sharkdms.ui.history.info.OrderDetail
 import vn.sharkdms.ui.history.list.HistoryOrder
