@@ -103,6 +103,7 @@
 
     <string name="fragment_notifications_title">Thông báo</string>
     <string name="fragment_notifications_text_view_no_notification_text">Bạn hiện không có thông báo nào</string>
+    <string name="fragment_notification_details_title">Chi tiết thông báo</string>
 
     <string name="fragment_customers_title">Khách hàng</string>
     <string name="fragment_history_title">Lịch sử</string>

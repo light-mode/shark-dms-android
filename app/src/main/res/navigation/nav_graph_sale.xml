@@ -145,5 +145,18 @@
         android:id="@+id/notificationsFragment"
         android:name="vn.sharkdms.ui.notifications.NotificationsFragment"
         android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications">
+        <action
+            android:id="@+id/action_notificationsFragment_to_notificationDetailsFragment"
+            app:destination="@id/notificationDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationDetailsFragment"
+        android:name="vn.sharkdms.ui.notificationdetails.NotificationDetailsFragment"
+        android:label="fragment_notification_details"
+        tools:layout="@layout/fragment_notification_details" >
+        <argument
+            android:name="notification"
+            app:argType="vn.sharkdms.ui.notifications.Notification" />
+    </fragment>
 </navigation>

@@ -50,5 +50,9 @@ class NotificationsFragment : Fragment(
     }
 
     override fun onItemClick(notification: Notification) {
+        val action = NotificationsFragmentDirections
+            .actionNotificationsFragmentToNotificationDetailsFragment(
+            notification)
+        findNavController().navigate(action)
     }
 }
