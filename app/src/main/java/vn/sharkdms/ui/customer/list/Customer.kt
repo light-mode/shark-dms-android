@@ -13,7 +13,7 @@ data class Customer (
     var customerAddress: String,
     var customerPosition: String,
     var customerPhone: String,
-    var customerEmail: String,
+    val customerEmail: String?,
     var status: String,
     var rankName: String,
     var checkInDate: String

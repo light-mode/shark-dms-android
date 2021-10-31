@@ -157,6 +157,13 @@
     <string name="fragment_order_product_item_total">Tổng tiền:</string>
     <string name="fragment_order_product_item_total_sample">4.000.000 VNĐ</string>
 
+    <string name="fragment_products_title">Danh sách sản phẩm</string>
+    <string name="fragment_products_edit_text_name_hint">Tìm kiếm theo tên sản phẩm</string>
+
+    <string name="item_product_text_view_quantity_out_of_stock_text">Hết hàng</string>
+    <string name="item_product_text_view_price_format">%1$s đ</string>
+    <string name="item_product_button_select_text">Chọn sản phẩm</string>
+
     <string name="fragment_logout_dialog_title">Thông báo</string>
     <string name="fragment_logout_dialog_text_view_confirm_text">Bạn có chắc chắn muốn đăng xuất khỏi ứng dụng?</string>
     <string name="fragment_logout_dialog_button_no_text">Không</string>

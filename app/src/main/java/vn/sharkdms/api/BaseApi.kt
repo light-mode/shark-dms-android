@@ -10,6 +10,7 @@ import vn.sharkdms.ui.notifications.Notification
 import vn.sharkdms.ui.history.info.OrderDetail
 import vn.sharkdms.ui.history.list.HistoryOrder
 import vn.sharkdms.ui.overview.Amount
+import vn.sharkdms.ui.products.Product
 import vn.sharkdms.ui.tasks.Task
 
 interface BaseApi {
@@ -58,6 +59,10 @@ interface BaseApi {
     @POST("notification")
     suspend fun getNotifications(@Header(AUTHORIZATION) authorization: String,
         @Body body: NotificationListRequest): BaseResponse<List<Notification>>
+
+    @POST("list-product-npp")
+    suspend fun getProductsSale(@Header(AUTHORIZATION) authorization: String,
+        @Body body: ProductListRequest): BaseResponse<List<Product>>
 
     /** Customer API
      *

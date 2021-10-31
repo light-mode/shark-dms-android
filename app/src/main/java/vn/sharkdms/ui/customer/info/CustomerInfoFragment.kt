@@ -109,6 +109,9 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     private fun setBtnOrderOnClickListener(binding: FragmentCustomerInfoBinding) {
         binding.btnCustomerInfoOrder.setOnClickListener {
 
+            val action = CustomerInfoFragmentDirections.
+            actionCustomerInfoFragmentToProductsFragment2()
+            findNavController().navigate(action)
         }
     }
 
@@ -129,8 +132,9 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
             tvCustomerInfoRankDetail.text = args.customer.rankName
             tvCustomerInfoAddressDetail.text =
                 Constant.collapseDisplay(args.customer.customerAddress, Constant.ADDRESS_LIMIT)
-            tvCustomerInfoEmailDetail.text =
-                Constant.collapseDisplay(args.customer.customerEmail, Constant.ADDRESS_LIMIT)
+            tvCustomerInfoEmailDetail.text = args.customer.customerEmail?.let { email ->
+                Constant.collapseDisplay(email, Constant.ADDRESS_LIMIT)
+            }
         }
     }
 

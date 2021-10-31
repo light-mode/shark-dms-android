@@ -109,6 +109,9 @@
         <action
             android:id="@+id/action_customerInfoFragment_to_customerGalleryFragment"
             app:destination="@id/customerGalleryFragment" />
+        <action
+            android:id="@+id/action_customerInfoFragment_to_productsFragment2"
+            app:destination="@id/productsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/customerLocationMapFragment"
@@ -144,7 +147,6 @@
             android:name="order"
             app:argType="vn.sharkdms.ui.history.list.HistoryOrder" />
     </fragment>
-        tools:layout="@layout/fragment_history_order_list" />
     <fragment
         android:id="@+id/policyFragment"
         android:name="vn.sharkdms.ui.policy.PolicyFragment"
@@ -176,4 +178,9 @@
             android:name="notification"
             app:argType="vn.sharkdms.ui.notifications.Notification" />
     </fragment>
+    <fragment
+        android:id="@+id/productsFragment2"
+        android:name="vn.sharkdms.ui.products.ProductsFragment"
+        android:label="fragment_products"
+        tools:layout="@layout/fragment_products" />
 </navigation>
