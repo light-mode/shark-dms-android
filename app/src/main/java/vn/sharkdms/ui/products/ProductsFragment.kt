@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
@@ -16,6 +17,7 @@ import vn.sharkdms.databinding.FragmentProductsBinding
 @AndroidEntryPoint
 class ProductsFragment : Fragment(R.layout.fragment_products), ProductAdapter.OnItemClickListener {
 
+    private val args by navArgs<ProductsFragmentArgs>()
     private val viewModel by viewModels<ProductsViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
 
@@ -59,5 +61,8 @@ class ProductsFragment : Fragment(R.layout.fragment_products), ProductAdapter.On
     }
 
     override fun onItemClick(product: Product) {
+        val action = ProductsFragmentDirections.actionProductsFragment2ToAddToCartFragment(product,
+            args.customer)
+        findNavController().navigate(action)
     }
 }

@@ -3,6 +3,7 @@ package vn.sharkdms.api
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
+import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.customer.create.CreateCustomerAccount
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
@@ -63,6 +64,22 @@ interface BaseApi {
     @POST("list-product-npp")
     suspend fun getProductsSale(@Header(AUTHORIZATION) authorization: String,
         @Body body: ProductListRequest): BaseResponse<List<Product>>
+
+    @POST("add-to-cart")
+    suspend fun addToCart(@Header(AUTHORIZATION) authorization: String,
+        @Body body: AddToCartRequest): BaseResponse<Cart>
+
+    @POST("delete-item-cart")
+    suspend fun removeFromCart(@Header(AUTHORIZATION) authorization: String,
+        @Body body: RemoveFromCartRequest): BaseResponse<Cart?>
+
+    @POST("delete-cart")
+    suspend fun deleteCart(@Header(AUTHORIZATION) authorization: String,
+        @Body body: DeleteCartRequest): BaseResponse<Nothing>
+
+    @POST("create-order")
+    suspend fun createOrder(@Header(AUTHORIZATION) authorization: String,
+        @Body body: CreateOrderRequest): BaseResponse<CreateOrderResponse>
 
     /** Customer API
      *

@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.cart.add.AddToCartFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/fragment_add_to_cart_title"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background">
+
+            <ImageView
+                android:id="@+id/image_view_product"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                android:background="@color/white"
+                android:contentDescription="@string/content_description"
+                android:src="@drawable/ic_product" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/image_view_product"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_cart"
+                android:paddingStart="20dp"
+                android:paddingTop="24dp"
+                android:paddingEnd="20dp">
+
+                <TextView
+                    android:id="@+id/text_view_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_light"
+                    android:text="@string/fragment_add_to_cart_text_view_name_title_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_name" />
+
+                <TextView
+                    android:id="@+id/text_view_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/text_view_name_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RelativeOverlap"
+                    tools:text="Tủ áo 5 ngăn" />
+
+                <TextView
+                    android:id="@+id/text_view_available_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_light"
+                    android:text="@string/fragment_add_to_cart_text_view_available_title_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_name" />
+
+                <TextView
+                    android:id="@+id/text_view_available"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/text_view_available_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_available_title"
+                    tools:text="1000" />
+
+                <TextView
+                    android:id="@+id/text_view_quantity_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:fontFamily="@font/inter_light"
+                    android:gravity="center_vertical"
+                    android:text="@string/fragment_add_to_cart_text_view_quantity_title_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="@id/linear_layout_quantity"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/linear_layout_quantity" />
+
+                <LinearLayout
+                    android:id="@+id/linear_layout_quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="end"
+                    app:layout_constraintLeft_toRightOf="@id/text_view_quantity_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_available_title">
+
+                    <ImageButton
+                        android:id="@+id/button_minus"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@color/white"
+                        android:contentDescription="@string/content_description"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_minus"
+                        app:tint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/text_view_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        tools:text="3" />
+
+                    <ImageButton
+                        android:id="@+id/button_plus"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="@color/white"
+                        android:contentDescription="@string/content_description"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_plus"
+                        app:tint="@color/black" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/text_view_price_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_light"
+                    android:gravity="center_vertical"
+                    android:text="@string/fragment_add_to_cart_text_view_price_title_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_quantity_title" />
+
+                <TextView
+                    android:id="@+id/text_view_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/text_view_price_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_price_title"
+                    tools:text="6.580.000 đ" />
+
+                <TextView
+                    android:id="@+id/text_view_total_price_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter_light"
+                    android:gravity="center_vertical"
+                    android:text="@string/fragment_add_to_cart_text_view_total_price_title_text"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_price_title" />
+
+                <TextView
+                    android:id="@+id/text_view_total_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textColor="@color/primary"
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/text_view_total_price_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_view_total_price_title"
+                    tools:text="19.740.000 đ" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/button_disable"
+                    android:enabled="false"
+                    android:fontFamily="@font/inter_semi_bold"
+                    android:text="@string/fragment_add_to_cart_button_add_text"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_view_total_price" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    style="@style/progress_bar"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    app:layout_constraintBottom_toBottomOf="@id/button_add"
+                    app:layout_constraintLeft_toLeftOf="@id/button_add"
+                    app:layout_constraintRight_toRightOf="@id/button_add"
+                    app:layout_constraintTop_toTopOf="@id/button_add"
+                    tools:visibility="visible" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

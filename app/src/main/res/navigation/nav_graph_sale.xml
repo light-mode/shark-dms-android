@@ -182,5 +182,58 @@
         android:id="@+id/productsFragment2"
         android:name="vn.sharkdms.ui.products.ProductsFragment"
         android:label="fragment_products"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_productsFragment2_to_addToCartFragment"
+            app:destination="@id/addToCartFragment" />
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer" />
+    </fragment>
+    <fragment
+        android:id="@+id/addToCartFragment"
+        android:name="vn.sharkdms.ui.cart.add.AddToCartFragment"
+        android:label="fragment_add_to_cart"
+        tools:layout="@layout/fragment_add_to_cart" >
+        <argument
+            android:name="product"
+            app:argType="vn.sharkdms.ui.products.Product" />
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer" />
+        <action
+            android:id="@+id/action_addToCartFragment_to_cartDetailsFragment"
+            app:destination="@id/cartDetailsFragment"
+            app:popUpTo="@id/productsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartDetailsFragment"
+        android:name="vn.sharkdms.ui.cart.details.CartDetailsFragment"
+        android:label="fragment_cart_details"
+        tools:layout="@layout/fragment_cart_details" >
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer" />
+        <argument
+            android:name="cart"
+            app:argType="vn.sharkdms.ui.cart.Cart" />
+        <action
+            android:id="@+id/action_cartDetailsFragment_to_orderResultFragment"
+            app:destination="@id/orderResultFragment"
+            app:popUpTo="@id/overviewFragment" />
+        <action
+            android:id="@+id/action_cartDetailsFragment_to_customerInfoFragment"
+            app:destination="@id/customerInfoFragment"
+            app:popUpTo="@id/customerInfoFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/orderResultFragment"
+        android:name="vn.sharkdms.ui.cart.result.OrderResultFragment"
+        android:label="fragment_order_result"
+        tools:layout="@layout/fragment_order_result" >
+        <argument
+            android:name="data"
+            app:argType="vn.sharkdms.api.CreateOrderResponse" />
+    </fragment>
 </navigation>
