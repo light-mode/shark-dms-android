@@ -13,12 +13,13 @@
         tools:context=".ui.customer.map.MapsFragment"
         map:uiZoomControls="true"
         map:uiRotateGestures="true" />
+
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/black"
         android:contentDescription="@string/content_description"
         app:srcCompat="@drawable/ic_back_map" />
