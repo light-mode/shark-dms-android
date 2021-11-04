@@ -145,7 +145,7 @@
         android:label="OrderInfoFragment" >
         <argument
             android:name="order"
-            app:argType="vn.sharkdms.ui.history.list.HistoryOrder" />
+            app:argType="vn.sharkdms.ui.base.history.list.HistoryOrder" />
     </fragment>
     <fragment
         android:id="@+id/policyFragment"

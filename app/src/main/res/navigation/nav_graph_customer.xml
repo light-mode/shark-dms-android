@@ -3,10 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_customer"
-    app:startDestination="@id/productsFragment">
+    app:startDestination="@id/customerHistoryOrderListFragment">
     <fragment
         android:id="@+id/productsFragment"
         android:name="vn.sharkdms.ui.products.ProductsFragment"
         android:label="fragment_products"
         tools:layout="@layout/fragment_products" />
+    <fragment
+        android:id="@+id/customerAccountFragment"
+        android:name="vn.sharkdms.ui.accountcustomer.CustomerAccountFragment"
+        android:label="CustomerAccountFragment" >
+        <action
+            android:id="@+id/action_customerAccountFragment_to_changePasswordFragment2"
+            app:destination="@id/changePasswordFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment2"
+        android:name="vn.sharkdms.ui.changepasswordcustomer.CustomerChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment2_to_forgotPasswordFragment3"
+            app:destination="@id/forgotPasswordFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment3"
+        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/customerHistoryOrderListFragment"
+        android:name="vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment"
+        android:label="CustomerHistoryOrderListFragment" >
+        <action
+            android:id="@+id/action_customerHistoryOrderListFragment_to_baseOrderDetailFragment"
+            app:destination="@id/baseOrderDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/baseOrderDetailFragment"
+        android:name="vn.sharkdms.ui.historycustomer.info.CustomerOrderDetailFragment"
+        android:label="fragment_order_detail"
+        tools:layout="@layout/fragment_order_detail" >
+        <argument
+            android:name="order"
+            app:argType="vn.sharkdms.ui.base.history.list.HistoryOrder" />
+    </fragment>
 </navigation>
