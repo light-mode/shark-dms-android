@@ -27,8 +27,9 @@ class Constant {
         const val ORDER_STATUS_CANCEL = "Hủy"
         const val ORDER_PRODUCT_AMOUNT = " sản phẩm"
 
-        fun collapseDisplay(text: String, limit: Int): String {
-            if (text.length <= limit) return text
+        fun collapseDisplay(text: String?, limit: Int): String {
+            if (text == null) return ""
+            else if (text.length <= limit) return text
             else {
                 return text.substring(0, limit).plus("...")
             }
