@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.changepassword
+package vn.sharkdms.ui.base.changepassword
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +27,8 @@ class ChangePasswordViewModel @Inject constructor(private val baseApi: BaseApi,
             try {
                 val response = baseApi.changePassword(authorization, body)
                 changePasswordEventChannel.send(
-                    ChangePasswordEvent.OnResponse(response.code.toInt(), response.message))
+                    ChangePasswordEvent.OnResponse(response.code.toInt(), response.message)
+                )
             } catch (ste: SocketTimeoutException) {
                 changePasswordEventChannel.send(ChangePasswordEvent.OnFailure)
             }

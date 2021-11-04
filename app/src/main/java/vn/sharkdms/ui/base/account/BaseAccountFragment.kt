@@ -2,6 +2,7 @@ package vn.sharkdms.ui.base.account
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,11 +24,6 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
         binding.apply {
             iconBack.setOnClickListener {
                 findNavController().navigateUp()
-            }
-            cardViewChangePassword.setOnClickListener {
-                val action = AccountFragmentDirections
-                    .actionAccountFragmentToChangePasswordFragment()
-                findNavController().navigate(action)
             }
             cardViewDiscount.setOnClickListener {
                 val dialog = DiscountDialogFragment().newInstance(userId)

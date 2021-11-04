@@ -18,4 +18,14 @@ import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 
 @AndroidEntryPoint
 class AccountFragment : BaseAccountFragment() {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentAccountBinding.bind(view)
+        binding.cardViewChangePassword.setOnClickListener {
+            val action = AccountFragmentDirections
+                .actionAccountFragmentToChangePasswordFragment()
+            findNavController().navigate(action)
+        }
+    }
 }
