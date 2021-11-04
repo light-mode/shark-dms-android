@@ -113,8 +113,10 @@ class DiscountDialogFragment : DialogFragment() {
                         tv_customer_discount_none_message.visibility = View.VISIBLE
                     }
                 }
-                HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
-                    message, Toast.LENGTH_SHORT).show()
+                HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
+                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    tv_customer_discount_none_message.visibility = View.VISIBLE
+                }
                 else -> Log.e(TAG, code.toString())
             }
         }
