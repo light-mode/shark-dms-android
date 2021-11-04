@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.history.info
+package vn.sharkdms.ui.base.history.info
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

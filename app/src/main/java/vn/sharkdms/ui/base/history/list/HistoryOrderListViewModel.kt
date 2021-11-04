@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.history.list
+package vn.sharkdms.ui.base.history.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,7 +16,7 @@ import vn.sharkdms.di.AppModule
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryOrderListViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
+class HistoryOrderListViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel(), HistoryOrderAdapter.OnItemClickListener {
     companion object {
         const val TAG = "HistoryOrderViewModel"
     }
@@ -28,7 +28,7 @@ class HistoryOrderListViewModel @Inject constructor(private val baseApi: BaseApi
     }
 
     init {
-        historyOrderAdapter = HistoryOrderAdapter()
+        historyOrderAdapter = HistoryOrderAdapter(this)
         retroService = AppModule.provideRetrofit().create(BaseApi::class.java)
     }
 
@@ -46,5 +46,8 @@ class HistoryOrderListViewModel @Inject constructor(private val baseApi: BaseApi
 
     sealed class HistoryOrderListEvent {
         data class OnResponse(val code: Int, val message: String, val data: List<HistoryOrder>, val totalPage: Int): HistoryOrderListEvent()
+    }
+
+    override fun onItemClick(historyOrder: HistoryOrder) {
     }
 }

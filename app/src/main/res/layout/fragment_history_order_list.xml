@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e5e5e5"
-    tools:context=".ui.history.list.HistoryOrderListFragment">
+    tools:context=".ui.base.history.list.BaseHistoryOrderListFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_header"
