@@ -110,7 +110,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         binding.btnCustomerInfoOrder.setOnClickListener {
 
             val action = CustomerInfoFragmentDirections.
-            actionCustomerInfoFragmentToProductsFragment2()
+            actionCustomerInfoFragmentToProductsFragment2(args.customer)
             findNavController().navigate(action)
         }
     }

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.cart.result.OrderResultFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/fragment_order_result_title"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:background="@color/background">
+
+        <TextView
+            android:id="@+id/text_view_order_code_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/fragment_order_result_text_view_order_code_title_text"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_order_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_semi_bold"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@id/text_view_order_code_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_view_order_code_title"
+            tools:text="DH-63115-2021-09-30" />
+
+        <TextView
+            android:id="@+id/text_view_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/inter_semi_bold"
+            android:text="@string/fragment_cart_details_text_view_info_text"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_order_code_title" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toTopOf="@id/constraint_layout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_info"
+            tools:listitem="@layout/item_cart_item" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_cart"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <TextView
+                android:id="@+id/text_view_customer_name_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/fragment_order_result_text_view_customer_name_title_text"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_customer_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_semi_bold"
+                android:maxLines="1"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toRightOf="@id/text_view_customer_name_title"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Đinh Thị Tươi" />
+
+            <TextView
+                android:id="@+id/text_view_order_discount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/fragment_order_result_text_view_order_discount_title_text"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_customer_name" />
+
+            <TextView
+                android:id="@+id/text_view_discount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_semi_bold"
+                android:maxLines="1"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_order_discount_title"
+                app:layout_constraintLeft_toRightOf="@id/text_view_order_discount_title"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:text="3.186.000 đ" />
+
+            <TextView
+                android:id="@+id/text_view_total_amount_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/fragment_order_result_text_view_order_amount_title_text"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_discount" />
+
+            <TextView
+                android:id="@+id/text_view_total_amount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_semi_bold"
+                android:maxLines="1"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_total_amount_title"
+                app:layout_constraintLeft_toRightOf="@id/text_view_total_amount_title"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:text="18.054.000 đ" />
+
+            <TextView
+                android:id="@+id/text_view_note_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/fragment_order_result_text_view_order_note_title_text"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_total_amount_title" />
+
+            <TextView
+                android:id="@+id/text_view_note"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_semi_bold"
+                android:maxLines="1"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_note_title"
+                app:layout_constraintLeft_toRightOf="@id/text_view_note_title"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_order_timestamp_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/fragment_order_result_text_view_order_timestamp_title_text"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_note_title" />
+
+            <TextView
+                android:id="@+id/text_view_order_timestamp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_semi_bold"
+                android:maxLines="1"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_order_timestamp_title"
+                app:layout_constraintLeft_toRightOf="@id/text_view_order_timestamp_title"
+                app:layout_constraintRight_toRightOf="parent"
+                tools:text="30-09-2021" />
+
+            <TextView
+                android:id="@+id/text_view_order_status_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/fragment_order_result_text_view_order_status_title_text"
+                android:textColor="@color/black"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_view_order_timestamp_title" />
+
+            <TextView
+                android:id="@+id/text_view_order_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_semi_bold"
+                android:maxLines="1"
+                android:text="@string/fragment_order_result_text_view_order_status_text"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/text_view_order_status_title"
+                app:layout_constraintLeft_toRightOf="@id/text_view_order_status_title"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_back"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_primary"
+                android:fontFamily="@font/inter_semi_bold"
+                android:text="@string/fragment_order_result_button_back_text"
+                android:textColor="@color/white"
+                app:layout_constraintLeft_toRightOf="@id/guideline_1"
+                app:layout_constraintRight_toLeftOf="@id/guideline_2"
+                app:layout_constraintTop_toBottomOf="@id/text_view_order_status_title" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.8" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

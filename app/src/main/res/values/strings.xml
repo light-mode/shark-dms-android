@@ -166,6 +166,46 @@
     <string name="item_product_text_view_price_format">%1$s đ</string>
     <string name="item_product_button_select_text">Chọn sản phẩm</string>
 
+    <string name="fragment_add_to_cart_title">Chọn sản phẩm</string>
+    <string name="fragment_add_to_cart_text_view_name_title_text">Tên sản phẩm:</string>
+    <string name="fragment_add_to_cart_text_view_available_title_text">Tồn kho:</string>
+    <string name="fragment_add_to_cart_text_view_quantity_title_text">Số lượng:</string>
+    <string name="fragment_add_to_cart_text_view_price_title_text">Giá tiền:</string>
+    <string name="fragment_add_to_cart_text_view_total_price_title_text">Thành tiền:</string>
+    <string name="fragment_add_to_cart_button_add_text">Thêm vào giỏ hàng</string>
+    <string name="fragment_add_to_cart_currency_format">%1$s đ</string>
+
+    <string name="fragment_cart_details_title">Giỏ hàng</string>
+    <string name="fragment_cart_details_text_view_info_text">Thông tin đơn hàng:</string>
+    <string name="fragment_cart_details_text_view_no_cart_item_text">Hãy thêm sản phẩm vào giỏ hàng!</string>
+    <string name="fragment_cart_details_text_view_discount_text">Chiết khấu:</string>
+    <string name="fragment_cart_details_edit_text_discount_hint">Nhập tổng chiết khấu</string>
+    <string name="fragment_cart_details_text_view_discount_default_text">CK theo đơn:</string>
+    <string name="fragment_cart_details_text_view_total_amount_text">Tổng tiền:</string>
+    <string name="fragment_cart_details_text_view_note_text">Ghi chú:</string>
+    <string name="fragment_cart_details_button_cancel_text">Hủy đơn</string>
+    <string name="fragment_cart_details_button_continue_text">Mua tiếp</string>
+    <string name="fragment_cart_details_button_create_text">Tạo đơn</string>
+    <string name="fragment_cart_details_dialog_remove_product_title">Xóa sản phẩm</string>
+    <string name="fragment_cart_details_dialog_remove_product_message">Bạn có muốn xóa sản phẩm này không?</string>
+    <string name="fragment_cart_details_currency_format">%1$s đ</string>
+
+    <string name="fragment_order_result_title">Đặt hàng thành công</string>
+    <string name="fragment_order_result_text_view_order_code_title_text">Mã đơn hàng:</string>
+    <string name="fragment_order_result_text_view_order_info_text">Thông tin đơn hàng:</string>
+    <string name="fragment_order_result_text_view_customer_name_title_text">Khách hàng:</string>
+    <string name="fragment_order_result_text_view_order_discount_title_text">Chiết khấu:</string>
+    <string name="fragment_order_result_text_view_order_amount_title_text">Tổng tiền:</string>
+    <string name="fragment_order_result_text_view_order_note_title_text">Ghi chú:</string>
+    <string name="fragment_order_result_text_view_order_timestamp_title_text">Thời gian đặt:</string>
+    <string name="fragment_order_result_text_view_order_status_title_text">Trạng thái đơn hàng:</string>
+    <string name="fragment_order_result_text_view_order_status_text">Mới</string>
+    <string name="fragment_order_result_button_back_text">Trang chủ</string>
+    <string name="fragment_order_result_currency_format">%1$s đ</string>
+
+    <string name="item_cart_item_text_view_quantity_format">Số lượng: %1$d</string>
+    <string name="item_cart_item_text_view_total_price_format">Tổng: <font color='#00549A'>%1$s đ</font></string>
+
     <string name="fragment_logout_dialog_title">Thông báo</string>
     <string name="fragment_logout_dialog_text_view_confirm_text">Bạn có chắc chắn muốn đăng xuất khỏi ứng dụng?</string>
     <string name="fragment_logout_dialog_button_no_text">Không</string>
@@ -173,6 +213,9 @@
 
     <string name="dialog_message_title_text">Thông báo</string>
     <string name="dialog_message_button_confirm_text">OK</string>
+    
+    <string name="dialog_confirm_button_no_text">Không</string>
+    <string name="dialog_confirm_button_yes_text">Có</string>
 
     <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
     <string name="support_call">039 666 8760</string>
