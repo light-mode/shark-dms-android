@@ -72,6 +72,8 @@
     <string name="fragment_customer_gallery_instruct">Chọn ảnh trưng bày (Tối đa 30 ảnh)</string>
     <string name="fragment_customer_gallery_upload">TẢI LÊN</string>
 
+    <string name="fragment_map_header">Bản Đồ</string>
+
     <string name="fragment_customer_gallery_upload_dialog_title">Thông báo</string>
     <string name="fragment_customer_gallery_upload_dialog_descrip">Tải ảnh lên thành công</string>
 
