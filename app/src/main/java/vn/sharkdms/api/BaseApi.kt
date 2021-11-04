@@ -7,8 +7,8 @@ import vn.sharkdms.ui.customer.create.CreateCustomerAccount
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.notifications.Notification
-import vn.sharkdms.ui.history.info.OrderDetail
-import vn.sharkdms.ui.history.list.HistoryOrder
+import vn.sharkdms.ui.base.history.info.OrderDetail
+import vn.sharkdms.ui.base.history.list.HistoryOrder
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.products.Product
 import vn.sharkdms.ui.tasks.Task
@@ -114,8 +114,19 @@ interface BaseApi {
         @Header(AUTHORIZATION) token: String,
         @Body body: HistoryOrderListRequest): BaseResponse<List<HistoryOrder>>
 
+    @GET("customer/order")
+    suspend fun getCustomerHistoryOrder(
+        @Header(AUTHORIZATION) token: String,
+        @Query("page") page: Int,
+        @Query("date") date: String): BaseResponse<List<HistoryOrder>>
+
     @POST("list-history-order-detail")
     suspend fun getOrderInfo(
         @Header(AUTHORIZATION) token: String,
         @Body orderDetailRequest: OrderDetailRequest): BaseResponse<OrderDetail>
+
+    @GET("customer/order/{id}")
+    suspend fun getCustomerHistoryOrderDetail(
+        @Header(AUTHORIZATION) token: String,
+        @Path("id") id: Int?): BaseResponse<OrderDetail>
 }
