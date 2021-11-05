@@ -101,7 +101,7 @@ interface BaseApi {
         @Part("long") long: RequestBody,
         @Part("phone") phone: RequestBody,
         @Part("email") email: RequestBody,
-        @Part("image[]") image: MultipartBody?): BaseResponse<CreateCustomerAccount>
+        @Part image: MultipartBody.Part?): BaseResponse<CreateCustomerAccount>
 
     @GET("config/discount/{id}")
     suspend fun getDiscount(

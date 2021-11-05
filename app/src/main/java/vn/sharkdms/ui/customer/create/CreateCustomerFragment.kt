@@ -75,7 +75,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
     private var longitude: String = ""
     private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
-    private var image: MultipartBody? = null
+    private var image: MultipartBody.Part? = null
     private lateinit var authorization: String
     private lateinit var sharedViewModel : SharedViewModel
 
@@ -486,20 +486,20 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
             Toast.LENGTH_SHORT).show()
     }
 
-    private fun prepareImagePartFromUri(partName: String, imageUri: Uri?, builder: MultipartBody.Builder): MultipartBody {
+    private fun prepareImagePartFromUri(partName: String, imageUri: Uri?, builder: MultipartBody.Builder): MultipartBody.Part {
         val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
         return prepareImagePartFromBitmap(partName, bitmap, builder)
     }
 
-    private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?, builder: MultipartBody.Builder): MultipartBody {
+    private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?, builder: MultipartBody.Builder): MultipartBody.Part {
         val file: File = convertBitmapToFile(partName, bitmap)
-//        val requestBody: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-        return builder.addFormDataPart(
-            "image[]",
-            file.name,
-            RequestBody.create(MediaType.parse("image/*"),
-            file)).build()
-//        return MultipartBody.Part.createFormData(partName, file.name, requestBody)
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+//        return builder.addFormDataPart(
+//            "image[]",
+//            file.name,
+//            RequestBody.create(MediaType.parse("image/*"),
+//            file)).build()
+        return MultipartBody.Part.createFormData("image[]", file.name, requestBody)
     }
 
     private fun convertBitmapToFile(fileName: String, bitmap: Bitmap?): File {
