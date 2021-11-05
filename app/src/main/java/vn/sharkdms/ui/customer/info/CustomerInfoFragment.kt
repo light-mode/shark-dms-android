@@ -122,6 +122,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     }
 
     private fun bind(binding: FragmentCustomerInfoBinding) {
+        Toast.makeText(requireContext(), args.toString(), Toast.LENGTH_LONG).show()
         binding.apply {
             if (args.customer.customerAvatar.isNotEmpty()) {
                 Glide.with(this@CustomerInfoFragment).load(args.customer.customerAvatar).circleCrop()

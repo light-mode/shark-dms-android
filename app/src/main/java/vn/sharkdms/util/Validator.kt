@@ -4,13 +4,19 @@ import java.util.regex.Pattern
 
 class Validator {
     companion object {
-        private val NAME_PATTERN: Pattern = Pattern.compile("(?:[ẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ '.]|[A-Z]{2,100})++",
+        private val NAME_PATTERN: Pattern = Pattern.compile(
+            "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳ" +
+                    "ẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]{2,100}+",
             Pattern.CASE_INSENSITIVE or Pattern.UNICODE_CASE)
         private val USERNAME_PATTERN: Pattern = Pattern.compile("[^\\s]{2,30}")
         private val PASSWORD_PATTERN: Pattern = Pattern.compile("[^\\s]{6,100}")
         private val PHONE_PATTERN: Pattern = Pattern.compile("[^\\s]{10,11}")
-        private val EMAIL_PATTERN: Pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}\$", Pattern.CASE_INSENSITIVE)
-        private val ADDRESS_PATTERN: Pattern = Pattern.compile("[^\\s]{2,250}")
+        private val EMAIL_PATTERN: Pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}\$",
+            Pattern.CASE_INSENSITIVE)
+        private val ADDRESS_PATTERN: Pattern = Pattern.compile(
+            "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳ" +
+                    "ẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]{2,100}+",
+            Pattern.CASE_INSENSITIVE or Pattern.UNICODE_CASE)
         fun isValidName(name: String) = NAME_PATTERN.matcher(name).matches()
         fun isValidUsername(username: String) = USERNAME_PATTERN.matcher(username).matches()
         fun isValidPassword(password: String) = PASSWORD_PATTERN.matcher(password).matches()

@@ -1,10 +1,12 @@
 package vn.sharkdms.ui.customer.map
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,9 +20,10 @@ import vn.sharkdms.R
 
 class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
 
-    private val TAG = "CustomerLocationMapFragment"
+    private val TAG = "CustomerGpsMapFragment"
 
     private lateinit var googleMap: GoogleMap
+    private lateinit var location: LatLng
     private val args by navArgs<CustomerLocationMapFragmentArgs>()
 
     override fun onCreateView(
@@ -40,11 +43,17 @@ class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
-        val locationArray = args.customer.customerPosition.split("_").toTypedArray()
-        val location = LatLng(locationArray[0].toDouble(), locationArray[1].toDouble())
-        googleMap.addMarker(MarkerOptions().position(location).title(args.customer.customerName)
-            .snippet("Địa chỉ: " + args.customer.customerAddress))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+        if(args.customer.customerPosition != "_") {
+            val locationArray = args.customer.customerPosition.split("_").toTypedArray()
+            location = LatLng(locationArray[0].toDouble(), locationArray[1].toDouble())
+            googleMap.addMarker(MarkerOptions().position(location).title(args.customer.customerName)
+                .snippet("Địa chỉ: " + args.customer.customerAddress))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
+        } else {
+            val hanoi = LatLng(21.028511, 105.804817)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hanoi, 10f))
+        }
+
     }
 
     private fun setBtnBackOnClickListener(rootView: View?) {

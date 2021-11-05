@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_customer"
-    app:startDestination="@id/customerHistoryOrderListFragment">
+    app:startDestination="@id/customerAccountFragment">
     <fragment
         android:id="@+id/productsFragment"
         android:name="vn.sharkdms.ui.products.ProductsFragment"

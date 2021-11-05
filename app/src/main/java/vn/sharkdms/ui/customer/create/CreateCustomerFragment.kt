@@ -75,11 +75,9 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
     private var longitude: String = ""
     private var imageUri: Uri? = null
     private var bitmap: Bitmap? = null
-    private var image: List<MultipartBody.Part>? = null
+    private var image: MultipartBody? = null
     private lateinit var authorization: String
     private lateinit var sharedViewModel : SharedViewModel
-
-    private var isFull: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -244,12 +242,16 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                     R.drawable.ic_clear else 0
                 binding.etCreateCustomerName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0,
                     clearIcon, 0)
+                if (validName) binding.tvCustomerNameError.visibility = View.GONE
+                else binding.tvCustomerNameError.visibility = View.VISIBLE
             }
             CHANGE_USERNAME -> {
                 val clearIcon = if (username.isNotEmpty() && binding.etCreateCustomerAccount.hasFocus())
                     R.drawable.ic_clear else 0
                 binding.etCreateCustomerAccount.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0,
                     clearIcon, 0)
+                if (validUsername) binding.tvCustomerAccountNote.setTextColor(Color.parseColor("#00549A"))
+                else binding.tvCustomerAccountNote.setTextColor(Color.RED)
             }
             CHANGE_PASSWORD -> {
                 var endIcon = 0
@@ -259,25 +261,33 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                 }
                 binding.etCreateCustomerPassword.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, endIcon,
                     0)
+                if (validPassword) binding.tvCustomerPasswordNote.setTextColor(Color.parseColor("#00549A"))
+                else binding.tvCustomerPasswordNote.setTextColor(Color.RED)
             }
             CHANGE_PHONE -> {
                 val clearIcon = if (phone.isNotEmpty() && binding.etCreateCustomerPhone.hasFocus())
                     R.drawable.ic_clear else 0
                 binding.etCreateCustomerPhone.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0,
                     clearIcon, 0)
+                if (validPhone) binding.tvCustomerPhoneError.visibility = View.GONE
+                else binding.tvCustomerPhoneError.visibility = View.VISIBLE
             }
             CHANGE_EMAIL -> {
                 val clearIcon = if (email.isNotEmpty() && binding.etCreateCustomerEmail.hasFocus())
                     R.drawable.ic_clear else 0
                 binding.etCreateCustomerEmail.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0,
                     clearIcon, 0)
+                if (email.trim().isNotEmpty() && validEmail || email.trim().isEmpty())
+                    binding.tvCustomerEmailError.visibility = View.GONE
+                else binding.tvCustomerEmailError.visibility = View.VISIBLE
             }
             CHANGE_ADDRESS -> {
                 val clearIcon = if (address.isNotEmpty() && binding.etCreateCustomerAddress.hasFocus())
                     R.drawable.ic_clear else 0
                 binding.etCreateCustomerAddress.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0,
                     clearIcon, 0)
-                isFull = true
+                if (validAddress) binding.tvCustomerAddressError.visibility = View.GONE
+                else binding.tvCustomerAddressError.visibility = View.VISIBLE
             }
         }
         if ((validAddress && validName && validPassword && validPhone && validUsername && email.trim().isNotEmpty() && validEmail)
@@ -285,25 +295,11 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
             binding.apply {
                 btnCreateCustomer.isEnabled = true
                 btnCreateCustomer.setBackgroundResource(R.drawable.button_primary)
-                tvCustomerNameError.visibility = View.GONE
-                tvCustomerPhoneError.visibility = View.GONE
-                tvCustomerEmailError.visibility = View.GONE
-                tvCustomerAddressError.visibility = View.GONE
-                tvCustomerAccountNote.setTextColor(Color.parseColor("#00549A"))
-                tvCustomerPasswordNote.setTextColor(Color.parseColor("#00549A"))
             }
         } else {
             binding.apply {
                 btnCreateCustomer.isEnabled = false
                 btnCreateCustomer.setBackgroundResource(R.drawable.button_disable)
-                if (isFull) {
-                    if(!validName) binding.tvCustomerNameError.visibility = View.VISIBLE
-                    if(!validUsername) binding.tvCustomerAccountNote.setTextColor(Color.RED)
-                    if(!validPassword) binding.tvCustomerPasswordNote.setTextColor(Color.RED)
-                    if(!validPhone) binding.tvCustomerPhoneError.visibility = View.VISIBLE
-                    if(!validAddress) binding.tvCustomerAddressError.visibility = View.VISIBLE
-                    if(email.trim().isNotEmpty() && !validEmail) binding.tvCustomerEmailError.visibility = View.VISIBLE
-                }
             }
         }
     }
@@ -316,9 +312,19 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                         getString(R.string.message_connectivity_off), Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
+                val builder: MultipartBody.Builder = MultipartBody.Builder()
+                builder.setType(MultipartBody.FORM)
                 btnCreateCustomer.isEnabled = false
                 btnCreateCustomer.text = ""
                 progressBar.visibility = View.VISIBLE
+//                builder.addFormDataPart("name", etCreateCustomerName.text.toString())
+//                builder.addFormDataPart("username", etCreateCustomerAccount.text.toString())
+//                builder.addFormDataPart("password", etCreateCustomerPassword.text.toString())
+//                builder.addFormDataPart("phone", etCreateCustomerPhone.text.toString())
+//                builder.addFormDataPart("email", etCreateCustomerEmail.text.toString())
+//                builder.addFormDataPart("address", etCreateCustomerAddress.text.toString())
+//                builder.addFormDataPart("lat", latitude)
+//                builder.addFormDataPart("long", longitude)
                 val name: RequestBody = RequestBody.create(
                     MediaType.parse("multipart/form-data"), etCreateCustomerName.text.toString())
                 val username: RequestBody = RequestBody.create(
@@ -335,8 +341,8 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                     MediaType.parse("multipart/form-data"), latitude)
                 val long: RequestBody = RequestBody.create(
                     MediaType.parse("multipart/form-data"), longitude)
-                if(imageUri != null) image = listOf(prepareImagePartFromUri("image", imageUri))
-                else if (bitmap != null) image = listOf(prepareImagePartFromBitmap("image", bitmap))
+                if(imageUri != null) image = prepareImagePartFromUri("image", imageUri, builder)
+                else if (bitmap != null) image = prepareImagePartFromBitmap("image", bitmap, builder)
                 viewModel.sendCreateCustomerRequest(authorization, name, username, password, address,
                     lat, long, phone, email, image)
             }
@@ -480,15 +486,20 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
             Toast.LENGTH_SHORT).show()
     }
 
-    private fun prepareImagePartFromUri(partName: String, imageUri: Uri?): MultipartBody.Part {
+    private fun prepareImagePartFromUri(partName: String, imageUri: Uri?, builder: MultipartBody.Builder): MultipartBody {
         val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
-        return prepareImagePartFromBitmap(partName, bitmap)
+        return prepareImagePartFromBitmap(partName, bitmap, builder)
     }
 
-    private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?): MultipartBody.Part {
+    private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?, builder: MultipartBody.Builder): MultipartBody {
         val file: File = convertBitmapToFile(partName, bitmap)
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
-        return MultipartBody.Part.createFormData(partName, file.name, requestBody)
+//        val requestBody: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        return builder.addFormDataPart(
+            "image[]",
+            file.name,
+            RequestBody.create(MediaType.parse("image/*"),
+            file)).build()
+//        return MultipartBody.Part.createFormData(partName, file.name, requestBody)
     }
 
     private fun convertBitmapToFile(fileName: String, bitmap: Bitmap?): File {

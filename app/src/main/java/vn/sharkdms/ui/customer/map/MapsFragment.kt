@@ -46,7 +46,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(p0: GoogleMap) {
-        Toast.makeText(requireContext(), args.customers.toString(), Toast.LENGTH_LONG).show()
         googleMap = p0
         googleMap.setPadding(0, 120, 0, 0)
         val hanoi = LatLng(21.028511, 105.804817)
