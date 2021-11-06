@@ -50,10 +50,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         googleMap.setPadding(0, 120, 0, 0)
         val hanoi = LatLng(21.028511, 105.804817)
         for (marker in args.customers) {
-            val gpsArray = marker.customerPosition.split("_").toTypedArray()
-            val gps = LatLng(gpsArray[0].toDouble(), gpsArray[1].toDouble())
-            googleMap.addMarker(MarkerOptions().position(gps).title(marker.customerName)
-                .snippet("Địa chỉ: " + marker.customerAddress))
+            if(marker.customerPosition != "_") {
+                val gpsArray = marker.customerPosition.split("_").toTypedArray()
+                val gps = LatLng(gpsArray[0].toDouble(), gpsArray[1].toDouble())
+                googleMap.addMarker(MarkerOptions().position(gps).title(marker.customerName)
+                    .snippet("Địa chỉ: " + marker.customerAddress))
+            }
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hanoi, 10f))
     }

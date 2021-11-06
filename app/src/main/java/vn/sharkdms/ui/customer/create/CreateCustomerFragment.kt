@@ -312,19 +312,9 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                         getString(R.string.message_connectivity_off), Toast.LENGTH_LONG).show()
                     return@setOnClickListener
                 }
-                val builder: MultipartBody.Builder = MultipartBody.Builder()
-                builder.setType(MultipartBody.FORM)
                 btnCreateCustomer.isEnabled = false
                 btnCreateCustomer.text = ""
                 progressBar.visibility = View.VISIBLE
-//                builder.addFormDataPart("name", etCreateCustomerName.text.toString())
-//                builder.addFormDataPart("username", etCreateCustomerAccount.text.toString())
-//                builder.addFormDataPart("password", etCreateCustomerPassword.text.toString())
-//                builder.addFormDataPart("phone", etCreateCustomerPhone.text.toString())
-//                builder.addFormDataPart("email", etCreateCustomerEmail.text.toString())
-//                builder.addFormDataPart("address", etCreateCustomerAddress.text.toString())
-//                builder.addFormDataPart("lat", latitude)
-//                builder.addFormDataPart("long", longitude)
                 val name: RequestBody = RequestBody.create(
                     MediaType.parse("multipart/form-data"), etCreateCustomerName.text.toString())
                 val username: RequestBody = RequestBody.create(
@@ -341,8 +331,8 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                     MediaType.parse("multipart/form-data"), latitude)
                 val long: RequestBody = RequestBody.create(
                     MediaType.parse("multipart/form-data"), longitude)
-                if(imageUri != null) image = prepareImagePartFromUri("image", imageUri, builder)
-                else if (bitmap != null) image = prepareImagePartFromBitmap("image", bitmap, builder)
+                if(imageUri != null) image = prepareImagePartFromUri("image", imageUri)
+                else if (bitmap != null) image = prepareImagePartFromBitmap("image", bitmap)
                 viewModel.sendCreateCustomerRequest(authorization, name, username, password, address,
                     lat, long, phone, email, image)
             }
@@ -486,19 +476,14 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
             Toast.LENGTH_SHORT).show()
     }
 
-    private fun prepareImagePartFromUri(partName: String, imageUri: Uri?, builder: MultipartBody.Builder): MultipartBody.Part {
+    private fun prepareImagePartFromUri(partName: String, imageUri: Uri?): MultipartBody.Part {
         val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
-        return prepareImagePartFromBitmap(partName, bitmap, builder)
+        return prepareImagePartFromBitmap(partName, bitmap)
     }
 
-    private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?, builder: MultipartBody.Builder): MultipartBody.Part {
+    private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?): MultipartBody.Part {
         val file: File = convertBitmapToFile(partName, bitmap)
         val requestBody: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-//        return builder.addFormDataPart(
-//            "image[]",
-//            file.name,
-//            RequestBody.create(MediaType.parse("image/*"),
-//            file)).build()
         return MultipartBody.Part.createFormData("image[]", file.name, requestBody)
     }
 

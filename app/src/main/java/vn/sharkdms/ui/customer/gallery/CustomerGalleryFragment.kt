@@ -121,7 +121,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
                     MediaType.parse("multipart/form-data"), locationArray[0])
                 val long: RequestBody = RequestBody.create(
                     MediaType.parse("multipart/form-data"), locationArray[1])
-                for (bm: Bitmap in initImages) {
+                for (bm in initImages) {
                     image?.add(prepareImagePartFromBitmap("image", bm))
                 }
                 viewModel.uploadGalleryRequest(authorization, id, address, lat, long, image)
@@ -175,8 +175,8 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
 
     private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?): MultipartBody.Part {
         val file: File = convertBitmapToFile(partName, bitmap)
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("image/*"), file)
-        return MultipartBody.Part.createFormData(partName, file.name, requestBody)
+        val requestBody: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        return MultipartBody.Part.createFormData("image[]", file.name, requestBody)
     }
 
     private fun convertBitmapToFile(fileName: String, bitmap: Bitmap?): File {
@@ -238,7 +238,6 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
         }
         when (code) {
             HttpStatus.OK -> {
-                Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
                 val dialog = SuccessDialogFragment()
                 dialog.show(requireFragmentManager(), TAG)
             }
