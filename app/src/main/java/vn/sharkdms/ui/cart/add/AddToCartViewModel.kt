@@ -42,7 +42,8 @@ class AddToCartViewModel @Inject constructor(private val baseApi: BaseApi) : Vie
             currentQuantity.value.toString())
         viewModelScope.launch {
             try {
-                val response = baseApi.addToCart(authorization, body)
+                val response = if (customerId == 0) baseApi.addToCartCustomer(authorization, body)
+                else baseApi.addToCart(authorization, body)
                 addToCartEventChannel.send(
                     AddToCartEvent.OnResponse(response.message, response.data))
             } catch (ste: SocketTimeoutException) {

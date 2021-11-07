@@ -55,6 +55,7 @@
             tools:src="@drawable/ic_avatar" />
 
         <LinearLayout
+            android:id="@+id/layout_customer_info"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"

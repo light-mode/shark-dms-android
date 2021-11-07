@@ -1,14 +1,15 @@
 package vn.sharkdms.ui.cart.details
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,19 +17,32 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentCartDetailsBinding
+import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.cart.CartItem
+import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.ConfirmDialog
 import vn.sharkdms.util.Formatter
 
 @AndroidEntryPoint
-class CartDetailsFragment : Fragment(
+abstract class CartDetailsFragment : Fragment(
     R.layout.fragment_cart_details), CartItemAdapter.OnItemClickListener, ConfirmDialog
 .ConfirmDialogListener {
 
-    private val args by navArgs<CartDetailsFragmentArgs>()
+    private lateinit var cart: Cart
+    private var customer: Customer? = null
     private val viewModel by viewModels<CartDetailsViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
     private var connectivity = false
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
+        cart = getCartFromArgs()
+        customer = getCustomerFromArgs()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    abstract fun getCartFromArgs(): Cart
+    abstract fun getCustomerFromArgs(): Customer?
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,18 +55,24 @@ class CartDetailsFragment : Fragment(
 
     private fun bind(binding: FragmentCartDetailsBinding) {
         bindCustomerInfo(binding)
-        val cart = args.cart
         bindCartItems(binding, cart.items)
         bindCartInfo(binding, cart.discountAmount, cart.totalAmount)
     }
 
     private fun bindCustomerInfo(binding: FragmentCartDetailsBinding) {
         binding.apply {
-            val customer = args.customer
-            Glide.with(requireContext()).load(customer.customerAvatar).error(R.drawable.ic_avatar)
-                .into(imageViewAvatar)
-            textViewName.text = customer.customerName
-            textViewPhone.text = customer.customerPhone
+            if (customer == null) {
+                imageViewAvatar.visibility = View.GONE
+                layoutCustomerInfo.visibility = View.GONE
+                textViewDiscount.visibility = View.GONE
+                editTextDiscount.visibility = View.GONE
+                buttonCancel.visibility = View.GONE
+            } else {
+                Glide.with(requireContext()).load(customer!!.customerAvatar)
+                    .error(R.drawable.ic_avatar).into(imageViewAvatar)
+                textViewName.text = customer!!.customerName
+                textViewPhone.text = customer!!.customerPhone
+            }
         }
     }
 
@@ -97,7 +117,7 @@ class CartDetailsFragment : Fragment(
                 return@setOnClickListener
             }
             doBeforeCancelOrderRequest(binding)
-            viewModel.cancelOrder(sharedViewModel.token, args.cart.id)
+            viewModel.cancelOrder(sharedViewModel.token, cart.id)
         }
     }
 
@@ -131,7 +151,7 @@ class CartDetailsFragment : Fragment(
                 doBeforeCreateOrderRequest(binding)
                 val discount = editTextDiscount.text.toString()
                 val note = editTextNote.text.toString()
-                viewModel.createOrder(sharedViewModel.token, args.cart.id, discount, note)
+                viewModel.createOrder(sharedViewModel.token, cart.id, discount, note, customer)
             }
         }
     }
@@ -172,14 +192,17 @@ class CartDetailsFragment : Fragment(
                     is CartDetailsViewModel.CartDetailsEvent.OnCancelOrderSuccess -> {
                         doAfterCancelOrderResponse(binding)
                         Toast.makeText(requireContext(), event.message, Toast.LENGTH_LONG).show()
-                        val action = CartDetailsFragmentDirections
+                        val action = CartDetailsFragmentSaleDirections
                             .actionCartDetailsFragmentToCustomerInfoFragment(
-                                args.customer)
+                                customer!!)
                         findNavController().navigate(action)
                     }
                     is CartDetailsViewModel.CartDetailsEvent.OnCreateOrderSuccess -> {
                         doAfterCreateOrderResponse(binding)
-                        val action = CartDetailsFragmentDirections
+                        val action = if (customer == null) CartDetailsFragmentCustomerDirections
+                            .actionCartDetailsFragment2ToOrderResultFragment2(
+                                event.data)
+                        else CartDetailsFragmentSaleDirections
                             .actionCartDetailsFragmentToOrderResultFragment(
                                 event.data)
                         findNavController().navigate(action)
@@ -241,7 +264,7 @@ class CartDetailsFragment : Fragment(
                 showNetworkConnectionErrorMessage()
                 return@let
             }
-            viewModel.removeFromCart(sharedViewModel.token, args.cart.id, it)
+            viewModel.removeFromCart(sharedViewModel.token, cart.id, it, customer)
         }
     }
 }

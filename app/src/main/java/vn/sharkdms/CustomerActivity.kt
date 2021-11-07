@@ -6,9 +6,17 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_customer.*
+import vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment
 
 @AndroidEntryPoint
 class CustomerActivity : AppCompatActivity() {
@@ -31,6 +39,27 @@ class CustomerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer)
         viewModel.token = intent.getStringExtra("token").toString()
+        val activityToolbar = findViewById<Toolbar>(R.id.activity_toolbar)
+        val usernameTextView = activityToolbar.findViewById<TextView>(
+            R.id.toolbar_text_view_username)
+        usernameTextView.text = intent.getStringExtra("username").toString()
+        val roleTextView = activityToolbar.findViewById<TextView>(R.id.toolbar_text_view_role)
+        roleTextView.text = intent.getStringExtra("role_name").toString()
+        val navHostFragment = supportFragmentManager.findFragmentById(
+            R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.findNavController()
+        bottom_nav.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val destinationId = destination.id
+            if (destinationId == R.id.productsFragment || destinationId == R.id
+                    .customerHistoryOrderListFragment) {
+                activityToolbar.visibility = View.VISIBLE
+                bottom_nav.visibility = View.VISIBLE
+            } else {
+                activityToolbar.visibility = View.GONE
+                bottom_nav.visibility = View.GONE
+            }
+        }
     }
 
     override fun onStart() {
@@ -42,5 +71,12 @@ class CustomerActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         unregisterReceiver(connectivityChangeReceiver)
+    }
+
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(
+            R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
+        if (currentFragment is CustomerHistoryOrderListFragment) finish()
+        else super.onBackPressed()
     }
 }

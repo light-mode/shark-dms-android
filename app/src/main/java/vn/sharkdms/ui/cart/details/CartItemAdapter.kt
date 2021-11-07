@@ -55,9 +55,10 @@ class CartItemAdapter(private val items: List<CartItem>,
                 textViewName.text = item.name
                 textViewQuantity.text = context.getString(
                     R.string.item_cart_item_text_view_quantity_format, item.quantity)
+                val totalPrice = item.totalPrice ?: item.price * item.quantity
                 textViewTotalPrice.text = context.getString(
                     R.string.item_cart_item_text_view_total_price_format,
-                    Formatter.formatCurrency((item.price * item.quantity).toString()))
+                    Formatter.formatCurrency(totalPrice.toString()))
             }
         }
     }

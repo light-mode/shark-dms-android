@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_customer"
-    app:startDestination="@id/customerAccountFragment">
+    app:startDestination="@id/productsFragment">
     <fragment
         android:id="@+id/productsFragment"
-        android:name="vn.sharkdms.ui.products.ProductsFragment"
+        android:name="vn.sharkdms.ui.products.ProductsFragmentCustomer"
         android:label="fragment_products"
-        tools:layout="@layout/fragment_products" />
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_productsFragment_to_addToCartFragment2"
+            app:destination="@id/addToCartCustomerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/customerAccountFragment"
         android:name="vn.sharkdms.ui.accountcustomer.CustomerAccountFragment"
@@ -47,5 +51,45 @@
         <argument
             android:name="order"
             app:argType="vn.sharkdms.ui.base.history.list.HistoryOrder" />
+    </fragment>
+    <fragment
+        android:id="@+id/addToCartCustomerFragment"
+        android:name="vn.sharkdms.ui.cart.add.AddToCartFragmentCustomer"
+        android:label="fragment_add_to_cart"
+        tools:layout="@layout/fragment_add_to_cart" >
+        <argument
+            android:name="product"
+            app:argType="vn.sharkdms.ui.products.Product" />
+        <argument
+            android:name="customer"
+            app:argType="vn.sharkdms.ui.customer.list.Customer"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_addToCartFragment2_to_cartDetailsFragment2"
+            app:destination="@id/cartDetailsFragment2"
+            app:popUpTo="@id/productsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartDetailsFragment2"
+        android:name="vn.sharkdms.ui.cart.details.CartDetailsFragmentCustomer"
+        android:label="fragment_cart_details"
+        tools:layout="@layout/fragment_cart_details" >
+        <argument
+            android:name="cart"
+            app:argType="vn.sharkdms.ui.cart.Cart" />
+        <action
+            android:id="@+id/action_cartDetailsFragment2_to_orderResultFragment2"
+            app:destination="@id/orderResultFragment2"
+            app:popUpTo="@id/productsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderResultFragment2"
+        android:name="vn.sharkdms.ui.cart.result.OrderResultFragment"
+        android:label="fragment_order_result"
+        tools:layout="@layout/fragment_order_result" >
+        <argument
+            android:name="data"
+            app:argType="vn.sharkdms.api.CreateOrderResponse" />
     </fragment>
 </navigation>

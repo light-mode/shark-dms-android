@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.*
 import vn.sharkdms.ui.cart.Cart
+import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException
@@ -20,12 +21,13 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
     val cartDetailsEvent = cartDetailsEventChannel.receiveAsFlow()
     var cartItemId: Int? = null
 
-    fun removeFromCart(token: String, cartId: Int, cartItemId: Int) {
+    fun removeFromCart(token: String, cartId: Int, cartItemId: Int, customer: Customer?) {
         val authorization = Constant.TOKEN_PREFIX + token
         val body = RemoveFromCartRequest(cartId.toString(), cartItemId.toString())
         viewModelScope.launch {
             try {
-                val response = baseApi.removeFromCart(authorization, body)
+                val response = if (customer == null) baseApi.removeFromCartCustomer(authorization,
+                    body) else baseApi.removeFromCart(authorization, body)
                 val message = response.message
                 when (response.code.toInt()) {
                     HttpStatus.OK -> {
@@ -62,12 +64,15 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
         }
     }
 
-    fun createOrder(token: String, cartId: Int, discount: String, note: String) {
+    fun createOrder(token: String, cartId: Int, discount: String, note: String,
+        customer: Customer?) {
         val authorization = Constant.TOKEN_PREFIX + token
         val body = CreateOrderRequest(cartId.toString(), discount, note, "")
         viewModelScope.launch {
             try {
-                val response = baseApi.createOrder(authorization, body)
+                val response = if (customer == null) baseApi.createOrderCustomer(authorization,
+                    body)
+                else baseApi.createOrder(authorization, body)
                 val message = response.message
                 when (response.code.toInt()) {
                     HttpStatus.OK -> cartDetailsEventChannel.send(

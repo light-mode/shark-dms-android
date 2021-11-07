@@ -1,14 +1,15 @@
 package vn.sharkdms.ui.cart.add
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -16,15 +17,28 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentAddToCartBinding
 import vn.sharkdms.ui.cart.Cart
+import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.ui.products.Product
 import vn.sharkdms.util.Formatter
 
 @AndroidEntryPoint
-class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
+abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
 
-    private val args by navArgs<AddToCartFragmentArgs>()
+    private lateinit var product: Product
+    private var customer: Customer? = null
     private val viewModel by viewModels<AddToCartViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
     private var connectivity = false
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View? {
+        product = getProductFromArgs()
+        customer = getCustomerFromArgs()
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    abstract fun getProductFromArgs(): Product
+    abstract fun getCustomerFromArgs(): Customer?
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,7 +71,6 @@ class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
     }
 
     private fun bind(binding: FragmentAddToCartBinding) {
-        val product = args.product
         binding.apply {
             Glide.with(requireContext()).load(product.imageUrl).error(R.drawable.ic_product)
                 .into(imageViewProduct)
@@ -78,13 +91,12 @@ class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
 
     private fun setMinusButtonListener(binding: FragmentAddToCartBinding) {
         binding.buttonMinus.setOnClickListener {
-            viewModel.minusOneToQuantity(args.product.price)
+            viewModel.minusOneToQuantity(product.price)
         }
     }
 
     private fun setPlusButtonListener(binding: FragmentAddToCartBinding) {
         binding.buttonPlus.setOnClickListener {
-            val product = args.product
             viewModel.plusOneToQuantity(product.price, product.quantity)
         }
     }
@@ -98,8 +110,8 @@ class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
                     return@setOnClickListener
                 }
                 doBeforeRequest(binding)
-                viewModel.addToCart(sharedViewModel.token, args.customer.customerId,
-                    args.product.id)
+                if (customer == null) viewModel.addToCart(sharedViewModel.token, 0, product.id)
+                else viewModel.addToCart(sharedViewModel.token, customer!!.customerId, product.id)
             }
         }
     }
@@ -130,8 +142,11 @@ class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
         doAfterResponse(binding)
         if (cart == null) Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
         else {
-            val action = AddToCartFragmentDirections.actionAddToCartFragmentToCartDetailsFragment(
-                args.customer, cart)
+            val action = if (customer == null) AddToCartFragmentCustomerDirections
+                .actionAddToCartFragment2ToCartDetailsFragment2(
+                    cart)
+            else AddToCartFragmentSaleDirections.actionAddToCartFragmentToCartDetailsFragment(
+                customer!!, cart)
             findNavController().navigate(action)
         }
     }

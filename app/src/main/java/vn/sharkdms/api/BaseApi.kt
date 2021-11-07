@@ -1,7 +1,10 @@
 package vn.sharkdms.api
 
+import okhttp3.HttpUrl
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.internal.http.HttpMethod
+import retrofit2.Retrofit
 import retrofit2.http.*
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.customer.create.CreateCustomerAccount
@@ -65,12 +68,25 @@ interface BaseApi {
     suspend fun getProductsSale(@Header(AUTHORIZATION) authorization: String,
         @Body body: ProductListRequest): BaseResponse<List<Product>>
 
+    @GET("customer/product")
+    suspend fun getProductsCustomer(@Header(AUTHORIZATION) authorization: String,
+        @Query("page") page: Int,
+        @Query("product_name") productName: String): BaseResponse<List<Product>>
+
     @POST("add-to-cart")
     suspend fun addToCart(@Header(AUTHORIZATION) authorization: String,
         @Body body: AddToCartRequest): BaseResponse<Cart>
 
+    @POST("customer/cart")
+    suspend fun addToCartCustomer(@Header(AUTHORIZATION) authorization: String,
+        @Body body: AddToCartRequest): BaseResponse<Cart>
+
     @POST("delete-item-cart")
     suspend fun removeFromCart(@Header(AUTHORIZATION) authorization: String,
+        @Body body: RemoveFromCartRequest): BaseResponse<Cart?>
+
+    @HTTP(method = "DELETE", path = "customer/cart", hasBody = true)
+    suspend fun removeFromCartCustomer(@Header(AUTHORIZATION) authorization: String,
         @Body body: RemoveFromCartRequest): BaseResponse<Cart?>
 
     @POST("delete-cart")
@@ -79,6 +95,10 @@ interface BaseApi {
 
     @POST("create-order")
     suspend fun createOrder(@Header(AUTHORIZATION) authorization: String,
+        @Body body: CreateOrderRequest): BaseResponse<CreateOrderResponse>
+
+    @POST("customer/order")
+    suspend fun createOrderCustomer(@Header(AUTHORIZATION) authorization: String,
         @Body body: CreateOrderRequest): BaseResponse<CreateOrderResponse>
 
     /** Customer API
