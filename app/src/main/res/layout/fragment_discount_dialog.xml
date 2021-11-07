@@ -13,7 +13,7 @@
         android:id="@+id/tv_customer_discount_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="@string/fragment_customer_discount_title"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -159,8 +159,8 @@
 
     <ImageView
         android:id="@+id/iv_close"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
