@@ -7,10 +7,12 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -40,6 +42,11 @@ class CustomerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_customer)
         viewModel.token = intent.getStringExtra("token").toString()
         val activityToolbar = findViewById<Toolbar>(R.id.activity_toolbar)
+        val btnCustomerInfo = findViewById<RelativeLayout>(R.id.layout_customer_button)
+        btnCustomerInfo.setOnClickListener {
+            Navigation.findNavController(this, R.id.nav_host_fragment)
+                .navigate(R.id.action_global_accountFragment)
+        }
         val usernameTextView = activityToolbar.findViewById<TextView>(
             R.id.toolbar_text_view_username)
         usernameTextView.text = intent.getStringExtra("username").toString()

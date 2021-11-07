@@ -19,43 +19,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/icon_customer"
+            <RelativeLayout
+                android:id="@+id/layout_customer_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/content_description"
-                android:src="@drawable/ic_customer"
-                app:tint="@color/white" />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/icon_customer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_customer"
+                    app:tint="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toStartOf="@id/icon_cart"
-                android:layout_toEndOf="@id/icon_customer"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/toolbar_text_view_username"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/inter_semi_bold"
-                    android:maxLines="1"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    tools:text="Đinh Thị Tươi" />
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/icon_customer"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/toolbar_text_view_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="@color/white"
-                    android:textSize="12sp"
-                    tools:text="Khách hàng" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/toolbar_text_view_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        tools:text="Đinh Thị Tươi" />
+
+                    <TextView
+                        android:id="@+id/toolbar_text_view_role"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        tools:text="Khách hàng" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/icon_cart"

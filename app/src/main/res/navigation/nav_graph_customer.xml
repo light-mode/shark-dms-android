@@ -13,6 +13,9 @@
             android:id="@+id/action_productsFragment_to_addToCartFragment2"
             app:destination="@id/addToCartCustomerFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_accountFragment"
+        app:destination="@id/customerAccountFragment" />
     <fragment
         android:id="@+id/customerAccountFragment"
         android:name="vn.sharkdms.ui.accountcustomer.CustomerAccountFragment"
