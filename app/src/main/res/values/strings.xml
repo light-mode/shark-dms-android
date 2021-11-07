@@ -32,7 +32,7 @@
     <string name="fragment_create_customer_add_customer_info_text">THÔNG TIN KHÁCH HÀNG</string>
     <string name="fragment_create_customer_account_description">Tài khoản dành cho khách hàng đăng nhập vào ứng dụng</string>
     <string name="fragment_create_customer_name">Tên khách hàng: <font color='#FF0000'>*</font></string>
-    <string name="fragment_create_customer_name_error">Tên khách hàng không được chứa số, kí tự đặc biệt và không quá 25 ký tự</string>
+    <string name="fragment_create_customer_name_error">Tên khách hàng không được chứa số, kí tự đặc biệt và không quá 50 ký tự</string>
     <string name="fragment_create_customer_account">Tài khoản đăng nhập: <font color='#FF0000'>*</font></string>
     <string name="fragment_create_customer_password">Mật khẩu: <font color='#FF0000'>*</font></string>
     <string name="fragment_create_customer_phone">Số điện thoai: <font color='#FF0000'>*</font></string>
