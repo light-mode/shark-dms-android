@@ -21,12 +21,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
+import kotlinx.android.synthetic.main.fragment_discount_dialog.view.*
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.CheckInRequest
 import vn.sharkdms.databinding.FragmentCustomerInfoBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
+import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
+import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.CustomerListFragmentDirections
 import vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment
 import vn.sharkdms.util.Constant
@@ -44,8 +47,11 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     private val args by navArgs<CustomerInfoFragmentArgs>()
 
     private lateinit var checkInViewModel: CheckInViewModel
+    private lateinit var discountViewModel: DiscountDialogViewModel
     private lateinit var sharedViewModel : SharedViewModel
     private var connectivity: Boolean = false
+
+    private var discountInfo: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,6 +59,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         val binding = FragmentCustomerInfoBinding.bind(view)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
+        discountViewModel = ViewModelProvider(requireActivity())[DiscountDialogViewModel::class.java]
         checkInViewModel = ViewModelProvider(requireActivity())[CheckInViewModel::class.java]
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         authorization = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
@@ -69,9 +76,21 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
             checkInViewModel.checkInEvent.collect { event ->
                 when(event) {
                     is CheckInViewModel.CheckInEvent.OnResponse ->
-                        handleCheckInResponse(binding, event.code, event.message)
+                        handleCheckInResponse(event.code, event.message)
                     is CheckInViewModel.CheckInEvent.OnFailure ->
                         handleCheckInFailure()
+                }
+            }
+            discountViewModel.discountDialogEvent.collect { event ->
+                when(event) {
+                    is DiscountDialogViewModel.DiscountDialogEvent.OnResponse -> {
+                        if (event.data?.size  != 0)
+                            handleGetDiscountInfoResponse(event.code, event.message, event.data?.get(0))
+                        else
+                            handleGetDiscountInfoResponse(event.code, event.message, null)
+                    }
+                    is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
+                        handleGetDiscountFailure()
                 }
             }
         }
@@ -101,7 +120,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     private fun setBtnDiscountOnClickListener(binding: FragmentCustomerInfoBinding) {
         binding.btnCustomerInfoDiscount.setOnClickListener {
-            val dialog = DiscountDialogFragment().newInstance(args.customer.customerId)
+            val dialog = DiscountDialogFragment().newInstance(discountInfo)
             dialog.show(childFragmentManager, TAG)
         }
     }
@@ -136,6 +155,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                 Constant.collapseDisplay(email, Constant.ADDRESS_LIMIT)
             }
         }
+        discountViewModel.sendGetDiscountInfo(sharedViewModel.token, args.customer.customerId)
     }
 
     @SuppressLint("MissingPermission")
@@ -226,7 +246,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         }
     }
 
-    private fun handleCheckInResponse(binding: FragmentCustomerInfoBinding, code: Int, message: String) {
+    private fun handleCheckInResponse(code: Int, message: String) {
         when (code) {
             HttpStatus.OK -> {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
@@ -241,6 +261,23 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     }
 
     private fun handleCheckInFailure() {
+        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
+            Toast.LENGTH_SHORT).show()
+    }
+
+    private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
+        when (code) {
+            HttpStatus.OK -> {
+                if (data != null) discountInfo = data.ruleCode
+            }
+            HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
+                Log.e(TAG, message)
+            }
+            else -> Log.e(TAG, code.toString())
+        }
+    }
+
+    private fun handleGetDiscountFailure() {
         Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
             Toast.LENGTH_SHORT).show()
     }
