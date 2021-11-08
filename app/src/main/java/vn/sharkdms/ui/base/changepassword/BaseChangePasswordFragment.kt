@@ -310,13 +310,21 @@ open class BaseChangePasswordFragment : Fragment(R.layout.fragment_change_passwo
         val oldPassword = binding.editTextOldPassword.text.toString()
         val newPassword = binding.editTextNewPassword.text.toString()
         val confirmPassword = binding.editTextConfirmPassword.text.toString()
-        val validOldPassword = Validator.isValidPassword(oldPassword.trim())
-        val validNewPassword = Validator.isValidPassword(newPassword.trim())
+        val oldPasswordTrimmed = oldPassword.trim()
+        val newPasswordTrimmed = newPassword.trim()
+        val confirmPasswordTrimmed = confirmPassword.trim()
+        val validOldPassword = Validator.isValidPassword(oldPasswordTrimmed)
+        val validNewPassword = Validator.isValidPassword(
+            newPasswordTrimmed) && newPasswordTrimmed != oldPasswordTrimmed
         val validConfirmPassword = Validator.isValidPassword(
-            confirmPassword.trim()) && confirmPassword.trim() == newPassword.trim()
+            confirmPasswordTrimmed) && confirmPasswordTrimmed == newPasswordTrimmed &&
+                confirmPasswordTrimmed != oldPasswordTrimmed
         when (change) {
             CHANGE_OLD_PASSWORD -> {
                 updateOldPasswordView(validOldPassword, oldPassword, binding.editTextOldPassword)
+                updateNewPasswordView(validNewPassword, newPassword, binding.editTextNewPassword)
+                updateConfirmPasswordView(validConfirmPassword, confirmPassword,
+                    binding.editTextConfirmPassword, false)
             }
             CHANGE_NEW_PASSWORD -> {
                 updateNewPasswordView(validNewPassword, newPassword, binding.editTextNewPassword)
