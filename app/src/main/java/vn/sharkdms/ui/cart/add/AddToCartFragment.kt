@@ -172,8 +172,11 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
     private fun handleAddToCartResponse(binding: FragmentAddToCartBinding, message: String,
         cart: Cart?) {
         doAfterResponse(binding)
-        if (cart == null) Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-        else {
+        if (cart == null) {
+            sharedViewModel.cartId.value = 0
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+        } else {
+            sharedViewModel.cartId.value = cart.id
             val action = if (customer == null) AddToCartFragmentCustomerDirections
                 .actionAddToCartFragment2ToCartDetailsFragment2(
                     cart)

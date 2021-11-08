@@ -41,7 +41,7 @@ class LogoutDialogFragment : DialogFragment(R.layout.fragment_logout_dialog) {
         val binding = FragmentLogoutDialogBinding.bind(view)
         binding.apply {
             buttonNo.setOnClickListener {
-                findNavController().navigateUp()
+                dismiss()
             }
             buttonYes.setOnClickListener {
                 viewModel.deleteUserInfo()

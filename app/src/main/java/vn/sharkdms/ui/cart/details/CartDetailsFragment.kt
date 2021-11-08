@@ -177,6 +177,7 @@ abstract class CartDetailsFragment : Fragment(
                         Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
                     }
                     is CartDetailsViewModel.CartDetailsEvent.OnRemoveLastItemSuccess -> {
+                        sharedViewModel.cartId.value = 0
                         binding.apply {
                             buttonCreate.isEnabled = false
                             buttonCreate.setBackgroundResource(R.drawable.button_disable_square)
@@ -198,6 +199,7 @@ abstract class CartDetailsFragment : Fragment(
                         findNavController().navigate(action)
                     }
                     is CartDetailsViewModel.CartDetailsEvent.OnCreateOrderSuccess -> {
+                        sharedViewModel.cartId.value = 0
                         doAfterCreateOrderResponse(binding)
                         val action = if (customer == null) CartDetailsFragmentCustomerDirections
                             .actionCartDetailsFragment2ToOrderResultFragment2(
