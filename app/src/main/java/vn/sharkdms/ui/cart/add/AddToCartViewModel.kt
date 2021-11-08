@@ -27,6 +27,10 @@ class AddToCartViewModel @Inject constructor(private val baseApi: BaseApi) : Vie
         if (quantity == 0L) return
         currentQuantity.value = quantity - 1
         currentTotalPrice.value = (quantity - 1) * price
+        viewModelScope.launch {
+            addToCartEventChannel.send(
+                AddToCartEvent.UpdateQuantityEditText((quantity - 1).toString()))
+        }
     }
 
     fun plusOneToQuantity(price: Long, remain: Long) {
@@ -34,6 +38,27 @@ class AddToCartViewModel @Inject constructor(private val baseApi: BaseApi) : Vie
         if (quantity == remain) return
         currentQuantity.value = quantity + 1
         currentTotalPrice.value = (quantity + 1) * price
+        viewModelScope.launch {
+            addToCartEventChannel.send(
+                AddToCartEvent.UpdateQuantityEditText((quantity + 1).toString()))
+        }
+    }
+
+    fun setQuantity(text: String, price: Long, remain: Long) {
+        var quantity = 0L
+        if (text.isEmpty()) {
+            viewModelScope.launch {
+                addToCartEventChannel.send(AddToCartEvent.UpdateQuantityEditText("0"))
+            }
+        } else quantity = text.toLong()
+        if (quantity > remain) {
+            quantity = remain
+            viewModelScope.launch {
+                addToCartEventChannel.send(AddToCartEvent.UpdateQuantityEditText(remain.toString()))
+            }
+        }
+        currentQuantity.value = quantity
+        currentTotalPrice.value = quantity * price
     }
 
     fun addToCart(token: String, customerId: Int, productId: Int) {
@@ -53,6 +78,7 @@ class AddToCartViewModel @Inject constructor(private val baseApi: BaseApi) : Vie
     }
 
     sealed class AddToCartEvent {
+        data class UpdateQuantityEditText(val quantity: String) : AddToCartEvent()
         data class OnResponse(val message: String, val cart: Cart?) : AddToCartEvent()
         object OnFailure : AddToCartEvent()
     }

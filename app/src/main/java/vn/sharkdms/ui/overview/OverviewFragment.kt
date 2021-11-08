@@ -148,6 +148,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                 override fun onNothingSelected() { //
                 }
             })
+            setScaleEnabled(false)
         }
         bindRevenue(binding, amounts[viewModel.selectedColumnIndex.value!!].revenue)
         bindTotalRevenue(binding, amounts)
