@@ -11,7 +11,7 @@ data class Customer (
     val customerId: Int,
     val customerName: String,
     var customerAvatar: String,
-    var customerAddress: String,
+    var customerAddress: String?,
     var customerPosition: String,
     var customerPhone: String,
     val customerEmail: String?,

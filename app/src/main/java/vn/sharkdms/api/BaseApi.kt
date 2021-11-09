@@ -142,9 +142,9 @@ interface BaseApi {
     suspend fun uploadGallery(
         @Header(AUTHORIZATION) token: String,
         @Part("user_kh_id") userKhId: RequestBody,
-        @Part("address") address: RequestBody,
-        @Part("lat") lat: RequestBody,
-        @Part("long") long: RequestBody,
+        @Part("address") address: RequestBody?,
+        @Part("lat") lat: RequestBody?,
+        @Part("long") long: RequestBody?,
         @Part image: List<MultipartBody.Part>?): BaseResponse<Nothing>
 
     /** History Order API

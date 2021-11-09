@@ -75,7 +75,7 @@
     <string name="fragment_map_header">Bản Đồ</string>
 
     <string name="fragment_customer_gallery_upload_dialog_title">Thông báo</string>
-    <string name="fragment_customer_gallery_upload_dialog_descrip">Tải ảnh lên thành công</string>
+    <string name="fragment_customer_gallery_upload_dialog_descrip">Tải ảnh thành công!</string>
 
     <string name="fragment_forgot_password_text_view_1_text">Xác nhận tài khoản</string>
     <string name="fragment_forgot_password_text_view_2_text">Bạn Hãy Nhập Tài Khoản Đã Đăng Ký\nTrên Shark DMS</string>
