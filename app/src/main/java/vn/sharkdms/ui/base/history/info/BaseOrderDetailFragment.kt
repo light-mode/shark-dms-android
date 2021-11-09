@@ -1,10 +1,12 @@
 package vn.sharkdms.ui.base.history.info
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -51,6 +53,16 @@ open class BaseOrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
             }
         }
         setBtnBackOnClickListener(binding)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initRecyclerView(binding: FragmentOrderDetailBinding) {

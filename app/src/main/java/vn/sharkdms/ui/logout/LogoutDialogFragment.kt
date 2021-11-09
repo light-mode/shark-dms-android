@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.logout
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,6 +18,7 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.MainActivity
 import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentLogoutDialogBinding
+import vn.sharkdms.util.Constant
 
 @AndroidEntryPoint
 class LogoutDialogFragment : DialogFragment(R.layout.fragment_logout_dialog) {
@@ -47,6 +50,16 @@ class LogoutDialogFragment : DialogFragment(R.layout.fragment_logout_dialog) {
                 viewModel.deleteUserInfo()
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun navigateToLoginScreen() {

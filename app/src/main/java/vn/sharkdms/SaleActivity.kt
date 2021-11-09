@@ -25,6 +25,7 @@ import vn.sharkdms.ui.overview.OverviewFragment
 import vn.sharkdms.ui.policy.PolicyFragment
 import vn.sharkdms.ui.report.ReportFragment
 import vn.sharkdms.ui.tasks.TasksFragment
+import vn.sharkdms.util.Constant
 
 @AndroidEntryPoint
 class SaleActivity : AppCompatActivity() {

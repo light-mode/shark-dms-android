@@ -13,6 +13,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -94,6 +95,16 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                 }
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setBtnMapOnClickListener(binding: FragmentCustomerInfoBinding) {

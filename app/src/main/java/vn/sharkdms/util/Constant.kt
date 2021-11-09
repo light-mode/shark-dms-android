@@ -1,5 +1,13 @@
 package vn.sharkdms.util
 
+import android.annotation.SuppressLint
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+
 class Constant {
     companion object {
         const val ROLE_ID_SR = 7
@@ -11,7 +19,7 @@ class Constant {
         const val TASK_STATUS_CHECKING = 3
         const val TASK_STATUS_NOT_COMPLETED = 4
 
-        const val ADDRESS_LIMIT = 50
+        const val ADDRESS_LIMIT = 30
         const val PRODUCT_LIMIT = 25
 
         const val TOKEN_PREFIX = "Bearer "
@@ -32,6 +40,38 @@ class Constant {
             else if (text.length <= limit) return text
             else {
                 return text.substring(0, limit).plus("...")
+            }
+        }
+
+        fun hideSoftKeyboard(activity: AppCompatActivity) {
+            val inputMethodManager: InputMethodManager =
+                activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (inputMethodManager.isAcceptingText) {
+                inputMethodManager.hideSoftInputFromWindow(
+                    activity.currentFocus?.windowToken,
+                    0
+                )
+            }
+        }
+
+        fun setupUI(view: View, activity: AppCompatActivity) {
+            if (view !is EditText) {
+                view.setOnTouchListener(object: View.OnTouchListener {
+                    @SuppressLint("ClickableViewAccessibility")
+                    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                        hideSoftKeyboard(activity)
+                        return false
+                    }
+                })
+            }
+
+            if (view is ViewGroup) {
+                for (i in 0..view.childCount) {
+                    if (view.getChildAt(i) != null) {
+                        val innerView: View = view.getChildAt(i)
+                        setupUI(innerView, activity)
+                    }
+                }
             }
         }
     }

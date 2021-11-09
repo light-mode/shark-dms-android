@@ -1,9 +1,11 @@
 package vn.sharkdms.ui.base.account
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +21,7 @@ import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.info.CheckInViewModel
+import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 
 open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
@@ -66,6 +69,16 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
         viewModel.users.observe(viewLifecycleOwner) {
             viewModel.getUserInfo(it)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun bindUserInfoView(binding: FragmentAccountBinding, user: User) {

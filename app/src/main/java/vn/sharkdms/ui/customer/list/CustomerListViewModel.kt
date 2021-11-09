@@ -11,7 +11,7 @@ import vn.sharkdms.di.AppModule
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
+class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel(), CustomerAdapter.OnItemClickListener {
     companion object {
         const val TAG = "CustomerListViewModel"
     }
@@ -22,7 +22,7 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
     private val customerList = MutableLiveData("")
 
     init {
-        customerAdapter = CustomerAdapter()
+        customerAdapter = CustomerAdapter(this)
         retroService = AppModule.provideRetrofit().create(BaseApi::class.java)
     }
 
@@ -44,5 +44,8 @@ class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : 
 
     sealed class CustomerListEvent {
         data class OnResponse(val code: Int, val message: String, val data: List<Customer>, val totalPage: Int) : CustomerListEvent()
+    }
+
+    override fun onItemClick(customer: Customer) {
     }
 }

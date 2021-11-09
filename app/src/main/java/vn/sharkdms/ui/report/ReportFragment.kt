@@ -1,10 +1,12 @@
 package vn.sharkdms.ui.report
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +18,7 @@ import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.GetReportResponseData
 import vn.sharkdms.databinding.FragmentReportBinding
+import vn.sharkdms.util.Constant
 
 @AndroidEntryPoint
 class ReportFragment : Fragment(R.layout.fragment_report) {
@@ -53,6 +56,18 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
                 }
             }
         }
+
+        Constant.setupUI(binding.reportFragment, requireActivity() as AppCompatActivity)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setMenuIconListener(binding: FragmentReportBinding) {

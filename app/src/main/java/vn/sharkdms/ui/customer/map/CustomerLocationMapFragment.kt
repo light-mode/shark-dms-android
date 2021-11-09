@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.customer.map
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import vn.sharkdms.R
+import vn.sharkdms.util.Constant
 
 class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
 
@@ -53,7 +56,16 @@ class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
             val hanoi = LatLng(21.028511, 105.804817)
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hanoi, 10f))
         }
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setBtnBackOnClickListener(rootView: View?) {

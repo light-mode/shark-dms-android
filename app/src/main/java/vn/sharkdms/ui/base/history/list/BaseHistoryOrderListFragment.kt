@@ -2,6 +2,7 @@ package vn.sharkdms.ui.base.history.list
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -59,6 +61,18 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
         }
         setCustomerEditTextListener(binding, clearIcon)
         setTvDatePickerListener(binding, clearIcon)
+
+        Constant.setupUI(binding.historyOrderListFragment, requireActivity() as AppCompatActivity)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initRecyclerView(binding: FragmentHistoryOrderListBinding) {

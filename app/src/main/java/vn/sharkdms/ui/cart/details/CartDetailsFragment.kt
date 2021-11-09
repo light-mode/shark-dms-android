@@ -1,10 +1,12 @@
 package vn.sharkdms.ui.cart.details
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -21,6 +23,7 @@ import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.cart.CartItem
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.ConfirmDialog
+import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 
 @AndroidEntryPoint
@@ -51,6 +54,18 @@ abstract class CartDetailsFragment : Fragment(
         setListener(binding)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it }
+
+        Constant.setupUI(binding.cartDetailsFragment, requireActivity() as AppCompatActivity)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun bind(binding: FragmentCartDetailsBinding) {
