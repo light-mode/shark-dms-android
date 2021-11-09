@@ -1,6 +1,8 @@
 package vn.sharkdms.ui.cart.add
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,13 +47,13 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
         val binding = FragmentAddToCartBinding.bind(view)
         bind(binding)
         setBackIconListener(binding)
+        setQuantityEditTextListener(binding)
         setMinusButtonListener(binding)
         setPlusButtonListener(binding)
         setAddButtonListener(binding)
         setEventListener(binding)
         viewModel.currentQuantity.observe(viewLifecycleOwner) { quantity ->
             binding.apply {
-                textViewQuantity.text = quantity.toString()
                 if (quantity == 0L) {
                     buttonAdd.isEnabled = false
                     buttonAdd.setBackgroundResource(R.drawable.button_disable)
@@ -76,7 +78,7 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
                 .into(imageViewProduct)
             textViewName.text = product.name
             textViewAvailable.text = product.quantity.toString()
-            textViewQuantity.text = "0"
+            editTextQuantity.setText("0")
             textViewPrice.text = getString(R.string.fragment_add_to_cart_currency_format,
                 Formatter.formatCurrency(product.price.toString()))
             textViewTotalPrice.text = (product.price * 0).toString()
@@ -86,6 +88,33 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
     private fun setBackIconListener(binding: FragmentAddToCartBinding) {
         binding.iconBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun setQuantityEditTextListener(binding: FragmentAddToCartBinding) {
+        binding.editTextQuantity.apply {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int,
+                    after: Int) { //
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int,
+                    count: Int) { //
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val value = if (s.isNullOrEmpty()) 0
+                    else s.toString().toLong()
+                    val remain = product.quantity
+                    if (value > remain) setText(remain.toString())
+                    else {
+                        val origin = s.toString()
+                        val truncated = origin.replaceFirst("^0+(?!$)".toRegex(), "")
+                        if (origin.length != truncated.length) setText(truncated)
+                    }
+                    viewModel.setQuantity(value.toString(), product.price, product.quantity)
+                }
+            })
         }
     }
 
@@ -132,6 +161,9 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
                         binding, event.message, event.cart)
                     is AddToCartViewModel.AddToCartEvent.OnFailure -> handleAddToCartRequestFailure(
                         binding)
+                    is AddToCartViewModel.AddToCartEvent.UpdateQuantityEditText -> {
+                        binding.editTextQuantity.setText(event.quantity)
+                    }
                 }
             }
         }
@@ -140,8 +172,11 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
     private fun handleAddToCartResponse(binding: FragmentAddToCartBinding, message: String,
         cart: Cart?) {
         doAfterResponse(binding)
-        if (cart == null) Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
-        else {
+        if (cart == null) {
+            sharedViewModel.cartId.value = 0
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+        } else {
+            sharedViewModel.cartId.value = cart.id
             val action = if (customer == null) AddToCartFragmentCustomerDirections
                 .actionAddToCartFragment2ToCartDetailsFragment2(
                     cart)

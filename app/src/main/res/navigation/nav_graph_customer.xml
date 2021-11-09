@@ -85,6 +85,9 @@
             android:id="@+id/action_cartDetailsFragment2_to_orderResultFragment2"
             app:destination="@id/orderResultFragment2"
             app:popUpTo="@id/productsFragment" />
+        <action
+            android:id="@+id/action_cartDetailsFragment2_to_productsFragment"
+            app:destination="@id/productsFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderResultFragment2"
@@ -95,4 +98,10 @@
             android:name="data"
             app:argType="vn.sharkdms.api.CreateOrderResponse" />
     </fragment>
+    <action
+        android:id="@+id/action_global_customerAccountFragment"
+        app:destination="@id/customerAccountFragment" />
+    <action
+        android:id="@+id/action_global_cartDetailsFragment2"
+        app:destination="@id/cartDetailsFragment2" />
 </navigation>

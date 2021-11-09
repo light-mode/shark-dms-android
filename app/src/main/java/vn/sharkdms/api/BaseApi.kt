@@ -101,6 +101,10 @@ interface BaseApi {
     suspend fun createOrderCustomer(@Header(AUTHORIZATION) authorization: String,
         @Body body: CreateOrderRequest): BaseResponse<CreateOrderResponse>
 
+    @GET("customer/cart/{id}")
+    suspend fun getCartInfoAsCustomer(@Header(AUTHORIZATION) authorization: String,
+        @Path("id") id: Int): BaseResponse<Cart>
+
     /** Customer API
      *
      */

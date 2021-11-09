@@ -135,28 +135,32 @@
                 android:id="@+id/button_minus"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_gravity="center_vertical"
                 android:background="@color/white"
                 android:contentDescription="@string/content_description"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_minus"
                 app:tint="@color/black" />
 
-            <TextView
-                android:id="@+id/text_view_quantity"
+            <EditText
+                android:id="@+id/edit_text_quantity"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
-                android:gravity="center"
+                android:importantForAutofill="no"
+                android:inputType="number"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
+                tools:ignore="LabelFor"
                 tools:text="3" />
 
             <ImageButton
                 android:id="@+id/button_plus"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_gravity="center_vertical"
                 android:background="@color/white"
                 android:contentDescription="@string/content_description"
                 android:scaleType="fitXY"

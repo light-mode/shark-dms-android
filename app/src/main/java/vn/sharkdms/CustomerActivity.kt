@@ -8,16 +8,21 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.Navigation
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_customer.*
+import kotlinx.coroutines.flow.collect
+import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment
 
 @AndroidEntryPoint
@@ -67,6 +72,43 @@ class CustomerActivity : AppCompatActivity() {
                 bottom_nav.visibility = View.GONE
             }
         }
+        activityToolbar.findViewById<ImageView>(R.id.icon_customer).setOnClickListener {
+            Navigation.findNavController(this, R.id.nav_host_fragment)
+                .navigate(R.id.action_global_customerAccountFragment)
+        }
+        val cartIcon = activityToolbar.findViewById<ImageView>(R.id.icon_cart)
+        cartIcon.setOnClickListener {
+            if (bottom_nav.selectedItemId != R.id.productsFragment) {
+                bottom_nav.selectedItemId = R.id.productsFragment
+            }
+            viewModel.getCartInfoAsCustomer()
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.customerEvent.collect { event ->
+                when (event) {
+                    is SharedViewModel.CustomerEvent.NavigateToCartInfoScreen ->
+                        handleGetCartInfoResponse(
+                        event.cart)
+                    is SharedViewModel.CustomerEvent.ShowNetworkConnectionErrorMessage ->
+                        showNetworkConnectionErrorMessage()
+                }
+            }
+        }
+        viewModel.cartId.observe(this) { cartId ->
+            cartIcon.visibility = if (cartId == 0) View.GONE else View.VISIBLE
+        }
+    }
+
+    private fun handleGetCartInfoResponse(cart: Cart) {
+        val bundle = Bundle()
+        bundle.putParcelable("cart", cart)
+        Navigation.findNavController(this, R.id.nav_host_fragment)
+            .navigate(R.id.action_global_cartDetailsFragment2, bundle)
+    }
+
+    private fun showNetworkConnectionErrorMessage() {
+        Toast.makeText(this, getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onStart() {
