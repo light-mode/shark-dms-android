@@ -24,12 +24,4 @@ data class HistoryOrder(
     override fun compareTo(other: HistoryOrder): Int {
         return this.stt.compareTo(other.stt)
     }
-//    var date = orderDate
-//        @RequiresApi(Build.VERSION_CODES.O)
-//        get() = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString()
-//        @RequiresApi(Build.VERSION_CODES.O)
-//        set(value) {
-//            val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-//            field = LocalDate.parse(value.toString(), formatter)
-//        }
 }

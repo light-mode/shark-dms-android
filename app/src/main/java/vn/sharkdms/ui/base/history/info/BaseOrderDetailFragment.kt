@@ -20,6 +20,7 @@ import vn.sharkdms.api.OrderDetailRequest
 import vn.sharkdms.databinding.FragmentOrderDetailBinding
 import vn.sharkdms.ui.history.info.OrderDetailFragmentArgs
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.HttpStatus
 
 open class BaseOrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
@@ -86,10 +87,10 @@ open class BaseOrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                     tvCustomerName.text = data?.customerName.toString()
                     tvCustomerPhone.text = data?.customerPhone.toString()
                     tvCustomerOrderDetailNum.text = data?.orderItems?.size.toString() + Constant.ORDER_PRODUCT_AMOUNT
-                    tvOrderDiscountSample.text = data?.discount.toString().plus(" ")
-                        .plus(data?.orderItems?.get(0)?.currency)
-                    tvOrderTotalAmountSample.text = data?.totalAmount.toString().plus(" ")
-                        .plus(data?.orderItems?.get(0)?.currency)
+                    tvOrderDiscountSample.text = Formatter.formatCurrency(data?.discount.toString())
+                        .plus(" ").plus(data?.orderItems?.get(0)?.currency)
+                    tvOrderTotalAmountSample.text = Formatter.formatCurrency(data?.totalAmount.toString())
+                        .plus(" ").plus(data?.orderItems?.get(0)?.currency)
                     tvOrderNoteInput.text = data?.note
                     when(data?.status) {
                         Constant.ORDER_STATUS_NEW -> {

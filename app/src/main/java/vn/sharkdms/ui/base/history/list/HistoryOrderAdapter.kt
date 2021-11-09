@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemOrderBinding
 import vn.sharkdms.ui.history.list.HistoryOrderListFragmentDirections
+import vn.sharkdms.util.Formatter
 
 class HistoryOrderAdapter(
     private val listener: OnItemClickListener
@@ -40,7 +41,7 @@ class HistoryOrderAdapter(
             binding.apply {
                 tvCustomerName.text = data.customerName
                 tvOrderCode.text = data.orderCode
-                tvOrderPrice.text = data.orderTotalAmount.toString()
+                tvOrderPrice.text = Formatter.formatCurrency(data.orderTotalAmount.toString()) + " VND"
                 when(data.orderStatus) {
                     "Mới" -> {
                         tvOrderStatus.text = "Mới"
