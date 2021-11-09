@@ -5,6 +5,8 @@ import androidx.paging.PagingState
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CustomerListRequest
 import java.lang.Exception
+import java.text.Collator
+import java.util.*
 
 class CustomerPagingSource(val apiService: BaseApi, val token: String, val customerName: String): PagingSource<Int, Customer>() {
     companion object {
@@ -17,12 +19,15 @@ class CustomerPagingSource(val apiService: BaseApi, val token: String, val custo
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Customer> {
         return try {
+            val collator = Collator.getInstance(Locale("vi"))
+            val comparator = compareBy(collator) { c: Customer -> c.customerName.toLowerCase() }
+
             val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
             val body = CustomerListRequest(nextPage, customerName)
             val response = apiService.listCustomer(token, body)
 
             return LoadResult.Page(
-                data = response.data,
+                data = response.data.sortedWith(comparator),
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
                 nextKey = nextPage + 1
             )

@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
@@ -56,7 +57,6 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
                 }
             }
         }
-
         setCustomerEditTextListener(binding, clearIcon)
         setTvDatePickerListener(binding, clearIcon)
     }

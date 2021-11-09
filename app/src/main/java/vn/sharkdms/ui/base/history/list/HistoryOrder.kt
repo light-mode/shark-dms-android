@@ -1,7 +1,13 @@
 package vn.sharkdms.ui.base.history.list
 
+import android.os.Build
 import android.os.Parcelable
+import androidx.annotation.RequiresApi
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Parcelize
 data class HistoryOrder(
@@ -14,4 +20,16 @@ data class HistoryOrder(
     val orderTotalAmount: Double,
     val orderStatus: String,
     val orderDate: String
-) : Parcelable
+) : Parcelable, Comparable<HistoryOrder> {
+    override fun compareTo(other: HistoryOrder): Int {
+        return this.stt.compareTo(other.stt)
+    }
+//    var date = orderDate
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        get() = LocalDate.parse(field, DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString()
+//        @RequiresApi(Build.VERSION_CODES.O)
+//        set(value) {
+//            val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+//            field = LocalDate.parse(value.toString(), formatter)
+//        }
+}
