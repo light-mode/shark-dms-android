@@ -22,18 +22,21 @@ class CustomerHistoryOrderListFragment: BaseHistoryOrderListFragment(), HistoryO
         customerViewModel = ViewModelProvider(requireActivity())[CustomerHistoryOrderListViewModel::class.java]
         initViewModel("", "")
 
-        customerViewModel.historyOrderList.observe(viewLifecycleOwner) {
-            customerViewModel.setAdapterData(it)
-        }
+//        customerViewModel.historyOrderList.observe(viewLifecycleOwner) {
+//            customerViewModel.setAdapterData(it)
+//        }
 
         binding.toolbarHeader.visibility = View.GONE
     }
 
     override fun initViewModel(customerName: String, date: String) {
-        lifecycleScope.launchWhenCreated {
-            customerViewModel.getListData(token, date).collectLatest {
-                historyOrderAdapter.submitData(it)
-            }
+//        lifecycleScope.launchWhenCreated {
+//            customerViewModel.getListData(token, date).collectLatest {
+//                historyOrderAdapter.submitData(it)
+//            }
+//        }
+        viewModel.getListData(token, customerName, date).observe(viewLifecycleOwner) {
+            historyOrderAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 

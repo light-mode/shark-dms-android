@@ -14,6 +14,7 @@ import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,9 +46,9 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
 
         initRecyclerView(binding)
 
-        viewModel.historyOrderList.observe(viewLifecycleOwner) {
-            viewModel.setAdapterData(it)
-        }
+//        viewModel.historyOrderList.observe(viewLifecycleOwner) {
+//            viewModel.setAdapterData(it)
+//        }
         historyOrderAdapter.addLoadStateListener { combinedLoadStates ->
             binding.apply {
                 if (historyOrderAdapter.itemCount == 0) {
@@ -87,10 +88,13 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
     }
 
     open fun initViewModel(customerName: String, date: String) {
-        lifecycleScope.launchWhenCreated {
-            viewModel.getListData(token, customerName, date).collectLatest {
-                historyOrderAdapter.submitData(it)
-            }
+//        lifecycleScope.launchWhenCreated {
+//            viewModel.getListData(token, customerName, date).collectLatest {
+//                historyOrderAdapter.submitData(it)
+//            }
+//        }
+        viewModel.getListData(token, customerName, date).observe(viewLifecycleOwner) {
+            historyOrderAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
