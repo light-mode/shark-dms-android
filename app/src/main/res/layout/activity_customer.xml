@@ -66,9 +66,7 @@
                 android:layout_marginEnd="16dp"
                 android:contentDescription="@string/content_description"
                 android:src="@drawable/ic_cart"
-                android:visibility="gone"
-                app:tint="@color/white"
-                tools:visibility="visible" />
+                app:tint="@color/white" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

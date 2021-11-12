@@ -77,7 +77,9 @@
         tools:layout="@layout/fragment_cart_details" >
         <argument
             android:name="cart"
-            app:argType="vn.sharkdms.ui.cart.Cart" />
+            app:argType="vn.sharkdms.ui.cart.Cart"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_cartDetailsFragment2_to_orderResultFragment2"
             app:destination="@id/orderResultFragment2"

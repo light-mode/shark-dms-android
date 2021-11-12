@@ -20,10 +20,13 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
     private val cartDetailsEventChannel = Channel<CartDetailsEvent>()
     val cartDetailsEvent = cartDetailsEventChannel.receiveAsFlow()
     var cartItemId: Int? = null
+    var cart: Cart? = null
+    var removeLastItem = false
 
-    fun removeFromCart(token: String, cartId: Int, cartItemId: Int, customer: Customer?) {
+    fun removeFromCart(token: String, customer: Customer?) {
+        if (cart == null || cartItemId == null) return
         val authorization = Constant.TOKEN_PREFIX + token
-        val body = RemoveFromCartRequest(cartId.toString(), cartItemId.toString())
+        val body = RemoveFromCartRequest(cart!!.id.toString(), cartItemId.toString())
         viewModelScope.launch {
             try {
                 val response = if (customer == null) baseApi.removeFromCartCustomer(authorization,
@@ -31,11 +34,13 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
                 val message = response.message
                 when (response.code.toInt()) {
                     HttpStatus.OK -> {
-                        val cart = response.data
-                        if (cart == null) cartDetailsEventChannel.send(
-                            CartDetailsEvent.OnRemoveLastItemSuccess(message))
-                        else cartDetailsEventChannel.send(
-                            CartDetailsEvent.OnRemoveItemSuccess(message, cart))
+                        cart = response.data
+                        if (cart == null) {
+                            removeLastItem = true
+                            cartDetailsEventChannel.send(
+                                CartDetailsEvent.OnRemoveLastItemSuccess(message))
+                        } else cartDetailsEventChannel.send(
+                            CartDetailsEvent.OnRemoveItemSuccess(message, cart!!))
                     }
                     HttpStatus.BAD_REQUEST -> cartDetailsEventChannel.send(
                         CartDetailsEvent.ShowBadRequestErrorMessage(message))
@@ -46,9 +51,10 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
         }
     }
 
-    fun cancelOrder(token: String, cartId: Int) {
+    fun cancelOrder(token: String) {
+        if (cart == null) return
         val authorization = Constant.TOKEN_PREFIX + token
-        val body = DeleteCartRequest(cartId.toString())
+        val body = DeleteCartRequest(cart!!.id.toString())
         viewModelScope.launch {
             try {
                 val response = baseApi.deleteCart(authorization, body)
@@ -64,10 +70,10 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
         }
     }
 
-    fun createOrder(token: String, cartId: Int, discount: String, note: String,
-        customer: Customer?) {
+    fun createOrder(token: String, discount: String, note: String, customer: Customer?) {
+        if (cart == null) return
         val authorization = Constant.TOKEN_PREFIX + token
-        val body = CreateOrderRequest(cartId.toString(), discount, note, "")
+        val body = CreateOrderRequest(cart!!.id.toString(), discount, note, "")
         viewModelScope.launch {
             try {
                 val response = if (customer == null) baseApi.createOrderCustomer(authorization,

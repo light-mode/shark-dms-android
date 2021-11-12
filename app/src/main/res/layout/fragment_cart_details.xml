@@ -240,7 +240,6 @@
                 android:background="@drawable/bg_edit_text_cart"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:padding="4dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hint"
                 android:textSize="13sp"

@@ -28,7 +28,6 @@ abstract class CartDetailsFragment : Fragment(
     R.layout.fragment_cart_details), CartItemAdapter.OnItemClickListener, ConfirmDialog
 .ConfirmDialogListener {
 
-    private lateinit var cart: Cart
     private var customer: Customer? = null
     private val viewModel by viewModels<CartDetailsViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
@@ -36,12 +35,12 @@ abstract class CartDetailsFragment : Fragment(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        cart = getCartFromArgs()
+        if (viewModel.cart == null && !viewModel.removeLastItem) viewModel.cart = getCartFromArgs()
         customer = getCustomerFromArgs()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    abstract fun getCartFromArgs(): Cart
+    abstract fun getCartFromArgs(): Cart?
     abstract fun getCustomerFromArgs(): Customer?
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,8 +54,20 @@ abstract class CartDetailsFragment : Fragment(
 
     private fun bind(binding: FragmentCartDetailsBinding) {
         bindCustomerInfo(binding)
-        bindCartItems(binding, cart.items)
-        bindCartInfo(binding, cart.discountAmount, cart.totalAmount)
+        if (viewModel.cart == null) {
+            binding.apply {
+                iconNoCartItem.visibility = View.VISIBLE
+                textViewNoCartItem.visibility = View.VISIBLE
+                buttonCancel.isEnabled = false
+                buttonCancel.setBackgroundResource(R.drawable.button_disable_square)
+                buttonCreate.isEnabled = false
+                buttonCreate.setBackgroundResource(R.drawable.button_disable_square)
+                bindCartInfo(binding, 0, 0)
+            }
+        } else viewModel.cart?.let {
+            bindCartItems(binding, it.items)
+            bindCartInfo(binding, it.discountAmount, it.totalAmount)
+        }
     }
 
     private fun bindCustomerInfo(binding: FragmentCartDetailsBinding) {
@@ -117,7 +128,7 @@ abstract class CartDetailsFragment : Fragment(
                 return@setOnClickListener
             }
             doBeforeCancelOrderRequest(binding)
-            viewModel.cancelOrder(sharedViewModel.token, cart.id)
+            viewModel.cancelOrder(sharedViewModel.token)
         }
     }
 
@@ -151,7 +162,7 @@ abstract class CartDetailsFragment : Fragment(
                 doBeforeCreateOrderRequest(binding)
                 val discount = editTextDiscount.text.toString()
                 val note = editTextNote.text.toString()
-                viewModel.createOrder(sharedViewModel.token, cart.id, discount, note, customer)
+                viewModel.createOrder(sharedViewModel.token, discount, note, customer)
             }
         }
     }
@@ -261,12 +272,10 @@ abstract class CartDetailsFragment : Fragment(
     }
 
     override fun onPositiveButtonClick() {
-        viewModel.cartItemId?.let {
-            if (!connectivity) {
-                showNetworkConnectionErrorMessage()
-                return@let
-            }
-            viewModel.removeFromCart(sharedViewModel.token, cart.id, it, customer)
+        if (!connectivity) {
+            showNetworkConnectionErrorMessage()
+            return
         }
+        viewModel.removeFromCart(sharedViewModel.token, customer)
     }
 }
