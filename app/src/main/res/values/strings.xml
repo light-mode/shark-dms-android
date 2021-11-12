@@ -119,7 +119,10 @@
     <string name="fragment_report_button_send_text">Gửi</string>
 
     <string name="fragment_tasks_title">Công việc</string>
+    <string name="fragment_tasks_text_view_date_default_text">Chọn ngày</string>
     <string name="fragment_tasks_text_view_no_task_text">Bạn hiện không có công việc nào</string>
+    <string name="fragment_tasks_date_format_display">%1$d/%2$d/%3$d</string>
+    <string name="fragment_tasks_date_format_search">%1$d-%2$d-%3$d</string>
     <string name="fragment_task_details_title">Chi tiết công việc</string>
     <string name="task_status_new">Mới</string>
     <string name="task_status_processing">Đang xử lý</string>

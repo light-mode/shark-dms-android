@@ -15,7 +15,7 @@ class TasksViewModel @Inject constructor(private val repository: TaskRepository)
     }
 
     private var token = ""
-    private val currentSearchDate = MutableLiveData(DEFAULT_SEARCH_DATE)
+    val currentSearchDate = MutableLiveData(DEFAULT_SEARCH_DATE)
 
     val tasks = currentSearchDate.switchMap { searchDate ->
         repository.getSearchResults(token, searchDate).cachedIn(viewModelScope)

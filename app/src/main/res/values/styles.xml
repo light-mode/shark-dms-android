@@ -43,4 +43,8 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColor">#00549A</item>
     </style>
+
+    <style name="date_picker_dialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/primary</item>
+    </style>
 </resources>
