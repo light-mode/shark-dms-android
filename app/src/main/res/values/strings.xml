@@ -102,7 +102,7 @@
     <string name="fragment_overview_text_view_total_amount_title_text">Tổng doanh thu 3 tháng gần đây:</string>
     <string name="fragment_overview_title_y">Doanh thu (VNĐ)</string>
     <string name="fragment_overview_format_tooltip_y">{%Value}{groupsSeparator: } VNĐ</string>
-    <string name="fragment_overview_format_x">%1$d/%2$d</string>
+    <string name="fragment_overview_format_x">Tháng %1$d, %2$d</string>
     <string name="fragment_overview_format_y">{%Value}{groupsSeparator: }</string>
     <string name="fragment_overview_format_total_revenue">%1$s VNĐ</string>
     <string name="fragment_overview_format_welcome">Xin chào, %1$s</string>

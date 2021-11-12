@@ -9,8 +9,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -18,6 +20,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.renderer.XAxisRenderer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
@@ -31,6 +34,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 @AndroidEntryPoint
 class OverviewFragment : Fragment(R.layout.fragment_overview) {
@@ -124,6 +128,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             description.isEnabled = false
             axisLeft.axisMinimum = 0f
             axisRight.isEnabled = false
+            extraBottomOffset = 1f
             legend.isEnabled = false
             xAxis.apply {
                 granularity = 1f
@@ -141,19 +146,36 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                 override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
                     if (entry == null) return
-                    viewModel.selectedColumnIndex.postValue(entry.x.toInt())
+                    val index = entry.x.toInt()
+                    viewModel.selectedColumnIndex.postValue(index)
                     val formattedRevenue = Formatter.formatCurrency(entry.y.toString())
                     binding.textViewRevenue.text = getString(
                         R.string.fragment_overview_format_total_revenue, formattedRevenue)
+                    setXAxisRenderer(getXAxisRenderer(this@apply, getXAxisColors(index)))
+                    notifyDataSetChanged()
+                    invalidate()
                 }
 
                 override fun onNothingSelected() { //
                 }
             })
             setScaleEnabled(false)
+            setXAxisRenderer(
+                getXAxisRenderer(this, getXAxisColors(viewModel.selectedColumnIndex.value!!)))
         }
         bindRevenue(binding, amounts[viewModel.selectedColumnIndex.value!!].revenue)
         bindTotalRevenue(binding, amounts)
+    }
+
+    private fun getXAxisColors(index: Int): List<Int> {
+        val colors = mutableListOf(Color.BLACK, Color.BLACK, Color.BLACK)
+        colors[index] = Color.parseColor(getString(R.string.color_primary))
+        return colors
+    }
+
+    private fun getXAxisRenderer(chart: BarChart, colors: List<Int>): XAxisRenderer {
+        return MyXAxisRenderer(chart.viewPortHandler, chart.xAxis,
+            chart.getTransformer(AxisDependency.LEFT), colors)
     }
 
     private fun bindRevenue(binding: FragmentOverviewBinding, revenue: String) {
