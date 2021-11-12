@@ -164,6 +164,7 @@
 
     <string name="fragment_products_title">Danh sách sản phẩm</string>
     <string name="fragment_products_edit_text_name_hint">Tìm kiếm theo tên sản phẩm</string>
+    <string name="fragment_products_text_view_no_result_text">Không tìm thấy sản phẩm nào</string>
 
     <string name="item_product_text_view_quantity_out_of_stock_text">Hết hàng</string>
     <string name="item_product_text_view_price_format">%1$s đ</string>
