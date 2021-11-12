@@ -2,13 +2,13 @@ package vn.sharkdms.ui.tasks
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.graphics.Color
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -20,8 +20,8 @@ import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentTasksBinding
-import java.util.*
 import vn.sharkdms.util.Constant
+import java.util.*
 
 @AndroidEntryPoint
 class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClickListener {
@@ -129,6 +129,8 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
                 }
             })
         }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
