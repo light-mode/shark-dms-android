@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -80,7 +81,18 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
     private fun bind(binding: FragmentCustomerGalleryBinding) {
+        Log.d(TAG, args.customer.toString())
         initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
@@ -115,11 +127,14 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
                 progressBar.visibility = View.VISIBLE
                 val id: RequestBody = RequestBody.create(
                     MediaType.parse("multipart/form-data"), args.customer.customerId.toString())
-                val address: RequestBody = RequestBody.create(
+                var address: RequestBody? = null
+                if(args.customer.customerAddress != null) address = RequestBody.create(
                     MediaType.parse("multipart/form-data"), args.customer.customerAddress)
-                val lat: RequestBody = RequestBody.create(
+                var lat: RequestBody? = null
+                if (locationArray.isNotEmpty()) lat = RequestBody.create(
                     MediaType.parse("multipart/form-data"), locationArray[0])
-                val long: RequestBody = RequestBody.create(
+                var long: RequestBody? = null
+                if (locationArray.isNotEmpty()) long = RequestBody.create(
                     MediaType.parse("multipart/form-data"), locationArray[1])
                 for (bm in initImages) {
                     image?.add(prepareImagePartFromBitmap("image", bm))

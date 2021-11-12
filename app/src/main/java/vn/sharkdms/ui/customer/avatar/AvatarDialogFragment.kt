@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
@@ -23,6 +24,7 @@ import dagger.hilt.android.internal.Contexts
 import kotlinx.android.synthetic.main.fragment_create_avatar_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_create_customer.view.*
 import vn.sharkdms.R
+import vn.sharkdms.util.Constant
 import java.lang.ClassCastException
 
 class AvatarDialogFragment : DialogFragment() {
@@ -58,6 +60,16 @@ class AvatarDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NO_TITLE, R.style.AppTheme_AppCompat_Dialog_Alert_NoFloating)
+    }
+
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initializeDialog() {

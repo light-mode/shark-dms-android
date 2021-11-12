@@ -1,8 +1,10 @@
 package vn.sharkdms.ui.taskdetails
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -53,6 +55,16 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
         if (viewModel.statusSelectorShowing.value!!) {
             showStatusSelector(binding)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun bind(binding: FragmentTaskDetailsBinding) {

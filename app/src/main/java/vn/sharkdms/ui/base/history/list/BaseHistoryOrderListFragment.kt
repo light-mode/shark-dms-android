@@ -2,15 +2,20 @@ package vn.sharkdms.ui.base.history.list
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,9 +47,6 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
 
         initRecyclerView(binding)
 
-        viewModel.historyOrderList.observe(viewLifecycleOwner) {
-            viewModel.setAdapterData(it)
-        }
         historyOrderAdapter.addLoadStateListener { combinedLoadStates ->
             binding.apply {
                 if (historyOrderAdapter.itemCount == 0) {
@@ -56,9 +58,20 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
                 }
             }
         }
-
         setCustomerEditTextListener(binding, clearIcon)
         setTvDatePickerListener(binding, clearIcon)
+
+        Constant.setupUI(binding.historyOrderListFragment, requireActivity() as AppCompatActivity)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initRecyclerView(binding: FragmentHistoryOrderListBinding) {
@@ -73,10 +86,8 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
     }
 
     open fun initViewModel(customerName: String, date: String) {
-        lifecycleScope.launchWhenCreated {
-            viewModel.getListData(token, customerName, date).collectLatest {
-                historyOrderAdapter.submitData(it)
-            }
+        viewModel.getListData(token, customerName, date).observe(viewLifecycleOwner) {
+            historyOrderAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
@@ -164,9 +175,19 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
         binding.apply {
             tvDatePicker.setOnClickListener {
                 val calendar = Calendar.getInstance()
-                val year = calendar.get(Calendar.YEAR)
-                val month = calendar.get(Calendar.MONTH)
-                val day = calendar.get(Calendar.DAY_OF_MONTH)
+                val year: Int
+                val month: Int
+                val day: Int
+                if (tvDatePicker.text == getString(R.string.fragment_history_date_picker_sample)) {
+                    year = calendar.get(Calendar.YEAR)
+                    month = calendar.get(Calendar.MONTH)
+                    day = calendar.get(Calendar.DAY_OF_MONTH)
+                } else {
+                    val datenum = tvDatePicker.text.toString().split("/").toTypedArray()
+                    year = datenum[2].toInt()
+                    month = datenum[1].toInt() - 1
+                    day = datenum[0].toInt()
+                }
 
                 val dpd = DatePickerDialog(requireActivity(), R.style.DatePickerDialogStyle,
                     null, year, month, day)
@@ -196,10 +217,9 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
                             tvDatePicker.paddingEnd * 2 || currentClearIcon == null) {
                             return false
                         }
-                        tvDatePicker.text = "Chọn ngày"
+                        tvDatePicker.text = getString(R.string.fragment_history_date_picker_sample)
                         val dateIcon = R.drawable.ic_date_picker
-                        val clearIc = if (tvDatePicker.text != "Chọn ngày") R.drawable.ic_clear else 0
-                        binding.tvDatePicker.setCompoundDrawablesRelativeWithIntrinsicBounds(dateIcon, 0, clearIc,
+                        binding.tvDatePicker.setCompoundDrawablesRelativeWithIntrinsicBounds(dateIcon, 0, 0,
                             0)
                         initViewModel(etSearchOrder.text.toString(), "")
                         return true
@@ -215,7 +235,7 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
             val currentUsernameIcon = tvDatePicker.compoundDrawablesRelative[0]
             tvDatePicker.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 currentUsernameIcon, null,
-                if (datePickerText != "Chọn ngày") clearIcon
+                if (datePickerText != getString(R.string.fragment_history_date_picker_sample)) clearIcon
                 else null, null)
         }
     }

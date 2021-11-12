@@ -1,8 +1,10 @@
 package vn.sharkdms.ui.splash
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +14,7 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.CustomerActivity
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
+import vn.sharkdms.util.Constant
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
@@ -33,6 +36,16 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         viewModel.users.observe(viewLifecycleOwner) {
             viewModel.checkLoginStatus(it)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun navigateToLoginScreen() {

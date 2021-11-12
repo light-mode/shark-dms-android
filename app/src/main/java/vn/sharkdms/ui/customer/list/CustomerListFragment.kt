@@ -2,6 +2,7 @@ package vn.sharkdms.ui.customer.list
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +13,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +26,7 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentCustomerListBinding
 
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.navigation.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import vn.sharkdms.SaleActivity
@@ -31,14 +34,14 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.util.Constant
 
 
-class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
+open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), CustomerAdapter.OnItemClickListener {
 
     private val TAG: String = "CustomerListFragment"
     lateinit var viewModel: CustomerListViewModel
     private lateinit var customerAdapter: CustomerAdapter
     private lateinit var sharedViewModel : SharedViewModel
     private lateinit var token: String
-    private var customers = ArrayList<Customer>()
+    private lateinit var customers: ArrayList<Customer>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,6 +75,18 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
         setCustomerEditTextListener(binding, clearIcon)
         setAddCustomerButtonOnClickListener(binding)
         setBtnGpsOnClickListener(binding)
+
+        Constant.setupUI(binding.customerListFragment, requireActivity() as AppCompatActivity)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initRecyclerView(binding: FragmentCustomerListBinding) {
@@ -79,7 +94,7 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
             iconMenu.setOnClickListener {
                 (requireActivity() as SaleActivity).toggleNavigationDrawer(it)
             }
-            customerAdapter = CustomerAdapter()
+            customerAdapter = CustomerAdapter(this@CustomerListFragment)
             rvCustomer.adapter = customerAdapter
             rvCustomer.layoutManager = LinearLayoutManager(context)
         }
@@ -170,6 +185,11 @@ class CustomerListFragment : Fragment(R.layout.fragment_customer_list) {
             val action = CustomerListFragmentDirections.actionCustomerListFragmentToMapsFragment(customers.toTypedArray())
             findNavController().navigate(action)
         }
+    }
+
+    override fun onItemClick(customer: Customer) {
+        val action = CustomerListFragmentDirections.actionCustomerListFragmentToCustomerInfoFragment(customer)
+        findNavController().navigate(action)
     }
 
 }

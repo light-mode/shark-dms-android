@@ -1,11 +1,13 @@
 package vn.sharkdms.ui.products
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +18,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentProductsBinding
 import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.util.Constant
 
 @AndroidEntryPoint
 abstract class ProductsFragment : Fragment(
@@ -61,6 +64,18 @@ abstract class ProductsFragment : Fragment(
         setNameEditTextListener(binding)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         viewModel.searchProducts(sharedViewModel.token, "", customer)
+
+        Constant.setupUI(binding.productsFragment, requireActivity() as AppCompatActivity)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setBackIconListener(binding: FragmentProductsBinding) {

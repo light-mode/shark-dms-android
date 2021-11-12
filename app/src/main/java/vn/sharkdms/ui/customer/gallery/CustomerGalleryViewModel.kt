@@ -24,8 +24,8 @@ class CustomerGalleryViewModel @Inject constructor(private val baseApi: BaseApi)
     private val customerGalleryEventChannel = Channel<CustomerGalleryEvent>()
     val customerGalleryEvent = customerGalleryEventChannel.receiveAsFlow()
 
-    fun uploadGalleryRequest(authorization: String, id: RequestBody, address: RequestBody,
-            lat: RequestBody, long: RequestBody, image: List<MultipartBody.Part>?) {
+    fun uploadGalleryRequest(authorization: String, id: RequestBody, address: RequestBody?,
+            lat: RequestBody?, long: RequestBody?, image: List<MultipartBody.Part>?) {
         viewModelScope.launch {
             try {
                 val response = baseApi.uploadGallery(authorization, id, address, lat, long, image)

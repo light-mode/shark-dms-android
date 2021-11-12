@@ -26,6 +26,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -110,6 +111,18 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                 }
             }
         }
+
+        Constant.setupUI(binding.createCustomerFragment, requireActivity() as AppCompatActivity)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initTextWatcher(binding: FragmentCreateCustomerBinding, change: Int): TextWatcher {

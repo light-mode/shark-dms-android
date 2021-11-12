@@ -25,6 +25,7 @@ class CustomerAccountFragment : BaseAccountFragment() {
     private fun editUI(binding: FragmentAccountBinding) {
         binding.apply {
             tvAccountTitle.text = getString(R.string.fragment_customer_info_title)
+            tvAccountDiscount.text = getString(R.string.fragment_customer_account_text_view_discount_text)
             cardViewLogOut.visibility = View.VISIBLE
             cardViewChangePassword.setOnClickListener {
                 val action = CustomerAccountFragmentDirections
