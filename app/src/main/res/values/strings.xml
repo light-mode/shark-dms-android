@@ -88,6 +88,7 @@
     <string name="fragment_account_text_view_company_text">Công ty:</string>
     <string name="fragment_account_text_view_position_text">Vị trí:</string>
     <string name="fragment_account_text_view_discount_text">Bảng giá chiết khấu cho nhân viên</string>
+    <string name="fragment_customer_account_text_view_discount_text">Bảng giá chiết khấu cho khách hàng</string>
     <string name="fragment_account_text_view_change_password_text">Đổi mật khẩu</string>
     <string name="fragment_account_text_view_log_out_text">Đăng xuất</string>
 

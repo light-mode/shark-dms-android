@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import vn.sharkdms.R
 
 class Constant {
     companion object {
@@ -69,6 +70,7 @@ class Constant {
                 for (i in 0..view.childCount) {
                     if (view.getChildAt(i) != null) {
                         val innerView: View = view.getChildAt(i)
+                        if (innerView.id == R.id.tv_date_picker) continue
                         setupUI(innerView, activity)
                     }
                 }
