@@ -3,8 +3,8 @@ package vn.sharkdms.ui.overview
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -25,6 +25,7 @@ import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentOverviewBinding
 import vn.sharkdms.util.Formatter
+import vn.sharkdms.util.OfflineDialog
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -48,7 +49,8 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                 when (event) {
                     is OverviewViewModel.OverviewEvent.OnResponse -> handleGetAmountsResponse(
                         binding, event.amounts)
-                    is OverviewViewModel.OverviewEvent.OnFailure -> handleRequestFailure(binding)
+                    is OverviewViewModel.OverviewEvent.OnFailure -> showOfflineDialog(
+                        requireActivity().supportFragmentManager)
                     is OverviewViewModel.OverviewEvent.BindWelcomeView -> bindWelcomeView(binding,
                         event.name)
                 }
@@ -56,11 +58,11 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         }
         val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity ->
-            val mustLoad = binding.progressBar.visibility == View.VISIBLE
-            if (connectivity && mustLoad) {
+            if (connectivity) {
+                hideOfflineDialog()
                 viewModel.sendGetAmountsRequest(sharedViewModel.token)
-            } else if (mustLoad) {
-                handleRequestFailure(binding)
+            } else {
+                showOfflineDialog(requireActivity().supportFragmentManager)
             }
         }
         viewModel.users.observe(viewLifecycleOwner) {
@@ -177,14 +179,26 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             textViewTotalAmount.visibility = View.VISIBLE
             textViewTotalAmountTitle.visibility = View.VISIBLE
             textViewWelcome.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
         }
     }
 
-    private fun handleRequestFailure(binding: FragmentOverviewBinding) {
-        binding.progressBar.visibility = View.GONE
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+    private fun showOfflineDialog(supportFragmentManager: FragmentManager) {
+        val offlineDialog = findOfflineDialog()
+        if (offlineDialog == null || !offlineDialog.isAdded) {
+            OfflineDialog().show(supportFragmentManager, OfflineDialog.TAG)
+        }
+    }
+
+    private fun hideOfflineDialog() {
+        val offlineDialog = findOfflineDialog()
+        if (offlineDialog != null && offlineDialog.isAdded) {
+            (offlineDialog as OfflineDialog).dismiss()
+        }
+    }
+
+    private fun findOfflineDialog(): Fragment? {
+        val supportFragmentManager = requireActivity().supportFragmentManager
+        return supportFragmentManager.findFragmentByTag(OfflineDialog.TAG)
     }
 
     private fun bindWelcomeView(binding: FragmentOverviewBinding, name: String) {

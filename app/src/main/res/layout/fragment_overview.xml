@@ -106,13 +106,6 @@
             android:layout_below="@id/card_view_revenue"
             android:background="@color/white" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="@style/progress_bar_color"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_centerInParent="true" />
-
         <LinearLayout
             android:id="@+id/linear_layout_total_amount"
             android:layout_width="match_parent"
