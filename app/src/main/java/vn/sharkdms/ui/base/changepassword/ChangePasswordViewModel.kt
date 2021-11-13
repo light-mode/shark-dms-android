@@ -6,10 +6,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.ChangePasswordRequest
 import vn.sharkdms.data.UserDao
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
@@ -26,11 +28,14 @@ class ChangePasswordViewModel @Inject constructor(private val baseApi: BaseApi,
             val body = ChangePasswordRequest(oldPassword, newPassword)
             try {
                 val response = baseApi.changePassword(authorization, body)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 changePasswordEventChannel.send(
                     ChangePasswordEvent.OnResponse(response.code.toInt(), response.message)
                 )
             } catch (ste: SocketTimeoutException) {
                 changePasswordEventChannel.send(ChangePasswordEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                changePasswordEventChannel.send(ChangePasswordEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -46,5 +51,6 @@ class ChangePasswordViewModel @Inject constructor(private val baseApi: BaseApi,
         data class OnResponse(val code: Int, val message: String) : ChangePasswordEvent()
         object OnFailure : ChangePasswordEvent()
         object ShowLoginScreen : ChangePasswordEvent()
+        object ShowUnauthorizedDialog : ChangePasswordEvent()
     }
 }

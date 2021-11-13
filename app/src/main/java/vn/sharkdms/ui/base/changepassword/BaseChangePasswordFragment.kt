@@ -30,6 +30,7 @@ import vn.sharkdms.databinding.FragmentChangePasswordBinding
 import vn.sharkdms.ui.base.changepassword.ChangePasswordViewModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
 import vn.sharkdms.util.Validator
 
 @AndroidEntryPoint
@@ -66,6 +67,9 @@ open class BaseChangePasswordFragment : Fragment(R.layout.fragment_change_passwo
                     }
                     is ChangePasswordViewModel.ChangePasswordEvent.ShowLoginScreen ->
                         navigateToLoginScreen()
+                    is ChangePasswordViewModel.ChangePasswordEvent.ShowUnauthorizedDialog -> {
+                        Utils.showUnauthorizedDialog(requireActivity())
+                    }
                 }
             }
         }

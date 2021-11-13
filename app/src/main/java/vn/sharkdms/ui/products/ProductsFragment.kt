@@ -19,6 +19,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentProductsBinding
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 abstract class ProductsFragment : Fragment(
@@ -47,6 +48,9 @@ abstract class ProductsFragment : Fragment(
         }
         adapter.addLoadStateListener { combinedLoadStates ->
             binding.apply {
+                if (combinedLoadStates.source.refresh is LoadState.Error) {
+                    Utils.showUnauthorizedDialog(requireActivity())
+                }
                 if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
                     combinedLoadStates.append.endOfPaginationReached && adapter.itemCount == 0) {
                     iconNoResult.visibility = View.VISIBLE

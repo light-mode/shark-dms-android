@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.ui.cart.Cart
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
@@ -29,12 +31,15 @@ class SharedViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
             try {
                 if (cartId == null || cartId == 0) {
                     customerEventChannel.send(CustomerEvent.NavigateToCartInfoScreen(null))
-                } else {
-                    val response = baseApi.getCartInfoAsCustomer(authorization, cartId)
-                    customerEventChannel.send(CustomerEvent.NavigateToCartInfoScreen(response.data))
+                    return@launch
                 }
+                val response = baseApi.getCartInfoAsCustomer(authorization, cartId)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
+                customerEventChannel.send(CustomerEvent.NavigateToCartInfoScreen(response.data))
             } catch (ste: SocketTimeoutException) {
                 customerEventChannel.send(CustomerEvent.ShowNetworkConnectionErrorMessage)
+            } catch (ue: UnauthorizedException) {
+                customerEventChannel.send(CustomerEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -42,5 +47,6 @@ class SharedViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
     sealed class CustomerEvent {
         data class NavigateToCartInfoScreen(val cart: Cart?) : CustomerEvent()
         object ShowNetworkConnectionErrorMessage : CustomerEvent()
+        object ShowUnauthorizedDialog : CustomerEvent()
     }
 }

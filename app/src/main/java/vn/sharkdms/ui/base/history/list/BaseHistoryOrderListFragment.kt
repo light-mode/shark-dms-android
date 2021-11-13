@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collectLatest
 import vn.sharkdms.R
@@ -25,6 +26,7 @@ import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 import java.util.*
 
 open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list), HistoryOrderAdapter.OnItemClickListener {
@@ -48,6 +50,9 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
         initRecyclerView(binding)
 
         historyOrderAdapter.addLoadStateListener { combinedLoadStates ->
+            if (combinedLoadStates.source.refresh is LoadState.Error) {
+                Utils.showUnauthorizedDialog(requireActivity())
+            }
             binding.apply {
                 if (historyOrderAdapter.itemCount == 0) {
                     ivNoOrder.visibility = View.VISIBLE

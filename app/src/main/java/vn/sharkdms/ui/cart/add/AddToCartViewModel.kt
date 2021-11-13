@@ -7,10 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.api.AddToCartRequest
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
@@ -69,10 +71,13 @@ class AddToCartViewModel @Inject constructor(private val baseApi: BaseApi) : Vie
             try {
                 val response = if (customerId == 0) baseApi.addToCartCustomer(authorization, body)
                 else baseApi.addToCart(authorization, body)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 addToCartEventChannel.send(
                     AddToCartEvent.OnResponse(response.message, response.data))
             } catch (ste: SocketTimeoutException) {
                 addToCartEventChannel.send(AddToCartEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                addToCartEventChannel.send(AddToCartEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -81,5 +86,6 @@ class AddToCartViewModel @Inject constructor(private val baseApi: BaseApi) : Vie
         data class UpdateQuantityEditText(val quantity: String) : AddToCartEvent()
         data class OnResponse(val message: String, val cart: Cart?) : AddToCartEvent()
         object OnFailure : AddToCartEvent()
+        object ShowUnauthorizedDialog : AddToCartEvent()
     }
 }

@@ -25,6 +25,7 @@ import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.products.Product
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
@@ -178,6 +179,9 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
                         binding)
                     is AddToCartViewModel.AddToCartEvent.UpdateQuantityEditText -> {
                         binding.editTextQuantity.setText(event.quantity)
+                    }
+                    is AddToCartViewModel.AddToCartEvent.ShowUnauthorizedDialog -> {
+                        Utils.showUnauthorizedDialog(requireActivity())
                     }
                 }
             }

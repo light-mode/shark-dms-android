@@ -35,6 +35,7 @@ import vn.sharkdms.ui.customer.list.CustomerListFragmentDirections
 import vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
 
 class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
@@ -92,6 +93,8 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                     }
                     is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
                         handleGetDiscountFailure()
+                    is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
+                        Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
         }

@@ -25,6 +25,7 @@ import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.ConfirmDialog
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 abstract class CartDetailsFragment : Fragment(
@@ -244,6 +245,9 @@ abstract class CartDetailsFragment : Fragment(
                         doAfterCancelOrderResponse(binding)
                         doAfterCreateOrderResponse(binding)
                         showNetworkConnectionErrorMessage()
+                    }
+                    is CartDetailsViewModel.CartDetailsEvent.ShowUnauthorizedDialog -> {
+                        Utils.showUnauthorizedDialog(requireActivity())
                     }
                 }
             }

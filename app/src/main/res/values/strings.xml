@@ -225,6 +225,9 @@
     <string name="dialog_offline_text_view_title_text">Đang ở chế độ Offline</string>
     <string name="dialog_offline_text_view_content_text">Hãy kết nối mạng của bạn để tiếp tục trải nghiệm</string>
 
+    <string name="dialog_unauthorized_title">Thông báo</string>
+    <string name="dialog_unauthorized_message">Tài khoản đã đăng nhập trên thiết bị khác,\nvui lòng đăng nhập lại để tiếp tục sử dụng ứng dụng</string>
+
     <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
     <string name="support_call">039 666 8760</string>
     <string name="support_email">hotro@sharkdms.vn</string>

@@ -23,6 +23,7 @@ import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.info.CheckInViewModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
 
 open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
     private val TAG = "AccountFragment"
@@ -63,6 +64,8 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
                     }
                     is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
                         handleGetDiscountFailure()
+                    is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
+                        Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
         }

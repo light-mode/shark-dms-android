@@ -7,15 +7,15 @@ import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
-import android.widget.RelativeLayout
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.Navigation
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_customer.*
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 class CustomerActivity : AppCompatActivity() {
@@ -91,6 +92,9 @@ class CustomerActivity : AppCompatActivity() {
                         event.cart)
                     is SharedViewModel.CustomerEvent.ShowNetworkConnectionErrorMessage ->
                         showNetworkConnectionErrorMessage()
+                    is SharedViewModel.CustomerEvent.ShowUnauthorizedDialog -> {
+                        Utils.showUnauthorizedDialog(this@CustomerActivity)
+                    }
                 }
             }
         }

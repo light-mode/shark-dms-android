@@ -22,6 +22,7 @@ import vn.sharkdms.ui.history.info.OrderDetailFragmentArgs
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
 
 open class BaseOrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
 
@@ -50,6 +51,8 @@ open class BaseOrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                         handleOrderDetailResponse(binding, event.code, event.message, event.data)
                     is OrderDetailViewModel.OrderDetailEvent.OnFailure ->
                         handleOrderDetailFailure()
+                    is OrderDetailViewModel.OrderDetailEvent.ShowUnauthorizedDialog ->
+                        Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
         }

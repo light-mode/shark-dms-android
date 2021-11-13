@@ -44,6 +44,8 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
                     }
                     HttpStatus.BAD_REQUEST -> cartDetailsEventChannel.send(
                         CartDetailsEvent.ShowBadRequestErrorMessage(message))
+                    HttpStatus.UNAUTHORIZED -> cartDetailsEventChannel.send(
+                        CartDetailsEvent.ShowUnauthorizedDialog)
                 }
             } catch (ste: SocketTimeoutException) {
                 cartDetailsEventChannel.send(CartDetailsEvent.ShowNetworkConnectionErrorMessage)
@@ -63,6 +65,8 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
                         CartDetailsEvent.OnCancelOrderSuccess(response.message))
                     HttpStatus.BAD_REQUEST -> cartDetailsEventChannel.send(
                         CartDetailsEvent.ShowBadRequestErrorMessage(response.message))
+                    HttpStatus.UNAUTHORIZED -> cartDetailsEventChannel.send(
+                        CartDetailsEvent.ShowUnauthorizedDialog)
                 }
             } catch (ste: SocketTimeoutException) {
                 cartDetailsEventChannel.send(CartDetailsEvent.ShowNetworkConnectionErrorMessage)
@@ -85,6 +89,8 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
                         CartDetailsEvent.OnCreateOrderSuccess(response.data))
                     HttpStatus.BAD_REQUEST -> cartDetailsEventChannel.send(
                         CartDetailsEvent.ShowBadRequestErrorMessage(message))
+                    HttpStatus.UNAUTHORIZED -> cartDetailsEventChannel.send(
+                        CartDetailsEvent.ShowUnauthorizedDialog)
                 }
             } catch (ste: SocketTimeoutException) {
                 cartDetailsEventChannel.send(CartDetailsEvent.ShowNetworkConnectionErrorMessage)
@@ -99,5 +105,6 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
         data class OnCreateOrderSuccess(val data: CreateOrderResponse) : CartDetailsEvent()
         data class ShowBadRequestErrorMessage(val message: String) : CartDetailsEvent()
         object ShowNetworkConnectionErrorMessage : CartDetailsEvent()
+        object ShowUnauthorizedDialog : CartDetailsEvent()
     }
 }
