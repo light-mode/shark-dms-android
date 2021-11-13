@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.data.User
 import vn.sharkdms.data.UserDao
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
@@ -29,9 +31,12 @@ class OverviewViewModel @Inject constructor(private val baseApi: BaseApi,
             val authorization = Constant.TOKEN_PREFIX + token
             try {
                 val response = baseApi.getAmounts(authorization)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 overviewEventChannel.send(OverviewEvent.OnResponse(response.data))
             } catch (ste: SocketTimeoutException) {
                 overviewEventChannel.send(OverviewEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                overviewEventChannel.send(OverviewEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -48,5 +53,6 @@ class OverviewViewModel @Inject constructor(private val baseApi: BaseApi,
         data class OnResponse(val amounts: List<Amount>?) : OverviewEvent()
         object OnFailure : OverviewEvent()
         data class BindWelcomeView(val name: String) : OverviewEvent()
+        object ShowUnauthorizedDialog : OverviewEvent()
     }
 }

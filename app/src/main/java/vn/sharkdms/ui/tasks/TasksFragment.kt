@@ -21,6 +21,7 @@ import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentTasksBinding
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 import java.util.*
 
 @AndroidEntryPoint
@@ -45,6 +46,9 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TaskAdapter.OnItemClick
         }
         adapter.addLoadStateListener { combinedLoadStates ->
             binding.apply {
+                if (combinedLoadStates.source.refresh is LoadState.Error) {
+                    Utils.showUnauthorizedDialog(requireActivity())
+                }
                 if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
                     combinedLoadStates.append.endOfPaginationReached && adapter.itemCount == 0) {
                     iconNoTask.visibility = View.VISIBLE

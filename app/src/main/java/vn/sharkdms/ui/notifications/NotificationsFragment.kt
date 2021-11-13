@@ -15,6 +15,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentNotificationsBinding
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 class NotificationsFragment : Fragment(
@@ -36,6 +37,9 @@ class NotificationsFragment : Fragment(
         }
         adapter.addLoadStateListener { combinedLoadStates ->
             binding.apply {
+                if (combinedLoadStates.source.refresh is LoadState.Error) {
+                    Utils.showUnauthorizedDialog(requireActivity())
+                }
                 if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
                     combinedLoadStates.append.endOfPaginationReached && adapter.itemCount == 0) {
                     iconNoNotification.visibility = View.VISIBLE

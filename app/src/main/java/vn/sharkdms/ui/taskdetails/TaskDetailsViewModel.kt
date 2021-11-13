@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.UpdateTaskStatusRequest
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
@@ -26,6 +28,7 @@ class TaskDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
             val body = UpdateTaskStatusRequest(taskId.toString(), status)
             try {
                 val response = baseApi.updateTaskStatus(authorization, body)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 if (response.data == null) {
                     taskDetailsEventChannel.send(TaskDetailsEvent.OnError(response.message))
                 } else {
@@ -33,6 +36,8 @@ class TaskDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
                 }
             } catch (ske: SocketTimeoutException) {
                 taskDetailsEventChannel.send(TaskDetailsEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                taskDetailsEventChannel.send(TaskDetailsEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -41,5 +46,6 @@ class TaskDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
         data class OnSuccess(val message: String) : TaskDetailsEvent()
         data class OnError(val message: String) : TaskDetailsEvent()
         object OnFailure : TaskDetailsEvent()
+        object ShowUnauthorizedDialog : TaskDetailsEvent()
     }
 }

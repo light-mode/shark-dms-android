@@ -36,6 +36,7 @@ import vn.sharkdms.ui.customer.create.CreateCustomerViewModel
 import vn.sharkdms.ui.customer.info.CustomerInfoFragmentArgs
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
 import java.io.*
 
 
@@ -76,6 +77,8 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
                     is CustomerGalleryViewModel.CustomerGalleryEvent.OnFailure ->
                         handleGalleryFailure(binding)
 
+                    is CustomerGalleryViewModel.CustomerGalleryEvent.ShowUnauthorizedDialog ->
+                        Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
         }

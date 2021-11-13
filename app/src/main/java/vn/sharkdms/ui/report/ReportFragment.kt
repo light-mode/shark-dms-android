@@ -19,6 +19,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.GetReportResponseData
 import vn.sharkdms.databinding.FragmentReportBinding
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 class ReportFragment : Fragment(R.layout.fragment_report) {
@@ -147,6 +148,9 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
                     }
                     is ReportViewModel.ReportEvent.OnFailure -> {
                         handleRequestFailure(binding)
+                    }
+                    is ReportViewModel.ReportEvent.ShowUnauthorizedDialog -> {
+                        Utils.showUnauthorizedDialog(requireActivity())
                     }
                 }
             }

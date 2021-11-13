@@ -32,6 +32,7 @@ import vn.sharkdms.databinding.FragmentOverviewBinding
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.OfflineDialog
+import vn.sharkdms.util.Utils
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -59,6 +60,9 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                         requireActivity().supportFragmentManager)
                     is OverviewViewModel.OverviewEvent.BindWelcomeView -> bindWelcomeView(binding,
                         event.name)
+                    is OverviewViewModel.OverviewEvent.ShowUnauthorizedDialog -> {
+                        Utils.showUnauthorizedDialog(requireActivity())
+                    }
                 }
             }
         }

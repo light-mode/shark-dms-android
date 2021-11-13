@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CheckInRequest
 import vn.sharkdms.ui.customer.create.CreateCustomerViewModel
+import vn.sharkdms.ui.logout.UnauthorizedException
+import vn.sharkdms.util.HttpStatus
 import java.lang.NumberFormatException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
@@ -29,6 +31,7 @@ class CheckInViewModel @Inject constructor(private val baseApi: BaseApi) : ViewM
             try {
                 val response = baseApi.checkInCustomer(authorization, checkInRequest)
                 val code = response.code.toInt()
+                if (code == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 checkInEventChannel.send(
                     CheckInEvent.OnResponse(code, response.message)
                 )
@@ -36,6 +39,8 @@ class CheckInViewModel @Inject constructor(private val baseApi: BaseApi) : ViewM
                 Log.e(TAG, nfe.message, nfe)
             } catch (ste: SocketTimeoutException) {
                 checkInEventChannel.send(CheckInEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                checkInEventChannel.send(CheckInEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -43,5 +48,6 @@ class CheckInViewModel @Inject constructor(private val baseApi: BaseApi) : ViewM
     sealed class CheckInEvent {
         data class OnResponse(val code: Int, val message: String): CheckInEvent()
         object OnFailure : CheckInEvent()
+        object ShowUnauthorizedDialog : CheckInEvent()
     }
 }

@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import vn.sharkdms.api.BaseApi
+import vn.sharkdms.ui.logout.UnauthorizedException
+import vn.sharkdms.util.HttpStatus
 import java.lang.NumberFormatException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
@@ -30,12 +32,15 @@ class CustomerGalleryViewModel @Inject constructor(private val baseApi: BaseApi)
             try {
                 val response = baseApi.uploadGallery(authorization, id, address, lat, long, image)
                 val code = response.code.toInt()
+                if (code == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 customerGalleryEventChannel.send(
                     CustomerGalleryEvent.OnResponse(code, response.message))
             } catch (nfe: NumberFormatException) {
                 Log.e(TAG, nfe.message, nfe)
             } catch (ste: SocketTimeoutException) {
                 customerGalleryEventChannel.send(CustomerGalleryEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                customerGalleryEventChannel.send(CustomerGalleryEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -43,5 +48,6 @@ class CustomerGalleryViewModel @Inject constructor(private val baseApi: BaseApi)
     sealed class CustomerGalleryEvent {
         data class OnResponse(val code: Int, val message: String): CustomerGalleryEvent()
         object OnFailure : CustomerGalleryEvent()
+        object ShowUnauthorizedDialog : CustomerGalleryEvent()
     }
 }

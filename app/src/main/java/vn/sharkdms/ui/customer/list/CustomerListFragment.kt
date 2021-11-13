@@ -32,6 +32,7 @@ import androidx.paging.PagingData
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 
 open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), CustomerAdapter.OnItemClickListener {
@@ -60,6 +61,9 @@ open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), Cus
             customerAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
         customerAdapter.addLoadStateListener { combinedLoadStates ->
+            if (combinedLoadStates.source.refresh is LoadState.Error) {
+                Utils.showUnauthorizedDialog(requireActivity())
+            }
             binding.apply {
                 if (customerAdapter.itemCount == 0) {
                     ivNoCustomer.visibility = View.VISIBLE

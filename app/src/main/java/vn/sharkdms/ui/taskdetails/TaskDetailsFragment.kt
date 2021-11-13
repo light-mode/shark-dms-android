@@ -18,6 +18,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentTaskDetailsBinding
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
@@ -46,6 +47,9 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
                     is TaskDetailsViewModel.TaskDetailsEvent.OnFailure -> {
                         Toast.makeText(requireContext(),
                             getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT).show()
+                    }
+                    is TaskDetailsViewModel.TaskDetailsEvent.ShowUnauthorizedDialog -> {
+                        Utils.showUnauthorizedDialog(requireActivity())
                     }
                 }
             }

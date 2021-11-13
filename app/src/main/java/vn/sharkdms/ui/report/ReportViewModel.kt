@@ -11,7 +11,9 @@ import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CreateReportRequest
 import vn.sharkdms.api.GetReportResponseData
 import vn.sharkdms.api.UpdateReportRequest
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
@@ -29,6 +31,7 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
             val authorization = Constant.TOKEN_PREFIX + token
             try {
                 val response = baseApi.getReport(authorization)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 val any = response.data
                 if (any is List<*>) {
                     val list = any.filterIsInstance<GetReportResponseData>()
@@ -58,6 +61,8 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
                 }
             } catch (ste: SocketTimeoutException) {
                 reportEventChannel.send(ReportEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                reportEventChannel.send(ReportEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -67,6 +72,7 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
             val authorization = Constant.TOKEN_PREFIX + token
             try {
                 val response = baseApi.getReport(authorization)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 val any = response.data
                 if (any !is List<*>) {
                     val linkedTreeMap = any as LinkedTreeMap<*, *>
@@ -74,6 +80,8 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
                 }
             } catch (ste: SocketTimeoutException) {
                 reportEventChannel.send(ReportEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                reportEventChannel.send(ReportEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -92,9 +100,12 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
             val body = CreateReportRequest(reportTitle, reportDescription)
             try {
                 val response = baseApi.createReport(authorization, body)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 reportEventChannel.send(ReportEvent.OnCreateReportResponse(response.message))
             } catch (ste: SocketTimeoutException) {
                 reportEventChannel.send(ReportEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                reportEventChannel.send(ReportEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -105,9 +116,12 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
             val body = UpdateReportRequest(reportId, reportTitle, reportDescription)
             try {
                 val response = baseApi.editReport(authorization, body)
+                if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 reportEventChannel.send(ReportEvent.OnEditReportResponse(response.message))
             } catch (ste: SocketTimeoutException) {
                 reportEventChannel.send(ReportEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                reportEventChannel.send(ReportEvent.ShowUnauthorizedDialog)
             }
         }
     }
@@ -117,5 +131,6 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
         data class OnCreateReportResponse(val message: String) : ReportEvent()
         data class OnEditReportResponse(val message: String) : ReportEvent()
         object OnFailure : ReportEvent()
+        object ShowUnauthorizedDialog: ReportEvent()
     }
 }

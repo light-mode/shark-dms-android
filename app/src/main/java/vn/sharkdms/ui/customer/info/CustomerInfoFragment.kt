@@ -81,6 +81,8 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                         handleCheckInResponse(event.code, event.message)
                     is CheckInViewModel.CheckInEvent.OnFailure ->
                         handleCheckInFailure()
+                    is CheckInViewModel.CheckInEvent.ShowUnauthorizedDialog ->
+                        Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
             discountViewModel.discountDialogEvent.collect { event ->
