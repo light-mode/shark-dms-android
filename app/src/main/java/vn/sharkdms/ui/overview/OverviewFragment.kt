@@ -4,15 +4,17 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis.AxisDependency
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
@@ -20,6 +22,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.renderer.XAxisRenderer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
@@ -28,6 +31,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentOverviewBinding
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
+import vn.sharkdms.util.OfflineDialog
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -51,7 +55,8 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                 when (event) {
                     is OverviewViewModel.OverviewEvent.OnResponse -> handleGetAmountsResponse(
                         binding, event.amounts)
-                    is OverviewViewModel.OverviewEvent.OnFailure -> handleRequestFailure(binding)
+                    is OverviewViewModel.OverviewEvent.OnFailure -> showOfflineDialog(
+                        requireActivity().supportFragmentManager)
                     is OverviewViewModel.OverviewEvent.BindWelcomeView -> bindWelcomeView(binding,
                         event.name)
                 }
@@ -59,11 +64,11 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         }
         val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity ->
-            val mustLoad = binding.progressBar.visibility == View.VISIBLE
-            if (connectivity && mustLoad) {
+            if (connectivity) {
+                hideOfflineDialog()
                 viewModel.sendGetAmountsRequest(sharedViewModel.token)
-            } else if (mustLoad) {
-                handleRequestFailure(binding)
+            } else {
+                showOfflineDialog(requireActivity().supportFragmentManager)
             }
         }
         viewModel.users.observe(viewLifecycleOwner) {
@@ -135,6 +140,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             description.isEnabled = false
             axisLeft.axisMinimum = 0f
             axisRight.isEnabled = false
+            extraBottomOffset = 1f
             legend.isEnabled = false
             xAxis.apply {
                 granularity = 1f
@@ -152,19 +158,36 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                 override fun onValueSelected(entry: Entry?, highlight: Highlight?) {
                     if (entry == null) return
-                    viewModel.selectedColumnIndex.postValue(entry.x.toInt())
+                    val index = entry.x.toInt()
+                    viewModel.selectedColumnIndex.postValue(index)
                     val formattedRevenue = Formatter.formatCurrency(entry.y.toString())
                     binding.textViewRevenue.text = getString(
                         R.string.fragment_overview_format_total_revenue, formattedRevenue)
+                    setXAxisRenderer(getXAxisRenderer(this@apply, getXAxisColors(index)))
+                    notifyDataSetChanged()
+                    invalidate()
                 }
 
                 override fun onNothingSelected() { //
                 }
             })
             setScaleEnabled(false)
+            setXAxisRenderer(
+                getXAxisRenderer(this, getXAxisColors(viewModel.selectedColumnIndex.value!!)))
         }
         bindRevenue(binding, amounts[viewModel.selectedColumnIndex.value!!].revenue)
         bindTotalRevenue(binding, amounts)
+    }
+
+    private fun getXAxisColors(index: Int): List<Int> {
+        val colors = mutableListOf(Color.BLACK, Color.BLACK, Color.BLACK)
+        colors[index] = Color.parseColor(getString(R.string.color_primary))
+        return colors
+    }
+
+    private fun getXAxisRenderer(chart: BarChart, colors: List<Int>): XAxisRenderer {
+        return MyXAxisRenderer(chart.viewPortHandler, chart.xAxis,
+            chart.getTransformer(AxisDependency.LEFT), colors)
     }
 
     private fun bindRevenue(binding: FragmentOverviewBinding, revenue: String) {
@@ -190,14 +213,26 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             textViewTotalAmount.visibility = View.VISIBLE
             textViewTotalAmountTitle.visibility = View.VISIBLE
             textViewWelcome.visibility = View.VISIBLE
-            progressBar.visibility = View.GONE
         }
     }
 
-    private fun handleRequestFailure(binding: FragmentOverviewBinding) {
-        binding.progressBar.visibility = View.GONE
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+    private fun showOfflineDialog(supportFragmentManager: FragmentManager) {
+        val offlineDialog = findOfflineDialog()
+        if (offlineDialog == null || !offlineDialog.isAdded) {
+            OfflineDialog().show(supportFragmentManager, OfflineDialog.TAG)
+        }
+    }
+
+    private fun hideOfflineDialog() {
+        val offlineDialog = findOfflineDialog()
+        if (offlineDialog != null && offlineDialog.isAdded) {
+            (offlineDialog as OfflineDialog).dismiss()
+        }
+    }
+
+    private fun findOfflineDialog(): Fragment? {
+        val supportFragmentManager = requireActivity().supportFragmentManager
+        return supportFragmentManager.findFragmentByTag(OfflineDialog.TAG)
     }
 
     private fun bindWelcomeView(binding: FragmentOverviewBinding, name: String) {

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
@@ -43,6 +44,18 @@ abstract class ProductsFragment : Fragment(
             customer?.let { toolbar.visibility = View.VISIBLE }
             recyclerView.setHasFixedSize(true)
             recyclerView.adapter = adapter
+        }
+        adapter.addLoadStateListener { combinedLoadStates ->
+            binding.apply {
+                if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
+                    combinedLoadStates.append.endOfPaginationReached && adapter.itemCount == 0) {
+                    iconNoResult.visibility = View.VISIBLE
+                    textViewNoResult.visibility = View.VISIBLE
+                } else {
+                    iconNoResult.visibility = View.GONE
+                    textViewNoResult.visibility = View.GONE
+                }
+            }
         }
         viewModel.tasks.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)

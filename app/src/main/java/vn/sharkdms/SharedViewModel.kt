@@ -25,11 +25,14 @@ class SharedViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
     fun getCartInfoAsCustomer() {
         val authorization = Constant.TOKEN_PREFIX + token
         val cartId = cartId.value
-        if (cartId == null || cartId == 0) return
         viewModelScope.launch {
             try {
-                val response = baseApi.getCartInfoAsCustomer(authorization, cartId)
-                customerEventChannel.send(CustomerEvent.NavigateToCartInfoScreen(response.data))
+                if (cartId == null || cartId == 0) {
+                    customerEventChannel.send(CustomerEvent.NavigateToCartInfoScreen(null))
+                } else {
+                    val response = baseApi.getCartInfoAsCustomer(authorization, cartId)
+                    customerEventChannel.send(CustomerEvent.NavigateToCartInfoScreen(response.data))
+                }
             } catch (ste: SocketTimeoutException) {
                 customerEventChannel.send(CustomerEvent.ShowNetworkConnectionErrorMessage)
             }
@@ -37,7 +40,7 @@ class SharedViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
     }
 
     sealed class CustomerEvent {
-        data class NavigateToCartInfoScreen(val cart: Cart) : CustomerEvent()
+        data class NavigateToCartInfoScreen(val cart: Cart?) : CustomerEvent()
         object ShowNetworkConnectionErrorMessage : CustomerEvent()
     }
 }

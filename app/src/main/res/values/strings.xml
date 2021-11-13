@@ -103,7 +103,7 @@
     <string name="fragment_overview_text_view_total_amount_title_text">Tổng doanh thu 3 tháng gần đây:</string>
     <string name="fragment_overview_title_y">Doanh thu (VNĐ)</string>
     <string name="fragment_overview_format_tooltip_y">{%Value}{groupsSeparator: } VNĐ</string>
-    <string name="fragment_overview_format_x">%1$d/%2$d</string>
+    <string name="fragment_overview_format_x">Tháng %1$d, %2$d</string>
     <string name="fragment_overview_format_y">{%Value}{groupsSeparator: }</string>
     <string name="fragment_overview_format_total_revenue">%1$s VNĐ</string>
     <string name="fragment_overview_format_welcome">Xin chào, %1$s</string>
@@ -120,7 +120,10 @@
     <string name="fragment_report_button_send_text">Gửi</string>
 
     <string name="fragment_tasks_title">Công việc</string>
+    <string name="fragment_tasks_text_view_date_default_text">Chọn ngày</string>
     <string name="fragment_tasks_text_view_no_task_text">Bạn hiện không có công việc nào</string>
+    <string name="fragment_tasks_date_format_display">%1$d/%2$d/%3$d</string>
+    <string name="fragment_tasks_date_format_search">%1$d-%2$d-%3$d</string>
     <string name="fragment_task_details_title">Chi tiết công việc</string>
     <string name="task_status_new">Mới</string>
     <string name="task_status_processing">Đang xử lý</string>
@@ -162,6 +165,7 @@
 
     <string name="fragment_products_title">Danh sách sản phẩm</string>
     <string name="fragment_products_edit_text_name_hint">Tìm kiếm theo tên sản phẩm</string>
+    <string name="fragment_products_text_view_no_result_text">Không tìm thấy sản phẩm nào</string>
 
     <string name="item_product_text_view_quantity_out_of_stock_text">Hết hàng</string>
     <string name="item_product_text_view_price_format">%1$s đ</string>
@@ -217,6 +221,9 @@
     
     <string name="dialog_confirm_button_no_text">Không</string>
     <string name="dialog_confirm_button_yes_text">Có</string>
+
+    <string name="dialog_offline_text_view_title_text">Đang ở chế độ Offline</string>
+    <string name="dialog_offline_text_view_content_text">Hãy kết nối mạng của bạn để tiếp tục trải nghiệm</string>
 
     <string name="message_connectivity_off">Hãy Kiểm Tra Lại Kết Nối Mạng</string>
     <string name="support_call">039 666 8760</string>

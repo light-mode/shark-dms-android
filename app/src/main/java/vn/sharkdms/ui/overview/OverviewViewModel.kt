@@ -37,6 +37,7 @@ class OverviewViewModel @Inject constructor(private val baseApi: BaseApi,
     }
 
     fun getName(users: List<User>) {
+        if (users.isEmpty()) return
         viewModelScope.launch {
             val user = users[0]
             overviewEventChannel.send(OverviewEvent.BindWelcomeView(user.name))

@@ -94,12 +94,9 @@ class CustomerActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.cartId.observe(this) { cartId ->
-            cartIcon.visibility = if (cartId == 0) View.GONE else View.VISIBLE
-        }
     }
 
-    private fun handleGetCartInfoResponse(cart: Cart) {
+    private fun handleGetCartInfoResponse(cart: Cart?) {
         val bundle = Bundle()
         bundle.putParcelable("cart", cart)
         Navigation.findNavController(this, R.id.nav_host_fragment)
