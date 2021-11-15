@@ -507,7 +507,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
 
         //Convert bitmap to byte array
         val bos = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos)
         val bitMapData = bos.toByteArray()
 
         //write the bytes in file
