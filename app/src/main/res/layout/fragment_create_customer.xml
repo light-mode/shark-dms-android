@@ -53,6 +53,7 @@
         android:padding="0.75dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
+        android:background="@drawable/avatar_create_customer"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         app:shapeAppearanceOverlay="@style/avatar"
