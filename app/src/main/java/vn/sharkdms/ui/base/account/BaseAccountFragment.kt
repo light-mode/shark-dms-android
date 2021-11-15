@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -16,26 +17,29 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.data.User
 import vn.sharkdms.databinding.FragmentAccountBinding
-import vn.sharkdms.ui.account.AccountFragmentDirections
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
 import vn.sharkdms.ui.customer.discount.DiscountInfo
-import vn.sharkdms.ui.customer.info.CheckInViewModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.ui.account.ImageChooserDialog
 import vn.sharkdms.util.Utils
 
 open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
-    private val TAG = "AccountFragment"
+    companion object {
+        private const val TAG = "AccountFragment"
+    }
 
     private val viewModel by viewModels<AccountViewModel>()
     private lateinit var discountViewModel: DiscountDialogViewModel
     private var userId = 1
     private var discountInfo: String = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentAccountBinding.bind(view)
-        discountViewModel = ViewModelProvider(requireActivity())[DiscountDialogViewModel::class.java]
+        discountViewModel = ViewModelProvider(
+            requireActivity())[DiscountDialogViewModel::class.java]
         binding.apply {
             iconBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -55,22 +59,28 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
                 }
             }
             discountViewModel.discountDialogEvent.collect { event ->
-                when(event) {
+                when (event) {
                     is DiscountDialogViewModel.DiscountDialogEvent.OnResponse -> {
-                        if (event.data?.size  != 0)
-                            handleGetDiscountInfoResponse(event.code, event.message, event.data?.get(0))
-                        else
-                            handleGetDiscountInfoResponse(event.code, event.message, null)
+                        if (event.data?.size != 0) handleGetDiscountInfoResponse(event.code,
+                            event.message, event.data?.get(0))
+                        else handleGetDiscountInfoResponse(event.code, event.message, null)
                     }
                     is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
                         handleGetDiscountFailure()
                     is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
-                        Utils.showUnauthorizedDialog(requireActivity())
+                        Utils.showUnauthorizedDialog(
+                        requireActivity())
                 }
             }
         }
         viewModel.users.observe(viewLifecycleOwner) {
             viewModel.getUserInfo(it)
+        }
+        setFragmentResultListener(ImageChooserDialog.UPLOAD_AVATAR) { _, bundle ->
+            val imageUrl = bundle.getString(ImageChooserDialog.IMAGE_URL)
+            if (imageUrl.isNullOrEmpty()) return@setFragmentResultListener
+            Glide.with(requireContext()).load(imageUrl).error(R.drawable.ic_avatar)
+                .into(binding.imageViewAvatar)
         }
     }
 
