@@ -240,4 +240,10 @@
             android:name="data"
             app:argType="vn.sharkdms.api.CreateOrderResponse" />
     </fragment>
+    <dialog
+        android:id="@+id/imageChooserDialog"
+        android:name="vn.sharkdms.ui.account.ImageChooserDialog"
+        android:label="dialog_image_chooser"
+        tools:layout="@layout/dialog_image_chooser" />
+    <action android:id="@+id/action_global_imageChooserDialog" app:destination="@id/imageChooserDialog"/>
 </navigation>

@@ -16,4 +16,7 @@ interface UserDao {
 
     @Query("delete from user_table")
     suspend fun deleteUserInfo()
+
+    @Query("update user_table set avatar = :avatar")
+    suspend fun updateAvatar(avatar: String)
 }

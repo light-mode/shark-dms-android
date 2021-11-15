@@ -105,6 +105,10 @@ interface BaseApi {
     suspend fun getCartInfoAsCustomer(@Header(AUTHORIZATION) authorization: String,
         @Path("id") id: Int): BaseResponse<Cart>
 
+    @POST("replace-avatar")
+    suspend fun uploadAvatar(@Header(AUTHORIZATION) authorization: String,
+        @Body body: RequestBody): BaseResponse<UploadAvatarResponse>
+
     /** Customer API
      *
      */

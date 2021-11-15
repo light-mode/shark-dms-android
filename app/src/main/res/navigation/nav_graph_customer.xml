@@ -106,4 +106,10 @@
     <action
         android:id="@+id/action_global_cartDetailsFragment2"
         app:destination="@id/cartDetailsFragment2" />
+    <dialog
+        android:id="@+id/imageChooserDialog2"
+        android:name="vn.sharkdms.ui.account.ImageChooserDialog"
+        android:label="dialog_image_chooser"
+        tools:layout="@layout/dialog_image_chooser" />
+    <action android:id="@+id/action_global_imageChooserDialog2" app:destination="@id/imageChooserDialog2"/>
 </navigation>
