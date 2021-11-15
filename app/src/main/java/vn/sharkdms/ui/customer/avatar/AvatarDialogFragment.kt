@@ -123,7 +123,9 @@ class AvatarDialogFragment : DialogFragment() {
         } else if (requestCode == REQUEST_CHOOSE_IMAGE && resultCode == Activity.RESULT_OK) {
             // In this case, imageUri is returned by the chooser, save it.
             val imageUri: Uri? = data?.data
-            onPhotoSelectedListener.getImagePath(imageUri)
+//            onPhotoSelectedListener.getImagePath(imageUri)
+            val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
+            onPhotoSelectedListener.getImageBitmap(bm)
             dismiss()
         } else
             super.onActivityResult(requestCode, resultCode, data)

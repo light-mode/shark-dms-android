@@ -36,6 +36,7 @@ class SuccessDialogFragment : DialogFragment() {
 
     override fun onDismiss(dialog: DialogInterface) {
         findNavController().navigateUp()
+        super.onDismiss(dialog)
     }
 
     private fun initializeDialog() {
