@@ -22,7 +22,7 @@ class HistoryOrderPagingSource(val apiService: BaseApi, val token: String, val c
             val response = apiService.getHistoryOrder(token, body)
 
             return LoadResult.Page(
-                data = response.data.sortedDescending(),
+                data = response.data,
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
                 nextKey = nextPage + 1
             )
