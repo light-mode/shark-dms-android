@@ -57,7 +57,6 @@
                 android:paddingTop="12dp"
                 android:paddingEnd="24dp"
                 android:paddingBottom="12dp"
-                android:textAlignment="center"
                 android:textColor="@color/black"
                 tools:text="Hoàn thành KPI tháng 9" />
         </androidx.cardview.widget.CardView>
