@@ -64,9 +64,11 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:lines="2"
+                android:maxLength="200"
                 android:padding="16dp"
                 android:saveEnabled="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -92,7 +94,8 @@
                 android:inputType="text"
                 android:padding="16dp"
                 android:saveEnabled="false"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
         </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatButton

@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.cart.details
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -29,8 +31,7 @@ import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 abstract class CartDetailsFragment : Fragment(
-    R.layout.fragment_cart_details), CartItemAdapter.OnItemClickListener, ConfirmDialog
-.ConfirmDialogListener {
+    R.layout.fragment_cart_details), CartItemAdapter.OnItemClickListener {
 
     private var customer: Customer? = null
     private val viewModel by viewModels<CartDetailsViewModel>()
@@ -56,6 +57,13 @@ abstract class CartDetailsFragment : Fragment(
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it }
 
         Constant.setupUI(binding.cartDetailsFragment, requireActivity() as AppCompatActivity)
+        setFragmentResultListener(ConfirmDialog.REMOVE_ITEM) { _, bundle ->
+            val result = bundle.getInt(ConfirmDialog.DIALOG_RESULT)
+            if (result == Dialog.BUTTON_POSITIVE) {
+                if (connectivity) viewModel.removeFromCart(sharedViewModel.token, customer)
+                else showNetworkConnectionErrorMessage()
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -283,18 +291,9 @@ abstract class CartDetailsFragment : Fragment(
         viewModel.cartItemId = item.id
         val title = getString(R.string.fragment_cart_details_dialog_remove_product_title)
         val message = getString(R.string.fragment_cart_details_dialog_remove_product_message)
-        val supportFragmentManager = requireActivity().supportFragmentManager
-        ConfirmDialog(this, title, message).show(supportFragmentManager, "")
-    }
-
-    override fun onNegativeButtonClick() { //
-    }
-
-    override fun onPositiveButtonClick() {
-        if (!connectivity) {
-            showNetworkConnectionErrorMessage()
-            return
-        }
-        viewModel.removeFromCart(sharedViewModel.token, customer)
+        val action = if (customer == null) {
+            CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message)
+        } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message)
+        findNavController().navigate(action)
     }
 }

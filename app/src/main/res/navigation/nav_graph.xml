@@ -26,7 +26,17 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment"
+        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragmentLogin"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
+    <dialog
+        android:id="@+id/messageDialog2"
+        android:name="vn.sharkdms.util.MessageDialog"
+        android:label="dialog_message"
+        tools:layout="@layout/dialog_message" >
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </dialog>
+    <action android:id="@+id/action_global_messageDialog2" app:destination="@id/messageDialog2" />
 </navigation>

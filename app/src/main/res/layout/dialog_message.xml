@@ -7,7 +7,8 @@
     android:background="@drawable/bg_logout_dialog"
     android:paddingStart="4dp"
     android:paddingEnd="4dp"
-    android:paddingBottom="20dp">
+    android:paddingBottom="20dp"
+    tools:context=".util.MessageDialog">
 
     <TextView
         android:id="@+id/text_view_title"
