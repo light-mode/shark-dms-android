@@ -25,12 +25,10 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentForgotPasswordBinding
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
-import vn.sharkdms.util.MessageDialog
 import vn.sharkdms.util.Validator
 
 @AndroidEntryPoint
-class ForgotPasswordFragment : Fragment(
-    R.layout.fragment_forgot_password), MessageDialog.MessageDialogListener {
+abstract class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
     companion object {
         const val TAG = "ForgotPasswordFragment"
     }
@@ -188,15 +186,14 @@ class ForgotPasswordFragment : Fragment(
             buttonSend.isEnabled = true
         }
         when (code) {
-            HttpStatus.OK -> {
-                val supportFragmentManager = requireActivity().supportFragmentManager
-                MessageDialog(this, message).show(supportFragmentManager, "")
-            }
+            HttpStatus.OK -> showMessageDialog(message)
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
                 message, Toast.LENGTH_SHORT).show()
             else -> Log.e(TAG, code.toString())
         }
     }
+
+    abstract fun showMessageDialog(message: String)
 
     private fun handleForgotPasswordRequestFailure(binding: FragmentForgotPasswordBinding) {
         binding.apply {
@@ -206,9 +203,5 @@ class ForgotPasswordFragment : Fragment(
         }
         Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
             Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onConfirmButtonClick() {
-        findNavController().navigateUp()
     }
 }

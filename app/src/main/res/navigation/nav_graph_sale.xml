@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment2"
-        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment"
+        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragmentSale"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
@@ -246,4 +246,27 @@
         android:label="dialog_image_chooser"
         tools:layout="@layout/dialog_image_chooser" />
     <action android:id="@+id/action_global_imageChooserDialog" app:destination="@id/imageChooserDialog"/>
+    <dialog
+        android:id="@+id/confirmDialog2"
+        android:name="vn.sharkdms.util.ConfirmDialog"
+        android:label="dialog_confirm"
+        tools:layout="@layout/dialog_confirm" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </dialog>
+    <action android:id="@+id/action_global_confirmDialog2" app:destination="@id/confirmDialog2" />
+    <dialog
+        android:id="@+id/messageDialog3"
+        android:name="vn.sharkdms.util.MessageDialog"
+        android:label="dialog_message"
+        tools:layout="@layout/dialog_message" >
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </dialog>
+    <action android:id="@+id/action_global_messageDialog3" app:destination="@id/messageDialog3" />
 </navigation>
