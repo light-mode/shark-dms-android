@@ -16,30 +16,21 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 @HiltViewModel
-class HistoryOrderListViewModel @Inject constructor(application: Application, private val baseApi: BaseApi)
-    : AndroidViewModel(application), HistoryOrderAdapter.OnItemClickListener {
+class HistoryOrderListViewModel @Inject constructor(application: Application, private val repository: HistoryOrderListRepository)
+    : AndroidViewModel(application) {
     companion object {
         const val TAG = "HistoryOrderViewModel"
     }
 
-    var retroService: BaseApi
-    var historyOrderAdapter: HistoryOrderAdapter
     val historyOrderList: MutableLiveData<ArrayList<HistoryOrder>> by lazy {
         MutableLiveData<ArrayList<HistoryOrder>>()
-    }
-
-    init {
-        historyOrderAdapter = HistoryOrderAdapter(this)
-        retroService = AppModule.provideRetrofit().create(BaseApi::class.java)
     }
 
     private val historyOrderListEventChannel = Channel<HistoryOrderListEvent>()
     val historyOrderListEvent = historyOrderListEventChannel.receiveAsFlow()
 
     fun getListData(token: String, customerName: String, date: String) =
-        Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { HistoryOrderPagingSource(baseApi, token, customerName, date) })
-            .liveData.map { pagingData -> pagingData.map { UiModel.HistoryOrderItem(it) } }
+        repository.getListData(token, customerName, date).map { pagingData -> pagingData.map { UiModel.HistoryOrderItem(it) } }
             .map { pagingData ->
                 pagingData.insertSeparators { before, after ->
                     if (after == null) return@insertSeparators null
@@ -52,14 +43,8 @@ class HistoryOrderListViewModel @Inject constructor(application: Application, pr
                 }
             }.cachedIn(viewModelScope)
 
-    fun setAdapterData(data: ArrayList<HistoryOrder>) {
-        historyOrderAdapter.setDataList(data)
-    }
-
     sealed class HistoryOrderListEvent {
         data class OnResponse(val code: Int, val message: String, val data: List<HistoryOrder>, val totalPage: Int): HistoryOrderListEvent()
     }
 
-    override fun onItemClick(historyOrder: HistoryOrder) {
-    }
 }

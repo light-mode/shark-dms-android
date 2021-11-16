@@ -48,16 +48,6 @@ class AvatarDialogFragment : DialogFragment() {
         ActivityResultContracts.RequestPermission()) { permissionGranted ->
         if (permissionGranted) startCameraIntentForResult()
     }
-//
-//    private val cameraLauncher = registerForActivityResult(
-//        ActivityResultContracts.StartActivityForResult()) { result ->
-//        if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
-//        else {
-//            val bitmap: Bitmap = result?.data?.extras?.get("data") as Bitmap
-//            onPhotoSelectedListener.getImageBitmap(bitmap)
-//            dismiss()
-//        }
-//    }
 
     interface OnPhotoSelectedListener {
         fun getImagePath(imageUri: Uri?)
@@ -123,11 +113,7 @@ class AvatarDialogFragment : DialogFragment() {
     }
 
     private fun startCameraIntentForResult() {
-//        val file = createTempFile()
-//        val photoUri = FileProvider.getUriForFile(requireContext(), "vn.sharkdms", file)
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-//        cameraLauncher.launch(intent)
         startActivityForResult(
             Intent.createChooser(intent, "Take Photo"),
             REQUEST_IMAGE_CAPTURE
@@ -160,7 +146,6 @@ class AvatarDialogFragment : DialogFragment() {
         } else if (requestCode == REQUEST_CHOOSE_IMAGE && resultCode == Activity.RESULT_OK) {
             // In this case, imageUri is returned by the chooser, save it.
             val imageUri: Uri? = data?.data
-//            onPhotoSelectedListener.getImagePath(imageUri)
             val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
             onPhotoSelectedListener.getImageBitmap(bm)
             dismiss()
