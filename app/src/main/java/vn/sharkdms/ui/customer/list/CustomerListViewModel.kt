@@ -19,9 +19,6 @@ class CustomerListViewModel @Inject constructor(private val repository: Customer
     private var token = ""
     private val customerList = MutableLiveData("")
 
-    private val customerListEventChannel = Channel<CustomerListEvent>()
-    val customerListEvent = customerListEventChannel.receiveAsFlow()
-
     val customers = customerList.switchMap { customerName ->
         getListData(token, customerName).cachedIn(viewModelScope)
     }
@@ -31,10 +28,6 @@ class CustomerListViewModel @Inject constructor(private val repository: Customer
     fun searchCustomer(token: String, customerName: String) {
         this.token = token
         this.customerList.value = customerName
-    }
-
-    sealed class CustomerListEvent {
-        data class OnResponse(val code: Int, val message: String, val data: List<Customer>, val totalPage: Int) : CustomerListEvent()
     }
 
 }

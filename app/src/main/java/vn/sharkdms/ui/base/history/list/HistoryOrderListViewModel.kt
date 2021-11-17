@@ -22,13 +22,6 @@ class HistoryOrderListViewModel @Inject constructor(application: Application, pr
         const val TAG = "HistoryOrderViewModel"
     }
 
-    val historyOrderList: MutableLiveData<ArrayList<HistoryOrder>> by lazy {
-        MutableLiveData<ArrayList<HistoryOrder>>()
-    }
-
-    private val historyOrderListEventChannel = Channel<HistoryOrderListEvent>()
-    val historyOrderListEvent = historyOrderListEventChannel.receiveAsFlow()
-
     fun getListData(token: String, customerName: String, date: String) =
         repository.getListData(token, customerName, date).map { pagingData -> pagingData.map { UiModel.HistoryOrderItem(it) } }
             .map { pagingData ->
@@ -42,9 +35,5 @@ class HistoryOrderListViewModel @Inject constructor(application: Application, pr
                     else UiModel.HeaderItem(Formatter.formatDate(context, after.historyOrder.orderDate))
                 }
             }.cachedIn(viewModelScope)
-
-    sealed class HistoryOrderListEvent {
-        data class OnResponse(val code: Int, val message: String, val data: List<HistoryOrder>, val totalPage: Int): HistoryOrderListEvent()
-    }
 
 }
