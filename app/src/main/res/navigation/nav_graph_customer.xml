@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_products" >
         <action
             android:id="@+id/action_productsFragment_to_addToCartFragment2"
-            app:destination="@id/addToCartCustomerFragment" />
+            app:destination="@id/addToCartCustomerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <action
         android:id="@+id/action_global_accountFragment"
@@ -22,7 +26,11 @@
         android:label="CustomerAccountFragment" >
         <action
             android:id="@+id/action_customerAccountFragment_to_changePasswordFragment2"
-            app:destination="@id/changePasswordFragment2" />
+            app:destination="@id/changePasswordFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment2"
@@ -31,7 +39,11 @@
         tools:layout="@layout/fragment_change_password" >
         <action
             android:id="@+id/action_changePasswordFragment2_to_forgotPasswordFragment3"
-            app:destination="@id/forgotPasswordFragment3" />
+            app:destination="@id/forgotPasswordFragment3"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment3"
@@ -44,7 +56,11 @@
         android:label="CustomerHistoryOrderListFragment" >
         <action
             android:id="@+id/action_customerHistoryOrderListFragment_to_baseOrderDetailFragment"
-            app:destination="@id/baseOrderDetailFragment" />
+            app:destination="@id/baseOrderDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/baseOrderDetailFragment"
@@ -71,6 +87,10 @@
         <action
             android:id="@+id/action_addToCartFragment2_to_cartDetailsFragment2"
             app:destination="@id/cartDetailsFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/productsFragment" />
     </fragment>
     <fragment
@@ -86,6 +106,10 @@
         <action
             android:id="@+id/action_cartDetailsFragment2_to_orderResultFragment2"
             app:destination="@id/orderResultFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/productsFragment" />
         <action
             android:id="@+id/action_cartDetailsFragment2_to_productsFragment"
