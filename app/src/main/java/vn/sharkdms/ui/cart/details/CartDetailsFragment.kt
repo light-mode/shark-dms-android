@@ -60,9 +60,18 @@ abstract class CartDetailsFragment : Fragment(
         setFragmentResultListener(ConfirmDialog.REMOVE_ITEM) { _, bundle ->
             val result = bundle.getInt(ConfirmDialog.DIALOG_RESULT)
             if (result == Dialog.BUTTON_POSITIVE) {
+                doBeforeRemoveFromCartRequest(binding)
                 if (connectivity) viewModel.removeFromCart(sharedViewModel.token, customer)
                 else showNetworkConnectionErrorMessage()
             }
+        }
+    }
+
+    private fun doBeforeRemoveFromCartRequest(binding: FragmentCartDetailsBinding) {
+        binding.apply {
+            buttonCreate.isEnabled = false
+            buttonContinue.isEnabled = false
+            buttonCancel.isEnabled = false
         }
     }
 
@@ -206,6 +215,7 @@ abstract class CartDetailsFragment : Fragment(
             viewModel.cartDetailsEvent.collect { event ->
                 when (event) {
                     is CartDetailsViewModel.CartDetailsEvent.OnRemoveItemSuccess -> {
+                        doAfterRemoveFromCartResponse(binding)
                         val cart = event.cart
                         bindCartItems(binding, cart.items)
                         bindCartInfo(binding, cart.discountAmount, cart.totalAmount)
@@ -220,6 +230,7 @@ abstract class CartDetailsFragment : Fragment(
                             buttonCancel.setBackgroundResource(R.drawable.button_disable_square)
                             iconNoCartItem.visibility = View.VISIBLE
                             textViewNoCartItem.visibility = View.VISIBLE
+                            buttonContinue.isEnabled = true
                         }
                         bindCartItems(binding, emptyList())
                         bindCartInfo(binding, 0, 0)
@@ -259,6 +270,14 @@ abstract class CartDetailsFragment : Fragment(
                     }
                 }
             }
+        }
+    }
+
+    private fun doAfterRemoveFromCartResponse(binding: FragmentCartDetailsBinding) {
+        binding.apply {
+            buttonCreate.isEnabled = true
+            buttonContinue.isEnabled = true
+            buttonCancel.isEnabled = true
         }
     }
 
