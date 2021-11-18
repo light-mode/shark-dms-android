@@ -42,7 +42,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
         android:background="@color/background"
-        android:padding="24dp">
+        android:padding="16dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_title"
