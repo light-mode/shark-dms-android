@@ -118,6 +118,7 @@
     <string name="fragment_report_edit_text_title_hint">Tiêu đề</string>
     <string name="fragment_report_edit_text_description_hint">Nhập chi tiết báo cáo…</string>
     <string name="fragment_report_button_send_text">Gửi</string>
+    <string name="fragment_report_message_confirm">Xác nhận gửi báo cáo?</string>
 
     <string name="fragment_tasks_title">Công việc</string>
     <string name="fragment_tasks_text_view_date_default_text">Chọn ngày</string>
@@ -193,6 +194,10 @@
     <string name="fragment_cart_details_button_create_text">Tạo đơn</string>
     <string name="fragment_cart_details_dialog_remove_product_title">Xóa sản phẩm</string>
     <string name="fragment_cart_details_dialog_remove_product_message">Bạn có muốn xóa sản phẩm này không?</string>
+    <string name="fragment_cart_details_dialog_cancel_order_title">Hủy đơn hàng</string>
+    <string name="fragment_cart_details_dialog_cancel_order_message">Bạn có muốn hủy đơn hàng này không?</string>
+    <string name="fragment_cart_details_dialog_create_order_title">Tạo đơn hàng</string>
+    <string name="fragment_cart_details_dialog_create_order_message">Bạn có muốn tạo đơn hàng này không?</string>
     <string name="fragment_cart_details_currency_format">%1$s đ</string>
 
     <string name="fragment_order_result_title">Đặt hàng thành công</string>

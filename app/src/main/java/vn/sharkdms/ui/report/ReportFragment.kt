@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.report
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -8,9 +9,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
@@ -18,6 +21,7 @@ import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.GetReportResponseData
 import vn.sharkdms.databinding.FragmentReportBinding
+import vn.sharkdms.util.ConfirmDialog
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 
@@ -59,6 +63,17 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
         }
 
         Constant.setupUI(binding.reportFragment, requireActivity() as AppCompatActivity)
+        setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
+            if (!connectivity) {
+                Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
+                        Toast.LENGTH_SHORT).show()
+                return@setFragmentResultListener
+            }
+            if (Dialog.BUTTON_POSITIVE == bundle.getInt(ConfirmDialog.SEND_REPORT)) {
+                doBeforeRequest(binding)
+                viewModel.createOrEditReport(sharedViewModel.token)
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -123,13 +138,10 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
 
     private fun setSendButtonListener(binding: FragmentReportBinding) {
         binding.buttonSend.setOnClickListener {
-            if (!connectivity) {
-                Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                    Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            doBeforeRequest(binding)
-            viewModel.createOrEditReport(sharedViewModel.token)
+            val title = getString(R.string.dialog_message_title_text)
+            val message = getString(R.string.fragment_report_message_confirm)
+            val action = ReportFragmentDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.SEND_REPORT)
+            findNavController().navigate(action)
         }
     }
 
