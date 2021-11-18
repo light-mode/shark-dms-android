@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.customer.avatar
 
+import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
 import android.content.Context
@@ -10,13 +11,17 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.common.wrappers.Wrappers
@@ -25,7 +30,10 @@ import kotlinx.android.synthetic.main.fragment_create_avatar_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_create_customer.view.*
 import vn.sharkdms.R
 import vn.sharkdms.util.Constant
+import java.io.File
 import java.lang.ClassCastException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AvatarDialogFragment : DialogFragment() {
 
@@ -34,6 +42,11 @@ class AvatarDialogFragment : DialogFragment() {
         private const val REQUEST_CODE = 1000
         private const val REQUEST_IMAGE_CAPTURE = 1001
         private const val REQUEST_CHOOSE_IMAGE = 1002
+    }
+
+    private val cameraPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()) { permissionGranted ->
+        if (permissionGranted) startCameraIntentForResult()
     }
 
     interface OnPhotoSelectedListener {
@@ -80,7 +93,10 @@ class AvatarDialogFragment : DialogFragment() {
 
     private fun setRowTakePictureOnClickListener(rootView: View) {
         rootView.row_take_picture.setOnClickListener {
-            startCameraIntentForResult()
+            val cameraPermissionGranted = ContextCompat.checkSelfPermission(requireContext(),
+                Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+            if (cameraPermissionGranted) startCameraIntentForResult()
+            else cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
         }
     }
 
@@ -97,12 +113,11 @@ class AvatarDialogFragment : DialogFragment() {
     }
 
     private fun startCameraIntentForResult() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(
-            takePictureIntent,
+            Intent.createChooser(intent, "Take Photo"),
             REQUEST_IMAGE_CAPTURE
         )
-
     }
 
     private fun startChooseImageIntentForResult() {
@@ -115,6 +130,14 @@ class AvatarDialogFragment : DialogFragment() {
         )
     }
 
+    private fun createTempFile(): File {
+        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
+        val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val file = File.createTempFile("JPEG_${timestamp}_", ".jpg", storageDir)
+        file.deleteOnExit()
+        return file
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val bitmap: Bitmap = data?.extras?.get("data") as Bitmap
@@ -123,7 +146,8 @@ class AvatarDialogFragment : DialogFragment() {
         } else if (requestCode == REQUEST_CHOOSE_IMAGE && resultCode == Activity.RESULT_OK) {
             // In this case, imageUri is returned by the chooser, save it.
             val imageUri: Uri? = data?.data
-            onPhotoSelectedListener.getImagePath(imageUri)
+            val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
+            onPhotoSelectedListener.getImageBitmap(bm)
             dismiss()
         } else
             super.onActivityResult(requestCode, resultCode, data)

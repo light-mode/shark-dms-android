@@ -11,41 +11,23 @@ import vn.sharkdms.di.AppModule
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerListViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel(), CustomerAdapter.OnItemClickListener {
+class CustomerListViewModel @Inject constructor(private val repository: CustomerListRepository) : ViewModel() {
     companion object {
         const val TAG = "CustomerListViewModel"
     }
 
-    var retroService: BaseApi
-    var customerAdapter: CustomerAdapter
     private var token = ""
     private val customerList = MutableLiveData("")
-
-    init {
-        customerAdapter = CustomerAdapter(this)
-        retroService = AppModule.provideRetrofit().create(BaseApi::class.java)
-    }
-
-    private val customerListEventChannel = Channel<CustomerListEvent>()
-    val customerListEvent = customerListEventChannel.receiveAsFlow()
 
     val customers = customerList.switchMap { customerName ->
         getListData(token, customerName).cachedIn(viewModelScope)
     }
 
-    fun getListData(token: String, customerName: String) =
-        Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { CustomerPagingSource(baseApi, token, customerName) }).liveData
+    fun getListData(token: String, customerName: String) = repository.getListData(token, customerName)
 
     fun searchCustomer(token: String, customerName: String) {
         this.token = token
         this.customerList.value = customerName
     }
 
-    sealed class CustomerListEvent {
-        data class OnResponse(val code: Int, val message: String, val data: List<Customer>, val totalPage: Int) : CustomerListEvent()
-    }
-
-    override fun onItemClick(customer: Customer) {
-    }
 }
