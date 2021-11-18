@@ -270,6 +270,9 @@
         <argument
             android:name="message"
             app:argType="string" />
+        <argument
+            android:name="result_key"
+            app:argType="string" />
     </dialog>
     <action android:id="@+id/action_global_messageDialog3" app:destination="@id/messageDialog3" />
 </navigation>
