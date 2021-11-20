@@ -111,7 +111,7 @@ open class BaseOrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_done, 0, 0, 0)
                         }
-                        Constant.ORDER_STATUS_CANCEL -> {
+                        Constant.ORDER_STATUS_CANCEL_QUERY -> {
                             tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_CANCEL
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_cancel, 0, 0, 0)

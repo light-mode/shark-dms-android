@@ -16,6 +16,7 @@ import vn.sharkdms.databinding.ItemNotificationsHeaderBinding
 import vn.sharkdms.databinding.ItemOrderBinding
 import vn.sharkdms.ui.history.list.HistoryOrderListFragmentDirections
 import vn.sharkdms.ui.notifications.UiModel
+import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 
 class HistoryOrderAdapter(
@@ -46,20 +47,20 @@ class HistoryOrderAdapter(
                 tvOrderCode.text = data.orderCode
                 tvOrderPrice.text = Formatter.formatCurrency(data.orderTotalAmount.toString()) + " VND"
                 when(data.orderStatus) {
-                    "Mới" -> {
-                        tvOrderStatus.text = "Mới"
+                    Constant.ORDER_STATUS_NEW -> {
+                        tvOrderStatus.text = Constant.ORDER_STATUS_NEW
                         tvOrderStatus.setTextColor(Color.parseColor("#065EA8"))
                     }
-                    "Đang xử lí" -> {
-                        tvOrderStatus.text = "Đang xử lý"
+                    Constant.ORDER_STATUS_PROCESSING_QUERY -> {
+                        tvOrderStatus.text = Constant.ORDER_STATUS_PROCESSING
                         tvOrderStatus.setTextColor(Color.parseColor("#E2740F"))
                     }
-                    "Hoàn thành" -> {
-                        tvOrderStatus.text = "Hoàn thành"
+                    Constant.ORDER_STATUS_DONE -> {
+                        tvOrderStatus.text = Constant.ORDER_STATUS_DONE
                         tvOrderStatus.setTextColor(Color.parseColor("#069450"))
                     }
-                    "Hủy" -> {
-                        tvOrderStatus.text = "Hủy"
+                    Constant.ORDER_STATUS_CANCEL_QUERY -> {
+                        tvOrderStatus.text = Constant.ORDER_STATUS_CANCEL
                         tvOrderStatus.setTextColor(Color.RED)
                     }
                 }
