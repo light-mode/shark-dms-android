@@ -18,6 +18,8 @@ class MessageDialog : DialogFragment() {
     companion object {
         const val TAG = "MessageDialog"
         const val FORGOT_PASSWORD = "FORGOT_PASSWORD"
+        const val CREATE_REPORT = "CREATE_REPORT"
+        const val EDIT_REPORT = "EDIT_REPORT"
     }
 
     private val args by navArgs<MessageDialogArgs>()

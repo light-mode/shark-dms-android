@@ -23,6 +23,7 @@ import vn.sharkdms.api.GetReportResponseData
 import vn.sharkdms.databinding.FragmentReportBinding
 import vn.sharkdms.util.ConfirmDialog
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.MessageDialog
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
@@ -72,6 +73,18 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
             if (Dialog.BUTTON_POSITIVE == bundle.getInt(ConfirmDialog.SEND_REPORT)) {
                 doBeforeRequest(binding)
                 viewModel.createOrEditReport(sharedViewModel.token)
+            }
+        }
+        setFragmentResultListener(MessageDialog.TAG) { _, bundle ->
+            when (Dialog.BUTTON_POSITIVE) {
+                bundle.getInt(MessageDialog.CREATE_REPORT) -> {
+                    if (connectivity) viewModel.getReportAfterCreate(sharedViewModel.token)
+                    else Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
+                            Toast.LENGTH_SHORT).show()
+                }
+                bundle.getInt(MessageDialog.EDIT_REPORT) -> {
+                    //
+                }
             }
         }
     }
@@ -197,13 +210,14 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
 
     private fun handleCreateReportResponse(binding: FragmentReportBinding, message: String) {
         doAfterResponse(binding)
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        viewModel.getReportAfterCreate(sharedViewModel.token)
+        val action = ReportFragmentDirections.actionGlobalMessageDialog3(message, MessageDialog.CREATE_REPORT)
+        findNavController().navigate(action)
     }
 
     private fun handleEditReportResponse(binding: FragmentReportBinding, message: String) {
         doAfterResponse(binding)
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        val action = ReportFragmentDirections.actionGlobalMessageDialog3(message, MessageDialog.EDIT_REPORT)
+        findNavController().navigate(action)
     }
 
     private fun handleRequestFailure(binding: FragmentReportBinding) {
