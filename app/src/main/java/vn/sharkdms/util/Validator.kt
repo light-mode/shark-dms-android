@@ -8,7 +8,7 @@ class Validator {
             "^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳ" +
                     "ẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s\\W|_]+",
             Pattern.CASE_INSENSITIVE or Pattern.UNICODE_CASE)
-        private val USERNAME_PATTERN: Pattern = Pattern.compile("[^\\s]{3,30}")
+        private val USERNAME_PATTERN: Pattern = Pattern.compile("[^\\s]{1,30}")
         private val PASSWORD_PATTERN: Pattern = Pattern.compile("[^\\s]{6,50}")
         private val PHONE_PATTERN: Pattern = Pattern.compile("[^\\s]{10,11}")
         private val EMAIL_PATTERN: Pattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}\$",
