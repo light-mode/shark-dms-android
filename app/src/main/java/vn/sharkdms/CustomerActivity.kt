@@ -8,7 +8,6 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -48,8 +47,8 @@ class CustomerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_customer)
         viewModel.token = intent.getStringExtra("token").toString()
         val activityToolbar = findViewById<Toolbar>(R.id.activity_toolbar)
-        val btnCustomerInfo = findViewById<RelativeLayout>(R.id.layout_customer_button)
-        btnCustomerInfo.setOnClickListener {
+        val customerIcon = findViewById<ImageView>(R.id.icon_customer)
+        customerIcon.setOnClickListener {
             Navigation.findNavController(this, R.id.nav_host_fragment)
                 .navigate(R.id.action_global_accountFragment)
         }
