@@ -166,6 +166,7 @@
                 android:id="@+id/edit_text_discount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/bg_edit_text_cart"
                 android:hint="@string/fragment_cart_details_edit_text_discount_hint"
                 android:importantForAutofill="no"
@@ -174,6 +175,18 @@
                 android:textColorHint="@color/hint"
                 android:textSize="13sp"
                 app:layout_constraintLeft_toRightOf="@id/text_view_discount_general"
+                app:layout_constraintRight_toLeftOf="@id/text_view_discount_unit"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_discount_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center_vertical"
+                android:text="@string/fragment_cart_details_text_view_discount_unit_text"
+                android:textColor="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text_discount"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

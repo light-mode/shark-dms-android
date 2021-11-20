@@ -94,8 +94,11 @@
 
     <string name="fragment_change_password_title">Đổi mật khẩu</string>
     <string name="fragment_change_password_edit_text_old_password_hint">Nhập Mật Khẩu Cũ</string>
+    <string name="fragment_change_password_text_view_old_password_error">Mật khẩu cũ phải chứa ít nhất 6 ký tự</string>
     <string name="fragment_change_password_edit_text_new_password_hint">Nhập Mật Khẩu Mới</string>
+    <string name="fragment_change_password_text_view_new_password_error">Mật khẩu mới phải khác mật khẩu cũ và chứa ít nhất 6 ký tự</string>
     <string name="fragment_change_password_edit_text_confirm_password_hint">Nhập Lại Mật Khẩu</string>
+    <string name="fragment_change_password_text_view_confirm_password_error">Mật khẩu xác thực phải giống mật khẩu mới</string>
     <string name="fragment_change_password_text_view_forgot_password_text">Quên Mật Khẩu?</string>
     <string name="fragment_change_password_button_confirm_text">Xong</string>
 
@@ -186,6 +189,7 @@
     <string name="fragment_cart_details_text_view_no_cart_item_text">Hãy thêm sản phẩm vào giỏ hàng!</string>
     <string name="fragment_cart_details_text_view_discount_text">Chiết khấu:</string>
     <string name="fragment_cart_details_edit_text_discount_hint">Nhập tổng chiết khấu</string>
+    <string name="fragment_cart_details_text_view_discount_unit_text">đ</string>
     <string name="fragment_cart_details_text_view_discount_default_text">CK theo đơn:</string>
     <string name="fragment_cart_details_text_view_total_amount_text">Tổng tiền:</string>
     <string name="fragment_cart_details_text_view_note_text">Ghi chú:</string>

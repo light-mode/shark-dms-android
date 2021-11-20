@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -340,19 +341,19 @@ open class BaseChangePasswordFragment : Fragment(R.layout.fragment_change_passwo
                 confirmPasswordTrimmed != oldPasswordTrimmed
         when (change) {
             CHANGE_OLD_PASSWORD -> {
-                updateOldPasswordView(validOldPassword, oldPassword, binding.editTextOldPassword)
-                updateNewPasswordView(validNewPassword, newPassword, binding.editTextNewPassword)
+                updateOldPasswordView(validOldPassword, oldPassword, binding.editTextOldPassword, binding.textViewOldPasswordError)
+                updateNewPasswordView(validNewPassword, newPassword, binding.editTextNewPassword, binding.textViewNewPasswordError)
                 updateConfirmPasswordView(validConfirmPassword, confirmPassword,
-                    binding.editTextConfirmPassword, false)
+                    binding.editTextConfirmPassword, false, binding.textViewConfirmPasswordError)
             }
             CHANGE_NEW_PASSWORD -> {
-                updateNewPasswordView(validNewPassword, newPassword, binding.editTextNewPassword)
+                updateNewPasswordView(validNewPassword, newPassword, binding.editTextNewPassword, binding.textViewNewPasswordError)
                 updateConfirmPasswordView(validConfirmPassword, confirmPassword,
-                    binding.editTextConfirmPassword, false)
+                    binding.editTextConfirmPassword, false, binding.textViewConfirmPasswordError)
             }
             CHANGE_CONFIRM_PASSWORD -> {
                 updateConfirmPasswordView(validConfirmPassword, confirmPassword,
-                    binding.editTextConfirmPassword, true)
+                    binding.editTextConfirmPassword, true, binding.textViewConfirmPasswordError)
             }
         }
         if (validOldPassword && validNewPassword && newPassword == confirmPassword) {
@@ -369,9 +370,14 @@ open class BaseChangePasswordFragment : Fragment(R.layout.fragment_change_passwo
     }
 
     private fun updateOldPasswordView(validOldPassword: Boolean, oldPassword: String,
-                                      oldPasswordEditText: EditText) {
-        val passwordIcon = if (validOldPassword) R.drawable.ic_password_valid
-        else R.drawable.ic_password_invalid
+                                      oldPasswordEditText: EditText, oldPasswordError: TextView) {
+        var passwordIcon = R.drawable.ic_password_invalid
+        if (validOldPassword) {
+            passwordIcon = R.drawable.ic_password_valid
+            oldPasswordError.visibility = View.GONE
+        } else {
+            oldPasswordError.visibility = View.VISIBLE
+        }
         var endIcon = 0
         if (oldPassword.isNotEmpty() && oldPasswordEditText.hasFocus()) {
             endIcon = if (oldPasswordEditText.transformationMethod == null) R.drawable.ic_show
@@ -382,9 +388,14 @@ open class BaseChangePasswordFragment : Fragment(R.layout.fragment_change_passwo
     }
 
     private fun updateNewPasswordView(validNewPassword: Boolean, newPassword: String,
-                                      newPasswordEditText: EditText) {
-        val passwordIcon = if (validNewPassword) R.drawable.ic_password_valid
-        else R.drawable.ic_password_invalid
+                                      newPasswordEditText: EditText, newPasswordError: TextView) {
+        var passwordIcon = R.drawable.ic_password_invalid
+        if (validNewPassword) {
+            passwordIcon = R.drawable.ic_password_valid
+            newPasswordError.visibility = View.GONE
+        } else {
+            newPasswordError.visibility = View.VISIBLE
+        }
         var endIcon = 0
         if (newPassword.isNotEmpty() && newPasswordEditText.hasFocus()) {
             endIcon = if (newPasswordEditText.transformationMethod == null) R.drawable.ic_show
@@ -395,9 +406,14 @@ open class BaseChangePasswordFragment : Fragment(R.layout.fragment_change_passwo
     }
 
     private fun updateConfirmPasswordView(validConfirmPassword: Boolean, confirmPassword: String,
-                                          confirmPasswordEditText: EditText, changeConfirmPassword: Boolean) {
-        val passwordIcon = if (validConfirmPassword) R.drawable.ic_password_valid
-        else R.drawable.ic_password_invalid
+                                          confirmPasswordEditText: EditText, changeConfirmPassword: Boolean, confirmPasswordError: TextView) {
+        var passwordIcon = R.drawable.ic_password_invalid
+        if (validConfirmPassword) {
+            passwordIcon = R.drawable.ic_password_valid
+            confirmPasswordError.visibility = View.GONE
+        } else {
+            confirmPasswordError.visibility = View.VISIBLE
+        }
         var endIcon = 0
         if (changeConfirmPassword && confirmPassword.isNotEmpty() && confirmPasswordEditText
                 .hasFocus()) {
