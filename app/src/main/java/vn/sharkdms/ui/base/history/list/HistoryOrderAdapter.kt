@@ -63,6 +63,10 @@ class HistoryOrderAdapter(
                         tvOrderStatus.text = Constant.ORDER_STATUS_CANCEL
                         tvOrderStatus.setTextColor(Color.RED)
                     }
+                    Constant.ORDER_STATUS_STOCKOUT -> {
+                        tvOrderStatus.text = Constant.ORDER_STATUS_STOCKOUT
+                        tvOrderStatus.setTextColor(Color.parseColor("#EB8275"))
+                    }
                 }
             }
         }

@@ -116,6 +116,11 @@ open class BaseOrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_cancel, 0, 0, 0)
                         }
+                        Constant.ORDER_STATUS_STOCKOUT -> {
+                            tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_STOCKOUT
+                            tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                                R.drawable.ic_order_status_stockout, 0, 0, 0)
+                        }
                     }
                     orderItems = data?.orderItems
                     initRecyclerView(binding)
