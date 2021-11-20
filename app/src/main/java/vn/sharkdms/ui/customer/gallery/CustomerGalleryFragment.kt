@@ -147,7 +147,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
         }
     }
 
-    fun getBitmapFromVectorDrawable(drawableId: Int): Bitmap {
+    private fun getBitmapFromVectorDrawable(drawableId: Int): Bitmap {
         var drawable = ContextCompat.getDrawable(requireContext(), drawableId)
         drawable = DrawableCompat.wrap(drawable!!).mutate()
         val bitmap = Bitmap.createBitmap(
@@ -228,7 +228,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
         val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
         initImages.removeLast()
         initImages.add(bitmap)
-        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
+        if (initImages.size < 30) initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter
@@ -240,7 +240,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), Av
     override fun getImageBitmap(imageBitmap: Bitmap?) {
         initImages.removeLast()
         initImages.add(imageBitmap!!)
-        initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
+        if (initImages.size < 30) initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter
