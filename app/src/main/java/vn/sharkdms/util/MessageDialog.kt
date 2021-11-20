@@ -16,8 +16,8 @@ import vn.sharkdms.databinding.DialogMessageBinding
 
 class MessageDialog : DialogFragment() {
     companion object {
+        const val TAG = "MessageDialog"
         const val FORGOT_PASSWORD = "FORGOT_PASSWORD"
-        const val DIALOG_RESULT = "DIALOG_RESULT"
     }
 
     private val args by navArgs<MessageDialogArgs>()
@@ -34,8 +34,7 @@ class MessageDialog : DialogFragment() {
         binding.apply {
             textViewMessage.text = args.message
             buttonConfirm.setOnClickListener {
-                setFragmentResult(FORGOT_PASSWORD,
-                    bundleOf(DIALOG_RESULT to Dialog.BUTTON_POSITIVE))
+                setFragmentResult(TAG, bundleOf(args.resultKey to Dialog.BUTTON_POSITIVE))
                 dismiss()
             }
         }

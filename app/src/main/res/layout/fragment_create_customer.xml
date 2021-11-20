@@ -12,7 +12,7 @@
         android:id="@+id/toolbar_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_tab_header"
+        android:background="@color/primary"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,8 @@
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/content_description"
                 app:layout_constraintEnd_toStartOf="@+id/tv_header_customer"
-                app:srcCompat="@drawable/ic_back" />
+                app:srcCompat="@drawable/ic_back"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/tv_header_customer"

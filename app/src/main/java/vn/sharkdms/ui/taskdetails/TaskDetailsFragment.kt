@@ -105,8 +105,8 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
             }
             textViewStatus.text = status
             textViewStatus.setBackgroundResource(backgroundStatusResId)
-            textViewName.text = args.task.taskName
-            textViewDescription.text = args.task.taskDescription
+            textViewName.setText(args.task.taskName)
+            textViewDescription.setText(args.task.taskDescription)
         }
     }
 

@@ -14,16 +14,15 @@ class ForgotPasswordFragmentLogin : ForgotPasswordFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setFragmentResultListener(MessageDialog.FORGOT_PASSWORD) { _, bundle ->
-            val result = bundle.getInt(MessageDialog.DIALOG_RESULT)
-            if (result == Dialog.BUTTON_POSITIVE) {
+        setFragmentResultListener(MessageDialog.TAG) { _, bundle ->
+            if (Dialog.BUTTON_POSITIVE == bundle.getInt(MessageDialog.FORGOT_PASSWORD)) {
                 findNavController().popBackStack(R.id.forgotPasswordFragment, true)
             }
         }
     }
 
     override fun showMessageDialog(message: String) {
-        val action = ForgotPasswordFragmentLoginDirections.actionGlobalMessageDialog2(message)
+        val action = ForgotPasswordFragmentLoginDirections.actionGlobalMessageDialog2(message, MessageDialog.FORGOT_PASSWORD)
         findNavController().navigate(action)
     }
 }

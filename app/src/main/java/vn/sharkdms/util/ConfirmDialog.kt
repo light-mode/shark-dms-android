@@ -16,8 +16,11 @@ import vn.sharkdms.databinding.DialogConfirmBinding
 
 class ConfirmDialog : DialogFragment() {
     companion object {
+        const val TAG = "ConfirmDialog"
         const val REMOVE_ITEM = "REMOVE_ITEM"
-        const val DIALOG_RESULT = "DIALOG_RESULT"
+        const val CANCEL_ORDER = "CANCEL_ORDER"
+        const val CREATE_ORDER = "CREATE_ORDER"
+        const val SEND_REPORT = "SEND_REPORT"
     }
 
     private val args by navArgs<ConfirmDialogArgs>()
@@ -35,11 +38,11 @@ class ConfirmDialog : DialogFragment() {
             textViewTitle.text = args.title
             textViewMessage.text = args.message
             buttonNegative.setOnClickListener {
-                setFragmentResult(REMOVE_ITEM, bundleOf(DIALOG_RESULT to Dialog.BUTTON_NEGATIVE))
+                setFragmentResult(TAG, bundleOf(args.resultKey to Dialog.BUTTON_NEGATIVE))
                 dismiss()
             }
             buttonPositive.setOnClickListener {
-                setFragmentResult(REMOVE_ITEM, bundleOf(DIALOG_RESULT to Dialog.BUTTON_POSITIVE))
+                setFragmentResult(TAG, bundleOf(args.resultKey to Dialog.BUTTON_POSITIVE))
                 dismiss()
             }
         }

@@ -43,8 +43,8 @@ class NotificationDetailsFragment : Fragment(R.layout.fragment_notification_deta
     private fun bind(binding: FragmentNotificationDetailsBinding) {
         val notification = args.notification
         binding.apply {
-            textViewTitle.text = notification.title
-            textViewContent.text = notification.content
+            textViewTitle.setText(notification.title)
+            textViewContent.setText(notification.content)
         }
     }
 }

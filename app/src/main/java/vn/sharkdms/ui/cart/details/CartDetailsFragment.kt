@@ -57,12 +57,35 @@ abstract class CartDetailsFragment : Fragment(
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it }
 
         Constant.setupUI(binding.cartDetailsFragment, requireActivity() as AppCompatActivity)
-        setFragmentResultListener(ConfirmDialog.REMOVE_ITEM) { _, bundle ->
-            val result = bundle.getInt(ConfirmDialog.DIALOG_RESULT)
-            if (result == Dialog.BUTTON_POSITIVE) {
-                if (connectivity) viewModel.removeFromCart(sharedViewModel.token, customer)
-                else showNetworkConnectionErrorMessage()
+        setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
+            if (!connectivity) {
+                showNetworkConnectionErrorMessage()
+                return@setFragmentResultListener
             }
+            when (Dialog.BUTTON_POSITIVE) {
+                bundle.getInt(ConfirmDialog.REMOVE_ITEM) -> {
+                    doBeforeRemoveFromCartRequest(binding)
+                    viewModel.removeFromCart(sharedViewModel.token, customer)
+                }
+                bundle.getInt(ConfirmDialog.CANCEL_ORDER) -> {
+                    doBeforeCancelOrderRequest(binding)
+                    viewModel.cancelOrder(sharedViewModel.token)
+                }
+                bundle.getInt(ConfirmDialog.CREATE_ORDER) -> {
+                    doBeforeCreateOrderRequest(binding)
+                    val discount = binding.editTextDiscount.text.toString()
+                    val note = binding.editTextNote.text.toString()
+                    viewModel.createOrder(sharedViewModel.token, discount, note, customer)
+                }
+            }
+        }
+    }
+
+    private fun doBeforeRemoveFromCartRequest(binding: FragmentCartDetailsBinding) {
+        binding.apply {
+            buttonCreate.isEnabled = false
+            buttonContinue.isEnabled = false
+            buttonCancel.isEnabled = false
         }
     }
 
@@ -147,12 +170,12 @@ abstract class CartDetailsFragment : Fragment(
 
     private fun setCancelButtonListener(binding: FragmentCartDetailsBinding) {
         binding.buttonCancel.setOnClickListener {
-            if (!connectivity) {
-                showNetworkConnectionErrorMessage()
-                return@setOnClickListener
-            }
-            doBeforeCancelOrderRequest(binding)
-            viewModel.cancelOrder(sharedViewModel.token)
+            val title = getString(R.string.fragment_cart_details_dialog_cancel_order_title)
+            val message = getString(R.string.fragment_cart_details_dialog_cancel_order_message)
+            val action = if (customer == null) {
+                CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialog.CANCEL_ORDER)
+            } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.CANCEL_ORDER)
+            findNavController().navigate(action)
         }
     }
 
@@ -177,17 +200,13 @@ abstract class CartDetailsFragment : Fragment(
     }
 
     private fun setCreateButtonListener(binding: FragmentCartDetailsBinding) {
-        binding.apply {
-            buttonCreate.setOnClickListener {
-                if (!connectivity) {
-                    showNetworkConnectionErrorMessage()
-                    return@setOnClickListener
-                }
-                doBeforeCreateOrderRequest(binding)
-                val discount = editTextDiscount.text.toString()
-                val note = editTextNote.text.toString()
-                viewModel.createOrder(sharedViewModel.token, discount, note, customer)
-            }
+        binding.buttonCreate.setOnClickListener {
+            val title = getString(R.string.fragment_cart_details_dialog_create_order_title)
+            val message = getString(R.string.fragment_cart_details_dialog_create_order_message)
+            val action = if (customer == null) {
+                CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialog.CREATE_ORDER)
+            } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.CREATE_ORDER)
+            findNavController().navigate(action)
         }
     }
 
@@ -206,6 +225,7 @@ abstract class CartDetailsFragment : Fragment(
             viewModel.cartDetailsEvent.collect { event ->
                 when (event) {
                     is CartDetailsViewModel.CartDetailsEvent.OnRemoveItemSuccess -> {
+                        doAfterRemoveFromCartResponse(binding)
                         val cart = event.cart
                         bindCartItems(binding, cart.items)
                         bindCartInfo(binding, cart.discountAmount, cart.totalAmount)
@@ -220,6 +240,7 @@ abstract class CartDetailsFragment : Fragment(
                             buttonCancel.setBackgroundResource(R.drawable.button_disable_square)
                             iconNoCartItem.visibility = View.VISIBLE
                             textViewNoCartItem.visibility = View.VISIBLE
+                            buttonContinue.isEnabled = true
                         }
                         bindCartItems(binding, emptyList())
                         bindCartInfo(binding, 0, 0)
@@ -262,6 +283,14 @@ abstract class CartDetailsFragment : Fragment(
         }
     }
 
+    private fun doAfterRemoveFromCartResponse(binding: FragmentCartDetailsBinding) {
+        binding.apply {
+            buttonCreate.isEnabled = true
+            buttonContinue.isEnabled = true
+            buttonCancel.isEnabled = true
+        }
+    }
+
     private fun doAfterCancelOrderResponse(binding: FragmentCartDetailsBinding) {
         binding.apply {
             progressBarCancel.visibility = View.GONE
@@ -292,8 +321,8 @@ abstract class CartDetailsFragment : Fragment(
         val title = getString(R.string.fragment_cart_details_dialog_remove_product_title)
         val message = getString(R.string.fragment_cart_details_dialog_remove_product_message)
         val action = if (customer == null) {
-            CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message)
-        } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message)
+            CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialog.REMOVE_ITEM)
+        } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.REMOVE_ITEM)
         findNavController().navigate(action)
     }
 }
