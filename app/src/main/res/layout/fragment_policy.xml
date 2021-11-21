@@ -33,4 +33,19 @@
                 android:textSize="18sp" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/text_view_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:background="@color/white"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="@string/app_name"
+        android:importantForAutofill="no"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/black"
+        tools:text="@string/fragment_policy_content" />
 </RelativeLayout>
