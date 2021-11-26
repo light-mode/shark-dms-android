@@ -50,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SaleActivity"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".CustomerActivity"
             android:windowSoftInputMode="adjustNothing" />
         <provider
