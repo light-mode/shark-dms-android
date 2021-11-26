@@ -18,6 +18,7 @@ class PolicyFragment : Fragment(R.layout.fragment_policy) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentPolicyBinding.bind(view)
         setMenuIconListener(binding)
+        binding.textViewContent.setText(getText(R.string.fragment_policy_content))
     }
 
     override fun onAttach(context: Context) {
