@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -14,12 +15,29 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.CustomerActivity
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
+import vn.sharkdms.SharedViewModel
 import vn.sharkdms.util.Constant
 
 @AndroidEntryPoint
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private val viewModel by viewModels<SplashViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val context = requireContext()
+        val sharedPrefsName = context.getString(R.string.shared_prefs_private)
+        val sharedPrefs = context.getSharedPreferences(sharedPrefsName, Context.MODE_PRIVATE)
+        val showSplashScreenKey = getString(R.string.show_splash_screen_key)
+        val showSplashScreen = sharedPrefs.getBoolean(showSplashScreenKey, false)
+        if (showSplashScreen) {
+            val editor = sharedPrefs.edit()
+            editor.putBoolean(getString(R.string.show_splash_screen_key), false)
+            editor.apply()
+        }
+        viewModel.showSplashScreen = showSplashScreen
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {

@@ -19,10 +19,11 @@ class SplashViewModel @Inject constructor(userDao: UserDao) : ViewModel() {
     private val splashEventChannel = Channel<SplashEvent>()
     val splashEvent = splashEventChannel.receiveAsFlow()
     val users = userDao.getUsers().asLiveData()
+    var showSplashScreen = true
 
     fun checkLoginStatus(users: List<User>) {
         viewModelScope.launch {
-            delay(2000)
+            if (showSplashScreen) delay(2000)
             if (users.isEmpty()) {
                 splashEventChannel.send(SplashEvent.ShowLoginScreen)
                 return@launch

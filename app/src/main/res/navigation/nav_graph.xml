@@ -12,10 +12,6 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_bottom"
-            app:exitAnim="@anim/slide_out_top"
-            app:popEnterAnim="@anim/slide_in_top"
-            app:popExitAnim="@anim/slide_out_bottom"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -50,4 +46,5 @@
             app:argType="string" />
     </dialog>
     <action android:id="@+id/action_global_messageDialog2" app:destination="@id/messageDialog2" />
+    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
 </navigation>

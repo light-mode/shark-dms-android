@@ -262,5 +262,8 @@
     <string name="nav_menu_customer_fragment_products_title">Danh sách sản phẩm</string>
     <string name="nav_menu_customer_fragment_orders_title">Lịch sử</string>
 
+    <string name="shared_prefs_private" translatable="false">vn.sharkdms.preferences.PRIVATE</string>
+    <string name="show_splash_screen_key">show_splash_screen</string>
+
 <!--    <string name="google_maps_key">AIzaSyCmTWjTci6G_q8bkr3dph4dz10JG5SFk0U</string>-->
 </resources>
