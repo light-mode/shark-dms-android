@@ -7,10 +7,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -43,6 +45,7 @@ import kotlin.collections.ArrayList
 class OverviewFragment : Fragment(R.layout.fragment_overview) {
 
     private val viewModel by viewModels<OverviewViewModel>()
+    private val sharedViewModel by activityViewModels<SharedViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +54,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             (requireActivity() as SaleActivity).toggleNavigationDrawer(it)
         }
         setNotificationsIconListener(binding)
+        setSwipeRefreshLayoutListener(binding)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.overviewEvent.collect { event ->
                 when (event) {
@@ -66,7 +70,6 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                 }
             }
         }
-        val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity ->
             if (connectivity) {
                 hideOfflineDialog()
@@ -94,6 +97,13 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         binding.iconNotification.setOnClickListener {
             val action = OverviewFragmentDirections.actionOverviewFragmentToNotificationsFragment()
             findNavController().navigate(action)
+        }
+    }
+
+    private fun setSwipeRefreshLayoutListener(binding: FragmentOverviewBinding) {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.sendGetAmountsRequest(sharedViewModel.token)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -138,6 +148,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
         dataSet.apply {
             setDrawValues(false)
             color = Color.parseColor(getString(R.string.color_primary))
+            highLightAlpha = 0
         }
         binding.chart.apply {
             data = BarData(dataSet)
@@ -164,7 +175,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
                     if (entry == null) return
                     val index = entry.x.toInt()
                     viewModel.selectedColumnIndex.postValue(index)
-                    val formattedRevenue = Formatter.formatCurrency(entry.y.toString())
+                    val formattedRevenue = Formatter.formatCurrency(amounts[index].revenue)
                     binding.textViewRevenue.text = getString(
                         R.string.fragment_overview_format_total_revenue, formattedRevenue)
                     setXAxisRenderer(getXAxisRenderer(this@apply, getXAxisColors(index)))
