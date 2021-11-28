@@ -35,7 +35,7 @@
     <string name="fragment_create_customer_name_error">Tên khách hàng không được chứa số, kí tự đặc biệt và không quá 50 ký tự</string>
     <string name="fragment_create_customer_account">Tài khoản đăng nhập: <font color='#FF0000'>*</font></string>
     <string name="fragment_create_customer_password">Mật khẩu: <font color='#FF0000'>*</font></string>
-    <string name="fragment_create_customer_phone">Số điện thoai: <font color='#FF0000'>*</font></string>
+    <string name="fragment_create_customer_phone">Số điện thoại: <font color='#FF0000'>*</font></string>
     <string name="fragment_create_customer_phone_error">Số điện thoai phải là 10 hoặc 11 số</string>
     <string name="fragment_create_customer_email">Email (không bắt buộc):</string>
     <string name="fragment_create_customer_email_error">Format email chưa đúng</string>

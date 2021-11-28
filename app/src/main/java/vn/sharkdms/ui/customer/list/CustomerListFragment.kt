@@ -31,6 +31,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
+import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 
@@ -74,6 +75,7 @@ open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), Cus
                 }
             }
         }
+        customerAdapter.registerAdapterDataObserver(AdapterDataObserver(binding.rvCustomer))
         customers = customerAdapter.getDataList()
 
         setCustomerEditTextListener(binding, clearIcon)

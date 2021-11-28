@@ -24,6 +24,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/white"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:headerLayout="@layout/nav_header_sale"
         app:itemIconTint="@color/nav_menu_item"
         app:itemTextColor="@color/nav_menu_item"

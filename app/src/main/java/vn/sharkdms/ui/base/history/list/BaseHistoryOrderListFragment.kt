@@ -25,6 +25,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
+import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 import java.util.*
@@ -63,6 +64,7 @@ open class BaseHistoryOrderListFragment : Fragment(R.layout.fragment_history_ord
                 }
             }
         }
+        historyOrderAdapter.registerAdapterDataObserver(AdapterDataObserver(binding.rvHistoryOrder))
         setCustomerEditTextListener(binding, clearIcon)
         setTvDatePickerListener(binding, clearIcon)
 

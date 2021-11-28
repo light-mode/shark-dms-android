@@ -57,10 +57,7 @@
         android:background="@drawable/avatar_create_customer"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
-        app:shapeAppearanceOverlay="@style/avatar"
-        app:strokeColor="@color/black"
-        app:strokeWidth="1dp"
-        tools:src="@drawable/avatar_create_customer" />
+        app:shapeAppearanceOverlay="@style/avatar" />
 
     <TextView
         android:id="@+id/tv_add_avatar"
@@ -84,6 +81,7 @@
         android:enabled="false"
         android:background="@drawable/button_disable"
         android:text="@string/fragment_create_customer_create_button"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

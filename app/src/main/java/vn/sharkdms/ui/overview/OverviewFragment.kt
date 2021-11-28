@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
@@ -155,7 +156,7 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
             description.isEnabled = false
             axisLeft.axisMinimum = 0f
             axisRight.isEnabled = false
-            extraBottomOffset = 1f
+            extraBottomOffset = 3f
             legend.isEnabled = false
             xAxis.apply {
                 granularity = 1f

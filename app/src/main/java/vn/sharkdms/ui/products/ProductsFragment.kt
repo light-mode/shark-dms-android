@@ -18,6 +18,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentProductsBinding
 import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 
@@ -61,6 +62,7 @@ abstract class ProductsFragment : Fragment(
                 }
             }
         }
+        adapter.registerAdapterDataObserver(AdapterDataObserver(binding.recyclerView))
         viewModel.tasks.observe(viewLifecycleOwner) {
             adapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
