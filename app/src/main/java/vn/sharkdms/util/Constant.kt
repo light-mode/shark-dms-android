@@ -35,6 +35,7 @@ class Constant {
         const val ORDER_STATUS_DONE = "Hoàn thành"
         const val ORDER_STATUS_CANCEL_QUERY = "Huỷ"
         const val ORDER_STATUS_CANCEL = "Hủy"
+        const val ORDER_STATUS_STOCKOUT = "Đơn hàng xuất kho"
         const val ORDER_PRODUCT_AMOUNT = " sản phẩm"
 
         fun collapseDisplay(text: String?, limit: Int): String {
