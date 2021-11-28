@@ -29,10 +29,6 @@
             android:id="@+id/policyFragment"
             android:icon="@drawable/ic_policy"
             android:title="@string/fragment_policy_title" />
-        <item
-            android:id="@+id/manualFragment"
-            android:icon="@drawable/ic_introduction"
-            android:title="@string/fragment_introduction_title" />
     </group>
     <group android:id="@+id/group_2">
         <item

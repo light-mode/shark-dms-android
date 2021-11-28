@@ -196,11 +196,6 @@
         android:name="vn.sharkdms.ui.policy.PolicyFragment"
         android:label="fragment_policy"
         tools:layout="@layout/fragment_policy" />
-    <fragment
-        android:id="@+id/manualFragment"
-        android:name="vn.sharkdms.ui.manual.ManualFragment"
-        android:label="fragment_manual"
-        tools:layout="@layout/fragment_manual" />
     <action
         android:id="@+id/action_global_logoutDialogFragment"
         app:destination="@id/logoutDialogFragment" />

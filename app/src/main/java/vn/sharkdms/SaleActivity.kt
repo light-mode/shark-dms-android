@@ -20,7 +20,6 @@ import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.ui.customer.list.CustomerListFragment
 import vn.sharkdms.ui.history.list.HistoryOrderListFragment
-import vn.sharkdms.ui.manual.ManualFragment
 import vn.sharkdms.ui.overview.OverviewFragment
 import vn.sharkdms.ui.policy.PolicyFragment
 import vn.sharkdms.ui.report.ReportFragment
@@ -109,8 +108,7 @@ class SaleActivity : AppCompatActivity() {
                 R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
             if (currentFragment is OverviewFragment || currentFragment is CustomerListFragment ||
                 currentFragment is HistoryOrderListFragment || currentFragment is ReportFragment
-                || currentFragment is TasksFragment || currentFragment is PolicyFragment ||
-                currentFragment is ManualFragment) finish()
+                || currentFragment is TasksFragment || currentFragment is PolicyFragment) finish()
             else super.onBackPressed()
         }
     }
