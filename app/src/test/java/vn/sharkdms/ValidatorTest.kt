@@ -37,7 +37,6 @@ class ValidatorTest {
         strings = [
             "", // no character
             " ", // only space character
-            "01", // less than min character (3)
             "John Doe", // contain white space character
             "0123456789012345678901234567890", // more than max character (30)
         ]
