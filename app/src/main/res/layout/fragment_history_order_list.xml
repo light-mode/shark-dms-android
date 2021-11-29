@@ -16,7 +16,7 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,10 +50,9 @@
         style="@style/search_edit_text"
         android:layout_width="0dp"
         android:layout_height="45dp"
-        app:layout_goneMarginStart="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:drawableStart="@drawable/ic_customer_name"
         android:hint="@string/fragment_history_search_bar_hint"
         android:importantForAutofill="no"
@@ -62,6 +61,7 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_date_picker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
+        app:layout_goneMarginStart="10dp"
         tools:ignore="LabelFor" />
 
     <TextView
@@ -90,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_date_picker"
         app:layout_constraintStart_toStartOf="@+id/et_search_order"
         app:layout_constraintTop_toBottomOf="@+id/et_search_order"
-        tools:listitem="@layout/item_order"/>
+        tools:listitem="@layout/item_order" />
 
     <ImageView
         android:id="@+id/iv_no_order"
@@ -99,25 +99,24 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
         android:adjustViewBounds="true"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:src="@drawable/ic_no_history_order"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_search_order" />
+        app:layout_constraintTop_toBottomOf="@+id/et_search_order"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_no_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/fragment_history_no_order_text"
         android:layout_marginTop="36dp"
+        android:text="@string/fragment_history_no_order_text"
         android:textColor="#6E6E70"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_no_order" />
-
+        app:layout_constraintTop_toBottomOf="@+id/iv_no_order"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

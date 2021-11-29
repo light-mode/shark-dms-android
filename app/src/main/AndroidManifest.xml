@@ -39,6 +39,7 @@
         <uses-library
             android:name="com.google.android.maps"
             android:required="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -49,10 +50,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SaleActivity"
+        <activity
+            android:name=".SaleActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".CustomerActivity"
+        <activity
+            android:name=".CustomerActivity"
             android:windowSoftInputMode="adjustPan" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="vn.sharkdms"
@@ -63,10 +67,9 @@
                 android:resource="@xml/file_paths" />
         </provider>
         <service
-            android:enabled="true"
             android:name=".service.TaskRemoveListener"
+            android:enabled="true"
             android:exported="false"
             android:stopWithTask="false" />
     </application>
-
 </manifest>

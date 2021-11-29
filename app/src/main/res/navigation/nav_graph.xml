@@ -37,7 +37,7 @@
         android:id="@+id/messageDialog2"
         android:name="vn.sharkdms.util.MessageDialog"
         android:label="dialog_message"
-        tools:layout="@layout/dialog_message" >
+        tools:layout="@layout/dialog_message">
         <argument
             android:name="message"
             app:argType="string" />
@@ -45,6 +45,10 @@
             android:name="result_key"
             app:argType="string" />
     </dialog>
-    <action android:id="@+id/action_global_messageDialog2" app:destination="@id/messageDialog2" />
-    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
+    <action
+        android:id="@+id/action_global_messageDialog2"
+        app:destination="@id/messageDialog2" />
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment" />
 </navigation>

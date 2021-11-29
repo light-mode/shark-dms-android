@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
-    android:paddingTop="15dp"
-    android:paddingBottom="15dp"
     android:layout_marginBottom="10dp"
-    android:background="@drawable/bg_item_holder">
-
+    android:background="@drawable/bg_item_holder"
+    android:paddingStart="15dp"
+    android:paddingTop="15dp"
+    android:paddingEnd="15dp"
+    android:paddingBottom="15dp">
 
     <ImageView
         android:id="@+id/iv_order_image"
@@ -82,5 +80,4 @@
         android:text="@string/fragment_history_order_status_new"
         app:layout_constraintStart_toEndOf="@+id/tv_order_status_title"
         app:layout_constraintTop_toTopOf="@+id/tv_order_status_title" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
