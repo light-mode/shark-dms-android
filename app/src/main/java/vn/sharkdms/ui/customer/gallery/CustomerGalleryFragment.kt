@@ -5,22 +5,18 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
-import vn.sharkdms.R
-import vn.sharkdms.databinding.FragmentCustomerGalleryBinding
-import androidx.core.graphics.drawable.DrawableCompat
-
-import androidx.core.content.ContextCompat
-
-import android.provider.MediaStore
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,11 +25,10 @@ import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
+import vn.sharkdms.databinding.FragmentCustomerGalleryBinding
 import vn.sharkdms.ui.customer.avatar.AvatarDialogFragment
-import vn.sharkdms.ui.customer.create.CreateCustomerFragment
-import vn.sharkdms.ui.customer.create.CreateCustomerViewModel
-import vn.sharkdms.ui.customer.info.CustomerInfoFragmentArgs
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils

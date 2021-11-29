@@ -4,16 +4,10 @@ import android.app.Application
 import androidx.lifecycle.*
 import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
-import vn.sharkdms.api.BaseApi
-import vn.sharkdms.di.AppModule
 import vn.sharkdms.ui.notifications.UiModel
 import vn.sharkdms.util.Formatter
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
 class HistoryOrderListViewModel @Inject constructor(application: Application, private val repository: HistoryOrderListRepository)

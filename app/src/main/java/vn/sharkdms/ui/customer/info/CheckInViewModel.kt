@@ -9,10 +9,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CheckInRequest
-import vn.sharkdms.ui.customer.create.CreateCustomerViewModel
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.HttpStatus
-import java.lang.NumberFormatException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 

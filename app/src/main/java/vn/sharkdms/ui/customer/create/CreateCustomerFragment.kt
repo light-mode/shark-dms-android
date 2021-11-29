@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable
 import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
-
 import android.os.Bundle
 import android.os.Looper
 import android.provider.MediaStore
@@ -25,7 +24,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
@@ -34,11 +32,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType
 import okhttp3.MultipartBody

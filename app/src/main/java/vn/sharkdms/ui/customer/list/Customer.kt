@@ -2,8 +2,6 @@ package vn.sharkdms.ui.customer.list
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.*
-import kotlin.Comparator
 
 @Parcelize
 data class Customer (

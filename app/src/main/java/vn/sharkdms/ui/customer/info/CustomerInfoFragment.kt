@@ -31,8 +31,6 @@ import vn.sharkdms.databinding.FragmentCustomerInfoBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
 import vn.sharkdms.ui.customer.discount.DiscountInfo
-import vn.sharkdms.ui.customer.list.CustomerListFragmentDirections
-import vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils

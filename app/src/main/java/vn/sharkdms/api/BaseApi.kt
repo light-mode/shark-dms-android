@@ -1,18 +1,15 @@
 package vn.sharkdms.api
 
-import okhttp3.HttpUrl
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.internal.http.HttpMethod
-import retrofit2.Retrofit
 import retrofit2.http.*
+import vn.sharkdms.ui.base.history.info.OrderDetail
+import vn.sharkdms.ui.base.history.list.HistoryOrder
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.customer.create.CreateCustomerAccount
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.notifications.Notification
-import vn.sharkdms.ui.base.history.info.OrderDetail
-import vn.sharkdms.ui.base.history.list.HistoryOrder
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.products.Product
 import vn.sharkdms.ui.tasks.Task

@@ -1,13 +1,11 @@
 package vn.sharkdms.ui.customer.list
 
-import androidx.lifecycle.*
-import androidx.paging.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
-import vn.sharkdms.api.BaseApi
-import vn.sharkdms.di.AppModule
 import javax.inject.Inject
 
 @HiltViewModel

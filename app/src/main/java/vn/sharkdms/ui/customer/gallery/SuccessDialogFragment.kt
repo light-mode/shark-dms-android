@@ -10,9 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_discount_dialog.view.*
 import vn.sharkdms.R
 
 class SuccessDialogFragment : DialogFragment() {

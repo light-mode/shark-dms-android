@@ -3,27 +3,18 @@ package vn.sharkdms.ui.customer.discount
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_discount_dialog.view.*
-import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
-import vn.sharkdms.ui.forgotpassword.ForgotPasswordFragment
-import vn.sharkdms.ui.overview.OverviewViewModel
 import vn.sharkdms.util.Constant
-import vn.sharkdms.util.HttpStatus
 
 class DiscountDialogFragment : DialogFragment() {
 

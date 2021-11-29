@@ -3,10 +3,8 @@ package vn.sharkdms.ui.historycustomer.list
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
 import vn.sharkdms.ui.base.history.list.BaseHistoryOrderListFragment
 import vn.sharkdms.ui.base.history.list.HistoryOrder

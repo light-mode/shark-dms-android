@@ -1,19 +1,12 @@
 package vn.sharkdms.ui.customer.list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemCustomerBinding
-import vn.sharkdms.ui.base.history.list.HistoryOrder
-import vn.sharkdms.ui.base.history.list.HistoryOrderAdapter
 import vn.sharkdms.util.Constant
 
 class CustomerAdapter(

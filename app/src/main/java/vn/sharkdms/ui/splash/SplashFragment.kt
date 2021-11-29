@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,7 +14,6 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.CustomerActivity
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
-import vn.sharkdms.SharedViewModel
 import vn.sharkdms.util.Constant
 
 @AndroidEntryPoint
