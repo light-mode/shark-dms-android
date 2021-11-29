@@ -45,6 +45,7 @@ import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Validator
 import java.io.*
+import java.util.*
 
 class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), AvatarDialogFragment.OnPhotoSelectedListener {
 
@@ -469,7 +470,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
                 findNavController().navigateUp()
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
-                status?.toUpperCase().plus("! ").plus(message), Toast.LENGTH_SHORT).show()
+                status?.uppercase(Locale.getDefault()).plus("! ").plus(message), Toast.LENGTH_SHORT).show()
             else -> Log.e(TAG, code.toString())
         }
     }

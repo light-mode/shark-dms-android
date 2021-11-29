@@ -20,7 +20,7 @@ class CustomerPagingSource(val apiService: BaseApi, val token: String, val custo
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Customer> {
         return try {
             val collator = Collator.getInstance(Locale("vi"))
-            val comparator = compareBy(collator) { c: Customer -> c.customerName.toLowerCase() }
+            val comparator = compareBy(collator) { c: Customer -> c.customerName.lowercase(Locale.getDefault()) }
 
             val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
             val body = CustomerListRequest(nextPage, customerName)

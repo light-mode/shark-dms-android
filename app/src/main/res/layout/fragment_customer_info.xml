@@ -62,7 +62,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/fragment_customer_name_sample"
         android:textColor="#065EA8"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/iv_customer_info_avatar"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header" />
 

@@ -16,7 +16,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/fragment_customer_discount_title"
         android:textColor="@color/black"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
