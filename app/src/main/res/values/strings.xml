@@ -1,4 +1,6 @@
 <resources>
+    <string name="app_name">Shark DMS</string>
+
     <string name="fragment_splash_text_view_app_name_text" translatable="false">SHARK DMS</string>
 
     <string name="fragment_login_text_view_1_text">Đăng Nhập</string>

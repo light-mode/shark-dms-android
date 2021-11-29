@@ -148,13 +148,15 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:maxLength="50"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_name_error"
@@ -184,13 +186,15 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:maxLength="50"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_account_note"
@@ -219,13 +223,15 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textPassword"
                 android:maxLength="50"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_password_note"
@@ -254,13 +260,15 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="phone"
                 android:maxLength="11"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_phone_error"
@@ -290,13 +298,15 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
                 android:maxLength="100"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_email_error"
@@ -326,13 +336,15 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
                 android:ems="10"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 android:maxLength="100"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_address_error"
