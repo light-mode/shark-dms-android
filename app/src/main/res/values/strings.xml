@@ -13,21 +13,15 @@
     <string name="fragment_customer_header_text">Khách Hàng</string>
     <string name="fragment_add_customer_header_text">Thêm Khách Hàng</string>
     <string name="fragment_search_customer_by_name_phone_number">Tên hoặc SĐT khách hàng</string>
-    <string name="fragment_customer_rank_all">Tất cả</string>
     <string name="fragment_customer_rank">Xếp loại:</string>
     <string name="fragment_customer_rank_a">Xếp loại: A</string>
-    <string name="fragment_customer_rank_b">Xếp loại: B</string>
-    <string name="fragment_customer_rank_c">Xếp loại: C</string>
-    <string name="fragment_customer_rank_d">Xếp loại: D</string>
     <string name="fragment_customer_name_sample">Khách Hàng</string>
     <string name="fragment_customer_phone_number_sample">0312345678</string>
     <string name="fragment_customer_address">Địa chỉ:</string>
     <string name="fragment_customer_address_sample">Địa chỉ: Mai Đình, Hiệp Hoà, Bắc Giang</string>
-    <string name="fragment_customer_check_in">Ngày check-in:</string>
     <string name="fragment_customer_check_in_sample">Ngày check-in: 19/03/2021</string>
     <string name="fragment_no_customer_display">Hãy thêm mới khách hàng!</string>
 
-    <string name="fragment_create_customer_header_text">Thêm Khách Hàng</string>
     <string name="fragment_create_customer_add_avatar_text">Thêm ảnh đại diện</string>
     <string name="fragment_create_customer_add_customer_info_text">THÔNG TIN KHÁCH HÀNG</string>
     <string name="fragment_create_customer_account_description">Tài khoản dành cho khách hàng đăng nhập vào ứng dụng</string>
@@ -72,9 +66,6 @@
     <string name="fragment_customer_gallery_instruct">Chọn ảnh trưng bày (Tối đa 30 ảnh)</string>
     <string name="fragment_customer_gallery_upload">TẢI LÊN</string>
 
-    <string name="fragment_map_header">Bản Đồ</string>
-
-    <string name="fragment_customer_gallery_upload_dialog_title">Thông báo</string>
     <string name="fragment_customer_gallery_upload_dialog_descrip">Tải ảnh thành công!</string>
 
     <string name="fragment_forgot_password_text_view_1_text">Xác nhận tài khoản</string>
@@ -104,10 +95,7 @@
 
     <string name="fragment_overview_title">Tổng quan</string>
     <string name="fragment_overview_text_view_total_amount_title_text">Tổng doanh thu 3 tháng gần đây:</string>
-    <string name="fragment_overview_title_y">Doanh thu (VNĐ)</string>
-    <string name="fragment_overview_format_tooltip_y">{%Value}{groupsSeparator: } VNĐ</string>
     <string name="fragment_overview_format_x">Tháng %1$d, %2$d</string>
-    <string name="fragment_overview_format_y">{%Value}{groupsSeparator: }</string>
     <string name="fragment_overview_format_total_revenue">%1$s VNĐ</string>
     <string name="fragment_overview_format_welcome">Xin chào, %1$s</string>
 
@@ -144,9 +132,6 @@
     <string name="fragment_history_total_price_sample">9.650.000</string>
     <string name="fragment_history_order_status_title">Trạng thái:</string>
     <string name="fragment_history_order_status_new"><font color='#065EA8'>Mới</font></string>
-    <string name="fragment_history_order_status_processing"><font color='#E2740F'>Đang xử lý</font></string>
-    <string name="fragment_history_order_status_done"><font color='#069450'>Hoàn thành</font></string>
-    <string name="fragment_history_order_status_cancel"><font color='#FF0000'>Hủy</font></string>
     <string name="fragment_history_no_order_text">Bạn hiện không có đơn hàng nào</string>
 
     <string name="fragment_order_detail_title">Chi tiết đơn hàng</string>
@@ -191,7 +176,6 @@
     <string name="fragment_cart_details_edit_text_discount_hint">Nhập tổng chiết khấu</string>
     <string name="fragment_cart_details_text_view_discount_unit_text">đ</string>
     <string name="fragment_cart_details_text_view_discount_default_text">CK theo đơn:</string>
-    <string name="fragment_cart_details_text_view_total_amount_text">Tổng tiền:</string>
     <string name="fragment_cart_details_text_view_note_text">Ghi chú:</string>
     <string name="fragment_cart_details_button_cancel_text">Hủy đơn</string>
     <string name="fragment_cart_details_button_continue_text">Mua tiếp</string>
@@ -206,7 +190,6 @@
 
     <string name="fragment_order_result_title">Đặt hàng thành công</string>
     <string name="fragment_order_result_text_view_order_code_title_text">Mã đơn hàng:</string>
-    <string name="fragment_order_result_text_view_order_info_text">Thông tin đơn hàng:</string>
     <string name="fragment_order_result_text_view_customer_name_title_text">Khách hàng:</string>
     <string name="fragment_order_result_text_view_order_discount_title_text">Chiết khấu:</string>
     <string name="fragment_order_result_text_view_order_amount_title_text">Tổng tiền:</string>
@@ -228,9 +211,6 @@
     <string name="dialog_message_title_text">Thông báo</string>
     <string name="dialog_message_button_confirm_text">OK</string>
     
-    <string name="dialog_confirm_button_no_text">Không</string>
-    <string name="dialog_confirm_button_yes_text">Có</string>
-
     <string name="dialog_offline_text_view_title_text">Đang ở chế độ Offline</string>
     <string name="dialog_offline_text_view_content_text">Hãy kết nối mạng của bạn để tiếp tục trải nghiệm</string>
 
