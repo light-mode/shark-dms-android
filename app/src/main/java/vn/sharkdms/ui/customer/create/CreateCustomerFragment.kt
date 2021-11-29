@@ -413,8 +413,11 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), Avata
             var lastLocation: Location = locationResult.lastLocation
             latitude = lastLocation.latitude.toString()
             longitude = lastLocation.longitude.toString()
-            binding.tvShowLocation.text = "Lat: ".plus(lastLocation.latitude.toString()).plus("\n")
-                                            .plus("Long: ").plus(lastLocation.longitude.toString())
+            binding.tvShowLocation.text = getString(
+                R.string.fragment_crate_customer_gps_format,
+                lastLocation.latitude.toString(),
+                lastLocation.longitude.toString()
+            )
         }
     }
 
