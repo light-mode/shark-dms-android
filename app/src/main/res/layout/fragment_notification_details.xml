@@ -20,9 +20,9 @@
                 android:id="@+id/icon_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/content_description"
                 android:src="@drawable/ic_back"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -57,13 +57,13 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:fontFamily="@font/inter_semi_bold"
-                android:hint="@string/app_name"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:longClickable="false"
                 android:maxLines="1"
                 android:padding="16dp"
                 android:textColor="@color/black"
+                tools:ignore="LabelFor"
                 tools:text="Thông báo nghỉ cho nhân viên" />
         </androidx.cardview.widget.CardView>
 
@@ -82,12 +82,12 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:gravity="top"
-                android:hint="@string/app_name"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:longClickable="false"
                 android:padding="16dp"
                 android:textColor="@color/black"
+                tools:ignore="LabelFor"
                 tools:text="Kính gửi: Anh (chị)/ em công ty Shark DMS\n\nSắp tới sẽ là lịch làm việc và nghỉ của toàn bộ nhân viên cho 30/4 - 1/5." />
         </androidx.cardview.widget.CardView>
     </LinearLayout>

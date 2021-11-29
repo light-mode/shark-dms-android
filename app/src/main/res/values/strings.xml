@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Shark DMS</string>
-
     <string name="fragment_splash_text_view_app_name_text" translatable="false">SHARK DMS</string>
 
     <string name="fragment_login_text_view_1_text">Đăng Nhập</string>
@@ -226,7 +224,6 @@
     <string name="support_email">hotro@sharkdms.vn</string>
     <string name="logout">Đăng xuất</string>
 
-    <string name="content_description" translatable="false">none</string>
     <string name="color_primary" translatable="false">#00549A</string>
 
     <string name="sunday">Chủ nhật</string>

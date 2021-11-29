@@ -26,9 +26,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/content_description"
                 app:srcCompat="@drawable/ic_back"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_header_customer_info"
@@ -51,7 +51,8 @@
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
-        app:srcCompat="@drawable/avatar_list_customer" />
+        app:srcCompat="@drawable/avatar_list_customer"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_customer_info_name"

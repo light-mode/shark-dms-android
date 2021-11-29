@@ -27,11 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/content_description"
                 android:onClick="toggleNavigationDrawer"
                 android:src="@drawable/ic_menu"
                 app:tint="@color/white"
-                tools:ignore="UsingOnClickInXml" />
+                tools:ignore="ContentDescription,UsingOnClickInXml" />
 
             <TextView
                 android:id="@+id/tv_header_customer"
@@ -50,9 +49,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="16dp"
-                android:contentDescription="@string/content_description"
-                app:srcCompat="@drawable/ic_add_customer" />
-
+                app:srcCompat="@drawable/ic_add_customer"
+                tools:ignore="ContentDescription" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -89,7 +87,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="30dp"
         app:srcCompat="@drawable/ic_gps"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/iv_no_customer"
@@ -102,6 +101,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_customer"
+        tools:ignore="ContentDescription"
         tools:visibility="visible" />
 
     <TextView

@@ -20,9 +20,9 @@
                 android:id="@+id/icon_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/content_description"
                 android:src="@drawable/ic_back"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_account_title"
@@ -224,8 +224,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/ic_discount" />
+                    android:src="@drawable/ic_discount"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_account_discount"
@@ -257,8 +257,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/ic_change_password" />
+                    android:src="@drawable/ic_change_password"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -291,8 +291,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/ic_account_logout" />
+                    android:src="@drawable/ic_account_logout"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
