@@ -29,13 +29,14 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentCustomerGalleryBinding
 import vn.sharkdms.ui.customer.avatar.AvatarDialogFragment
+import vn.sharkdms.ui.customer.avatar.OnPhotoSelectedListener
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 import java.io.*
 
 
-class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), AvatarDialogFragment.OnPhotoSelectedListener {
+class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), OnPhotoSelectedListener {
 
     private val TAG = "CustomerGalleryFragment"
     private val REQUEST_CODE = 1000

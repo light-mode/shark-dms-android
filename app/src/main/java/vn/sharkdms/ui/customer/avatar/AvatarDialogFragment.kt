@@ -33,7 +33,6 @@ class AvatarDialogFragment : DialogFragment() {
 
     companion object {
         private const val TAG = "AvatarDialogFragment"
-        private const val REQUEST_CODE = 1000
         private const val REQUEST_IMAGE_CAPTURE = 1001
         private const val REQUEST_CHOOSE_IMAGE = 1002
     }
@@ -43,10 +42,6 @@ class AvatarDialogFragment : DialogFragment() {
         if (permissionGranted) startCameraIntentForResult()
     }
 
-    interface OnPhotoSelectedListener {
-        fun getImagePath(imageUri: Uri?)
-        fun getImageBitmap(imageBitmap: Bitmap?)
-    }
     private lateinit var onPhotoSelectedListener: OnPhotoSelectedListener
 
     override fun onCreateView(
@@ -122,14 +117,6 @@ class AvatarDialogFragment : DialogFragment() {
             Intent.createChooser(intent, "Select Picture"),
             REQUEST_CHOOSE_IMAGE
         )
-    }
-
-    private fun createTempFile(): File {
-        val timestamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
-        val storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        val file = File.createTempFile("JPEG_${timestamp}_", ".jpg", storageDir)
-        file.deleteOnExit()
-        return file
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

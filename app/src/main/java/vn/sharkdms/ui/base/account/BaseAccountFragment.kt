@@ -68,8 +68,7 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
                     is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
                         handleGetDiscountFailure()
                     is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
-                        Utils.showUnauthorizedDialog(
-                        requireActivity())
+                        Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
         }
