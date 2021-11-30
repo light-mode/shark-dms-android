@@ -2,6 +2,7 @@ package vn.sharkdms.ui.customer.avatar
 
 import android.Manifest
 import android.app.Activity
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -28,6 +29,7 @@ import vn.sharkdms.util.Constant
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AvatarDialogFragment : DialogFragment() {
 
@@ -113,6 +115,7 @@ class AvatarDialogFragment : DialogFragment() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         startActivityForResult(
             Intent.createChooser(intent, "Select Picture"),
             REQUEST_CHOOSE_IMAGE
@@ -126,9 +129,20 @@ class AvatarDialogFragment : DialogFragment() {
             dismiss()
         } else if (requestCode == REQUEST_CHOOSE_IMAGE && resultCode == Activity.RESULT_OK) {
             // In this case, imageUri is returned by the chooser, save it.
-            val imageUri: Uri? = data?.data
-            val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
-            onPhotoSelectedListener.getImageBitmap(bm)
+            var imageUri: Uri?
+            if(data?.data != null) {
+                imageUri = data.data
+                val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
+                onPhotoSelectedListener.getImageBitmap(bm)
+            }
+            else if(data?.clipData != null) {
+                val item = data.clipData
+                for (i in 0..item!!.itemCount-1) {
+                    imageUri = item.getItemAt(i).uri
+                    val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
+                    onPhotoSelectedListener.getImageBitmap(bm)
+                }
+            }
             dismiss()
         } else
             super.onActivityResult(requestCode, resultCode, data)
