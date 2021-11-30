@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentAccountBinding
 import vn.sharkdms.ui.base.account.BaseAccountFragment
+import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.logout.LogoutDialogFragment
 
 @AndroidEntryPoint
@@ -23,6 +24,7 @@ class CustomerAccountFragment : BaseAccountFragment() {
         }
         setAvatarImageViewListener(binding)
         setChangePasswordCardViewListener(binding)
+        setDiscountCardViewListener(binding)
         setLogoutCardViewListener(binding)
     }
 
@@ -38,6 +40,13 @@ class CustomerAccountFragment : BaseAccountFragment() {
             val action = CustomerAccountFragmentDirections
                 .actionCustomerAccountFragmentToChangePasswordFragment2()
             findNavController().navigate(action)
+        }
+    }
+
+    private fun setDiscountCardViewListener(binding: FragmentAccountBinding) {
+        binding.cardViewDiscount.setOnClickListener {
+            val dialog = DiscountDialogFragment().newInstance(discountInfo, 0)
+            dialog.show(childFragmentManager, TAG)
         }
     }
 

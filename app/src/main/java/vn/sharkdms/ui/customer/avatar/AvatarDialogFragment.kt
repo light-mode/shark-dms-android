@@ -22,9 +22,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.setFragmentResult
 import kotlinx.android.synthetic.main.fragment_create_avatar_dialog.view.*
 import vn.sharkdms.R
+import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.util.Constant
 import java.io.File
 import java.text.SimpleDateFormat
@@ -39,6 +42,8 @@ class AvatarDialogFragment : DialogFragment() {
         private const val REQUEST_CHOOSE_IMAGE = 1002
     }
 
+    private var check: Int? = 0
+
     private val cameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()) { permissionGranted ->
         if (permissionGranted) startCameraIntentForResult()
@@ -46,12 +51,22 @@ class AvatarDialogFragment : DialogFragment() {
 
     private lateinit var onPhotoSelectedListener: OnPhotoSelectedListener
 
+    fun newInstance(check: Int): AvatarDialogFragment {
+        val args = Bundle()
+        args.putInt("check", check)
+        val fragment = AvatarDialogFragment()
+        fragment.arguments = args
+        return fragment
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val rootView: View = inflater.inflate(R.layout.fragment_create_avatar_dialog, container, false)
+
+        check = arguments?.getInt("check")
 
         initializeDialog()
         setRowTakePictureOnClickListener(rootView)
@@ -115,7 +130,7 @@ class AvatarDialogFragment : DialogFragment() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        if (check == 1) intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         startActivityForResult(
             Intent.createChooser(intent, "Select Picture"),
             REQUEST_CHOOSE_IMAGE
@@ -137,10 +152,17 @@ class AvatarDialogFragment : DialogFragment() {
             }
             else if(data?.clipData != null) {
                 val item = data.clipData
-                for (i in 0..item!!.itemCount-1) {
-                    imageUri = item.getItemAt(i).uri
-                    val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
-                    onPhotoSelectedListener.getImageBitmap(bm)
+                if (item?.itemCount!! < 30 - check!!) {
+                    for (i in 0 until item.itemCount) {
+                        imageUri = item.getItemAt(i).uri
+                        val bm = MediaStore.Images.Media.getBitmap(context?.contentResolver, imageUri)
+                        onPhotoSelectedListener.getImageBitmap(bm)
+                    }
+                } else {
+                    val message = "Vượt quá số lượng ảnh cho phép!\n" +
+                            "Đã có " + check + " ảnh, chỉ được chọn thêm " + (30 - check!!).toString() +
+                            " ảnh."
+                    setFragmentResult("overLimit", bundleOf("bundleKey" to message))
                 }
             }
             dismiss()

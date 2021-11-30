@@ -134,7 +134,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     private fun setBtnDiscountOnClickListener(binding: FragmentCustomerInfoBinding) {
         binding.btnCustomerInfoDiscount.setOnClickListener {
-            val dialog = DiscountDialogFragment().newInstance(discountInfo)
+            val dialog = DiscountDialogFragment().newInstance(discountInfo, 0)
             dialog.show(childFragmentManager, TAG)
         }
     }

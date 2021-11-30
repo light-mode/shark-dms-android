@@ -20,12 +20,14 @@ class DiscountDialogFragment : DialogFragment() {
 
     private val TAG = "DiscountDialogFragment"
     private var discountInfo: String? = ""
+    private var check: Int? = 0
     private lateinit var sharedViewModel : SharedViewModel
     private var connectivity: Boolean = true
 
-    fun newInstance(discountInfo: String): DiscountDialogFragment {
+    fun newInstance(discountInfo: String, check: Int): DiscountDialogFragment {
         val args = Bundle()
         args.putString("discountInfo", discountInfo)
+        args.putInt("check", check)
         val fragment = DiscountDialogFragment()
         fragment.arguments = args
         return fragment
@@ -40,6 +42,8 @@ class DiscountDialogFragment : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         discountInfo = arguments?.getString("discountInfo")
+        check = arguments?.getInt("check")
+        if (check == 1) rootView.tv_customer_discount_title.text = getString(R.string.fragment_customer_discount_title_sale_account)
 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }

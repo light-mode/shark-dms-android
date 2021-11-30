@@ -29,14 +29,14 @@ import vn.sharkdms.util.Utils
 
 open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
     companion object {
-        private const val TAG = "AccountFragment"
+        val TAG = "AccountFragment"
     }
 
     private val viewModel by viewModels<AccountViewModel>()
     private val sharedViewModel by activityViewModels<SharedViewModel>()
     private lateinit var discountViewModel: DiscountDialogViewModel
     private var userId = 1
-    private var discountInfo: String = ""
+    open var discountInfo: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,10 +46,6 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
         binding.apply {
             iconBack.setOnClickListener {
                 findNavController().navigateUp()
-            }
-            cardViewDiscount.setOnClickListener {
-                val dialog = DiscountDialogFragment().newInstance(discountInfo)
-                dialog.show(childFragmentManager, TAG)
             }
         }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {

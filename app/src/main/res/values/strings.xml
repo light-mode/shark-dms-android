@@ -53,6 +53,7 @@
     <string name="fragment_customer_info_order">Đặt hàng</string>
 
     <string name="fragment_customer_discount_title">Bảng chiết khấu (Khách hàng)</string>
+    <string name="fragment_customer_discount_title_sale_account">Bảng chiết khấu (Nhân viên Sale)</string>
     <string name="fragment_customer_discount_short">STDH: Số tiền đơn hàng</string>
     <string name="fragment_customer_discount_threshold">Ngưỡng</string>
     <string name="fragment_customer_discount_percent">Giảm (%)</string>

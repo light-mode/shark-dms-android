@@ -364,7 +364,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
 
     private fun setIvAvatarOnClickListener(binding: FragmentCreateCustomerBinding) {
         binding.ivAvatarCreateCustomer.setOnClickListener {
-            val dialog = AvatarDialogFragment()
+            val dialog = AvatarDialogFragment().newInstance(0)
             dialog.show(requireFragmentManager(), TAG)
             dialog.setTargetFragment(this, REQUEST_CODE)
         }

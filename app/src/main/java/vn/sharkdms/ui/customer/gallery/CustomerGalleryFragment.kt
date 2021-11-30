@@ -49,7 +49,6 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
 
     private lateinit var binding: FragmentCustomerGalleryBinding
     var initImages = ArrayList<Bitmap>()
-    private var image = ArrayList<MultipartBody.Part>()
 
     private lateinit var viewModel: CustomerGalleryViewModel
     private var connectivity: Boolean = false
@@ -83,6 +82,11 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
                 }
             }
         }
+
+        childFragmentManager.setFragmentResultListener("overLimit", viewLifecycleOwner) { key, bundle ->
+            val message = bundle.getString("bundleKey")
+            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -103,6 +107,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
             gvGallery.setOnItemClickListener { parent, view, position, id ->
                 if (position == gvGallery.adapter.count - 1) {
                     val dialog = AvatarDialogFragment()
+                        .newInstance(if (initImages.size - 1 != 0) initImages.size - 1 else 1)
                     dialog.show(requireFragmentManager(), TAG)
                     dialog.setTargetFragment(this@CustomerGalleryFragment, REQUEST_CODE)
                 }
