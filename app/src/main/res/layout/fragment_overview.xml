@@ -21,9 +21,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/content_description"
                 android:src="@drawable/ic_menu"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,9 +42,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="16dp"
-                android:contentDescription="@string/content_description"
                 android:src="@drawable/ic_notifications"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 

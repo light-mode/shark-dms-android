@@ -20,9 +20,9 @@
                 android:id="@+id/icon_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/content_description"
                 android:src="@drawable/ic_back"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,12 +56,12 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:fontFamily="@font/inter_semi_bold"
-                android:hint="@string/app_name"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:longClickable="false"
                 android:padding="16dp"
                 android:textColor="@color/black"
+                tools:ignore="LabelFor"
                 tools:text="Hoàn thành KPI tháng 9" />
         </androidx.cardview.widget.CardView>
 
@@ -96,13 +96,13 @@
                     android:id="@+id/icon_arrow_drop"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/content_description"
                     android:src="@drawable/ic_arrow_drop_down"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@id/text_view_status"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_2"
                     app:layout_constraintRight_toRightOf="@id/text_view_status"
                     app:layout_constraintTop_toTopOf="@id/text_view_status"
+                    tools:ignore="ContentDescription"
                     tools:visibility="visible" />
 
                 <LinearLayout
@@ -174,7 +174,6 @@
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:gravity="top"
-                    android:hint="@string/app_name"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
                     android:longClickable="false"
@@ -183,6 +182,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_view_status"
+                    tools:ignore="LabelFor"
                     tools:text="1. Kiếm được lượng data khách hàng ổn định từ" />
 
                 <androidx.constraintlayout.widget.Guideline

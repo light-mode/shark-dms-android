@@ -16,7 +16,7 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,21 +27,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/content_description"
                 app:layout_constraintEnd_toStartOf="@+id/tv_header_customer"
                 app:srcCompat="@drawable/ic_back"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_header_customer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="@string/fragment_add_customer_header_text"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:layout_centerInParent="true"
                 tools:ignore="RelativeOverlap" />
-
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -51,12 +50,12 @@
         android:layout_height="78dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/avatar_create_customer"
         android:padding="0.75dp"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
-        android:background="@drawable/avatar_create_customer"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
         app:shapeAppearanceOverlay="@style/avatar" />
 
     <TextView
@@ -78,8 +77,8 @@
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="20dp"
-        android:enabled="false"
         android:background="@drawable/button_disable"
+        android:enabled="false"
         android:text="@string/fragment_create_customer_create_button"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -90,10 +89,10 @@
         android:id="@+id/sv_customer_info"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@id/btn_create_customer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,8 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/fragment_create_customer_account_description"
-                android:textSize="13sp"
                 android:textColor="#63637A"
+                android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
 
@@ -147,23 +146,25 @@
                 android:id="@+id/et_create_customer_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:backgroundTint="@color/black"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
                 android:maxLength="50"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_name_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_create_customer_name_error"
-                android:textSize="13sp"
                 android:textColor="#FF0000"
+                android:textSize="13sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
@@ -183,23 +184,25 @@
                 android:id="@+id/et_create_customer_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:backgroundTint="@color/black"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
                 android:maxLength="50"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_account_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_create_customer_account_note"
-                android:textSize="13sp"
                 android:textColor="#00549A"
+                android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
 
@@ -218,23 +221,25 @@
                 android:id="@+id/et_create_customer_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:backgroundTint="@color/black"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
                 android:maxLength="50"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_password_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_create_customer_password_note"
-                android:textSize="13sp"
                 android:textColor="#00549A"
+                android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
 
@@ -253,23 +258,25 @@
                 android:id="@+id/et_create_customer_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="phone"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:backgroundTint="@color/black"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="phone"
                 android:maxLength="11"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_phone_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_create_customer_phone_error"
-                android:textSize="13sp"
                 android:textColor="#FF0000"
+                android:textSize="13sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
@@ -289,23 +296,25 @@
                 android:id="@+id/et_create_customer_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:backgroundTint="@color/black"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress"
                 android:maxLength="100"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_email_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_create_customer_email_error"
-                android:textSize="13sp"
                 android:textColor="#FF0000"
+                android:textSize="13sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
@@ -325,23 +334,25 @@
                 android:id="@+id/et_create_customer_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:backgroundTint="@color/black"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
                 android:maxLength="100"
+                android:textColor="@color/black"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_name"
+                tools:ignore="LabelFor" />
 
             <TextView
                 android:id="@+id/tv_customer_address_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_create_customer_address_error"
-                android:textSize="13sp"
                 android:textColor="#FF0000"
+                android:textSize="13sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/tv_create_customer_info"
                 app:layout_constraintTop_toBottomOf="@+id/tv_create_customer_info" />
@@ -350,11 +361,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp">
+
                 <LinearLayout
-                    android:layout_height="wrap_content"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_add_gps"
@@ -363,28 +375,27 @@
                         android:background="@drawable/button_primary"
                         android:backgroundTint="@color/primary"
                         android:text="@string/fragment_create_customer_gps_button"
-                        android:textColor="@color/white"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
                 </LinearLayout>
+
                 <LinearLayout
-                    android:layout_height="match_parent"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tv_show_location"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/bg_button_inactive"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
+                        android:gravity="center"
                         android:textColor="@color/black"
-                        android:gravity="center"/>
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
-
             </TableRow>
-
         </LinearLayout>
     </ScrollView>
 
@@ -398,5 +409,4 @@
         app:layout_constraintRight_toRightOf="@id/btn_create_customer"
         app:layout_constraintTop_toTopOf="@id/btn_create_customer"
         tools:visibility="visible" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

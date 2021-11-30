@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.taskdetails
 
+import android.app.Activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -21,6 +22,7 @@ class TaskDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
     private val taskDetailsEventChannel = Channel<TaskDetailsEvent>()
     val taskDetailsEvent = taskDetailsEventChannel.receiveAsFlow()
     val statusSelectorShowing = MutableLiveData(false)
+    var selectedStatus = Activity.RESULT_FIRST_USER
 
     fun updateTaskStatus(token: String, taskId: Int, status: Int) {
         viewModelScope.launch {

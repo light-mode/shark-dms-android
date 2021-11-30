@@ -15,7 +15,7 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,18 +26,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/content_description"
                 app:srcCompat="@drawable/ic_back"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_header_customer_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="@string/fragment_customer_info_title"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:layout_centerInParent="true"
                 tools:ignore="RelativeOverlap" />
 
         </RelativeLayout>
@@ -51,7 +51,8 @@
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header"
-        app:srcCompat="@drawable/avatar_list_customer" />
+        app:srcCompat="@drawable/avatar_list_customer"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_customer_info_name"
@@ -61,7 +62,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/fragment_customer_name_sample"
         android:textColor="#065EA8"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/iv_customer_info_avatar"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_header" />
 
@@ -71,8 +72,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="6dp"
-        android:textColor="#9595AE"
         android:text="@string/fragment_customer_phone_number_sample"
+        android:textColor="#9595AE"
         app:layout_constraintStart_toEndOf="@+id/iv_customer_info_avatar"
         app:layout_constraintTop_toBottomOf="@+id/tv_customer_info_name" />
 
@@ -110,9 +111,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="A"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:text="A" />
         </TableRow>
 
         <TableRow
@@ -149,9 +150,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="20 Nguyễn Trãi, Thanh Xuân, Hà Nội"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:text="20 Nguyễn Trãi, Thanh Xuân, Hà Nội" />
         </TableRow>
 
         <TableRow
@@ -178,7 +179,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Email:"
+                android:text="@string/fragment_customer_email"
                 android:textColor="@color/black" />
 
             <TextView
@@ -188,9 +189,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="andqk@gmail.com"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                tools:text="andqk@gmail.com" />
         </TableRow>
     </TableLayout>
 
@@ -201,13 +202,13 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/bg_item_holder"
         android:drawableStart="@drawable/customer_info_map"
+        android:drawableEnd="@drawable/ic_customer_info_details"
         android:drawablePadding="20dp"
         android:paddingStart="20dp"
-        android:drawableEnd="@drawable/ic_customer_info_details"
         android:paddingEnd="20dp"
         android:text="@string/fragment_customer_info_map"
-        android:textAllCaps="false"
         android:textAlignment="viewStart"
+        android:textAllCaps="false"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/tableLayout"
         app:layout_constraintStart_toStartOf="@+id/tableLayout"
@@ -220,8 +221,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_item_holder"
         android:drawableStart="@drawable/customer_info_gps"
-        android:drawablePadding="20dp"
         android:drawableEnd="@drawable/ic_customer_info_details"
+        android:drawablePadding="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="@string/fragment_customer_info_check_in"
@@ -239,8 +240,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_item_holder"
         android:drawableStart="@drawable/customer_info_camera"
-        android:drawablePadding="20dp"
         android:drawableEnd="@drawable/ic_customer_info_details"
+        android:drawablePadding="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="@string/fragment_customer_info_camera"
@@ -258,8 +259,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_item_holder"
         android:drawableStart="@drawable/customer_info_discount"
-        android:drawablePadding="20dp"
         android:drawableEnd="@drawable/ic_customer_info_details"
+        android:drawablePadding="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="@string/fragment_customer_info_discount"
@@ -277,8 +278,8 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/bg_item_holder"
         android:drawableStart="@drawable/customer_info_order"
-        android:drawablePadding="20dp"
         android:drawableEnd="@drawable/ic_customer_info_details"
+        android:drawablePadding="20dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="@string/fragment_customer_info_order"
@@ -289,5 +290,4 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tableLayout"
         app:layout_constraintTop_toBottomOf="@+id/btn_customer_info_discount" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

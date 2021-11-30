@@ -20,9 +20,9 @@
                 android:id="@+id/icon_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/content_description"
                 android:src="@drawable/ic_back"
-                app:tint="@color/white" />
+                app:tint="@color/white"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_account_title"
@@ -47,13 +47,10 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@color/white"
-            android:padding="0.75dp"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/avatar"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1.5dp"
             tools:src="@drawable/ic_avatar" />
 
         <LinearLayout
@@ -224,8 +221,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/ic_discount" />
+                    android:src="@drawable/ic_discount"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_account_discount"
@@ -257,8 +254,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/ic_change_password" />
+                    android:src="@drawable/ic_change_password"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -274,12 +271,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="10dp"
-            android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_view_change_password">
+            app:layout_constraintTop_toBottomOf="@id/card_view_change_password"
+            tools:visibility="visible">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -291,8 +288,8 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:contentDescription="@string/content_description"
-                    android:src="@drawable/ic_account_logout" />
+                    android:src="@drawable/ic_account_logout"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:layout_width="wrap_content"

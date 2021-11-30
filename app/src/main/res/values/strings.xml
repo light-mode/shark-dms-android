@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Shark DMS</string>
+    <string name="app_name">Shark DMS</string>
 
     <string name="fragment_splash_text_view_app_name_text" translatable="false">SHARK DMS</string>
 
@@ -19,6 +19,7 @@
     <string name="fragment_customer_phone_number_sample">0312345678</string>
     <string name="fragment_customer_address">Địa chỉ:</string>
     <string name="fragment_customer_address_sample">Địa chỉ: Mai Đình, Hiệp Hoà, Bắc Giang</string>
+    <string name="fragment_customer_email">Email:</string>
     <string name="fragment_customer_check_in_sample">Ngày check-in: 19/03/2021</string>
     <string name="fragment_no_customer_display">Hãy thêm mới khách hàng!</string>
 
@@ -38,6 +39,7 @@
     <string name="fragment_create_customer_account_note">Tài khoản đăng nhập viết liền không dấu, chỉ bao gồm chữ cái, chữ số </string>
     <string name="fragment_create_customer_password_note">Mật khẩu phải dài hơn 6 ký tự</string>
     <string name="fragment_create_customer_gps_button">Lấy tọa độ địa điểm</string>
+    <string name="fragment_crate_customer_gps_format">Lat: %1$s\nLong: %2$s</string>
     <string name="fragment_create_customer_create_button">TẠO KHÁCH HÀNG</string>
     <string name="fragment_create_customer_cancel_button">HỦY</string>
     <string name="fragment_create_customer_take_picture">Chụp ảnh</string>
@@ -117,6 +119,8 @@
     <string name="fragment_tasks_date_format_display">%1$d/%2$d/%3$d</string>
     <string name="fragment_tasks_date_format_search">%1$d-%2$d-%3$d</string>
     <string name="fragment_task_details_title">Chi tiết công việc</string>
+    <string name="fragment_task_details_dialog_change_task_status_title">Xác nhận thay đổi</string>
+    <string name="fragment_task_details_dialog_change_task_status_message_format">Thay đổi trạng thái công việc từ\n\"%1$s\" sang \"%2$s\"?</string>
     <string name="task_status_new">Mới</string>
     <string name="task_status_processing">Đang xử lý</string>
     <string name="task_status_checking">Đợi kiểm tra</string>
@@ -210,7 +214,7 @@
 
     <string name="dialog_message_title_text">Thông báo</string>
     <string name="dialog_message_button_confirm_text">OK</string>
-    
+
     <string name="dialog_offline_text_view_title_text">Đang ở chế độ Offline</string>
     <string name="dialog_offline_text_view_content_text">Hãy kết nối mạng của bạn để tiếp tục trải nghiệm</string>
 
@@ -226,7 +230,6 @@
     <string name="support_email">hotro@sharkdms.vn</string>
     <string name="logout">Đăng xuất</string>
 
-    <string name="content_description" translatable="false">none</string>
     <string name="color_primary" translatable="false">#00549A</string>
 
     <string name="sunday">Chủ nhật</string>
@@ -242,6 +245,4 @@
 
     <string name="shared_prefs_private" translatable="false">vn.sharkdms.preferences.PRIVATE</string>
     <string name="show_splash_screen_key">show_splash_screen</string>
-
-<!--    <string name="google_maps_key">AIzaSyCmTWjTci6G_q8bkr3dph4dz10JG5SFk0U</string>-->
 </resources>

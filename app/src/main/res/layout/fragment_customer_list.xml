@@ -16,7 +16,7 @@
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,11 +27,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/content_description"
                 android:onClick="toggleNavigationDrawer"
                 android:src="@drawable/ic_menu"
                 app:tint="@color/white"
-                tools:ignore="UsingOnClickInXml" />
+                tools:ignore="ContentDescription,UsingOnClickInXml" />
 
             <TextView
                 android:id="@+id/tv_header_customer"
@@ -50,9 +49,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="16dp"
-                android:contentDescription="@string/content_description"
-                app:srcCompat="@drawable/ic_add_customer" />
-
+                app:srcCompat="@drawable/ic_add_customer"
+                tools:ignore="ContentDescription" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -61,8 +59,8 @@
         style="@style/search_edit_text"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:drawableStart="@drawable/ic_customer_name"
         android:hint="@string/fragment_search_customer_by_name_phone_number"
@@ -84,39 +82,41 @@
         android:backgroundTint="@color/primary"
         android:clickable="true"
         android:focusable="true"
+        android:tintMode="multiply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="30dp"
         app:srcCompat="@drawable/ic_gps"
         app:tint="@color/white"
-        app:maxImageSize="30dp"
-        android:tintMode="multiply" />
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/iv_no_customer"
         android:layout_width="135dp"
         android:layout_height="93dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/raw_no_customer_display"
         android:layout_marginTop="60dp"
+        android:src="@drawable/raw_no_customer_display"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_customer"
+        tools:ignore="ContentDescription"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_no_customer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/fragment_no_customer_display"
         android:layout_marginTop="15dp"
+        android:text="@string/fragment_no_customer_display"
         android:textColor="#6E6E70"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_no_customer" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_no_customer"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_customer"
@@ -129,6 +129,5 @@
         app:layout_constraintStart_toStartOf="@+id/edit_text_customer"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_customer"
         app:layout_constraintVertical_bias="1.0"
-        tools:listitem="@layout/item_customer"/>
-
+        tools:listitem="@layout/item_customer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

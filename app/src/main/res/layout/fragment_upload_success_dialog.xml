@@ -11,10 +11,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:layout_marginBottom="40dp"
         android:background="@drawable/bg_button_active"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,19 +25,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            app:srcCompat="@drawable/ic_upload_success" />
+            app:srcCompat="@drawable/ic_upload_success"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_upload_success"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_toRightOf="@id/iv_upload_success"
+            android:layout_toEndOf="@id/iv_upload_success"
             android:text="@string/fragment_customer_gallery_upload_dialog_descrip"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent" />
     </RelativeLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

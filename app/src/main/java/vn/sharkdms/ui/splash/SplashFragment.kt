@@ -45,7 +45,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                     is SplashViewModel.SplashEvent.ShowOverviewScreen -> navigateToOverviewScreen(
                         event.token, event.username, event.roleName)
                     is SplashViewModel.SplashEvent.ShowProductsScreen -> navigateToProductsScreen(
-                        event.token, event.username, event.roleName)
+                        event.token, event.username, event.roleName, event.avatar)
                 }
             }
         }
@@ -78,11 +78,12 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         startActivity(intent)
     }
 
-    private fun navigateToProductsScreen(token: String, username: String, roleName: String) {
+    private fun navigateToProductsScreen(token: String, username: String, roleName: String, avatar: String) {
         val intent = Intent(requireContext(), CustomerActivity::class.java)
         intent.putExtra("token", token)
         intent.putExtra("username", username)
         intent.putExtra("role_name", roleName)
+        intent.putExtra("avatar", avatar)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
     }

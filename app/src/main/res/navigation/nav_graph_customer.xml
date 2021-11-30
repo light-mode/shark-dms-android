@@ -8,7 +8,7 @@
         android:id="@+id/productsFragment"
         android:name="vn.sharkdms.ui.products.ProductsFragmentCustomer"
         android:label="fragment_products"
-        tools:layout="@layout/fragment_products" >
+        tools:layout="@layout/fragment_products">
         <action
             android:id="@+id/action_productsFragment_to_addToCartFragment2"
             app:destination="@id/addToCartCustomerFragment"
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/customerAccountFragment"
         android:name="vn.sharkdms.ui.accountcustomer.CustomerAccountFragment"
-        android:label="CustomerAccountFragment" >
+        android:label="CustomerAccountFragment">
         <action
             android:id="@+id/action_customerAccountFragment_to_changePasswordFragment2"
             app:destination="@id/changePasswordFragment2"
@@ -36,7 +36,7 @@
         android:id="@+id/changePasswordFragment2"
         android:name="vn.sharkdms.ui.changepasswordcustomer.CustomerChangePasswordFragment"
         android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" >
+        tools:layout="@layout/fragment_change_password">
         <action
             android:id="@+id/action_changePasswordFragment2_to_forgotPasswordFragment3"
             app:destination="@id/forgotPasswordFragment3"
@@ -53,7 +53,7 @@
     <fragment
         android:id="@+id/customerHistoryOrderListFragment"
         android:name="vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment"
-        android:label="CustomerHistoryOrderListFragment" >
+        android:label="CustomerHistoryOrderListFragment">
         <action
             android:id="@+id/action_customerHistoryOrderListFragment_to_baseOrderDetailFragment"
             app:destination="@id/baseOrderDetailFragment"
@@ -66,7 +66,7 @@
         android:id="@+id/baseOrderDetailFragment"
         android:name="vn.sharkdms.ui.historycustomer.info.CustomerOrderDetailFragment"
         android:label="fragment_order_detail"
-        tools:layout="@layout/fragment_order_detail" >
+        tools:layout="@layout/fragment_order_detail">
         <argument
             android:name="order"
             app:argType="vn.sharkdms.ui.base.history.list.HistoryOrder" />
@@ -75,15 +75,15 @@
         android:id="@+id/addToCartCustomerFragment"
         android:name="vn.sharkdms.ui.cart.add.AddToCartFragmentCustomer"
         android:label="fragment_add_to_cart"
-        tools:layout="@layout/fragment_add_to_cart" >
+        tools:layout="@layout/fragment_add_to_cart">
         <argument
             android:name="product"
             app:argType="vn.sharkdms.ui.products.Product" />
         <argument
             android:name="customer"
+            android:defaultValue="@null"
             app:argType="vn.sharkdms.ui.customer.list.Customer"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_addToCartFragment2_to_cartDetailsFragment2"
             app:destination="@id/cartDetailsFragment2"
@@ -97,12 +97,12 @@
         android:id="@+id/cartDetailsFragment2"
         android:name="vn.sharkdms.ui.cart.details.CartDetailsFragmentCustomer"
         android:label="fragment_cart_details"
-        tools:layout="@layout/fragment_cart_details" >
+        tools:layout="@layout/fragment_cart_details">
         <argument
             android:name="cart"
+            android:defaultValue="@null"
             app:argType="vn.sharkdms.ui.cart.Cart"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
         <action
             android:id="@+id/action_cartDetailsFragment2_to_orderResultFragment2"
             app:destination="@id/orderResultFragment2"
@@ -119,7 +119,7 @@
         android:id="@+id/orderResultFragment2"
         android:name="vn.sharkdms.ui.cart.result.OrderResultFragment"
         android:label="fragment_order_result"
-        tools:layout="@layout/fragment_order_result" >
+        tools:layout="@layout/fragment_order_result">
         <argument
             android:name="data"
             app:argType="vn.sharkdms.api.CreateOrderResponse" />
@@ -135,12 +135,14 @@
         android:name="vn.sharkdms.ui.account.ImageChooserDialog"
         android:label="dialog_image_chooser"
         tools:layout="@layout/dialog_image_chooser" />
-    <action android:id="@+id/action_global_imageChooserDialog2" app:destination="@id/imageChooserDialog2"/>
+    <action
+        android:id="@+id/action_global_imageChooserDialog2"
+        app:destination="@id/imageChooserDialog2" />
     <dialog
         android:id="@+id/confirmDialog"
         android:name="vn.sharkdms.util.ConfirmDialog"
         android:label="dialog_confirm"
-        tools:layout="@layout/dialog_confirm" >
+        tools:layout="@layout/dialog_confirm">
         <argument
             android:name="title"
             app:argType="string" />
@@ -151,12 +153,14 @@
             android:name="result_key"
             app:argType="string" />
     </dialog>
-    <action android:id="@+id/action_global_confirmDialog" app:destination="@id/confirmDialog" />
+    <action
+        android:id="@+id/action_global_confirmDialog"
+        app:destination="@id/confirmDialog" />
     <dialog
         android:id="@+id/messageDialog"
         android:name="vn.sharkdms.util.MessageDialog"
         android:label="dialog_message"
-        tools:layout="@layout/dialog_message" >
+        tools:layout="@layout/dialog_message">
         <argument
             android:name="message"
             app:argType="string" />
@@ -164,5 +168,7 @@
             android:name="result_key"
             app:argType="string" />
     </dialog>
-    <action android:id="@+id/action_global_messageDialog" app:destination="@id/messageDialog" />
+    <action
+        android:id="@+id/action_global_messageDialog"
+        app:destination="@id/messageDialog" />
 </navigation>

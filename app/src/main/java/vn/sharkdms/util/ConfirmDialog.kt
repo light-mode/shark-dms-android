@@ -21,6 +21,7 @@ class ConfirmDialog : DialogFragment() {
         const val CANCEL_ORDER = "CANCEL_ORDER"
         const val CREATE_ORDER = "CREATE_ORDER"
         const val SEND_REPORT = "SEND_REPORT"
+        const val CHANGE_TASK_STATUS = "CHANGE_TASK_STATUS"
     }
 
     private val args by navArgs<ConfirmDialogArgs>()

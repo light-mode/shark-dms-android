@@ -1,5 +1,6 @@
 package vn.sharkdms.ui.taskdetails
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,8 +19,10 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentTaskDetailsBinding
+import vn.sharkdms.util.ConfirmDialog
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
+import java.lang.IllegalArgumentException
 
 @AndroidEntryPoint
 class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
@@ -26,7 +30,6 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
     private val args by navArgs<TaskDetailsFragmentArgs>()
     private val viewModel by viewModels<TaskDetailsViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
-    private var connectivity: Boolean = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,9 +58,17 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
             }
         }
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
         if (viewModel.statusSelectorShowing.value!!) {
             showStatusSelector(binding)
+        }
+        setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
+            if (Dialog.BUTTON_POSITIVE == bundle.getInt(ConfirmDialog.CHANGE_TASK_STATUS)) {
+                if (!sharedViewModel.connectivity.value!!) {
+                    showConnectivityOffMessage()
+                    return@setFragmentResultListener
+                }
+                viewModel.updateTaskStatus(sharedViewModel.token, args.task.id, viewModel.selectedStatus)
+            }
         }
     }
 
@@ -137,32 +148,30 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
 
     private fun setAnotherStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
         binding.textViewStatusAnother.setOnClickListener {
-            if (connectivity) {
-                if (args.task.status == Constant.TASK_STATUS_NEW) updateTaskStatus(
-                    Constant.TASK_STATUS_PROCESSING)
-                else updateTaskStatus(Constant.TASK_STATUS_NEW)
-            } else showConnectivityOffMessage()
+            if (args.task.status == Constant.TASK_STATUS_NEW) viewModel.selectedStatus = Constant.TASK_STATUS_PROCESSING
+            else viewModel.selectedStatus = Constant.TASK_STATUS_NEW
+            updateTaskStatus()
         }
     }
 
     private fun setCompletedStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
         binding.textViewStatusCompleted.setOnClickListener {
-            if (connectivity) updateTaskStatus(
-                Constant.TASK_STATUS_COMPLETED) else showConnectivityOffMessage()
+            viewModel.selectedStatus = Constant.TASK_STATUS_COMPLETED
+            updateTaskStatus()
         }
     }
 
     private fun setCheckingStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
         binding.textViewStatusChecking.setOnClickListener {
-            if (connectivity) updateTaskStatus(
-                Constant.TASK_STATUS_CHECKING) else showConnectivityOffMessage()
+            viewModel.selectedStatus = Constant.TASK_STATUS_CHECKING
+            updateTaskStatus()
         }
     }
 
     private fun setNotCompletedStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
         binding.textViewStatusNotCompleted.setOnClickListener {
-            if (connectivity) updateTaskStatus(
-                Constant.TASK_STATUS_NOT_COMPLETED) else showConnectivityOffMessage()
+            viewModel.selectedStatus = Constant.TASK_STATUS_NOT_COMPLETED
+            updateTaskStatus()
         }
     }
 
@@ -205,7 +214,23 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
         }
     }
 
-    private fun updateTaskStatus(status: Int) {
-        viewModel.updateTaskStatus(sharedViewModel.token, args.task.id, status)
+    private fun updateTaskStatus() {
+        val currentStatusString = getString(when (args.task.status) {
+            Constant.TASK_STATUS_NEW -> R.string.task_status_new
+            Constant.TASK_STATUS_PROCESSING -> R.string.task_status_processing
+            else -> throw IllegalArgumentException()
+        })
+        val selectedStatusString = getString(when (viewModel.selectedStatus) {
+            Constant.TASK_STATUS_NEW -> R.string.task_status_new
+            Constant.TASK_STATUS_PROCESSING -> R.string.task_status_processing
+            Constant.TASK_STATUS_CHECKING -> R.string.task_status_checking
+            Constant.TASK_STATUS_COMPLETED -> R.string.task_status_completed
+            Constant.TASK_STATUS_NOT_COMPLETED -> R.string.task_status_not_completed
+            else -> throw IllegalArgumentException()
+        })
+        val title = getString(R.string.fragment_task_details_dialog_change_task_status_title)
+        val message = getString(R.string.fragment_task_details_dialog_change_task_status_message_format, currentStatusString, selectedStatusString)
+        val action = TaskDetailsFragmentDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.CHANGE_TASK_STATUS)
+        findNavController().navigate(action)
     }
 }

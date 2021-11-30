@@ -23,6 +23,7 @@ class SharedViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
     private val customerEventChannel = Channel<CustomerEvent>()
     val customerEvent = customerEventChannel.receiveAsFlow()
     val cartId = MutableLiveData<Int>()
+    val customerAvatar = MutableLiveData<String>()
 
     fun getCartInfoAsCustomer() {
         val authorization = Constant.TOKEN_PREFIX + token

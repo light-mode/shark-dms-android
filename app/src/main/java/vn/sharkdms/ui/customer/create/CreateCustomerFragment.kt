@@ -46,6 +46,7 @@ import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Validator
 import java.io.*
+import java.util.*
 
 class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPhotoSelectedListener {
 
@@ -413,8 +414,11 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
             var lastLocation: Location = locationResult.lastLocation
             latitude = lastLocation.latitude.toString()
             longitude = lastLocation.longitude.toString()
-            binding.tvShowLocation.text = "Lat: ".plus(lastLocation.latitude.toString()).plus("\n")
-                                            .plus("Long: ").plus(lastLocation.longitude.toString())
+            binding.tvShowLocation.text = getString(
+                R.string.fragment_crate_customer_gps_format,
+                lastLocation.latitude.toString(),
+                lastLocation.longitude.toString()
+            )
         }
     }
 
@@ -470,7 +474,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
                 findNavController().navigateUp()
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
-                status?.toUpperCase().plus("! ").plus(message), Toast.LENGTH_SHORT).show()
+                status?.uppercase(Locale.getDefault()).plus("! ").plus(message), Toast.LENGTH_SHORT).show()
             else -> Log.e(TAG, code.toString())
         }
     }
