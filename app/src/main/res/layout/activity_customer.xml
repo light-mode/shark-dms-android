@@ -24,18 +24,19 @@
                 android:layout_marginEnd="16dp"
                 android:layout_toStartOf="@id/icon_cart">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/icon_customer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_customer"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    app:shapeAppearanceOverlay="@style/avatar"
+                    tools:src="@drawable/ic_customer" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginStart="4dp"
                     android:layout_toEndOf="@id/icon_customer"
                     android:orientation="vertical">
 

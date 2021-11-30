@@ -18,6 +18,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_customer.*
 import kotlinx.coroutines.flow.collect
@@ -48,6 +49,8 @@ class CustomerActivity : AppCompatActivity() {
         viewModel.token = intent.getStringExtra("token").toString()
         val activityToolbar = findViewById<Toolbar>(R.id.activity_toolbar)
         val customerIcon = findViewById<ImageView>(R.id.icon_customer)
+        Glide.with(this).load(intent.getStringExtra("avatar")).error(R.drawable.ic_customer)
+            .into(customerIcon)
         customerIcon.setOnClickListener {
             Navigation.findNavController(this, R.id.nav_host_fragment)
                 .navigate(R.id.action_global_accountFragment)
@@ -72,16 +75,15 @@ class CustomerActivity : AppCompatActivity() {
                 bottom_nav.visibility = View.GONE
             }
         }
-        activityToolbar.findViewById<ImageView>(R.id.icon_customer).setOnClickListener {
-            Navigation.findNavController(this, R.id.nav_host_fragment)
-                .navigate(R.id.action_global_customerAccountFragment)
-        }
         val cartIcon = activityToolbar.findViewById<ImageView>(R.id.icon_cart)
         cartIcon.setOnClickListener {
             if (bottom_nav.selectedItemId != R.id.productsFragment) {
                 bottom_nav.selectedItemId = R.id.productsFragment
             }
             viewModel.getCartInfoAsCustomer()
+        }
+        viewModel.customerAvatar.observe(this) { customerAvatar ->
+            Glide.with(this).load(customerAvatar).error(R.drawable.ic_customer).into(customerIcon)
         }
         lifecycleScope.launchWhenStarted {
             viewModel.customerEvent.collect { event ->

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
+import vn.sharkdms.SharedViewModel
 import vn.sharkdms.data.User
 import vn.sharkdms.databinding.FragmentAccountBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
@@ -31,6 +33,7 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
     }
 
     private val viewModel by viewModels<AccountViewModel>()
+    private val sharedViewModel by activityViewModels<SharedViewModel>()
     private lateinit var discountViewModel: DiscountDialogViewModel
     private var userId = 1
     private var discountInfo: String = ""
@@ -79,6 +82,7 @@ open class BaseAccountFragment : Fragment(R.layout.fragment_account) {
         setFragmentResultListener(ImageChooserDialog.UPLOAD_AVATAR) { _, bundle ->
             val imageUrl = bundle.getString(ImageChooserDialog.IMAGE_URL)
             if (imageUrl.isNullOrEmpty()) return@setFragmentResultListener
+            sharedViewModel.customerAvatar.value = imageUrl
             Glide.with(requireContext()).load(imageUrl).error(R.drawable.ic_avatar)
                 .into(binding.imageViewAvatar)
         }

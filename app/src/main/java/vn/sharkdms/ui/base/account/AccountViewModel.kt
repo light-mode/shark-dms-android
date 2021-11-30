@@ -19,6 +19,7 @@ class AccountViewModel @Inject constructor(userDao: UserDao) : ViewModel() {
     val users = userDao.getUsers().asLiveData()
 
     fun getUserInfo(users: List<User>) {
+        if (users.isEmpty()) return
         viewModelScope.launch {
             val user = users[0]
             accountEventChannel.send(AccountEvent.BindUserInfoView(user))

@@ -33,7 +33,7 @@ class SplashViewModel @Inject constructor(userDao: UserDao) : ViewModel() {
                 Constant.ROLE_ID_SR -> splashEventChannel.send(
                     SplashEvent.ShowOverviewScreen(user.token, user.name, user.roleName))
                 Constant.ROLE_ID_KH -> splashEventChannel.send(
-                    SplashEvent.ShowProductsScreen(user.token, user.name, user.roleName))
+                    SplashEvent.ShowProductsScreen(user.token, user.name, user.roleName, user.avatar))
             }
         }
     }
@@ -44,6 +44,6 @@ class SplashViewModel @Inject constructor(userDao: UserDao) : ViewModel() {
             val roleName: String) : SplashEvent()
 
         data class ShowProductsScreen(val token: String, val username: String,
-            val roleName: String) : SplashEvent()
+            val roleName: String, val avatar: String) : SplashEvent()
     }
 }
