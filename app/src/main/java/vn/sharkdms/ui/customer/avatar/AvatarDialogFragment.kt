@@ -28,6 +28,7 @@ import androidx.fragment.app.setFragmentResult
 import kotlinx.android.synthetic.main.fragment_create_avatar_dialog.view.*
 import vn.sharkdms.R
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
+import vn.sharkdms.ui.customer.gallery.ErrorMessageDialogListener
 import vn.sharkdms.util.Constant
 import java.io.File
 import java.text.SimpleDateFormat
@@ -130,7 +131,7 @@ class AvatarDialogFragment : DialogFragment() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        if (check == 1) intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        if (check!! > 0) intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
         startActivityForResult(
             Intent.createChooser(intent, "Select Picture"),
             REQUEST_CHOOSE_IMAGE
@@ -162,7 +163,8 @@ class AvatarDialogFragment : DialogFragment() {
                     val message = "Vượt quá số lượng ảnh cho phép!\n" +
                             "Đã có " + check + " ảnh, chỉ được chọn thêm " + (30 - check!!).toString() +
                             " ảnh."
-                    setFragmentResult("overLimit", bundleOf("bundleKey" to message))
+                    val listener: ErrorMessageDialogListener = targetFragment as ErrorMessageDialogListener
+                    listener.onErrorDismissDialog(message)
                 }
             }
             dismiss()

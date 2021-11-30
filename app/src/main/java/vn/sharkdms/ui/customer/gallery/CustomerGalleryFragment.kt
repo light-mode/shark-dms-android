@@ -40,7 +40,7 @@ import android.graphics.BitmapFactory
 
 
 
-class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), OnPhotoSelectedListener {
+class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), OnPhotoSelectedListener, ErrorMessageDialogListener {
 
     private val TAG = "CustomerGalleryFragment"
     private val REQUEST_CODE = 1000
@@ -81,11 +81,6 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
-        }
-
-        childFragmentManager.setFragmentResultListener("overLimit", viewLifecycleOwner) { key, bundle ->
-            val message = bundle.getString("bundleKey")
-            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
         }
     }
 
@@ -243,5 +238,9 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         }
         Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
             Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onErrorDismissDialog(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 }
