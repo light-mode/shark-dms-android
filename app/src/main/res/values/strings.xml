@@ -119,6 +119,8 @@
     <string name="fragment_tasks_date_format_display">%1$d/%2$d/%3$d</string>
     <string name="fragment_tasks_date_format_search">%1$d-%2$d-%3$d</string>
     <string name="fragment_task_details_title">Chi tiết công việc</string>
+    <string name="fragment_task_details_dialog_change_task_status_title">Xác nhận thay đổi</string>
+    <string name="fragment_task_details_dialog_change_task_status_message_format">Thay đổi trạng thái công việc từ\n\"%1$s\" sang \"%2$s\"?</string>
     <string name="task_status_new">Mới</string>
     <string name="task_status_processing">Đang xử lý</string>
     <string name="task_status_checking">Đợi kiểm tra</string>
