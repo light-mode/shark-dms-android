@@ -34,6 +34,10 @@ import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 import java.io.*
+import android.graphics.BitmapFactory
+
+
+
 
 
 class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), OnPhotoSelectedListener {
@@ -45,13 +49,14 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
 
     private lateinit var binding: FragmentCustomerGalleryBinding
     var initImages = ArrayList<Bitmap>()
-    private var image: ArrayList<MultipartBody.Part>? = null
+    private var image = ArrayList<MultipartBody.Part>()
 
     private lateinit var viewModel: CustomerGalleryViewModel
     private var connectivity: Boolean = false
 
     private lateinit var authorization: String
     private lateinit var sharedViewModel : SharedViewModel
+    private var isFullImage = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -91,7 +96,6 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
     }
 
     private fun bind(binding: FragmentCustomerGalleryBinding) {
-        Log.d(TAG, args.customer.toString())
         initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
@@ -124,21 +128,22 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
                 btnUpload.isEnabled = false
                 btnUpload.text = ""
                 progressBar.visibility = View.VISIBLE
-                val id: RequestBody = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), args.customer.customerId.toString())
-                var address: RequestBody? = null
-                if(args.customer.customerAddress != null) address = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), args.customer.customerAddress)
-                var lat: RequestBody? = null
-                if (locationArray.isNotEmpty()) lat = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), locationArray[0])
-                var long: RequestBody? = null
-                if (locationArray.isNotEmpty()) long = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), locationArray[1])
+                if (!isFullImage) initImages.removeLast()
+                val builder: MultipartBody.Builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+                builder.addFormDataPart("user_kh_id", args.customer.customerId.toString())
+                if(args.customer.customerAddress != null)
+                    builder.addFormDataPart("address", args.customer.customerAddress)
+                if (locationArray.isNotEmpty())
+                    builder.addFormDataPart("lat", locationArray[0])
+                        .addFormDataPart("long", locationArray[1])
                 for (bm in initImages) {
-                    image?.add(prepareImagePartFromBitmap("image", bm))
+                    val file: File = convertBitmapToFile("image", bm)
+                    val bmp = BitmapFactory.decodeFile(file.getAbsolutePath())
+                    val bos = ByteArrayOutputStream()
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                    builder.addFormDataPart("image[]", file.name, RequestBody.create(MultipartBody.FORM, bos.toByteArray()))
                 }
-                viewModel.uploadGalleryRequest(authorization, id, address, lat, long, image)
+                viewModel.uploadGalleryRequest(authorization, builder.build())
             }
         }
     }
@@ -156,43 +161,6 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         return bitmap
     }
 
-    class GalleryAdapter(
-        var images: List<Bitmap>,
-        var context: Context
-    ) : BaseAdapter() {
-        var layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        override fun getCount(): Int {
-            return images.size
-        }
-
-        override fun getItem(position: Int): Any {
-            return images[position]
-        }
-
-        override fun getItemId(position: Int): Long {
-            return position.toLong()
-        }
-
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-            var view = convertView
-            if (view == null) {
-                view = layoutInflater.inflate(R.layout.item_add_gallery, parent, false)
-            }
-            val ivGallery = view?.findViewById<ImageView>(R.id.iv_add_gallery)
-            ivGallery?.setImageBitmap(images[position])
-
-            return view!!
-        }
-
-    }
-
-    private fun prepareImagePartFromBitmap(partName: String, bitmap: Bitmap?): MultipartBody.Part {
-        val file: File = convertBitmapToFile(partName, bitmap)
-        val requestBody: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-        return MultipartBody.Part.createFormData("image[]", file.name, requestBody)
-    }
-
     private fun convertBitmapToFile(fileName: String, bitmap: Bitmap?): File {
         //create a file to write bitmap data
         val file = File(context?.cacheDir, fileName)
@@ -200,7 +168,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
 
         //Convert bitmap to byte array
         val bos = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos)
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos)
         val bitMapData = bos.toByteArray()
 
         //write the bytes in file
@@ -225,6 +193,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         initImages.removeLast()
         initImages.add(bitmap)
         if (initImages.size < 30) initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
+        else isFullImage = true
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter
@@ -237,6 +206,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         initImages.removeLast()
         initImages.add(imageBitmap!!)
         if (initImages.size < 30) initImages.add(getBitmapFromVectorDrawable(R.drawable.ic_add_gallery))
+        else isFullImage = true
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter

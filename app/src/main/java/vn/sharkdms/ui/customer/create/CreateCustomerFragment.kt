@@ -41,12 +41,13 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentCreateCustomerBinding
 import vn.sharkdms.ui.customer.avatar.AvatarDialogFragment
+import vn.sharkdms.ui.customer.avatar.OnPhotoSelectedListener
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Validator
 import java.io.*
 
-class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), AvatarDialogFragment.OnPhotoSelectedListener {
+class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPhotoSelectedListener {
 
     companion object {
         const val TAG = "CreateCustomerFragment"

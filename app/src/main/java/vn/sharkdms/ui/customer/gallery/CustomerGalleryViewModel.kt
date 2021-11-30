@@ -26,11 +26,10 @@ class CustomerGalleryViewModel @Inject constructor(private val baseApi: BaseApi)
     private val customerGalleryEventChannel = Channel<CustomerGalleryEvent>()
     val customerGalleryEvent = customerGalleryEventChannel.receiveAsFlow()
 
-    fun uploadGalleryRequest(authorization: String, id: RequestBody, address: RequestBody?,
-            lat: RequestBody?, long: RequestBody?, image: List<MultipartBody.Part>?) {
+    fun uploadGalleryRequest(authorization: String, requestBody: RequestBody) {
         viewModelScope.launch {
             try {
-                val response = baseApi.uploadGallery(authorization, id, address, lat, long, image)
+                val response = baseApi.uploadGallery(authorization, requestBody)
                 val code = response.code.toInt()
                 if (code == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 customerGalleryEventChannel.send(

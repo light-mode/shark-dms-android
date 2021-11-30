@@ -138,15 +138,10 @@ interface BaseApi {
         @Header(AUTHORIZATION) authorization: String,
         @Body checkInRequest: CheckInRequest): BaseResponse<Nothing>
 
-    @Multipart
     @POST("create-gallery")
     suspend fun uploadGallery(
         @Header(AUTHORIZATION) token: String,
-        @Part("user_kh_id") userKhId: RequestBody,
-        @Part("address") address: RequestBody?,
-        @Part("lat") lat: RequestBody?,
-        @Part("long") long: RequestBody?,
-        @Part image: List<MultipartBody.Part>?): BaseResponse<Nothing>
+        @Body requestBody: RequestBody): BaseResponse<Nothing>
 
     /** History Order API
      *
