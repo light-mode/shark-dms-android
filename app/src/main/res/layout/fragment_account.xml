@@ -47,13 +47,10 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:background="@color/white"
-            android:padding="0.75dp"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/avatar"
-            app:strokeColor="@color/black"
-            app:strokeWidth="1.5dp"
             tools:src="@drawable/ic_avatar" />
 
         <LinearLayout
