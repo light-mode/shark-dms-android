@@ -42,8 +42,10 @@ import android.graphics.BitmapFactory
 
 class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), OnPhotoSelectedListener, ErrorMessageDialogListener {
 
-    private val TAG = "CustomerGalleryFragment"
-    private val REQUEST_CODE = 1000
+    companion object {
+        private const val TAG = "CustomerGalleryFragment"
+        private const val REQUEST_CODE = 1000
+    }
 
     private val args by navArgs<CustomerGalleryFragmentArgs>()
 
@@ -138,9 +140,9 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
                         .addFormDataPart("long", locationArray[1])
                 for (bm in initImages) {
                     val file: File = convertBitmapToFile("image", bm)
-                    val bmp = BitmapFactory.decodeFile(file.getAbsolutePath())
+                    val bmp = BitmapFactory.decodeFile(file.absolutePath)
                     val bos = ByteArrayOutputStream()
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
                     builder.addFormDataPart("image[]", file.name, RequestBody.create(MultipartBody.FORM, bos.toByteArray()))
                 }
                 viewModel.uploadGalleryRequest(authorization, builder.build())
@@ -156,7 +158,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
             drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
         drawable.draw(canvas)
         return bitmap
     }

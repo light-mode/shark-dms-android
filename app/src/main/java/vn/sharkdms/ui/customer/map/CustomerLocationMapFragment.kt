@@ -21,8 +21,6 @@ import vn.sharkdms.util.Constant
 
 class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
 
-    private val TAG = "CustomerGpsMapFragment"
-
     private lateinit var googleMap: GoogleMap
     private lateinit var location: LatLng
     private val args by navArgs<CustomerLocationMapFragmentArgs>()

@@ -26,7 +26,6 @@ import vn.sharkdms.util.Utils
 
 open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), CustomerAdapter.OnItemClickListener {
 
-    private val TAG: String = "CustomerListFragment"
     lateinit var viewModel: CustomerListViewModel
     private lateinit var customerAdapter: CustomerAdapter
     private lateinit var sharedViewModel : SharedViewModel

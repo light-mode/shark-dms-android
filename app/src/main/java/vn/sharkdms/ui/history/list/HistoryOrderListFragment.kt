@@ -28,7 +28,6 @@ import java.util.*
 open class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_list),
     HistoryOrderAdapter.OnItemClickListener {
 
-    open val TAG = "HistoryOrderListFragment"
     open lateinit var viewModelSale: HistoryOrderListViewModelSale
     open lateinit var historyOrderAdapter: HistoryOrderAdapter
     open lateinit var sharedViewModel: SharedViewModel

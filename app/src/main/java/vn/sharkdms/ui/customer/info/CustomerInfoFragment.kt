@@ -37,8 +37,11 @@ import vn.sharkdms.util.Utils
 
 class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
-    private val TAG = "CustomerInfoFragment"
-    private val PERMISSION_ID = 42
+    companion object {
+        private const val TAG = "CustomerInfoFragment"
+        private const val PERMISSION_ID = 42
+    }
+
     private lateinit var authorization: String
     private var latitude: String = ""
     private var longitude: String = ""

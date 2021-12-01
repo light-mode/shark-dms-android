@@ -18,7 +18,6 @@ import vn.sharkdms.util.Constant
 
 class DiscountDialogFragment : DialogFragment() {
 
-    private val TAG = "DiscountDialogFragment"
     private var discountInfo: String? = ""
     private var check: Int? = 0
     private lateinit var sharedViewModel : SharedViewModel

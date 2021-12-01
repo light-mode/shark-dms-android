@@ -24,7 +24,10 @@ import vn.sharkdms.util.Utils
 
 open class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
 
-    private val TAG: String = "OrderDetailFragment"
+    companion object {
+        private const val TAG: String = "OrderDetailFragment"
+    }
+
     lateinit var viewModel: OrderDetailViewModelSale
     open lateinit var orderItemAdapter: OrderItemAdapter
     open lateinit var sharedViewModel : SharedViewModel
