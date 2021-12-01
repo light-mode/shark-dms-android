@@ -1,12 +1,13 @@
-package vn.sharkdms.ui.changepasswordcustomer
+package vn.sharkdms.ui.password.change
 
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.databinding.FragmentChangePasswordBinding
-import vn.sharkdms.ui.changepassword.BaseChangePasswordFragment
 
-class CustomerChangePasswordFragment : BaseChangePasswordFragment() {
+@AndroidEntryPoint
+class ChangePasswordFragmentSale : ChangePasswordFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -16,8 +17,8 @@ class CustomerChangePasswordFragment : BaseChangePasswordFragment() {
 
     private fun setForgotPasswordTextViewListener(binding: FragmentChangePasswordBinding) {
         binding.textViewForgotPassword.setOnClickListener {
-            val action = CustomerChangePasswordFragmentDirections
-                .actionChangePasswordFragment2ToForgotPasswordFragment3()
+            val action = ChangePasswordFragmentSaleDirections
+                .actionChangePasswordFragmentToForgotPasswordFragment2()
             findNavController().navigate(action)
         }
     }

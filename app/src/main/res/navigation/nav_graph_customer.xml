@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment2"
-        android:name="vn.sharkdms.ui.changepasswordcustomer.CustomerChangePasswordFragment"
+        android:name="vn.sharkdms.ui.password.change.ChangePasswordFragmentCustomer"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password">
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment3"
-        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragmentCustomer"
+        android:name="vn.sharkdms.ui.password.forgot.ForgotPasswordFragmentCustomer"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment

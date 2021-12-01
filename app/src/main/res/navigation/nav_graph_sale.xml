@@ -71,7 +71,7 @@
         app:destination="@id/accountFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="vn.sharkdms.ui.changepassword.ChangePasswordFragment"
+        android:name="vn.sharkdms.ui.password.change.ChangePasswordFragmentSale"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password">
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment2"
-        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragmentSale"
+        android:name="vn.sharkdms.ui.password.forgot.ForgotPasswordFragmentSale"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment

@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.forgotpassword
+package vn.sharkdms.ui.password.forgot
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -28,7 +28,8 @@ class ForgotPasswordViewModel @Inject constructor(private val baseApi: BaseApi) 
                 val response = baseApi.forgotPassword(body)
                 val code = response.code.toInt()
                 forgotPasswordEventChannel.send(
-                    ForgotPasswordEvent.OnResponse(code, response.message))
+                    ForgotPasswordEvent.OnResponse(code, response.message)
+                )
             } catch (nfe: NumberFormatException) {
                 Log.e(TAG, nfe.message, nfe)
             } catch (ste: SocketTimeoutException) {

@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.base.changepassword
+package vn.sharkdms.ui.password.change
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

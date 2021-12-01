@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.changepassword
+package vn.sharkdms.ui.password.change
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -28,14 +28,13 @@ import vn.sharkdms.MainActivity
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentChangePasswordBinding
-import vn.sharkdms.ui.base.changepassword.ChangePasswordViewModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 import vn.sharkdms.util.Validator
 
 @AndroidEntryPoint
-open class BaseChangePasswordFragment : Fragment(R.layout.fragment_change_password) {
+open class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) {
     companion object {
         const val TAG = "ChangePasswordFragment"
         private const val CHANGE_OLD_PASSWORD = Activity.RESULT_FIRST_USER

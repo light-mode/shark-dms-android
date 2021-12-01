@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.forgotpassword
+package vn.sharkdms.ui.password.forgot
 
 import android.app.Dialog
 import android.os.Bundle
@@ -10,19 +10,19 @@ import vn.sharkdms.R
 import vn.sharkdms.util.MessageDialog
 
 @AndroidEntryPoint
-class ForgotPasswordFragmentSale : ForgotPasswordFragment() {
+class ForgotPasswordFragmentLogin : ForgotPasswordFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setFragmentResultListener(MessageDialog.TAG) { _, bundle ->
             if (Dialog.BUTTON_POSITIVE == bundle.getInt(MessageDialog.FORGOT_PASSWORD)) {
-                findNavController().popBackStack(R.id.forgotPasswordFragment2, true)
+                findNavController().popBackStack(R.id.forgotPasswordFragment, true)
             }
         }
     }
 
     override fun showMessageDialog(message: String) {
-        val action = ForgotPasswordFragmentSaleDirections.actionGlobalMessageDialog3(message, MessageDialog.FORGOT_PASSWORD)
+        val action = ForgotPasswordFragmentLoginDirections.actionGlobalMessageDialog2(message, MessageDialog.FORGOT_PASSWORD)
         findNavController().navigate(action)
     }
 }

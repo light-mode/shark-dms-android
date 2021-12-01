@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.forgotpassword
+package vn.sharkdms.ui.password.forgot
 
 import android.annotation.SuppressLint
 import android.content.Context
