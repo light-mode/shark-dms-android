@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.base.account
+package vn.sharkdms.ui.account
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

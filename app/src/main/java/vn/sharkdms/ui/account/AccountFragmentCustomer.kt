@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.accountcustomer
+package vn.sharkdms.ui.account
 
 import android.os.Bundle
 import android.view.View
@@ -6,12 +6,11 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentAccountBinding
-import vn.sharkdms.ui.base.account.BaseAccountFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.logout.LogoutDialogFragment
 
 @AndroidEntryPoint
-class CustomerAccountFragment : BaseAccountFragment() {
+class AccountFragmentCustomer : AccountFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,14 +29,14 @@ class CustomerAccountFragment : BaseAccountFragment() {
 
     private fun setAvatarImageViewListener(binding: FragmentAccountBinding) {
         binding.imageViewAvatar.setOnClickListener {
-            val action = CustomerAccountFragmentDirections.actionGlobalImageChooserDialog2()
+            val action = AccountFragmentCustomerDirections.actionGlobalImageChooserDialog2()
             findNavController().navigate(action)
         }
     }
 
     private fun setChangePasswordCardViewListener(binding: FragmentAccountBinding) {
         binding.cardViewChangePassword.setOnClickListener {
-            val action = CustomerAccountFragmentDirections
+            val action = AccountFragmentCustomerDirections
                 .actionCustomerAccountFragmentToChangePasswordFragment2()
             findNavController().navigate(action)
         }

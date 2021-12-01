@@ -22,7 +22,7 @@
         app:destination="@id/customerAccountFragment" />
     <fragment
         android:id="@+id/customerAccountFragment"
-        android:name="vn.sharkdms.ui.accountcustomer.CustomerAccountFragment"
+        android:name="vn.sharkdms.ui.account.AccountFragmentCustomer"
         android:label="CustomerAccountFragment">
         <action
             android:id="@+id/action_customerAccountFragment_to_changePasswordFragment2"
