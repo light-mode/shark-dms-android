@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.taskdetails
+package vn.sharkdms.ui.task.details
 
 import android.app.Dialog
 import android.content.Context

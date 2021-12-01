@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.tasks
+package vn.sharkdms.ui.task.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,10 @@ import vn.sharkdms.databinding.ItemTaskBinding
 import vn.sharkdms.util.Constant
 
 class TaskAdapter(
-    private val listener: OnItemClickListener) : PagingDataAdapter<Task, TaskAdapter
-.TaskViewHolder>(
-    DiffCallback()) {
+    private val listener: OnItemClickListener
+) : PagingDataAdapter<Task, TaskAdapter.TaskViewHolder>(
+    DiffCallback()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)

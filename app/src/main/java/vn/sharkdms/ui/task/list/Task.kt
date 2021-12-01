@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.tasks
+package vn.sharkdms.ui.task.list
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

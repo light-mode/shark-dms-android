@@ -89,7 +89,7 @@
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/tasksFragment"
-        android:name="vn.sharkdms.ui.tasks.TasksFragment"
+        android:name="vn.sharkdms.ui.task.list.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
     <action
@@ -106,12 +106,12 @@
         tools:layout="@layout/fragment_create_customer" />
     <fragment
         android:id="@+id/taskDetailsFragment"
-        android:name="vn.sharkdms.ui.taskdetails.TaskDetailsFragment"
+        android:name="vn.sharkdms.ui.task.details.TaskDetailsFragment"
         android:label="fragment_task_details"
         tools:layout="@layout/fragment_task_details">
         <argument
             android:name="task"
-            app:argType="vn.sharkdms.ui.tasks.Task" />
+            app:argType="vn.sharkdms.ui.task.list.Task" />
     </fragment>
     <dialog
         android:id="@+id/logoutDialogFragment"

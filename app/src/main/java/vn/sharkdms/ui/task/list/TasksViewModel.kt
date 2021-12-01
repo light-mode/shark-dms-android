@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.tasks
+package vn.sharkdms.ui.task.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

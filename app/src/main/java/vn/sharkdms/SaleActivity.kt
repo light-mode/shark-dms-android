@@ -23,7 +23,7 @@ import vn.sharkdms.ui.history.list.HistoryOrderListFragmentSale
 import vn.sharkdms.ui.overview.OverviewFragment
 import vn.sharkdms.ui.policy.PolicyFragment
 import vn.sharkdms.ui.report.ReportFragment
-import vn.sharkdms.ui.tasks.TasksFragment
+import vn.sharkdms.ui.task.list.TasksFragment
 
 @AndroidEntryPoint
 class SaleActivity : AppCompatActivity() {

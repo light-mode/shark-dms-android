@@ -12,7 +12,7 @@ import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.notification.list.Notification
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.products.Product
-import vn.sharkdms.ui.tasks.Task
+import vn.sharkdms.ui.task.list.Task
 
 interface BaseApi {
     companion object {
