@@ -1,12 +1,10 @@
 package vn.sharkdms.ui.history.info
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
+import vn.sharkdms.databinding.ItemOrderProductBinding
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 
@@ -14,27 +12,26 @@ class OrderItemAdapter(
     private val orderItems: List<OrderItem>?
 ) : RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>() {
 
-    class OrderItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvProductname = itemView.findViewById<TextView>(R.id.tv_product_name)
-        val tvProductQuantity = itemView.findViewById<TextView>(R.id.tv_product_quantity)
-        val tvProductTotal = itemView.findViewById<TextView>(R.id.tv_product_total)
+    class OrderItemViewHolder(private val binding: ItemOrderProductBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
         fun bind(data: OrderItem?) {
-            tvProductname.text = Constant.collapseDisplay(data?.productName as String, Constant.PRODUCT_LIMIT)
-            tvProductQuantity.text = data.qty.toString()
-            tvProductTotal.text = Formatter.formatCurrency(data.totalPrice.toString()) + " " + data.currency
+            binding.apply {
+                tvProductName.text =
+                    Constant.collapseDisplay(data?.productName as String, Constant.PRODUCT_LIMIT)
+                tvProductQuantity.text = data.qty.toString()
+                tvProductTotal.text = itemView.context.getString(
+                    R.string.fragment_order_product_item_total_format,
+                    Formatter.formatCurrency(data.totalPrice.toString()),
+                    data.currency
+                )
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderItemViewHolder {
-        return  OrderItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_order_product,
-                parent,
-                false
-            )
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        return OrderItemViewHolder(ItemOrderProductBinding.inflate(inflater, parent, false))
     }
 
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {

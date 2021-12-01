@@ -156,6 +156,7 @@
     <string name="fragment_order_product_item_quantity_sample">32</string>
     <string name="fragment_order_product_item_total">Tổng tiền:</string>
     <string name="fragment_order_product_item_total_sample">4.000.000 VNĐ</string>
+    <string name="fragment_order_product_item_total_format">%1$s %2$s</string>
 
     <string name="fragment_products_title">Danh sách sản phẩm</string>
     <string name="fragment_products_edit_text_name_hint">Tìm kiếm theo tên sản phẩm</string>
