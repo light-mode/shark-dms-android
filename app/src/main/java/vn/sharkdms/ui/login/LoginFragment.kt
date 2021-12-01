@@ -27,7 +27,7 @@ import vn.sharkdms.CustomerActivity
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
-import vn.sharkdms.api.LoginResponseData
+import vn.sharkdms.api.LoginResponse
 import vn.sharkdms.databinding.FragmentLoginBinding
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
@@ -291,7 +291,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleLoginResponse(binding: FragmentLoginBinding, code: String, message: String,
-        data: LoginResponseData?) {
+        data: LoginResponse?) {
         binding.apply {
             progressBar.visibility = View.GONE
             buttonLogin.text = getString(R.string.fragment_login_button_login_text)

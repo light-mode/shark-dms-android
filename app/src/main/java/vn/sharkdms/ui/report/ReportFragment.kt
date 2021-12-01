@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
-import vn.sharkdms.api.GetReportResponseData
+import vn.sharkdms.api.GetReportResponse
 import vn.sharkdms.databinding.FragmentReportBinding
 import vn.sharkdms.util.ConfirmDialog
 import vn.sharkdms.util.Constant
@@ -193,7 +193,7 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
     }
 
     private fun handleGetReportResponse(binding: FragmentReportBinding,
-        data: GetReportResponseData?) {
+        data: GetReportResponse?) {
         binding.apply {
             progressBar1.visibility = View.GONE
             cardViewTitle.visibility = View.VISIBLE

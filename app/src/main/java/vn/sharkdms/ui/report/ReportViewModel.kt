@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CreateReportRequest
-import vn.sharkdms.api.GetReportResponseData
+import vn.sharkdms.api.GetReportResponse
 import vn.sharkdms.api.UpdateReportRequest
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Constant
@@ -34,7 +34,7 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
                 if (response.code.toInt() == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 val any = response.data
                 if (any is List<*>) {
-                    val list = any.filterIsInstance<GetReportResponseData>()
+                    val list = any.filterIsInstance<GetReportResponse>()
                     if (list.isEmpty()) {
                         reportEventChannel.send(ReportEvent.OnGetReportResponse(null))
                     } else {
@@ -52,7 +52,7 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
                     val userId = (linkedTreeMap["user_id"] as Double).toInt()
                     val createdAt = linkedTreeMap["created_at"] as String
                     val updatedAt = linkedTreeMap["updated_at"] as String
-                    val data = GetReportResponseData(id, title, description, userId, createdAt,
+                    val data = GetReportResponse(id, title, description, userId, createdAt,
                         updatedAt)
                     reportId = id
                     reportTitle = title
@@ -127,7 +127,7 @@ class ReportViewModel @Inject constructor(private val baseApi: BaseApi) : ViewMo
     }
 
     sealed class ReportEvent {
-        data class OnGetReportResponse(val data: GetReportResponseData?) : ReportEvent()
+        data class OnGetReportResponse(val data: GetReportResponse?) : ReportEvent()
         data class OnCreateReportResponse(val message: String) : ReportEvent()
         data class OnEditReportResponse(val message: String) : ReportEvent()
         object OnFailure : ReportEvent()
