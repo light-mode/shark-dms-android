@@ -17,10 +17,6 @@ class AdapterDataObserver(private val recyclerView: RecyclerView) :
         recyclerView.scrollToPosition(0)
     }
 
-    override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-        recyclerView.scrollToPosition(0)
-    }
-
     override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
         recyclerView.scrollToPosition(0)
     }

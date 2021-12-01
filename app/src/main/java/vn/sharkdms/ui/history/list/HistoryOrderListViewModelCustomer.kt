@@ -8,7 +8,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.di.AppModule
-import vn.sharkdms.ui.notification.list.UiModel
 import vn.sharkdms.util.Formatter
 import javax.inject.Inject
 
@@ -36,16 +35,16 @@ private val repository: HistoryOrderListRepositoryCustomer)
     val historyOrderListEvent = historyOrderListEventChannel.receiveAsFlow()
 
     fun getListData(token: String, date: String) =
-        repository.getListData(token, date).map { pagingData -> pagingData.map { UiModel.HistoryOrderItem(it) } }
+        repository.getListData(token, date).map { pagingData -> pagingData.map { HistoryOrderUiModel.HistoryOrderItem(it) } }
             .map { pagingData ->
                 pagingData.insertSeparators { before, after ->
                     if (after == null) return@insertSeparators null
                     val context = getApplication<Application>().applicationContext
-                    if (before == null) return@insertSeparators UiModel.HeaderItem(
+                    if (before == null) return@insertSeparators HistoryOrderUiModel.HeaderItem(
                         Formatter.formatDate(context, after.historyOrder.orderDate)
                     )
                     if (before.historyOrder.orderDate == after.historyOrder.orderDate) null
-                    else UiModel.HeaderItem(Formatter.formatDate(context, after.historyOrder.orderDate))
+                    else HistoryOrderUiModel.HeaderItem(Formatter.formatDate(context, after.historyOrder.orderDate))
                 }
             }.cachedIn(viewModelScope)
 

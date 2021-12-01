@@ -79,6 +79,7 @@
         android:background="@drawable/button_disable"
         android:enabled="false"
         android:text="@string/fragment_customer_gallery_upload"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

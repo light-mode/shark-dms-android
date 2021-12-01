@@ -127,7 +127,7 @@ abstract class CartDetailsFragment : Fragment(
                 buttonCancel.visibility = View.GONE
             } else {
                 Glide.with(requireContext()).load(customer!!.customerAvatar)
-                    .error(R.drawable.ic_avatar).into(imageViewAvatar)
+                    .error(R.drawable.avatar_create_customer).into(imageViewAvatar)
                 textViewName.text = customer!!.customerName
                 textViewPhone.text = customer!!.customerPhone
             }

@@ -15,16 +15,16 @@ class NotificationsViewModel @Inject constructor(application: Application,
 ) : AndroidViewModel(application) {
 
     fun getNotifications(token: String) = repository.getSearchResults(token).map { pagingData ->
-        pagingData.map { UiModel.NotificationItem(it) }
+        pagingData.map { NotificationUiModel.NotificationItem(it) }
     }.map { pagingData ->
         pagingData.insertSeparators { before, after ->
             if (after == null) return@insertSeparators null
             val context = getApplication<Application>().applicationContext
-            if (before == null) return@insertSeparators UiModel.HeaderItem(
+            if (before == null) return@insertSeparators NotificationUiModel.HeaderItem(
                 Formatter.formatDate(context, after.notification.date)
             )
             if (before.notification.date == after.notification.date) null
-            else UiModel.HeaderItem(Formatter.formatDate(context, after.notification.date))
+            else NotificationUiModel.HeaderItem(Formatter.formatDate(context, after.notification.date))
         }
     }.cachedIn(viewModelScope)
 }

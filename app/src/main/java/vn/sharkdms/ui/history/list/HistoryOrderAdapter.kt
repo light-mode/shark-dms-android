@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemHistoryOrderHeaderBinding
 import vn.sharkdms.databinding.ItemOrderBinding
-import vn.sharkdms.ui.notification.list.UiModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 
 class HistoryOrderAdapter(
     private val listener: OnItemClickListener
-) : PagingDataAdapter<UiModel, RecyclerView.ViewHolder>(
+) : PagingDataAdapter<HistoryOrderUiModel, RecyclerView.ViewHolder>(
     DiffCallBack()
 ) {
 
@@ -28,7 +27,7 @@ class HistoryOrderAdapter(
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     getItem(position).let { item ->
-                        val order = (item as UiModel.HistoryOrderItem).historyOrder
+                        val order = (item as HistoryOrderUiModel.HistoryOrderItem).historyOrder
                         listener.onItemClick(order)
                     }
                 }
@@ -82,20 +81,20 @@ class HistoryOrderAdapter(
     override fun getItemViewType(position: Int): Int {
         getItem(position).let { uiModel ->
             return when (uiModel) {
-                is UiModel.HistoryOrderItem -> R.layout.item_order
-                is UiModel.HeaderItem -> R.layout.item_history_order_header
+                is HistoryOrderUiModel.HistoryOrderItem -> R.layout.item_order
+                is HistoryOrderUiModel.HeaderItem -> R.layout.item_history_order_header
                 else -> 0
             }
         }
     }
 
-    class DiffCallBack: DiffUtil.ItemCallback<UiModel>() {
-        override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel) =
-            (oldItem is UiModel.HistoryOrderItem && newItem is UiModel.HistoryOrderItem &&
-                    oldItem.historyOrder.orderCustomerId == newItem.historyOrder.orderCustomerId) || (oldItem is UiModel
-            .HeaderItem && newItem is UiModel.HeaderItem && oldItem.text == newItem.text)
+    class DiffCallBack: DiffUtil.ItemCallback<HistoryOrderUiModel>() {
+        override fun areItemsTheSame(oldItem: HistoryOrderUiModel, newItem: HistoryOrderUiModel) =
+            (oldItem is HistoryOrderUiModel.HistoryOrderItem && newItem is HistoryOrderUiModel.HistoryOrderItem &&
+                    oldItem.historyOrder.orderCustomerId == newItem.historyOrder.orderCustomerId) || (oldItem is HistoryOrderUiModel
+            .HeaderItem && newItem is HistoryOrderUiModel.HeaderItem && oldItem.text == newItem.text)
 
-        override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel): Boolean {
+        override fun areContentsTheSame(oldItem: HistoryOrderUiModel, newItem: HistoryOrderUiModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -103,8 +102,8 @@ class HistoryOrderAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position).let { uiModel ->
             when(uiModel) {
-                is UiModel.HistoryOrderItem -> (holder as HistoryOrderViewHolder).bind(uiModel.historyOrder)
-                is UiModel.HeaderItem -> (holder as HeaderViewHolder).bind(uiModel.text)
+                is HistoryOrderUiModel.HistoryOrderItem -> (holder as HistoryOrderViewHolder).bind(uiModel.historyOrder)
+                is HistoryOrderUiModel.HeaderItem -> (holder as HeaderViewHolder).bind(uiModel.text)
             }
         }
     }

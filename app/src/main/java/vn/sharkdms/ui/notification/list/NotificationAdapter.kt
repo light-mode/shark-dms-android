@@ -11,7 +11,7 @@ import vn.sharkdms.databinding.ItemNotificationsHeaderBinding
 
 class NotificationAdapter(
     private val listener: OnItemClickListener
-) : PagingDataAdapter<UiModel, RecyclerView
+) : PagingDataAdapter<NotificationUiModel, RecyclerView
 .ViewHolder>(
     DiffCallback()
 ) {
@@ -19,8 +19,8 @@ class NotificationAdapter(
     override fun getItemViewType(position: Int): Int {
         getItem(position).let { uiModel ->
             return when (uiModel) {
-                is UiModel.NotificationItem -> R.layout.item_notification
-                is UiModel.HeaderItem -> R.layout.item_notifications_header
+                is NotificationUiModel.NotificationItem -> R.layout.item_notification
+                is NotificationUiModel.HeaderItem -> R.layout.item_notifications_header
                 else -> 0
             }
         }
@@ -40,9 +40,9 @@ class NotificationAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position).let { uiModel ->
             when (uiModel) {
-                is UiModel.NotificationItem -> (holder as NotificationViewHolder).bind(
+                is NotificationUiModel.NotificationItem -> (holder as NotificationViewHolder).bind(
                     uiModel.notification)
-                is UiModel.HeaderItem -> (holder as HeaderViewHolder).bind(uiModel.text)
+                is NotificationUiModel.HeaderItem -> (holder as HeaderViewHolder).bind(uiModel.text)
             }
         }
     }
@@ -55,7 +55,7 @@ class NotificationAdapter(
                 val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     getItem(position).let { item ->
-                        val notification = (item as UiModel.NotificationItem).notification
+                        val notification = (item as NotificationUiModel.NotificationItem).notification
                         listener.onItemClick(notification)
                     }
                 }
@@ -81,12 +81,12 @@ class NotificationAdapter(
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<UiModel>() {
-        override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel) =
-            (oldItem is UiModel.NotificationItem && newItem is UiModel.NotificationItem &&
-                    oldItem.notification.id == newItem.notification.id) || (oldItem is UiModel.HeaderItem && newItem is UiModel.HeaderItem && oldItem.text == newItem.text)
+    class DiffCallback : DiffUtil.ItemCallback<NotificationUiModel>() {
+        override fun areItemsTheSame(oldItem: NotificationUiModel, newItem: NotificationUiModel) =
+            (oldItem is NotificationUiModel.NotificationItem && newItem is NotificationUiModel.NotificationItem &&
+                    oldItem.notification.id == newItem.notification.id) || (oldItem is NotificationUiModel.HeaderItem && newItem is NotificationUiModel.HeaderItem && oldItem.text == newItem.text)
 
-        override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel) = oldItem == newItem
+        override fun areContentsTheSame(oldItem: NotificationUiModel, newItem: NotificationUiModel) = oldItem == newItem
     }
 
     interface OnItemClickListener {

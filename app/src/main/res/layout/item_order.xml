@@ -19,7 +19,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/total_order"
+        app:srcCompat="@drawable/raw_ic_order"
         tools:ignore="ContentDescription" />
 
     <TextView

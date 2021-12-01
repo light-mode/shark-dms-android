@@ -76,7 +76,7 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
             val imageUrl = bundle.getString(ImageChooserDialog.IMAGE_URL)
             if (imageUrl.isNullOrEmpty()) return@setFragmentResultListener
             sharedViewModel.customerAvatar.value = imageUrl
-            Glide.with(requireContext()).load(imageUrl).error(R.drawable.ic_avatar)
+            Glide.with(requireContext()).load(imageUrl).error(R.drawable.avatar_create_customer)
                 .into(binding.imageViewAvatar)
         }
     }
@@ -93,7 +93,7 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
 
     private fun bindUserInfoView(binding: FragmentAccountBinding, user: User) {
         binding.apply {
-            Glide.with(this@AccountFragment).load(user.avatar).error(R.drawable.ic_avatar)
+            Glide.with(this@AccountFragment).load(user.avatar).error(R.drawable.avatar_create_customer)
                 .into(imageViewAvatar)
             textViewName.text = user.name
             textViewPhone.text = user.phone
