@@ -4,15 +4,13 @@ import android.app.Application
 import androidx.lifecycle.*
 import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.di.AppModule
 import vn.sharkdms.util.Formatter
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryOrderListViewModelCustomer @Inject constructor(application: Application, private val baseApi: BaseApi,
+class HistoryOrderListViewModelCustomer @Inject constructor(application: Application,
 private val repository: HistoryOrderListRepositoryCustomer)
     : AndroidViewModel(application), HistoryOrderAdapter.OnItemClickListener {
 
@@ -22,17 +20,11 @@ private val repository: HistoryOrderListRepositoryCustomer)
 
     var retroService: BaseApi
     var historyOrderAdapter: HistoryOrderAdapter
-    val historyOrderList: MutableLiveData<ArrayList<HistoryOrder>> by lazy {
-        MutableLiveData<ArrayList<HistoryOrder>>()
-    }
 
     init {
         historyOrderAdapter = HistoryOrderAdapter(this)
         retroService = AppModule.provideRetrofit().create(BaseApi::class.java)
     }
-
-    private val historyOrderListEventChannel = Channel<HistoryOrderListEvent>()
-    val historyOrderListEvent = historyOrderListEventChannel.receiveAsFlow()
 
     fun getListData(token: String, date: String) =
         repository.getListData(token, date).map { pagingData -> pagingData.map { HistoryOrderUiModel.HistoryOrderItem(it) } }
@@ -47,10 +39,6 @@ private val repository: HistoryOrderListRepositoryCustomer)
                     else HistoryOrderUiModel.HeaderItem(Formatter.formatDate(context, after.historyOrder.orderDate))
                 }
             }.cachedIn(viewModelScope)
-
-    fun setAdapterData(data: ArrayList<HistoryOrder>) {
-        historyOrderAdapter.setDataList(data)
-    }
 
     sealed class HistoryOrderListEvent {
         data class OnResponse(val code: Int, val message: String, val data: List<HistoryOrder>, val totalPage: Int): HistoryOrderListEvent()

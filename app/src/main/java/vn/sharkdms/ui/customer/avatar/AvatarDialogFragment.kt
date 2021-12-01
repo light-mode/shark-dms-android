@@ -2,7 +2,6 @@ package vn.sharkdms.ui.customer.avatar
 
 import android.Manifest
 import android.app.Activity
-import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,7 +10,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Gravity
@@ -22,18 +20,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.setFragmentResult
 import kotlinx.android.synthetic.main.fragment_create_avatar_dialog.view.*
 import vn.sharkdms.R
-import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.gallery.ErrorMessageDialogListener
 import vn.sharkdms.util.Constant
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class AvatarDialogFragment : DialogFragment() {
 
@@ -177,7 +168,7 @@ class AvatarDialogFragment : DialogFragment() {
             onPhotoSelectedListener = targetFragment as OnPhotoSelectedListener
 
         } catch (e: ClassCastException) {
-            Log.e(TAG, "onAttach: ClassCastException: " + e.message );
+            Log.e(TAG, "onAttach: ClassCastException: " + e.message )
         }
         super.onAttach(context)
     }

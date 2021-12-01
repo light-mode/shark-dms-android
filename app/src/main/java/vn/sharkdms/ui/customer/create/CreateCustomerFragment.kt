@@ -242,7 +242,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         val validUsername = Validator.isValidUsername(username)
         val validPassword = Validator.isValidPassword(password)
         val validPhone = Validator.isValidPhone(phone)
-        var validEmail: Boolean = false
+        var validEmail = false
         if (email.trim().isNotEmpty()) validEmail = Validator.isValidEmail(email)
         val validAddress = Validator.isValidAddress(address)
         when (change) {

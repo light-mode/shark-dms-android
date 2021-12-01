@@ -19,8 +19,6 @@ class HistoryOrderAdapter(
     DiffCallBack()
 ) {
 
-    var historyOrders = ArrayList<HistoryOrder>()
-
     inner class HistoryOrderViewHolder(private val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
@@ -117,10 +115,6 @@ class HistoryOrderAdapter(
             val binding = ItemHistoryOrderHeaderBinding.inflate(inflater, parent, false)
             HeaderViewHolder(binding)
         }
-    }
-
-    fun setDataList(data: ArrayList<HistoryOrder>) {
-        historyOrders = data
     }
 
     interface OnItemClickListener {

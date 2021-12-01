@@ -9,7 +9,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
-import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
@@ -194,7 +193,7 @@ open class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_l
                 val dpd = DatePickerDialog(requireActivity(), R.style.DatePickerDialogStyle,
                     null, year, month, day)
                 dpd.datePicker.init(year, month, day,
-                    DatePicker.OnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
+                    { view, year, monthOfYear, dayOfMonth ->
                         tvDatePicker.text = dayOfMonth.toString() + "/" + (month + 1).toString() + "/" + year.toString()
                         initViewModel(etSearchOrder.text.toString(),
                             date = dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString())
