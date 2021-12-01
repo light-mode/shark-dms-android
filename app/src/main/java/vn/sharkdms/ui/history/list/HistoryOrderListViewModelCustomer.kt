@@ -8,7 +8,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.di.AppModule
-import vn.sharkdms.ui.notifications.UiModel
+import vn.sharkdms.ui.notification.list.UiModel
 import vn.sharkdms.util.Formatter
 import javax.inject.Inject
 

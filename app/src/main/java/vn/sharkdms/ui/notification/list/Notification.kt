@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.notifications
+package vn.sharkdms.ui.notification.list
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

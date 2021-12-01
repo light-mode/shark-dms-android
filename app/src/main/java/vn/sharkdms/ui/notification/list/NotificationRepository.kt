@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.notifications
+package vn.sharkdms.ui.notification.list
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

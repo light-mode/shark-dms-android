@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.notifications
+package vn.sharkdms.ui.notification.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +10,11 @@ import vn.sharkdms.databinding.ItemNotificationBinding
 import vn.sharkdms.databinding.ItemNotificationsHeaderBinding
 
 class NotificationAdapter(
-    private val listener: OnItemClickListener) : PagingDataAdapter<UiModel, RecyclerView
+    private val listener: OnItemClickListener
+) : PagingDataAdapter<UiModel, RecyclerView
 .ViewHolder>(
-    DiffCallback()) {
+    DiffCallback()
+) {
 
     override fun getItemViewType(position: Int): Int {
         getItem(position).let { uiModel ->
@@ -82,8 +84,7 @@ class NotificationAdapter(
     class DiffCallback : DiffUtil.ItemCallback<UiModel>() {
         override fun areItemsTheSame(oldItem: UiModel, newItem: UiModel) =
             (oldItem is UiModel.NotificationItem && newItem is UiModel.NotificationItem &&
-                    oldItem.notification.id == newItem.notification.id) || (oldItem is UiModel
-            .HeaderItem && newItem is UiModel.HeaderItem && oldItem.text == newItem.text)
+                    oldItem.notification.id == newItem.notification.id) || (oldItem is UiModel.HeaderItem && newItem is UiModel.HeaderItem && oldItem.text == newItem.text)
 
         override fun areContentsTheSame(oldItem: UiModel, newItem: UiModel) = oldItem == newItem
     }

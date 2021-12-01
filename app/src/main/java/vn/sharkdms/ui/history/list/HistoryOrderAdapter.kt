@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemHistoryOrderHeaderBinding
 import vn.sharkdms.databinding.ItemOrderBinding
-import vn.sharkdms.ui.notifications.UiModel
+import vn.sharkdms.ui.notification.list.UiModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 

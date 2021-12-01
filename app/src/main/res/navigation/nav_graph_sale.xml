@@ -201,7 +201,7 @@
         app:destination="@id/logoutDialogFragment" />
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="vn.sharkdms.ui.notifications.NotificationsFragment"
+        android:name="vn.sharkdms.ui.notification.list.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications">
         <action
@@ -214,12 +214,12 @@
     </fragment>
     <fragment
         android:id="@+id/notificationDetailsFragment"
-        android:name="vn.sharkdms.ui.notificationdetails.NotificationDetailsFragment"
+        android:name="vn.sharkdms.ui.notification.details.NotificationDetailsFragment"
         android:label="fragment_notification_details"
         tools:layout="@layout/fragment_notification_details">
         <argument
             android:name="notification"
-            app:argType="vn.sharkdms.ui.notifications.Notification" />
+            app:argType="vn.sharkdms.ui.notification.list.Notification" />
     </fragment>
     <fragment
         android:id="@+id/productsFragment2"

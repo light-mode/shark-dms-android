@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.notificationdetails
+package vn.sharkdms.ui.notification.details
 
 import android.content.Context
 import android.os.Bundle

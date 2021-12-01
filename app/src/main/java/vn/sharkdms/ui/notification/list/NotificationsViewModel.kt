@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.notifications
+package vn.sharkdms.ui.notification.list
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -11,7 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotificationsViewModel @Inject constructor(application: Application,
-    private val repository: NotificationRepository) : AndroidViewModel(application) {
+    private val repository: NotificationRepository
+) : AndroidViewModel(application) {
 
     fun getNotifications(token: String) = repository.getSearchResults(token).map { pagingData ->
         pagingData.map { UiModel.NotificationItem(it) }
@@ -20,7 +21,8 @@ class NotificationsViewModel @Inject constructor(application: Application,
             if (after == null) return@insertSeparators null
             val context = getApplication<Application>().applicationContext
             if (before == null) return@insertSeparators UiModel.HeaderItem(
-                Formatter.formatDate(context, after.notification.date))
+                Formatter.formatDate(context, after.notification.date)
+            )
             if (before.notification.date == after.notification.date) null
             else UiModel.HeaderItem(Formatter.formatDate(context, after.notification.date))
         }

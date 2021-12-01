@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import vn.sharkdms.ui.notifications.UiModel
+import vn.sharkdms.ui.notification.list.UiModel
 import vn.sharkdms.util.Formatter
 import java.util.*
 import javax.inject.Inject
