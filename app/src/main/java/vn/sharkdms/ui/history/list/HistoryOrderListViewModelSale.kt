@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.base.history.list
+package vn.sharkdms.ui.history.list
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -10,7 +10,7 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryOrderListViewModel @Inject constructor(application: Application, private val repository: HistoryOrderListRepository)
+class HistoryOrderListViewModelSale @Inject constructor(application: Application, private val repository: HistoryOrderListRepositorySale)
     : AndroidViewModel(application) {
     companion object {
         const val TAG = "HistoryOrderViewModel"

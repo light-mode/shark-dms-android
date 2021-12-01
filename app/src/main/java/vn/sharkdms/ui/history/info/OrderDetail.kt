@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.base.history.info
+package vn.sharkdms.ui.history.info
 
 data class OrderDetail(
     val orderCode: String,

@@ -1,6 +1,6 @@
 package vn.sharkdms.ui.notifications
 
-import vn.sharkdms.ui.base.history.list.HistoryOrder
+import vn.sharkdms.ui.history.list.HistoryOrder
 
 sealed class UiModel {
     data class NotificationItem(val notification: Notification) : UiModel()

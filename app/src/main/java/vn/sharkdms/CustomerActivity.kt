@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_customer.*
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.ui.cart.Cart
-import vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment
+import vn.sharkdms.ui.history.list.HistoryOrderListFragmentCustomer
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
@@ -127,7 +127,7 @@ class CustomerActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(
             R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
-        if (currentFragment is CustomerHistoryOrderListFragment) finish()
+        if (currentFragment is HistoryOrderListFragmentCustomer) finish()
         else super.onBackPressed()
     }
 }

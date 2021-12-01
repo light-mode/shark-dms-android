@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.historycustomer.info
+package vn.sharkdms.ui.history.info
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -9,8 +9,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.api.BaseApi
-import vn.sharkdms.ui.base.history.info.OrderDetail
-import vn.sharkdms.ui.base.history.info.OrderDetailViewModel
+import vn.sharkdms.api.OrderDetailRequest
 import vn.sharkdms.util.HttpStatus
 import java.lang.Exception
 import java.lang.NumberFormatException
@@ -18,32 +17,32 @@ import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerOrderDetailViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
+class OrderDetailViewModelSale @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
 
     companion object {
-        const val TAG = "CustomerOrderDetailViewModel"
+        const val TAG = "OrderDetailViewModel"
     }
 
     private val orderDetailEventChannel = Channel<OrderDetailEvent>()
     val orderDetailEvent = orderDetailEventChannel.receiveAsFlow()
 
-    fun getOrderDetail(authorization: String, orderId: Int?) {
+    fun getOrderDetail(authorization: String, orderDetailRequest: OrderDetailRequest) {
         viewModelScope.launch {
             try {
-                val response = baseApi.getCustomerHistoryOrderDetail(authorization, orderId)
+                val response = baseApi.getOrderInfo(authorization, orderDetailRequest)
                 val code = response.code.toInt()
                 if (code == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 orderDetailEventChannel.send(
                     OrderDetailEvent.OnResponse(code, response.message, response.data)
                 )
             } catch (nfe: NumberFormatException) {
-                Log.e(OrderDetailViewModel.TAG, nfe.message, nfe)
+                Log.e(TAG, nfe.message, nfe)
             } catch (ste: SocketTimeoutException) {
                 orderDetailEventChannel.send(OrderDetailEvent.OnFailure)
-            } catch (ue: Exception) {
+            } catch (ue: UnauthorizedException) {
                 orderDetailEventChannel.send(OrderDetailEvent.ShowUnauthorizedDialog)
             } catch (e: Exception) {
-                Log.e(OrderDetailViewModel.TAG, e.message, e)
+                Log.e(TAG, e.message, e)
             }
         }
     }

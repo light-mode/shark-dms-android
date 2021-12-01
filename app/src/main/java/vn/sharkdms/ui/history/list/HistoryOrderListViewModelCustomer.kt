@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.historycustomer.list
+package vn.sharkdms.ui.history.list
 
 import android.app.Application
 import androidx.lifecycle.*
@@ -8,14 +8,13 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.di.AppModule
-import vn.sharkdms.ui.base.history.list.HistoryOrder
-import vn.sharkdms.ui.base.history.list.HistoryOrderAdapter
 import vn.sharkdms.ui.notifications.UiModel
 import vn.sharkdms.util.Formatter
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomerHistoryOrderListViewModel @Inject constructor(application: Application, private val baseApi: BaseApi)
+class HistoryOrderListViewModelCustomer @Inject constructor(application: Application, private val baseApi: BaseApi,
+private val repository: HistoryOrderListRepositoryCustomer)
     : AndroidViewModel(application), HistoryOrderAdapter.OnItemClickListener {
 
     companion object {
@@ -37,9 +36,7 @@ class CustomerHistoryOrderListViewModel @Inject constructor(application: Applica
     val historyOrderListEvent = historyOrderListEventChannel.receiveAsFlow()
 
     fun getListData(token: String, date: String) =
-        Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { CustomerHistoryOderPagingSource(baseApi, token, date) })
-            .liveData.map { pagingData -> pagingData.map { UiModel.HistoryOrderItem(it) } }
+        repository.getListData(token, date).map { pagingData -> pagingData.map { UiModel.HistoryOrderItem(it) } }
             .map { pagingData ->
                 pagingData.insertSeparators { before, after ->
                     if (after == null) return@insertSeparators null

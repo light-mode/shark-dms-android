@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.base.history.list
+package vn.sharkdms.ui.history.list
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -8,8 +8,8 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HistoryOrderListRepository @Inject constructor(private val baseApi: BaseApi) {
+class HistoryOrderListRepositorySale @Inject constructor(private val baseApi: BaseApi) {
     fun getListData(token: String, customerName: String, date: String) =
         Pager(config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { HistoryOrderPagingSource(baseApi, token, customerName, date) }).liveData
+            pagingSourceFactory = { HistoryOrderPagingSourceSale(baseApi, token, customerName, date) }).liveData
 }

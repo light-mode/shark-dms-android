@@ -1,12 +1,12 @@
-package vn.sharkdms.ui.historycustomer.list
+package vn.sharkdms.ui.history.list
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import vn.sharkdms.api.BaseApi
-import vn.sharkdms.ui.base.history.list.HistoryOrder
+import vn.sharkdms.api.HistoryOrderListRequest
 import java.lang.Exception
 
-class CustomerHistoryOderPagingSource(val apiService: BaseApi, val token: String, val date: String): PagingSource<Int, HistoryOrder>() {
+class HistoryOrderPagingSourceSale(val apiService: BaseApi, val token: String, val customerName: String, val date: String): PagingSource<Int, HistoryOrder>() {
     companion object {
         private const val FIRST_PAGE_INDEX = 1
     }
@@ -18,7 +18,8 @@ class CustomerHistoryOderPagingSource(val apiService: BaseApi, val token: String
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, HistoryOrder> {
         return try {
             val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
-            val response = apiService.getCustomerHistoryOrder(token, nextPage, date)
+            val body = HistoryOrderListRequest(nextPage, customerName, date)
+            val response = apiService.getHistoryOrder(token, body)
 
             return LoadResult.Page(
                 data = response.data,
@@ -29,4 +30,5 @@ class CustomerHistoryOderPagingSource(val apiService: BaseApi, val token: String
             LoadResult.Error(e)
         }
     }
+
 }

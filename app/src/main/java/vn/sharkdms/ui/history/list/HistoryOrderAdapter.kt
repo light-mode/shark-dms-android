@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.base.history.list
+package vn.sharkdms.ui.history.list
 
 import android.annotation.SuppressLint
 import android.graphics.Color
