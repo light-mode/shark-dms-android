@@ -404,7 +404,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         locationRequest.numUpdates = 1
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationClient!!.requestLocationUpdates(
+        fusedLocationClient.requestLocationUpdates(
             locationRequest, locationCallback, Looper.myLooper()
         )
     }

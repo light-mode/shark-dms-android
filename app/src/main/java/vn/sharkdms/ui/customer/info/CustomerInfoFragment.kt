@@ -206,7 +206,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         locationRequest.numUpdates = 1
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationClient!!.requestLocationUpdates(
+        fusedLocationClient.requestLocationUpdates(
             locationRequest, locationCallback, Looper.myLooper()
         )
     }
