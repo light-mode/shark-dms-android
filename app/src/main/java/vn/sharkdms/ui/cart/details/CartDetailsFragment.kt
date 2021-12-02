@@ -25,7 +25,6 @@ import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.cart.CartItem
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.ConfirmDialog
-import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils
 
@@ -56,7 +55,7 @@ abstract class CartDetailsFragment : Fragment(
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it }
 
-        Constant.setupUI(binding.cartDetailsFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.cartDetailsFragment, requireActivity() as AppCompatActivity)
         setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
             if (!connectivity) {
                 showNetworkConnectionErrorMessage()
@@ -91,12 +90,12 @@ abstract class CartDetailsFragment : Fragment(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun bind(binding: FragmentCartDetailsBinding) {
@@ -127,7 +126,7 @@ abstract class CartDetailsFragment : Fragment(
                 buttonCancel.visibility = View.GONE
             } else {
                 Glide.with(requireContext()).load(customer!!.customerAvatar)
-                    .error(R.drawable.ic_avatar).into(imageViewAvatar)
+                    .error(R.drawable.avatar_create_customer).into(imageViewAvatar)
                 textViewName.text = customer!!.customerName
                 textViewPhone.text = customer!!.customerPhone
             }

@@ -6,7 +6,7 @@
     app:startDestination="@id/productsFragment">
     <fragment
         android:id="@+id/productsFragment"
-        android:name="vn.sharkdms.ui.products.ProductsFragmentCustomer"
+        android:name="vn.sharkdms.ui.product.ProductsFragmentCustomer"
         android:label="fragment_products"
         tools:layout="@layout/fragment_products">
         <action
@@ -22,7 +22,7 @@
         app:destination="@id/customerAccountFragment" />
     <fragment
         android:id="@+id/customerAccountFragment"
-        android:name="vn.sharkdms.ui.accountcustomer.CustomerAccountFragment"
+        android:name="vn.sharkdms.ui.account.AccountFragmentCustomer"
         android:label="CustomerAccountFragment">
         <action
             android:id="@+id/action_customerAccountFragment_to_changePasswordFragment2"
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment2"
-        android:name="vn.sharkdms.ui.changepasswordcustomer.CustomerChangePasswordFragment"
+        android:name="vn.sharkdms.ui.password.change.ChangePasswordFragmentCustomer"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password">
         <action
@@ -47,12 +47,12 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment3"
-        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragmentCustomer"
+        android:name="vn.sharkdms.ui.password.forgot.ForgotPasswordFragmentCustomer"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/customerHistoryOrderListFragment"
-        android:name="vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment"
+        android:name="vn.sharkdms.ui.history.list.HistoryOrderListFragmentCustomer"
         android:label="CustomerHistoryOrderListFragment">
         <action
             android:id="@+id/action_customerHistoryOrderListFragment_to_baseOrderDetailFragment"
@@ -64,12 +64,12 @@
     </fragment>
     <fragment
         android:id="@+id/baseOrderDetailFragment"
-        android:name="vn.sharkdms.ui.historycustomer.info.CustomerOrderDetailFragment"
+        android:name="vn.sharkdms.ui.history.info.OrderDetailFragmentCustomer"
         android:label="fragment_order_detail"
         tools:layout="@layout/fragment_order_detail">
         <argument
             android:name="order"
-            app:argType="vn.sharkdms.ui.base.history.list.HistoryOrder" />
+            app:argType="vn.sharkdms.ui.history.list.HistoryOrder" />
     </fragment>
     <fragment
         android:id="@+id/addToCartCustomerFragment"
@@ -78,7 +78,7 @@
         tools:layout="@layout/fragment_add_to_cart">
         <argument
             android:name="product"
-            app:argType="vn.sharkdms.ui.products.Product" />
+            app:argType="vn.sharkdms.ui.product.Product" />
         <argument
             android:name="customer"
             android:defaultValue="@null"

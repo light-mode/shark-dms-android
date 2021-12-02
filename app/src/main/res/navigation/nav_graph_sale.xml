@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="vn.sharkdms.ui.account.AccountFragment"
+        android:name="vn.sharkdms.ui.account.AccountFragmentSale"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account">
         <action
@@ -71,7 +71,7 @@
         app:destination="@id/accountFragment" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="vn.sharkdms.ui.changepassword.ChangePasswordFragment"
+        android:name="vn.sharkdms.ui.password.change.ChangePasswordFragmentSale"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password">
         <action
@@ -84,12 +84,12 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment2"
-        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragmentSale"
+        android:name="vn.sharkdms.ui.password.forgot.ForgotPasswordFragmentSale"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <fragment
         android:id="@+id/tasksFragment"
-        android:name="vn.sharkdms.ui.tasks.TasksFragment"
+        android:name="vn.sharkdms.ui.task.list.TasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" />
     <action
@@ -106,12 +106,12 @@
         tools:layout="@layout/fragment_create_customer" />
     <fragment
         android:id="@+id/taskDetailsFragment"
-        android:name="vn.sharkdms.ui.taskdetails.TaskDetailsFragment"
+        android:name="vn.sharkdms.ui.task.details.TaskDetailsFragment"
         android:label="fragment_task_details"
         tools:layout="@layout/fragment_task_details">
         <argument
             android:name="task"
-            app:argType="vn.sharkdms.ui.tasks.Task" />
+            app:argType="vn.sharkdms.ui.task.list.Task" />
     </fragment>
     <dialog
         android:id="@+id/logoutDialogFragment"
@@ -172,7 +172,7 @@
     </fragment>
     <fragment
         android:id="@+id/historyOrderListFragment"
-        android:name="vn.sharkdms.ui.history.list.HistoryOrderListFragment"
+        android:name="vn.sharkdms.ui.history.list.HistoryOrderListFragmentSale"
         android:label="fragment_history_order_list"
         tools:layout="@layout/fragment_history_order_list">
         <action
@@ -185,11 +185,11 @@
     </fragment>
     <fragment
         android:id="@+id/orderInfoFragment"
-        android:name="vn.sharkdms.ui.history.info.OrderDetailFragment"
+        android:name="vn.sharkdms.ui.history.info.OrderDetailFragmentSale"
         android:label="OrderInfoFragment">
         <argument
             android:name="order"
-            app:argType="vn.sharkdms.ui.base.history.list.HistoryOrder" />
+            app:argType="vn.sharkdms.ui.history.list.HistoryOrder" />
     </fragment>
     <fragment
         android:id="@+id/policyFragment"
@@ -201,7 +201,7 @@
         app:destination="@id/logoutDialogFragment" />
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="vn.sharkdms.ui.notifications.NotificationsFragment"
+        android:name="vn.sharkdms.ui.notification.list.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications">
         <action
@@ -214,16 +214,16 @@
     </fragment>
     <fragment
         android:id="@+id/notificationDetailsFragment"
-        android:name="vn.sharkdms.ui.notificationdetails.NotificationDetailsFragment"
+        android:name="vn.sharkdms.ui.notification.details.NotificationDetailsFragment"
         android:label="fragment_notification_details"
         tools:layout="@layout/fragment_notification_details">
         <argument
             android:name="notification"
-            app:argType="vn.sharkdms.ui.notifications.Notification" />
+            app:argType="vn.sharkdms.ui.notification.list.Notification" />
     </fragment>
     <fragment
         android:id="@+id/productsFragment2"
-        android:name="vn.sharkdms.ui.products.ProductsFragmentSale"
+        android:name="vn.sharkdms.ui.product.ProductsFragmentSale"
         android:label="fragment_products"
         tools:layout="@layout/fragment_products">
         <action
@@ -244,7 +244,7 @@
         tools:layout="@layout/fragment_add_to_cart">
         <argument
             android:name="product"
-            app:argType="vn.sharkdms.ui.products.Product" />
+            app:argType="vn.sharkdms.ui.product.Product" />
         <argument
             android:name="customer"
             android:defaultValue="@null"

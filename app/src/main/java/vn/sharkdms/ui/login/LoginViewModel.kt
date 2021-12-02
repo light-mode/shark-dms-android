@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.LoginRequest
-import vn.sharkdms.api.LoginResponseData
+import vn.sharkdms.api.LoginResponse
 import vn.sharkdms.data.User
 import vn.sharkdms.data.UserDao
 import vn.sharkdms.util.Constant
@@ -35,7 +35,7 @@ class LoginViewModel @Inject constructor(private val baseApi: BaseApi,
         }
     }
 
-    fun saveUserInfo(data: LoginResponseData, username: String) {
+    fun saveUserInfo(data: LoginResponse, username: String) {
         viewModelScope.launch {
             data.apply {
                 val user = User(token, id, name, phone, avatar, createdAt, email, position, company,
@@ -53,7 +53,7 @@ class LoginViewModel @Inject constructor(private val baseApi: BaseApi,
 
     sealed class LoginEvent {
         data class OnResponse(val code: String, val message: String,
-            val data: LoginResponseData?) : LoginEvent()
+            val data: LoginResponse?) : LoginEvent()
 
         object OnFailure : LoginEvent()
         data class ShowOverviewScreen(val token: String, val username: String,

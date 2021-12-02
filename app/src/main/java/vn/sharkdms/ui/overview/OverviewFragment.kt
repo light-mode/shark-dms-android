@@ -29,7 +29,6 @@ import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentOverviewBinding
-import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.OfflineDialog
 import vn.sharkdms.util.Utils
@@ -83,12 +82,12 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setNotificationsIconListener(binding: FragmentOverviewBinding) {

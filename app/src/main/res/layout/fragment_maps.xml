@@ -20,7 +20,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/black"
-        app:srcCompat="@drawable/ic_back_map"
-        tools:ignore="ContentDescription" />
+        android:src="@drawable/ic_back"
+        tools:ignore="ContentDescription"
+        app:tint="@color/black" />
 </RelativeLayout>

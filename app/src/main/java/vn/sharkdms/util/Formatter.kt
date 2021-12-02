@@ -33,5 +33,13 @@ class Formatter {
             }
             return "$dayOfWeek, $day/$month/$year"
         }
+
+        fun collapseDisplay(text: String?, limit: Int): String {
+            return when {
+                text == null -> ""
+                text.length <= limit -> text
+                else -> text.substring(0, limit).plus("...")
+            }
+        }
     }
 }

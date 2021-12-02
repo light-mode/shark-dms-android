@@ -14,11 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_discount_dialog.view.*
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
-import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 class DiscountDialogFragment : DialogFragment() {
 
-    private val TAG = "DiscountDialogFragment"
     private var discountInfo: String? = ""
     private var check: Int? = 0
     private lateinit var sharedViewModel : SharedViewModel
@@ -37,8 +36,8 @@ class DiscountDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        var rootView: View = inflater.inflate(R.layout.fragment_discount_dialog, container, false)
+    ): View {
+        val rootView: View = inflater.inflate(R.layout.fragment_discount_dialog, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         discountInfo = arguments?.getString("discountInfo")
@@ -56,12 +55,12 @@ class DiscountDialogFragment : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initDiscountTable(rootView: View) {

@@ -21,7 +21,7 @@ class CustomerListViewModel @Inject constructor(private val repository: Customer
         getListData(token, customerName).cachedIn(viewModelScope)
     }
 
-    fun getListData(token: String, customerName: String) = repository.getListData(token, customerName)
+    private fun getListData(token: String, customerName: String) = repository.getListData(token, customerName)
 
     fun searchCustomer(token: String, customerName: String) {
         this.token = token

@@ -22,8 +22,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentAddToCartBinding
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.customer.list.Customer
-import vn.sharkdms.ui.products.Product
-import vn.sharkdms.util.Constant
+import vn.sharkdms.ui.product.Product
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils
 
@@ -75,17 +74,17 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it }
 
-        Constant.setupUI(binding.addToCartFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.addToCartFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun bind(binding: FragmentAddToCartBinding) {

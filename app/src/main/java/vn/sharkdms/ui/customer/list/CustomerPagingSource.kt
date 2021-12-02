@@ -8,7 +8,7 @@ import java.lang.Exception
 import java.text.Collator
 import java.util.*
 
-class CustomerPagingSource(val apiService: BaseApi, val token: String, val customerName: String): PagingSource<Int, Customer>() {
+class CustomerPagingSource(private val apiService: BaseApi, val token: String, val customerName: String): PagingSource<Int, Customer>() {
     companion object {
         private const val FIRST_PAGE_INDEX = 1
     }

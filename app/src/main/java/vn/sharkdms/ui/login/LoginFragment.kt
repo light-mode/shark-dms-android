@@ -27,11 +27,10 @@ import vn.sharkdms.CustomerActivity
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
-import vn.sharkdms.api.LoginResponseData
+import vn.sharkdms.api.LoginResponse
 import vn.sharkdms.databinding.FragmentLoginBinding
-import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
-import vn.sharkdms.util.ResponseCode
+import vn.sharkdms.util.Utils
 import vn.sharkdms.util.Validator
 
 @AndroidEntryPoint
@@ -68,20 +67,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
-        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
-        Constant.setupUI(binding.loginFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.loginFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -291,7 +290,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleLoginResponse(binding: FragmentLoginBinding, code: String, message: String,
-        data: LoginResponseData?) {
+        data: LoginResponse?) {
         binding.apply {
             progressBar.visibility = View.GONE
             buttonLogin.text = getString(R.string.fragment_login_button_login_text)
@@ -308,7 +307,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 else -> Log.e(TAG, code)
             }
         } catch (nfe: NumberFormatException) {
-            if (code == ResponseCode.E001) {
+            if (code == "E001") {
                 Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
             } else {
                 Log.e(TAG, nfe.message, nfe)

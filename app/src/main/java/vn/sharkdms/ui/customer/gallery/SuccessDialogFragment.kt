@@ -19,7 +19,7 @@ class SuccessDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val rootView: View = inflater.inflate(R.layout.fragment_upload_success_dialog, container, false)
 
         initializeDialog()

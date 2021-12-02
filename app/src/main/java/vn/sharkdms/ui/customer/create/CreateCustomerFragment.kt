@@ -44,6 +44,7 @@ import vn.sharkdms.ui.customer.avatar.AvatarDialogFragment
 import vn.sharkdms.ui.customer.avatar.OnPhotoSelectedListener
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
 import vn.sharkdms.util.Validator
 import java.io.*
 import java.util.*
@@ -60,6 +61,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         private const val CHANGE_ADDRESS = CHANGE_EMAIL + 1
         private const val PERMISSION_ID = 42
         private const val REQUEST_CODE = 1000
+        private const val MULTIPART_FORM_DATA = "multipart/form-data"
     }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -108,25 +110,25 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
             }
         }
 
-        Constant.setupUI(binding.createCustomerFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.createCustomerFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initTextWatcher(binding: FragmentCreateCustomerBinding, change: Int): TextWatcher {
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
             }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -242,7 +244,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         val validUsername = Validator.isValidUsername(username)
         val validPassword = Validator.isValidPassword(password)
         val validPhone = Validator.isValidPhone(phone)
-        var validEmail: Boolean = false
+        var validEmail = false
         if (email.trim().isNotEmpty()) validEmail = Validator.isValidEmail(email)
         val validAddress = Validator.isValidAddress(address)
         when (change) {
@@ -325,21 +327,21 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
                 btnCreateCustomer.text = ""
                 progressBar.visibility = View.VISIBLE
                 val name: RequestBody = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), etCreateCustomerName.text.toString())
+                    MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerName.text.toString())
                 val username: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerAccount.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerAccount.text.toString())
                 val password: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerPassword.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerPassword.text.toString())
                 val phone: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerPhone.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerPhone.text.toString())
                 val email: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerEmail.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerEmail.text.toString())
                 val address: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerAddress.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerAddress.text.toString())
                 val lat: RequestBody = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), latitude)
+                    MediaType.parse(MULTIPART_FORM_DATA), latitude)
                 val long: RequestBody = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), longitude)
+                    MediaType.parse(MULTIPART_FORM_DATA), longitude)
                 if(imageUri != null) image = prepareImagePartFromUri("image", imageUri)
                 else if (bitmap != null) image = prepareImagePartFromBitmap("image", bitmap)
                 viewModel.sendCreateCustomerRequest(authorization, name, username, password, address,
@@ -365,7 +367,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
     private fun setIvAvatarOnClickListener(binding: FragmentCreateCustomerBinding) {
         binding.ivAvatarCreateCustomer.setOnClickListener {
             val dialog = AvatarDialogFragment().newInstance(0)
-            dialog.show(requireFragmentManager(), TAG)
+            dialog.show(parentFragmentManager, TAG)
             dialog.setTargetFragment(this, REQUEST_CODE)
         }
     }
@@ -375,7 +377,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 fusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
-                    var location: Location? = task.result
+                    val location: Location? = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
@@ -404,14 +406,14 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         locationRequest.numUpdates = 1
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationClient!!.requestLocationUpdates(
+        fusedLocationClient.requestLocationUpdates(
             locationRequest, locationCallback, Looper.myLooper()
         )
     }
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            var lastLocation: Location = locationResult.lastLocation
+            val lastLocation: Location = locationResult.lastLocation
             latitude = lastLocation.latitude.toString()
             longitude = lastLocation.longitude.toString()
             binding.tvShowLocation.text = getString(
@@ -423,7 +425,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
     }
 
     private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -454,10 +456,8 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == PERMISSION_ID) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation()
-            }
+        if (requestCode == PERMISSION_ID && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getLastLocation()
         }
     }
 

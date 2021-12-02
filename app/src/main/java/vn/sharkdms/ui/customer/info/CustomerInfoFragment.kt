@@ -32,13 +32,17 @@ import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 
 class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
-    private val TAG = "CustomerInfoFragment"
-    private val PERMISSION_ID = 42
+    companion object {
+        private const val TAG = "CustomerInfoFragment"
+        private const val PERMISSION_ID = 42
+    }
+
     private lateinit var authorization: String
     private var latitude: String = ""
     private var longitude: String = ""
@@ -102,12 +106,12 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setBtnMapOnClickListener(binding: FragmentCustomerInfoBinding) {
@@ -164,9 +168,9 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
             tvCustomerInfoPhone.text = args.customer.customerPhone
             tvCustomerInfoRankDetail.text = args.customer.rankName
             tvCustomerInfoAddressDetail.text =
-                Constant.collapseDisplay(args.customer.customerAddress, Constant.ADDRESS_LIMIT)
+                Formatter.collapseDisplay(args.customer.customerAddress, Constant.ADDRESS_LIMIT)
             tvCustomerInfoEmailDetail.text = args.customer.customerEmail?.let { email ->
-                Constant.collapseDisplay(email, Constant.ADDRESS_LIMIT)
+                Formatter.collapseDisplay(email, Constant.ADDRESS_LIMIT)
             }
         }
         discountViewModel.sendGetDiscountInfo(sharedViewModel.token, args.customer.customerId)
@@ -177,7 +181,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 fusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
-                    var location: Location? = task.result
+                    val location: Location? = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
@@ -206,14 +210,14 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         locationRequest.numUpdates = 1
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationClient!!.requestLocationUpdates(
+        fusedLocationClient.requestLocationUpdates(
             locationRequest, locationCallback, Looper.myLooper()
         )
     }
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            var lastLocation: Location = locationResult.lastLocation
+            val lastLocation: Location = locationResult.lastLocation
             latitude = lastLocation.latitude.toString()
             longitude = lastLocation.longitude.toString()
             val request = CheckInRequest(args.customer.customerId, args.customer.customerAddress, latitude, longitude, "")
@@ -222,7 +226,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     }
 
     private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -253,10 +257,8 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == PERMISSION_ID) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation()
-            }
+        if (requestCode == PERMISSION_ID && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getLastLocation()
         }
     }
 

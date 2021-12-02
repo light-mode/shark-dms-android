@@ -9,7 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.databinding.FragmentPolicyBinding
-import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
 class PolicyFragment : Fragment(R.layout.fragment_policy) {
@@ -23,12 +23,12 @@ class PolicyFragment : Fragment(R.layout.fragment_policy) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setMenuIconListener(binding: FragmentPolicyBinding) {

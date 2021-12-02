@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_customer.*
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.ui.cart.Cart
-import vn.sharkdms.ui.historycustomer.list.CustomerHistoryOrderListFragment
+import vn.sharkdms.ui.history.list.HistoryOrderListFragmentCustomer
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
@@ -52,14 +52,19 @@ class CustomerActivity : AppCompatActivity() {
         Glide.with(this).load(intent.getStringExtra("avatar")).error(R.drawable.ic_customer)
             .into(customerIcon)
         customerIcon.setOnClickListener {
-            Navigation.findNavController(this, R.id.nav_host_fragment)
-                .navigate(R.id.action_global_accountFragment)
+            navigateToAccountScreen()
         }
         val usernameTextView = activityToolbar.findViewById<TextView>(
             R.id.toolbar_text_view_username)
         usernameTextView.text = intent.getStringExtra("username").toString()
+        usernameTextView.setOnClickListener {
+            navigateToAccountScreen()
+        }
         val roleTextView = activityToolbar.findViewById<TextView>(R.id.toolbar_text_view_role)
         roleTextView.text = intent.getStringExtra("role_name").toString()
+        roleTextView.setOnClickListener {
+            navigateToAccountScreen()
+        }
         val navHostFragment = supportFragmentManager.findFragmentById(
             R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.findNavController()
@@ -101,6 +106,11 @@ class CustomerActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateToAccountScreen() {
+        Navigation.findNavController(this, R.id.nav_host_fragment)
+            .navigate(R.id.action_global_accountFragment)
+    }
+
     private fun handleGetCartInfoResponse(cart: Cart?) {
         val bundle = Bundle()
         bundle.putParcelable("cart", cart)
@@ -127,7 +137,7 @@ class CustomerActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(
             R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
-        if (currentFragment is CustomerHistoryOrderListFragment) finish()
+        if (currentFragment is HistoryOrderListFragmentCustomer) finish()
         else super.onBackPressed()
     }
 }

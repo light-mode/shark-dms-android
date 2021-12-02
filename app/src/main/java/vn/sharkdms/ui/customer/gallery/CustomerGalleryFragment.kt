@@ -7,11 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,7 +18,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.flow.collect
-import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import vn.sharkdms.R
@@ -42,13 +37,15 @@ import android.graphics.BitmapFactory
 
 class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), OnPhotoSelectedListener, ErrorMessageDialogListener {
 
-    private val TAG = "CustomerGalleryFragment"
-    private val REQUEST_CODE = 1000
+    companion object {
+        private const val TAG = "CustomerGalleryFragment"
+        private const val REQUEST_CODE = 1000
+    }
 
     private val args by navArgs<CustomerGalleryFragmentArgs>()
 
     private lateinit var binding: FragmentCustomerGalleryBinding
-    var initImages = ArrayList<Bitmap>()
+    private var initImages = ArrayList<Bitmap>()
 
     private lateinit var viewModel: CustomerGalleryViewModel
     private var connectivity: Boolean = false
@@ -86,12 +83,12 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun bind(binding: FragmentCustomerGalleryBinding) {
@@ -99,11 +96,11 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter
-            gvGallery.setOnItemClickListener { parent, view, position, id ->
+            gvGallery.setOnItemClickListener { _, _, position, _ ->
                 if (position == gvGallery.adapter.count - 1) {
                     val dialog = AvatarDialogFragment()
                         .newInstance(if (initImages.size - 1 != 0) initImages.size - 1 else 1)
-                    dialog.show(requireFragmentManager(), TAG)
+                    dialog.show(parentFragmentManager, TAG)
                     dialog.setTargetFragment(this@CustomerGalleryFragment, REQUEST_CODE)
                 }
             }
@@ -138,9 +135,9 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
                         .addFormDataPart("long", locationArray[1])
                 for (bm in initImages) {
                     val file: File = convertBitmapToFile("image", bm)
-                    val bmp = BitmapFactory.decodeFile(file.getAbsolutePath())
+                    val bmp = BitmapFactory.decodeFile(file.absolutePath)
                     val bos = ByteArrayOutputStream()
-                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
                     builder.addFormDataPart("image[]", file.name, RequestBody.create(MultipartBody.FORM, bos.toByteArray()))
                 }
                 viewModel.uploadGalleryRequest(authorization, builder.build())
@@ -156,7 +153,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
             drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(bitmap)
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
         drawable.draw(canvas)
         return bitmap
     }
@@ -223,7 +220,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         when (code) {
             HttpStatus.OK -> {
                 val dialog = SuccessDialogFragment()
-                dialog.show(requireFragmentManager(), TAG)
+                dialog.show(parentFragmentManager, TAG)
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
                 message, Toast.LENGTH_SHORT).show()

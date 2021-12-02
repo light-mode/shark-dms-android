@@ -15,11 +15,14 @@
     <string name="fragment_search_customer_by_name_phone_number">Tên hoặc SĐT khách hàng</string>
     <string name="fragment_customer_rank">Xếp loại:</string>
     <string name="fragment_customer_rank_a">Xếp loại: A</string>
+    <string name="fragment_customer_rank_format">Xếp loại: %1$s</string>
     <string name="fragment_customer_name_sample">Khách Hàng</string>
     <string name="fragment_customer_phone_number_sample">0312345678</string>
     <string name="fragment_customer_address">Địa chỉ:</string>
+    <string name="fragment_customer_address_format">Địa chỉ: %1$s</string>
     <string name="fragment_customer_address_sample">Địa chỉ: Mai Đình, Hiệp Hoà, Bắc Giang</string>
     <string name="fragment_customer_email">Email:</string>
+    <string name="fragment_customer_check_in_format">Ngày check-in: %1$s</string>
     <string name="fragment_customer_check_in_sample">Ngày check-in: 19/03/2021</string>
     <string name="fragment_no_customer_display">Hãy thêm mới khách hàng!</string>
 
@@ -99,7 +102,7 @@
     <string name="fragment_overview_title">Tổng quan</string>
     <string name="fragment_overview_text_view_total_amount_title_text">Tổng doanh thu 3 tháng gần đây:</string>
     <string name="fragment_overview_format_x">Tháng %1$d, %2$d</string>
-    <string name="fragment_overview_format_total_revenue">%1$s VNĐ</string>
+    <string name="fragment_overview_format_total_revenue">%1$s VND</string>
     <string name="fragment_overview_format_welcome">Xin chào, %1$s</string>
 
     <string name="fragment_notifications_title">Thông báo</string>
@@ -142,6 +145,7 @@
     <string name="fragment_order_detail_title">Chi tiết đơn hàng</string>
     <string name="fragment_order_detail_list">Chi tiết đơn hàng:</string>
     <string name="fragment_order_detail_num">2 sản phẩm</string>
+    <string name="fragment_order_detail_num_format">%1$d sản phẩm</string>
     <string name="fragment_order_detail_total">Thanh toán:</string>
     <string name="fragment_order_detail_customer_title">Khách hàng:</string>
     <string name="fragment_order_detail_discount">Chiết khấu:</string>
@@ -156,6 +160,7 @@
     <string name="fragment_order_product_item_quantity_sample">32</string>
     <string name="fragment_order_product_item_total">Tổng tiền:</string>
     <string name="fragment_order_product_item_total_sample">4.000.000 VNĐ</string>
+    <string name="fragment_order_product_item_total_format">%1$s %2$s</string>
 
     <string name="fragment_products_title">Danh sách sản phẩm</string>
     <string name="fragment_products_edit_text_name_hint">Tìm kiếm theo tên sản phẩm</string>

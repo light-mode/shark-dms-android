@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="vn.sharkdms.ui.forgotpassword.ForgotPasswordFragmentLogin"
+        android:name="vn.sharkdms.ui.password.forgot.ForgotPasswordFragmentLogin"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" />
     <dialog
