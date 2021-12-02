@@ -4,8 +4,6 @@ import android.app.Application
 import androidx.lifecycle.*
 import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import vn.sharkdms.api.BaseApi
-import vn.sharkdms.di.AppModule
 import vn.sharkdms.util.Formatter
 import javax.inject.Inject
 
@@ -17,9 +15,6 @@ private val repository: HistoryOrderListRepositoryCustomer)
     companion object {
         const val TAG = "CustomerHistoryOrderViewModel"
     }
-
-    private var retroService: BaseApi = AppModule.provideRetrofit().create(BaseApi::class.java)
-    private var historyOrderAdapter: HistoryOrderAdapter = HistoryOrderAdapter(this)
 
     fun getListData(token: String, date: String) =
         repository.getListData(token, date).map { pagingData -> pagingData.map { HistoryOrderUiModel.HistoryOrderItem(it) } }
