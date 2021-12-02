@@ -37,7 +37,7 @@ class DiscountDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        var rootView: View = inflater.inflate(R.layout.fragment_discount_dialog, container, false)
+        val rootView: View = inflater.inflate(R.layout.fragment_discount_dialog, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         discountInfo = arguments?.getString("discountInfo")

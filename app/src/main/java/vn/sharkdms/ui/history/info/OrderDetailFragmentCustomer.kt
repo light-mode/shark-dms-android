@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.databinding.FragmentOrderDetailBinding
 
 class OrderDetailFragmentCustomer : OrderDetailFragment() {
-    lateinit var viewModelCustomer: OrderDetailViewModelCustomer
+    private lateinit var viewModelCustomer: OrderDetailViewModelCustomer
     private val args by navArgs<OrderDetailFragmentCustomerArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

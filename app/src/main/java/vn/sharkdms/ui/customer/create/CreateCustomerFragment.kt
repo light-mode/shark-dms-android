@@ -375,7 +375,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 fusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
-                    var location: Location? = task.result
+                    val location: Location? = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
@@ -411,7 +411,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            var lastLocation: Location = locationResult.lastLocation
+            val lastLocation: Location = locationResult.lastLocation
             latitude = lastLocation.latitude.toString()
             longitude = lastLocation.longitude.toString()
             binding.tvShowLocation.text = getString(
@@ -423,7 +423,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
     }
 
     private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )

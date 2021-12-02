@@ -55,7 +55,7 @@ abstract class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_passwo
                 }
             }
         }
-        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         Constant.setupUI(binding.forgotPasswordFragment, requireActivity() as AppCompatActivity)

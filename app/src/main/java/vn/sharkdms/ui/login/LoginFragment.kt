@@ -68,7 +68,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
-        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         Constant.setupUI(binding.loginFragment, requireActivity() as AppCompatActivity)

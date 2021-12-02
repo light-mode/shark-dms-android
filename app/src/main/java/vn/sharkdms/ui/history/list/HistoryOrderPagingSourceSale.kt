@@ -6,7 +6,7 @@ import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.HistoryOrderListRequest
 import java.lang.Exception
 
-class HistoryOrderPagingSourceSale(val apiService: BaseApi, val token: String, val customerName: String, val date: String): PagingSource<Int, HistoryOrder>() {
+class HistoryOrderPagingSourceSale(private val apiService: BaseApi, val token: String, val customerName: String, val date: String): PagingSource<Int, HistoryOrder>() {
     companion object {
         private const val FIRST_PAGE_INDEX = 1
     }

@@ -180,7 +180,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 fusedLocationClient.lastLocation.addOnCompleteListener(requireActivity()) { task ->
-                    var location: Location? = task.result
+                    val location: Location? = task.result
                     if (location == null) {
                         requestNewLocationData()
                     } else {
@@ -216,7 +216,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
-            var lastLocation: Location = locationResult.lastLocation
+            val lastLocation: Location = locationResult.lastLocation
             latitude = lastLocation.latitude.toString()
             longitude = lastLocation.longitude.toString()
             val request = CheckInRequest(args.customer.customerId, args.customer.customerAddress, latitude, longitude, "")
@@ -225,7 +225,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     }
 
     private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )

@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import vn.sharkdms.api.BaseApi
 import java.lang.Exception
 
-class HistoryOrderPagingSourceCustomer(val apiService: BaseApi, val token: String, val date: String): PagingSource<Int, HistoryOrder>() {
+class HistoryOrderPagingSourceCustomer(private val apiService: BaseApi, val token: String, val date: String): PagingSource<Int, HistoryOrder>() {
     companion object {
         private const val FIRST_PAGE_INDEX = 1
     }

@@ -30,7 +30,7 @@ class CustomerLocationMapFragment : Fragment(), OnMapReadyCallback {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var rootView =  inflater.inflate(R.layout.fragment_maps, container, false)
+        val rootView =  inflater.inflate(R.layout.fragment_maps, container, false)
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)

@@ -27,7 +27,7 @@ import vn.sharkdms.util.Utils
 
 open class AccountFragment : Fragment(R.layout.fragment_account) {
     companion object {
-        val TAG = "AccountFragment"
+        const val TAG = "AccountFragment"
     }
 
     private val viewModel by viewModels<AccountViewModel>()

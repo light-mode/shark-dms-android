@@ -10,7 +10,7 @@ import android.widget.ImageView
 import vn.sharkdms.R
 
 class GalleryAdapter(
-    var images: List<Bitmap>,
+    private var images: List<Bitmap>,
     var context: Context
 ) : BaseAdapter() {
     var layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater

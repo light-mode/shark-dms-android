@@ -18,13 +18,8 @@ private val repository: HistoryOrderListRepositoryCustomer)
         const val TAG = "CustomerHistoryOrderViewModel"
     }
 
-    var retroService: BaseApi
-    var historyOrderAdapter: HistoryOrderAdapter
-
-    init {
-        historyOrderAdapter = HistoryOrderAdapter(this)
-        retroService = AppModule.provideRetrofit().create(BaseApi::class.java)
-    }
+    private var retroService: BaseApi = AppModule.provideRetrofit().create(BaseApi::class.java)
+    private var historyOrderAdapter: HistoryOrderAdapter = HistoryOrderAdapter(this)
 
     fun getListData(token: String, date: String) =
         repository.getListData(token, date).map { pagingData -> pagingData.map { HistoryOrderUiModel.HistoryOrderItem(it) } }

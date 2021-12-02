@@ -45,7 +45,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
     private val args by navArgs<CustomerGalleryFragmentArgs>()
 
     private lateinit var binding: FragmentCustomerGalleryBinding
-    var initImages = ArrayList<Bitmap>()
+    private var initImages = ArrayList<Bitmap>()
 
     private lateinit var viewModel: CustomerGalleryViewModel
     private var connectivity: Boolean = false

@@ -15,7 +15,7 @@ class CustomerAdapter(
     DiffUtilCallBack()
 ) {
 
-    var customers = ArrayList<Customer>()
+    private var customers = ArrayList<Customer>()
 
     inner class CustomerViewHolder(private val binding: ItemCustomerBinding) : RecyclerView.ViewHolder(binding.root) {
         init {

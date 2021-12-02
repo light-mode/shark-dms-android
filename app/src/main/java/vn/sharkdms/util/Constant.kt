@@ -39,10 +39,12 @@ class Constant {
         const val ORDER_PRODUCT_AMOUNT = " sản phẩm"
 
         fun collapseDisplay(text: String?, limit: Int): String {
-            if (text == null) return ""
-            else if (text.length <= limit) return text
-            else {
-                return text.substring(0, limit).plus("...")
+            return when {
+                text == null -> ""
+                text.length <= limit -> text
+                else -> {
+                    text.substring(0, limit).plus("...")
+                }
             }
         }
 
@@ -57,15 +59,13 @@ class Constant {
             }
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         fun setupUI(view: View, activity: AppCompatActivity) {
             if (view !is EditText) {
-                view.setOnTouchListener(object: View.OnTouchListener {
-                    @SuppressLint("ClickableViewAccessibility")
-                    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                        hideSoftKeyboard(activity)
-                        return false
-                    }
-                })
+                view.setOnTouchListener { _, _ ->
+                    hideSoftKeyboard(activity)
+                    false
+                }
             }
 
             if (view is ViewGroup) {

@@ -9,7 +9,7 @@ import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
 
 @AndroidEntryPoint
 class HistoryOrderListFragmentCustomer: HistoryOrderListFragment(), HistoryOrderAdapter.OnItemClickListener {
-    lateinit var viewModelCustomer: HistoryOrderListViewModelCustomer
+    private lateinit var viewModelCustomer: HistoryOrderListViewModelCustomer
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
