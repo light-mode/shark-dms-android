@@ -19,7 +19,6 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentProductsBinding
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.AdapterDataObserver
-import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
@@ -71,17 +70,17 @@ abstract class ProductsFragment : Fragment(
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         viewModel.searchProducts(sharedViewModel.token, "", customer)
 
-        Constant.setupUI(binding.productsFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.productsFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setBackIconListener(binding: FragmentProductsBinding) {

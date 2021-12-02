@@ -22,7 +22,6 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.GetReportResponse
 import vn.sharkdms.databinding.FragmentReportBinding
 import vn.sharkdms.util.ConfirmDialog
-import vn.sharkdms.util.Constant
 import vn.sharkdms.util.MessageDialog
 import vn.sharkdms.util.Utils
 
@@ -63,7 +62,7 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
             }
         }
 
-        Constant.setupUI(binding.reportFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.reportFragment, requireActivity() as AppCompatActivity)
         setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
             if (!connectivity) {
                 Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
@@ -91,12 +90,12 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setMenuIconListener(binding: FragmentReportBinding) {

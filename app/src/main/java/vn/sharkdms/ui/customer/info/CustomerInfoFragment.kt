@@ -32,6 +32,7 @@ import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 
@@ -105,12 +106,12 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setBtnMapOnClickListener(binding: FragmentCustomerInfoBinding) {
@@ -167,9 +168,9 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
             tvCustomerInfoPhone.text = args.customer.customerPhone
             tvCustomerInfoRankDetail.text = args.customer.rankName
             tvCustomerInfoAddressDetail.text =
-                Constant.collapseDisplay(args.customer.customerAddress, Constant.ADDRESS_LIMIT)
+                Formatter.collapseDisplay(args.customer.customerAddress, Constant.ADDRESS_LIMIT)
             tvCustomerInfoEmailDetail.text = args.customer.customerEmail?.let { email ->
-                Constant.collapseDisplay(email, Constant.ADDRESS_LIMIT)
+                Formatter.collapseDisplay(email, Constant.ADDRESS_LIMIT)
             }
         }
         discountViewModel.sendGetDiscountInfo(sharedViewModel.token, args.customer.customerId)

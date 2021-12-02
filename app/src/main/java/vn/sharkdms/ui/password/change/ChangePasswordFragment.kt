@@ -28,7 +28,6 @@ import vn.sharkdms.MainActivity
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentChangePasswordBinding
-import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 import vn.sharkdms.util.Validator
@@ -76,17 +75,17 @@ open class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
-        Constant.setupUI(binding.changePasswordFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.changePasswordFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun setBackIconListener(binding: FragmentChangePasswordBinding) {

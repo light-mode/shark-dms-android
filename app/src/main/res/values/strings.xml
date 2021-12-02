@@ -15,11 +15,14 @@
     <string name="fragment_search_customer_by_name_phone_number">Tên hoặc SĐT khách hàng</string>
     <string name="fragment_customer_rank">Xếp loại:</string>
     <string name="fragment_customer_rank_a">Xếp loại: A</string>
+    <string name="fragment_customer_rank_format">Xếp loại: %1$s</string>
     <string name="fragment_customer_name_sample">Khách Hàng</string>
     <string name="fragment_customer_phone_number_sample">0312345678</string>
     <string name="fragment_customer_address">Địa chỉ:</string>
+    <string name="fragment_customer_address_format">Địa chỉ: %1$s</string>
     <string name="fragment_customer_address_sample">Địa chỉ: Mai Đình, Hiệp Hoà, Bắc Giang</string>
     <string name="fragment_customer_email">Email:</string>
+    <string name="fragment_customer_check_in_format">Ngày check-in: %1$s</string>
     <string name="fragment_customer_check_in_sample">Ngày check-in: 19/03/2021</string>
     <string name="fragment_no_customer_display">Hãy thêm mới khách hàng!</string>
 
@@ -142,6 +145,7 @@
     <string name="fragment_order_detail_title">Chi tiết đơn hàng</string>
     <string name="fragment_order_detail_list">Chi tiết đơn hàng:</string>
     <string name="fragment_order_detail_num">2 sản phẩm</string>
+    <string name="fragment_order_detail_num_format">%1$d sản phẩm</string>
     <string name="fragment_order_detail_total">Thanh toán:</string>
     <string name="fragment_order_detail_customer_title">Khách hàng:</string>
     <string name="fragment_order_detail_discount">Chiết khấu:</string>

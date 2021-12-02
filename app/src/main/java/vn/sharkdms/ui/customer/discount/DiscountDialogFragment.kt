@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_discount_dialog.view.*
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
-import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 class DiscountDialogFragment : DialogFragment() {
 
@@ -55,12 +55,12 @@ class DiscountDialogFragment : DialogFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initDiscountTable(rootView: View) {

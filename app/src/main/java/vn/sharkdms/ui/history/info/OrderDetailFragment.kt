@@ -61,12 +61,12 @@ open class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initRecyclerView(binding: FragmentOrderDetailBinding) {
@@ -89,7 +89,8 @@ open class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                 HttpStatus.OK -> {
                     tvCustomerName.text = data?.customerName.toString()
                     tvCustomerPhone.text = data?.customerPhone.toString()
-                    tvCustomerOrderDetailNum.text = data?.orderItems?.size.toString() + Constant.ORDER_PRODUCT_AMOUNT
+                    tvCustomerOrderDetailNum.text =
+                        getString(R.string.fragment_order_detail_num_format, data?.orderItems?.size)
                     tvOrderDiscountSample.text = Formatter.formatCurrency(data?.discount.toString())
                         .plus(" ").plus(data?.orderItems?.get(0)?.currency)
                     tvOrderTotalAmountSample.text = Formatter.formatCurrency(data?.totalAmount.toString())
@@ -116,8 +117,8 @@ open class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_cancel, 0, 0, 0)
                         }
-                        Constant.ORDER_STATUS_STOCKOUT -> {
-                            tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_STOCKOUT
+                        Constant.ORDER_STATUS_STOCK_OUT -> {
+                            tvCustomerOrderStatusDetail.text = Constant.ORDER_STATUS_STOCK_OUT
                             tvCustomerOrderStatusDetail.setCompoundDrawablesRelativeWithIntrinsicBounds(
                                 R.drawable.ic_order_status_stockout, 0, 0, 0)
                         }

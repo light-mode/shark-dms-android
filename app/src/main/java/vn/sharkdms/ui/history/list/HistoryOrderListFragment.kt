@@ -62,17 +62,17 @@ open class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_l
         setCustomerEditTextListener(binding, clearIcon)
         setTvDatePickerListener(binding, clearIcon)
 
-        Constant.setupUI(binding.historyOrderListFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.historyOrderListFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initRecyclerView(binding: FragmentHistoryOrderListBinding) {

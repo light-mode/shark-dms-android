@@ -24,7 +24,7 @@ import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.fragment_create_avatar_dialog.view.*
 import vn.sharkdms.R
 import vn.sharkdms.ui.customer.gallery.ErrorMessageDialogListener
-import vn.sharkdms.util.Constant
+import vn.sharkdms.util.Utils
 
 class AvatarDialogFragment : DialogFragment() {
 
@@ -75,12 +75,12 @@ class AvatarDialogFragment : DialogFragment() {
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initializeDialog() {

@@ -69,17 +69,17 @@ open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), Cus
         setAddCustomerButtonOnClickListener(binding)
         setBtnGpsOnClickListener(binding)
 
-        Constant.setupUI(binding.customerListFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.customerListFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initRecyclerView(binding: FragmentCustomerListBinding) {

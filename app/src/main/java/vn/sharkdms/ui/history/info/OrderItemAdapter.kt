@@ -18,7 +18,7 @@ class OrderItemAdapter(
         fun bind(data: OrderItem?) {
             binding.apply {
                 tvProductName.text =
-                    Constant.collapseDisplay(data?.productName as String, Constant.PRODUCT_LIMIT)
+                    Formatter.collapseDisplay(data?.productName as String, Constant.PRODUCT_LIMIT)
                 tvProductQuantity.text = data.qty.toString()
                 tvProductTotal.text = itemView.context.getString(
                     R.string.fragment_order_product_item_total_format,

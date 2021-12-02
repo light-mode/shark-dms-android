@@ -44,6 +44,7 @@ import vn.sharkdms.ui.customer.avatar.AvatarDialogFragment
 import vn.sharkdms.ui.customer.avatar.OnPhotoSelectedListener
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
 import vn.sharkdms.util.Validator
 import java.io.*
 import java.util.*
@@ -109,17 +110,17 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
             }
         }
 
-        Constant.setupUI(binding.createCustomerFragment, requireActivity() as AppCompatActivity)
+        Utils.setupUI(binding.createCustomerFragment, requireActivity() as AppCompatActivity)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     private fun initTextWatcher(binding: FragmentCreateCustomerBinding, change: Int): TextWatcher {

@@ -14,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentNotificationsBinding
-import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
@@ -58,12 +57,12 @@ class NotificationsFragment : Fragment(
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onDetach() {
         super.onDetach()
-        Constant.hideSoftKeyboard(requireActivity() as AppCompatActivity)
+        Utils.hideSoftKeyboard(requireActivity() as AppCompatActivity)
     }
 
     override fun onItemClick(notification: Notification) {
