@@ -16,25 +16,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CustomerHistoryOrderListViewModel @Inject constructor(application: Application, private val baseApi: BaseApi)
-    : AndroidViewModel(application), HistoryOrderAdapter.OnItemClickListener {
+    : AndroidViewModel(application) {
 
     companion object {
         const val TAG = "CustomerHistoryOrderViewModel"
     }
-
-    var retroService: BaseApi
-    var historyOrderAdapter: HistoryOrderAdapter
-    val historyOrderList: MutableLiveData<ArrayList<HistoryOrder>> by lazy {
-        MutableLiveData<ArrayList<HistoryOrder>>()
-    }
-
-    init {
-        historyOrderAdapter = HistoryOrderAdapter(this)
-        retroService = AppModule.provideRetrofit().create(BaseApi::class.java)
-    }
-
-    private val historyOrderListEventChannel = Channel<HistoryOrderListEvent>()
-    val historyOrderListEvent = historyOrderListEventChannel.receiveAsFlow()
 
     fun getListData(token: String, date: String) =
         Pager(config = PagingConfig(pageSize = 20),
@@ -52,14 +38,4 @@ class CustomerHistoryOrderListViewModel @Inject constructor(application: Applica
                 }
             }.cachedIn(viewModelScope)
 
-    fun setAdapterData(data: ArrayList<HistoryOrder>) {
-        historyOrderAdapter.setDataList(data)
-    }
-
-    sealed class HistoryOrderListEvent {
-        data class OnResponse(val code: Int, val message: String, val data: List<HistoryOrder>, val totalPage: Int): HistoryOrderListEvent()
-    }
-
-    override fun onItemClick(historyOrder: HistoryOrder) {
-    }
 }
