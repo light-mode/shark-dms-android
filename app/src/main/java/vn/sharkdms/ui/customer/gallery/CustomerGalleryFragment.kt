@@ -96,11 +96,11 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         val imagesAdapter = GalleryAdapter(initImages, requireContext())
         binding.apply {
             gvGallery.adapter = imagesAdapter
-            gvGallery.setOnItemClickListener { parent, view, position, id ->
+            gvGallery.setOnItemClickListener { _, _, position, _ ->
                 if (position == gvGallery.adapter.count - 1) {
                     val dialog = AvatarDialogFragment()
                         .newInstance(if (initImages.size - 1 != 0) initImages.size - 1 else 1)
-                    dialog.show(requireFragmentManager(), TAG)
+                    dialog.show(parentFragmentManager, TAG)
                     dialog.setTargetFragment(this@CustomerGalleryFragment, REQUEST_CODE)
                 }
             }
@@ -220,7 +220,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         when (code) {
             HttpStatus.OK -> {
                 val dialog = SuccessDialogFragment()
-                dialog.show(requireFragmentManager(), TAG)
+                dialog.show(parentFragmentManager, TAG)
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> Toast.makeText(requireContext(),
                 message, Toast.LENGTH_SHORT).show()

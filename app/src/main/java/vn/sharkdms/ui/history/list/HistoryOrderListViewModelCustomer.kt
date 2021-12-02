@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HistoryOrderListViewModelCustomer @Inject constructor(application: Application,
 private val repository: HistoryOrderListRepositoryCustomer)
-    : AndroidViewModel(application), HistoryOrderAdapter.OnItemClickListener {
+    : AndroidViewModel(application) {
 
     companion object {
         const val TAG = "CustomerHistoryOrderViewModel"
@@ -32,8 +32,5 @@ private val repository: HistoryOrderListRepositoryCustomer)
 
     sealed class HistoryOrderListEvent {
         data class OnResponse(val code: Int, val message: String, val data: List<HistoryOrder>, val totalPage: Int): HistoryOrderListEvent()
-    }
-
-    override fun onItemClick(historyOrder: HistoryOrder) {
     }
 }

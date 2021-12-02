@@ -60,6 +60,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
         private const val CHANGE_ADDRESS = CHANGE_EMAIL + 1
         private const val PERMISSION_ID = 42
         private const val REQUEST_CODE = 1000
+        private const val MULTIPART_FORM_DATA = "multipart/form-data"
     }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -123,10 +124,10 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
 
     private fun initTextWatcher(binding: FragmentCreateCustomerBinding, change: Int): TextWatcher {
         val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
             }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { //
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -325,21 +326,21 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
                 btnCreateCustomer.text = ""
                 progressBar.visibility = View.VISIBLE
                 val name: RequestBody = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), etCreateCustomerName.text.toString())
+                    MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerName.text.toString())
                 val username: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerAccount.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerAccount.text.toString())
                 val password: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerPassword.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerPassword.text.toString())
                 val phone: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerPhone.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerPhone.text.toString())
                 val email: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerEmail.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerEmail.text.toString())
                 val address: RequestBody = RequestBody.create(
-                        MediaType.parse("multipart/form-data"), etCreateCustomerAddress.text.toString())
+                        MediaType.parse(MULTIPART_FORM_DATA), etCreateCustomerAddress.text.toString())
                 val lat: RequestBody = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), latitude)
+                    MediaType.parse(MULTIPART_FORM_DATA), latitude)
                 val long: RequestBody = RequestBody.create(
-                    MediaType.parse("multipart/form-data"), longitude)
+                    MediaType.parse(MULTIPART_FORM_DATA), longitude)
                 if(imageUri != null) image = prepareImagePartFromUri("image", imageUri)
                 else if (bitmap != null) image = prepareImagePartFromBitmap("image", bitmap)
                 viewModel.sendCreateCustomerRequest(authorization, name, username, password, address,
@@ -365,7 +366,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
     private fun setIvAvatarOnClickListener(binding: FragmentCreateCustomerBinding) {
         binding.ivAvatarCreateCustomer.setOnClickListener {
             val dialog = AvatarDialogFragment().newInstance(0)
-            dialog.show(requireFragmentManager(), TAG)
+            dialog.show(parentFragmentManager, TAG)
             dialog.setTargetFragment(this, REQUEST_CODE)
         }
     }
@@ -454,10 +455,8 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == PERMISSION_ID) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation()
-            }
+        if (requestCode == PERMISSION_ID && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getLastLocation()
         }
     }
 

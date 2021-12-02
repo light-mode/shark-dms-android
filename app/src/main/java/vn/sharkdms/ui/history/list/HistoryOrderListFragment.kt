@@ -241,6 +241,6 @@ open class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_l
         }
     }
 
-    override fun onItemClick(historyOrder: HistoryOrder) {
+    override fun onItemClick(historyOrder: HistoryOrder) { //
     }
 }
