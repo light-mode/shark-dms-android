@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.products
+package vn.sharkdms.ui.product
 
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint

@@ -223,7 +223,7 @@
     </fragment>
     <fragment
         android:id="@+id/productsFragment2"
-        android:name="vn.sharkdms.ui.products.ProductsFragmentSale"
+        android:name="vn.sharkdms.ui.product.ProductsFragmentSale"
         android:label="fragment_products"
         tools:layout="@layout/fragment_products">
         <action
@@ -244,7 +244,7 @@
         tools:layout="@layout/fragment_add_to_cart">
         <argument
             android:name="product"
-            app:argType="vn.sharkdms.ui.products.Product" />
+            app:argType="vn.sharkdms.ui.product.Product" />
         <argument
             android:name="customer"
             android:defaultValue="@null"

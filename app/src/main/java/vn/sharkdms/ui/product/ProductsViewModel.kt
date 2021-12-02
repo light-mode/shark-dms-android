@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.products
+package vn.sharkdms.ui.product
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

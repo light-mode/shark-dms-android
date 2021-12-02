@@ -22,7 +22,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentAddToCartBinding
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.customer.list.Customer
-import vn.sharkdms.ui.products.Product
+import vn.sharkdms.ui.product.Product
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils
 

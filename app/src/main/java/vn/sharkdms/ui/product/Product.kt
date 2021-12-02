@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.products
+package vn.sharkdms.ui.product
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

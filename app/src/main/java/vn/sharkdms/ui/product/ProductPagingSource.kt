@@ -1,4 +1,4 @@
-package vn.sharkdms.ui.products
+package vn.sharkdms.ui.product
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
