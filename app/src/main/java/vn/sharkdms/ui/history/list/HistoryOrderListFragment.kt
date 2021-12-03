@@ -3,6 +3,7 @@ package vn.sharkdms.ui.history.list
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
@@ -189,18 +190,17 @@ open class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_l
                     month = datenum[1].toInt() - 1
                     day = datenum[0].toInt()
                 }
-
-                val dpd = DatePickerDialog(requireActivity(), R.style.DatePickerDialogStyle,
-                    null, year, month, day)
-                dpd.datePicker.init(year, month, day,
-                    { view, year, monthOfYear, dayOfMonth ->
-                        tvDatePicker.text = dayOfMonth.toString() + "/" + (month + 1).toString() + "/" + year.toString()
+                val dpd = DatePickerDialog(requireActivity(), R.style.date_picker_dialog,
+                    { _, selectedYear, selectedMonth, selectedDay ->
+                        tvDatePicker.text = selectedDay.toString() + "/" + (selectedMonth + 1).toString() + "/" + selectedYear.toString()
                         initViewModel(etSearchOrder.text.toString(),
-                            date = dayOfMonth.toString() + "-" + (month + 1).toString() + "-" + year.toString())
+                            date = selectedDay.toString() + "-" + (selectedMonth + 1).toString() + "-" + selectedYear.toString())
                         tvDatePickerDateChangeListener(binding, clearIcon)
-                        dpd.dismiss()
-                    })
+                    }, year, month, day)
                 dpd.show()
+                val primaryColor = Color.parseColor(getString(R.string.color_primary))
+                dpd.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(primaryColor)
+                dpd.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(primaryColor)
             }
         }
     }
