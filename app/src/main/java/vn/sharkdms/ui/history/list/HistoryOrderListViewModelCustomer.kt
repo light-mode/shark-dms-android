@@ -12,10 +12,6 @@ class HistoryOrderListViewModelCustomer @Inject constructor(application: Applica
 private val repository: HistoryOrderListRepositoryCustomer)
     : AndroidViewModel(application) {
 
-    companion object {
-        const val TAG = "CustomerHistoryOrderViewModel"
-    }
-
     fun getListData(token: String, date: String) =
         repository.getListData(token, date).map { pagingData -> pagingData.map { HistoryOrderUiModel.HistoryOrderItem(it) } }
             .map { pagingData ->

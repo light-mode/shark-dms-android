@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentTaskDetailsBinding
-import vn.sharkdms.util.ConfirmDialog
+import vn.sharkdms.util.ConfirmDialogFragment
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 import java.lang.IllegalArgumentException
@@ -48,8 +48,7 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
                         Toast.makeText(requireContext(), event.message, Toast.LENGTH_SHORT).show()
                     }
                     is TaskDetailsViewModel.TaskDetailsEvent.OnFailure -> {
-                        Toast.makeText(requireContext(),
-                            getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT).show()
+                        Utils.showConnectivityOffMessage(requireContext())
                     }
                     is TaskDetailsViewModel.TaskDetailsEvent.ShowUnauthorizedDialog -> {
                         Utils.showUnauthorizedDialog(requireActivity())
@@ -61,10 +60,10 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
         if (viewModel.statusSelectorShowing.value!!) {
             showStatusSelector(binding)
         }
-        setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
-            if (Dialog.BUTTON_POSITIVE == bundle.getInt(ConfirmDialog.CHANGE_TASK_STATUS)) {
+        setFragmentResultListener(ConfirmDialogFragment.TAG) { _, bundle ->
+            if (Dialog.BUTTON_POSITIVE == bundle.getInt(ConfirmDialogFragment.CHANGE_TASK_STATUS)) {
                 if (!sharedViewModel.connectivity.value!!) {
-                    showConnectivityOffMessage()
+                    Utils.showConnectivityOffMessage(requireContext())
                     return@setFragmentResultListener
                 }
                 viewModel.updateTaskStatus(sharedViewModel.token, args.task.id, viewModel.selectedStatus)
@@ -175,11 +174,6 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
         }
     }
 
-    private fun showConnectivityOffMessage() {
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
-    }
-
     private fun toggleStatusSelector(binding: FragmentTaskDetailsBinding) {
         if (viewModel.statusSelectorShowing.value!!) {
             hideStatusSelector(binding)
@@ -230,7 +224,7 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
         })
         val title = getString(R.string.fragment_task_details_dialog_change_task_status_title)
         val message = getString(R.string.fragment_task_details_dialog_change_task_status_message_format, currentStatusString, selectedStatusString)
-        val action = TaskDetailsFragmentDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.CHANGE_TASK_STATUS)
+        val action = TaskDetailsFragmentDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialogFragment.CHANGE_TASK_STATUS)
         findNavController().navigate(action)
     }
 }

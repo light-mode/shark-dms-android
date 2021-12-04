@@ -42,7 +42,6 @@ open class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) 
     }
 
     private val viewModel by viewModels<ChangePasswordViewModel>()
-    private var connectivity: Boolean = false
     private lateinit var sharedViewModel: SharedViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +72,6 @@ open class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) 
             }
         }
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         Utils.setupUI(binding.changePasswordFragment, requireActivity() as AppCompatActivity)
     }
@@ -425,9 +423,8 @@ open class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) 
     private fun setConfirmButtonListener(binding: FragmentChangePasswordBinding) {
         binding.apply {
             buttonConfirm.setOnClickListener {
-                if (!connectivity) {
-                    Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                        Toast.LENGTH_SHORT).show()
+                if (sharedViewModel.connectivity.value != true) {
+                    Utils.showConnectivityOffMessage(requireContext())
                     return@setOnClickListener
                 }
                 buttonConfirm.isEnabled = false
@@ -464,8 +461,7 @@ open class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) 
             buttonConfirm.text = getString(R.string.fragment_change_password_button_confirm_text)
             buttonConfirm.isEnabled = true
         }
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+        Utils.showConnectivityOffMessage(requireContext())
     }
 
     private fun navigateToLoginScreen() {

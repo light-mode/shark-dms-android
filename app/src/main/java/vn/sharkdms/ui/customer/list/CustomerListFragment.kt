@@ -23,7 +23,6 @@ import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
 
-
 open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), CustomerAdapter.OnItemClickListener {
 
     lateinit var viewModel: CustomerListViewModel

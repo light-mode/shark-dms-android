@@ -10,9 +10,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CustomerListViewModel @Inject constructor(private val repository: CustomerListRepository) : ViewModel() {
-    companion object {
-        const val TAG = "CustomerListViewModel"
-    }
 
     private var token = ""
     private val customerList = MutableLiveData("")
@@ -27,5 +24,4 @@ class CustomerListViewModel @Inject constructor(private val repository: Customer
         this.token = token
         this.customerList.value = customerName
     }
-
 }

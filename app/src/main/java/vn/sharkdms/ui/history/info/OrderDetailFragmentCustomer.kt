@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.databinding.FragmentOrderDetailBinding
+import vn.sharkdms.util.Utils
 
 class OrderDetailFragmentCustomer : OrderDetailFragment() {
     private lateinit var viewModelCustomer: OrderDetailViewModelCustomer
@@ -24,7 +25,7 @@ class OrderDetailFragmentCustomer : OrderDetailFragment() {
                     is OrderDetailViewModelCustomer.OrderDetailEvent.OnResponse ->
                         handleOrderDetailResponse(binding, event.code, event.message, event.data)
                     is OrderDetailViewModelCustomer.OrderDetailEvent.OnFailure ->
-                        handleOrderDetailFailure()
+                        Utils.showConnectivityOffMessage(requireContext())
                 }
             }
         }

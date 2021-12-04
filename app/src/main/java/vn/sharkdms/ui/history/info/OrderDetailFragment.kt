@@ -50,7 +50,7 @@ open class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                     is OrderDetailViewModelSale.OrderDetailEvent.OnResponse ->
                         handleOrderDetailResponse(binding, event.code, event.message, event.data)
                     is OrderDetailViewModelSale.OrderDetailEvent.OnFailure ->
-                        handleOrderDetailFailure()
+                        Utils.showConnectivityOffMessage(requireContext())
                     is OrderDetailViewModelSale.OrderDetailEvent.ShowUnauthorizedDialog ->
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
@@ -131,11 +131,6 @@ open class OrderDetailFragment :Fragment(R.layout.fragment_order_detail) {
                 else -> Log.e(TAG, code.toString())
             }
         }
-    }
-
-    open fun handleOrderDetailFailure() {
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
     }
 
     private fun setBtnBackOnClickListener(binding: FragmentOrderDetailBinding) {

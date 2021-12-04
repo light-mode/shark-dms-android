@@ -1,19 +1,21 @@
 package vn.sharkdms.util
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import vn.sharkdms.R
-import vn.sharkdms.ui.logout.UnauthorizedDialog
+import vn.sharkdms.ui.logout.UnauthorizedDialogFragment
 
 class Utils {
     companion object {
         fun showUnauthorizedDialog(activity: FragmentActivity) {
-            UnauthorizedDialog().show(activity.supportFragmentManager, "")
+            UnauthorizedDialogFragment().show(activity.supportFragmentManager, "")
         }
 
         fun hideSoftKeyboard(activity: AppCompatActivity) {
@@ -46,6 +48,11 @@ class Utils {
                     }
                 }
             }
+        }
+
+        fun showConnectivityOffMessage(context: Context) {
+            Toast.makeText(context, context.getString(R.string.message_connectivity_off),
+                Toast.LENGTH_SHORT).show()
         }
     }
 }

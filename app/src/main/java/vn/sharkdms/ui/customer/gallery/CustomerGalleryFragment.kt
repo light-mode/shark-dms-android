@@ -31,10 +31,6 @@ import vn.sharkdms.util.Utils
 import java.io.*
 import android.graphics.BitmapFactory
 
-
-
-
-
 class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), OnPhotoSelectedListener, ErrorMessageDialogListener {
 
     companion object {
@@ -48,7 +44,6 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
     private var initImages = ArrayList<Bitmap>()
 
     private lateinit var viewModel: CustomerGalleryViewModel
-    private var connectivity: Boolean = false
 
     private lateinit var authorization: String
     private lateinit var sharedViewModel : SharedViewModel
@@ -65,7 +60,6 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         authorization = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.customerGalleryEvent.collect { event ->
                 when(event) {
@@ -117,9 +111,8 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
         val locationArray = args.customer.customerPosition.split("_").toTypedArray()
         binding.apply {
             btnUpload.setOnClickListener {
-                if (!connectivity) {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.message_connectivity_off), Toast.LENGTH_LONG).show()
+                if (sharedViewModel.connectivity.value != true) {
+                    Utils.showConnectivityOffMessage(requireContext())
                     return@setOnClickListener
                 }
                 btnUpload.isEnabled = false
@@ -233,8 +226,7 @@ class CustomerGalleryFragment : Fragment(R.layout.fragment_customer_gallery), On
             progressBar.visibility = View.GONE
             btnUpload.text = getString(R.string.fragment_customer_gallery_upload)
         }
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+        Utils.showConnectivityOffMessage(requireContext())
     }
 
     override fun onErrorDismissDialog(message: String) {

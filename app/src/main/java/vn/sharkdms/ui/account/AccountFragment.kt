@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -32,7 +31,6 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
     private val viewModel by viewModels<AccountViewModel>()
     private val sharedViewModel by activityViewModels<SharedViewModel>()
     private lateinit var discountViewModel: DiscountDialogViewModel
-    private var userId = 1
     open var discountInfo: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +48,6 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
                 when (event) {
                     is AccountViewModel.AccountEvent.BindUserInfoView -> {
                         bindUserInfoView(binding, event.user)
-                        userId = event.user.id
                     }
                 }
             }
@@ -62,7 +59,7 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
                         else handleGetDiscountInfoResponse(event.code, event.message, null)
                     }
                     is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
-                        handleGetDiscountFailure()
+                        Utils.showConnectivityOffMessage(requireContext())
                     is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
@@ -71,8 +68,8 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
         viewModel.users.observe(viewLifecycleOwner) {
             viewModel.getUserInfo(it)
         }
-        setFragmentResultListener(ImageChooserDialog.UPLOAD_AVATAR) { _, bundle ->
-            val imageUrl = bundle.getString(ImageChooserDialog.IMAGE_URL)
+        setFragmentResultListener(ImageChooserDialogFragment.UPLOAD_AVATAR) { _, bundle ->
+            val imageUrl = bundle.getString(ImageChooserDialogFragment.IMAGE_URL)
             if (imageUrl.isNullOrEmpty()) return@setFragmentResultListener
             sharedViewModel.customerAvatar.value = imageUrl
             Glide.with(requireContext()).load(imageUrl).error(R.drawable.avatar_create_customer)
@@ -113,10 +110,5 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
             }
             else -> Log.e(TAG, code.toString())
         }
-    }
-
-    private fun handleGetDiscountFailure() {
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
     }
 }

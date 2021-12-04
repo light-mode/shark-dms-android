@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import vn.sharkdms.R
 
-class OfflineDialog : DialogFragment(R.layout.dialog_confirm) {
+class OfflineDialogFragment : DialogFragment(R.layout.dialog_confirm) {
     companion object {
-        const val TAG = "OfflineDialog"
+        const val TAG = "OfflineDialogFragment"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -16,7 +16,6 @@ class AccountFragmentSale : AccountFragment() {
         setChangePasswordCardViewListener(binding)
         setDiscountCardViewListener(binding)
         setAvatarImageViewListener(binding)
-
     }
 
     private fun setChangePasswordCardViewListener(binding: FragmentAccountBinding) {

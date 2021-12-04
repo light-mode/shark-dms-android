@@ -14,15 +14,15 @@ import androidx.navigation.fragment.navArgs
 import vn.sharkdms.R
 import vn.sharkdms.databinding.DialogMessageBinding
 
-class MessageDialog : DialogFragment() {
+class MessageDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "MessageDialog"
+        const val TAG = "MessageDialogFragment"
         const val FORGOT_PASSWORD = "FORGOT_PASSWORD"
         const val CREATE_REPORT = "CREATE_REPORT"
         const val EDIT_REPORT = "EDIT_REPORT"
     }
 
-    private val args by navArgs<MessageDialogArgs>()
+    private val args by navArgs<MessageDialogFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {

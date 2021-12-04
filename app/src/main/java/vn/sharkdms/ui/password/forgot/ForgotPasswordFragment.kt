@@ -14,8 +14,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +34,7 @@ abstract class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_passwo
     }
 
     private val viewModel by viewModels<ForgotPasswordViewModel>()
-    private var connectivity: Boolean = false
+    private val sharedViewModel by activityViewModels<SharedViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,8 +55,6 @@ abstract class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_passwo
                 }
             }
         }
-        val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         Utils.setupUI(binding.forgotPasswordFragment, requireActivity() as AppCompatActivity)
     }
@@ -164,9 +162,8 @@ abstract class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_passwo
     private fun setSendButtonListener(binding: FragmentForgotPasswordBinding) {
         binding.apply {
             buttonSend.setOnClickListener {
-                if (!connectivity) {
-                    Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                        Toast.LENGTH_SHORT).show()
+                if (sharedViewModel.connectivity.value != true) {
+                    Utils.showConnectivityOffMessage(requireContext())
                     return@setOnClickListener
                 }
                 buttonSend.isEnabled = false
@@ -201,7 +198,6 @@ abstract class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_passwo
             buttonSend.text = getString(R.string.fragment_forgot_password_button_send_text)
             buttonSend.isEnabled = true
         }
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+        Utils.showConnectivityOffMessage(requireContext())
     }
 }

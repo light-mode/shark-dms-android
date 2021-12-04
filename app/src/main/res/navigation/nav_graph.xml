@@ -35,7 +35,7 @@
         tools:layout="@layout/fragment_forgot_password" />
     <dialog
         android:id="@+id/messageDialog2"
-        android:name="vn.sharkdms.util.MessageDialog"
+        android:name="vn.sharkdms.util.MessageDialogFragment"
         android:label="dialog_message"
         tools:layout="@layout/dialog_message">
         <argument

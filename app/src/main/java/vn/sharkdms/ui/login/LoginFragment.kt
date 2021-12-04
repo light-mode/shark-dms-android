@@ -17,8 +17,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +42,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private val viewModel by viewModels<LoginViewModel>()
-    private var connectivity: Boolean = false
+    private val sharedViewModel by activityViewModels<SharedViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,8 +67,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
-        val sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         Utils.setupUI(binding.loginFragment, requireActivity() as AppCompatActivity)
     }
@@ -274,9 +272,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setLoginButtonListener(binding: FragmentLoginBinding) {
         binding.apply {
             buttonLogin.setOnClickListener {
-                if (!connectivity) {
-                    Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                        Toast.LENGTH_SHORT).show()
+                if (sharedViewModel.connectivity.value != true) {
+                    Utils.showConnectivityOffMessage(requireContext())
                     return@setOnClickListener
                 }
                 buttonLogin.isEnabled = false
@@ -321,8 +318,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             buttonLogin.text = getString(R.string.fragment_login_button_login_text)
             buttonLogin.isEnabled = true
         }
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+        Utils.showConnectivityOffMessage(requireContext())
     }
 
     private fun navigateToOverviewScreen(token: String, username: String, roleName: String) {

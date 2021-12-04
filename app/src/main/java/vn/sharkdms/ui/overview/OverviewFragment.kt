@@ -30,7 +30,7 @@ import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentOverviewBinding
 import vn.sharkdms.util.Formatter
-import vn.sharkdms.util.OfflineDialog
+import vn.sharkdms.util.OfflineDialogFragment
 import vn.sharkdms.util.Utils
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -231,20 +231,20 @@ class OverviewFragment : Fragment(R.layout.fragment_overview) {
     private fun showOfflineDialog(supportFragmentManager: FragmentManager) {
         val offlineDialog = findOfflineDialog()
         if (offlineDialog == null || !offlineDialog.isAdded) {
-            OfflineDialog().show(supportFragmentManager, OfflineDialog.TAG)
+            OfflineDialogFragment().show(supportFragmentManager, OfflineDialogFragment.TAG)
         }
     }
 
     private fun hideOfflineDialog() {
         val offlineDialog = findOfflineDialog()
         if (offlineDialog != null && offlineDialog.isAdded) {
-            (offlineDialog as OfflineDialog).dismiss()
+            (offlineDialog as OfflineDialogFragment).dismiss()
         }
     }
 
     private fun findOfflineDialog(): Fragment? {
         val supportFragmentManager = requireActivity().supportFragmentManager
-        return supportFragmentManager.findFragmentByTag(OfflineDialog.TAG)
+        return supportFragmentManager.findFragmentByTag(OfflineDialogFragment.TAG)
     }
 
     private fun bindWelcomeView(binding: FragmentOverviewBinding, name: String) {
