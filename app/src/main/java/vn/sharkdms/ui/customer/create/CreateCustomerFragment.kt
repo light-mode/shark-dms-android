@@ -68,7 +68,6 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
     private lateinit var binding: FragmentCreateCustomerBinding
 
     private lateinit var viewModel: CreateCustomerViewModel
-    private var connectivity: Boolean = false
 
     private var latitude: String = ""
     private var longitude: String = ""
@@ -89,7 +88,6 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         authorization = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -318,9 +316,8 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
     private fun setBtnCreateCustomerOnClickListener(binding: FragmentCreateCustomerBinding) {
         binding.apply {
             btnCreateCustomer.setOnClickListener {
-                if (!connectivity) {
-                    Toast.makeText(requireContext(),
-                        getString(R.string.message_connectivity_off), Toast.LENGTH_LONG).show()
+                if (sharedViewModel.connectivity.value != true) {
+                    Utils.showConnectivityOffMessage(requireContext())
                     return@setOnClickListener
                 }
                 btnCreateCustomer.isEnabled = false
@@ -484,8 +481,7 @@ class CreateCustomerFragment: Fragment(R.layout.fragment_create_customer), OnPho
             progressBar.visibility = View.GONE
             btnCreateCustomer.text = getString(R.string.fragment_create_customer_create_button)
         }
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+        Utils.showConnectivityOffMessage(requireContext())
     }
 
     private fun prepareImagePartFromUri(partName: String, imageUri: Uri?): MultipartBody.Part {

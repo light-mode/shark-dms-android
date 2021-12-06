@@ -24,7 +24,7 @@ import vn.sharkdms.databinding.FragmentCartDetailsBinding
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.cart.CartItem
 import vn.sharkdms.ui.customer.list.Customer
-import vn.sharkdms.util.ConfirmDialog
+import vn.sharkdms.util.ConfirmDialogFragment
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils
 
@@ -35,7 +35,6 @@ abstract class CartDetailsFragment : Fragment(
     private var customer: Customer? = null
     private val viewModel by viewModels<CartDetailsViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
-    private var connectivity = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -53,24 +52,23 @@ abstract class CartDetailsFragment : Fragment(
         bind(binding)
         setListener(binding)
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it }
 
         Utils.setupUI(binding.cartDetailsFragment, requireActivity() as AppCompatActivity)
-        setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
-            if (!connectivity) {
-                showNetworkConnectionErrorMessage()
+        setFragmentResultListener(ConfirmDialogFragment.TAG) { _, bundle ->
+            if (sharedViewModel.connectivity.value != true) {
+                Utils.showConnectivityOffMessage(requireContext())
                 return@setFragmentResultListener
             }
             when (Dialog.BUTTON_POSITIVE) {
-                bundle.getInt(ConfirmDialog.REMOVE_ITEM) -> {
+                bundle.getInt(ConfirmDialogFragment.REMOVE_ITEM) -> {
                     doBeforeRemoveFromCartRequest(binding)
                     viewModel.removeFromCart(sharedViewModel.token, customer)
                 }
-                bundle.getInt(ConfirmDialog.CANCEL_ORDER) -> {
+                bundle.getInt(ConfirmDialogFragment.CANCEL_ORDER) -> {
                     doBeforeCancelOrderRequest(binding)
                     viewModel.cancelOrder(sharedViewModel.token)
                 }
-                bundle.getInt(ConfirmDialog.CREATE_ORDER) -> {
+                bundle.getInt(ConfirmDialogFragment.CREATE_ORDER) -> {
                     doBeforeCreateOrderRequest(binding)
                     val discount = binding.editTextDiscount.text.toString()
                     val note = binding.editTextNote.text.toString()
@@ -172,8 +170,8 @@ abstract class CartDetailsFragment : Fragment(
             val title = getString(R.string.fragment_cart_details_dialog_cancel_order_title)
             val message = getString(R.string.fragment_cart_details_dialog_cancel_order_message)
             val action = if (customer == null) {
-                CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialog.CANCEL_ORDER)
-            } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.CANCEL_ORDER)
+                CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialogFragment.CANCEL_ORDER)
+            } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialogFragment.CANCEL_ORDER)
             findNavController().navigate(action)
         }
     }
@@ -190,8 +188,8 @@ abstract class CartDetailsFragment : Fragment(
 
     private fun setContinueButtonListener(binding: FragmentCartDetailsBinding) {
         binding.buttonContinue.setOnClickListener {
-            if (!connectivity) {
-                showNetworkConnectionErrorMessage()
+            if (sharedViewModel.connectivity.value != true) {
+                Utils.showConnectivityOffMessage(requireContext())
                 return@setOnClickListener
             }
             findNavController().navigateUp()
@@ -203,8 +201,8 @@ abstract class CartDetailsFragment : Fragment(
             val title = getString(R.string.fragment_cart_details_dialog_create_order_title)
             val message = getString(R.string.fragment_cart_details_dialog_create_order_message)
             val action = if (customer == null) {
-                CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialog.CREATE_ORDER)
-            } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.CREATE_ORDER)
+                CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialogFragment.CREATE_ORDER)
+            } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialogFragment.CREATE_ORDER)
             findNavController().navigate(action)
         }
     }
@@ -272,7 +270,7 @@ abstract class CartDetailsFragment : Fragment(
                     is CartDetailsViewModel.CartDetailsEvent.ShowNetworkConnectionErrorMessage -> {
                         doAfterCancelOrderResponse(binding)
                         doAfterCreateOrderResponse(binding)
-                        showNetworkConnectionErrorMessage()
+                        Utils.showConnectivityOffMessage(requireContext())
                     }
                     is CartDetailsViewModel.CartDetailsEvent.ShowUnauthorizedDialog -> {
                         Utils.showUnauthorizedDialog(requireActivity())
@@ -310,18 +308,13 @@ abstract class CartDetailsFragment : Fragment(
         }
     }
 
-    private fun showNetworkConnectionErrorMessage() {
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
-    }
-
     override fun onRemoveItemClick(item: CartItem) {
         viewModel.cartItemId = item.id
         val title = getString(R.string.fragment_cart_details_dialog_remove_product_title)
         val message = getString(R.string.fragment_cart_details_dialog_remove_product_message)
         val action = if (customer == null) {
-            CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialog.REMOVE_ITEM)
-        } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.REMOVE_ITEM)
+            CartDetailsFragmentCustomerDirections.actionGlobalConfirmDialog(title, message, ConfirmDialogFragment.REMOVE_ITEM)
+        } else CartDetailsFragmentSaleDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialogFragment.REMOVE_ITEM)
         findNavController().navigate(action)
     }
 }

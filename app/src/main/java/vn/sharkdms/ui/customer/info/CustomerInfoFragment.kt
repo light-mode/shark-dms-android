@@ -53,7 +53,6 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     private lateinit var checkInViewModel: CheckInViewModel
     private lateinit var discountViewModel: DiscountDialogViewModel
     private lateinit var sharedViewModel : SharedViewModel
-    private var connectivity: Boolean = false
 
     private var discountInfo: String = ""
 
@@ -67,7 +66,6 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         checkInViewModel = ViewModelProvider(requireActivity())[CheckInViewModel::class.java]
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         authorization = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         bind(binding)
         setBtnBackOnClickListener(binding)
@@ -82,7 +80,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                     is CheckInViewModel.CheckInEvent.OnResponse ->
                         handleCheckInResponse(event.code, event.message)
                     is CheckInViewModel.CheckInEvent.OnFailure ->
-                        handleCheckInFailure()
+                        Utils.showConnectivityOffMessage(requireContext())
                     is CheckInViewModel.CheckInEvent.ShowUnauthorizedDialog ->
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
@@ -96,7 +94,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                             handleGetDiscountInfoResponse(event.code, event.message, null)
                     }
                     is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
-                        handleGetDiscountFailure()
+                        Utils.showConnectivityOffMessage(requireContext())
                     is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
@@ -276,11 +274,6 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         }
     }
 
-    private fun handleCheckInFailure() {
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
-    }
-
     private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
         when (code) {
             HttpStatus.OK -> {
@@ -291,10 +284,5 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
             }
             else -> Log.e(TAG, code.toString())
         }
-    }
-
-    private fun handleGetDiscountFailure() {
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
     }
 }

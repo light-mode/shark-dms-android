@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
@@ -21,8 +20,8 @@ import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.GetReportResponse
 import vn.sharkdms.databinding.FragmentReportBinding
-import vn.sharkdms.util.ConfirmDialog
-import vn.sharkdms.util.MessageDialog
+import vn.sharkdms.util.ConfirmDialogFragment
+import vn.sharkdms.util.MessageDialogFragment
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
@@ -48,8 +47,7 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
                 viewModel.getReport(sharedViewModel.token)
             } else if (mustLoad) {
                 binding.progressBar1.visibility = View.GONE
-                Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                    Toast.LENGTH_SHORT).show()
+                Utils.showConnectivityOffMessage(requireContext())
             } else {
                 binding.apply {
                     progressBar1.visibility = View.GONE
@@ -63,25 +61,23 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
         }
 
         Utils.setupUI(binding.reportFragment, requireActivity() as AppCompatActivity)
-        setFragmentResultListener(ConfirmDialog.TAG) { _, bundle ->
+        setFragmentResultListener(ConfirmDialogFragment.TAG) { _, bundle ->
             if (!connectivity) {
-                Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                        Toast.LENGTH_SHORT).show()
+                Utils.showConnectivityOffMessage(requireContext())
                 return@setFragmentResultListener
             }
-            if (Dialog.BUTTON_POSITIVE == bundle.getInt(ConfirmDialog.SEND_REPORT)) {
+            if (Dialog.BUTTON_POSITIVE == bundle.getInt(ConfirmDialogFragment.SEND_REPORT)) {
                 doBeforeRequest(binding)
                 viewModel.createOrEditReport(sharedViewModel.token)
             }
         }
-        setFragmentResultListener(MessageDialog.TAG) { _, bundle ->
+        setFragmentResultListener(MessageDialogFragment.TAG) { _, bundle ->
             when (Dialog.BUTTON_POSITIVE) {
-                bundle.getInt(MessageDialog.CREATE_REPORT) -> {
+                bundle.getInt(MessageDialogFragment.CREATE_REPORT) -> {
                     if (connectivity) viewModel.getReportAfterCreate(sharedViewModel.token)
-                    else Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                            Toast.LENGTH_SHORT).show()
+                    else Utils.showConnectivityOffMessage(requireContext())
                 }
-                bundle.getInt(MessageDialog.EDIT_REPORT) -> {
+                bundle.getInt(MessageDialogFragment.EDIT_REPORT) -> {
                     //
                 }
             }
@@ -152,7 +148,7 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
         binding.buttonSend.setOnClickListener {
             val title = getString(R.string.dialog_message_title_text)
             val message = getString(R.string.fragment_report_message_confirm)
-            val action = ReportFragmentDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialog.SEND_REPORT)
+            val action = ReportFragmentDirections.actionGlobalConfirmDialog2(title, message, ConfirmDialogFragment.SEND_REPORT)
             findNavController().navigate(action)
         }
     }
@@ -209,20 +205,19 @@ class ReportFragment : Fragment(R.layout.fragment_report) {
 
     private fun handleCreateReportResponse(binding: FragmentReportBinding, message: String) {
         doAfterResponse(binding)
-        val action = ReportFragmentDirections.actionGlobalMessageDialog3(message, MessageDialog.CREATE_REPORT)
+        val action = ReportFragmentDirections.actionGlobalMessageDialog3(message, MessageDialogFragment.CREATE_REPORT)
         findNavController().navigate(action)
     }
 
     private fun handleEditReportResponse(binding: FragmentReportBinding, message: String) {
         doAfterResponse(binding)
-        val action = ReportFragmentDirections.actionGlobalMessageDialog3(message, MessageDialog.EDIT_REPORT)
+        val action = ReportFragmentDirections.actionGlobalMessageDialog3(message, MessageDialogFragment.EDIT_REPORT)
         findNavController().navigate(action)
     }
 
     private fun handleRequestFailure(binding: FragmentReportBinding) {
         doAfterResponse(binding)
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+        Utils.showConnectivityOffMessage(requireContext())
     }
 
     private fun doAfterResponse(binding: FragmentReportBinding) {

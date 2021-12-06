@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -97,7 +96,7 @@ class CustomerActivity : AppCompatActivity() {
                         handleGetCartInfoResponse(
                         event.cart)
                     is SharedViewModel.CustomerEvent.ShowNetworkConnectionErrorMessage ->
-                        showNetworkConnectionErrorMessage()
+                        Utils.showConnectivityOffMessage(this@CustomerActivity)
                     is SharedViewModel.CustomerEvent.ShowUnauthorizedDialog -> {
                         Utils.showUnauthorizedDialog(this@CustomerActivity)
                     }
@@ -116,11 +115,6 @@ class CustomerActivity : AppCompatActivity() {
         bundle.putParcelable("cart", cart)
         Navigation.findNavController(this, R.id.nav_host_fragment)
             .navigate(R.id.action_global_cartDetailsFragment2, bundle)
-    }
-
-    private fun showNetworkConnectionErrorMessage() {
-        Toast.makeText(this, getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT)
-            .show()
     }
 
     override fun onStart() {

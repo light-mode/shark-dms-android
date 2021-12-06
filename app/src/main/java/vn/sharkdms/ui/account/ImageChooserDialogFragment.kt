@@ -36,7 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
-class ImageChooserDialog : DialogFragment() {
+class ImageChooserDialogFragment : DialogFragment() {
     companion object {
         const val UPLOAD_AVATAR = "UPLOAD_AVATAR"
         const val IMAGE_URL = "IMAGE_URL"
@@ -151,8 +151,7 @@ class ImageChooserDialog : DialogFragment() {
                     }
                     is ImageChooserViewModel.ImageChooserEvent.OnFailure -> {
                         doAfterResponse()
-                        Toast.makeText(requireContext(),
-                            getString(R.string.message_connectivity_off), Toast.LENGTH_SHORT).show()
+                        Utils.showConnectivityOffMessage(requireContext())
                     }
                     is ImageChooserViewModel.ImageChooserEvent.ShowUnauthorizedDialog -> {
                         doAfterResponse()

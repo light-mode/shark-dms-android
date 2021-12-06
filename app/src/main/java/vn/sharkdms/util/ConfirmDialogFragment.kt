@@ -14,9 +14,9 @@ import androidx.navigation.fragment.navArgs
 import vn.sharkdms.R
 import vn.sharkdms.databinding.DialogConfirmBinding
 
-class ConfirmDialog : DialogFragment() {
+class ConfirmDialogFragment : DialogFragment() {
     companion object {
-        const val TAG = "ConfirmDialog"
+        const val TAG = "ConfirmDialogFragment"
         const val REMOVE_ITEM = "REMOVE_ITEM"
         const val CANCEL_ORDER = "CANCEL_ORDER"
         const val CREATE_ORDER = "CREATE_ORDER"
@@ -24,7 +24,7 @@ class ConfirmDialog : DialogFragment() {
         const val CHANGE_TASK_STATUS = "CHANGE_TASK_STATUS"
     }
 
-    private val args by navArgs<ConfirmDialogArgs>()
+    private val args by navArgs<ConfirmDialogFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {

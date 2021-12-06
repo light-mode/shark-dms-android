@@ -33,7 +33,6 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
     private var customer: Customer? = null
     private val viewModel by viewModels<AddToCartViewModel>()
     private lateinit var sharedViewModel: SharedViewModel
-    private var connectivity = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -72,7 +71,6 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
             binding.textViewTotalPrice.text = formattedTotalPrice
         }
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it }
 
         Utils.setupUI(binding.addToCartFragment, requireActivity() as AppCompatActivity)
     }
@@ -148,9 +146,8 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
     private fun setAddButtonListener(binding: FragmentAddToCartBinding) {
         binding.apply {
             buttonAdd.setOnClickListener {
-                if (!connectivity) {
-                    Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-                        Toast.LENGTH_SHORT).show()
+                if (sharedViewModel.connectivity.value != true) {
+                    Utils.showConnectivityOffMessage(requireContext())
                     return@setOnClickListener
                 }
                 doBeforeRequest(binding)
@@ -206,8 +203,7 @@ abstract class AddToCartFragment : Fragment(R.layout.fragment_add_to_cart) {
 
     private fun handleAddToCartRequestFailure(binding: FragmentAddToCartBinding) {
         doAfterResponse(binding)
-        Toast.makeText(requireContext(), getString(R.string.message_connectivity_off),
-            Toast.LENGTH_SHORT).show()
+        Utils.showConnectivityOffMessage(requireContext())
     }
 
     private fun doAfterResponse(binding: FragmentAddToCartBinding) {

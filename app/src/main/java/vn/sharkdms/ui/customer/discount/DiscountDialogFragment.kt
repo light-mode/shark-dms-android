@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +20,6 @@ class DiscountDialogFragment : DialogFragment() {
     private var discountInfo: String? = ""
     private var check: Int? = 0
     private lateinit var sharedViewModel : SharedViewModel
-    private var connectivity: Boolean = true
 
     fun newInstance(discountInfo: String, check: Int): DiscountDialogFragment {
         val args = Bundle()
@@ -45,7 +43,6 @@ class DiscountDialogFragment : DialogFragment() {
         if (check == 1) rootView.tv_customer_discount_title.text = getString(R.string.fragment_customer_discount_title_sale_account)
 
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.connectivity.observe(viewLifecycleOwner) { connectivity = it ?: false }
 
         initDiscountTable(rootView)
         setBtnCloseOnClickListener(rootView)
@@ -65,9 +62,8 @@ class DiscountDialogFragment : DialogFragment() {
 
     private fun initDiscountTable(rootView: View) {
         rootView.apply {
-            if (!connectivity) {
-                Toast.makeText(requireContext(),
-                    getString(R.string.message_connectivity_off), Toast.LENGTH_LONG).show()
+            if (sharedViewModel.connectivity.value != true) {
+                Utils.showConnectivityOffMessage(requireContext())
                 return
             }
             when(discountInfo) {

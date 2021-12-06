@@ -11,9 +11,6 @@ import javax.inject.Inject
 @HiltViewModel
 class HistoryOrderListViewModelSale @Inject constructor(application: Application, private val repository: HistoryOrderListRepositorySale)
     : AndroidViewModel(application) {
-    companion object {
-        const val TAG = "HistoryOrderViewModel"
-    }
 
     fun getListData(token: String, customerName: String, date: String) =
         repository.getListData(token, customerName, date).map { pagingData -> pagingData.map { HistoryOrderUiModel.HistoryOrderItem(it) } }

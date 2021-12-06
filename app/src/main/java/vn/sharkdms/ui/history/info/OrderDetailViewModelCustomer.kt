@@ -18,10 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class OrderDetailViewModelCustomer @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
 
-    companion object {
-        const val TAG = "CustomerOrderDetailViewModel"
-    }
-
     private val orderDetailEventChannel = Channel<OrderDetailEvent>()
     val orderDetailEvent = orderDetailEventChannel.receiveAsFlow()
 

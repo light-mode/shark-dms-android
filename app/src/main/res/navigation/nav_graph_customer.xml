@@ -132,7 +132,7 @@
         app:destination="@id/cartDetailsFragment2" />
     <dialog
         android:id="@+id/imageChooserDialog2"
-        android:name="vn.sharkdms.ui.account.ImageChooserDialog"
+        android:name="vn.sharkdms.ui.account.ImageChooserDialogFragment"
         android:label="dialog_image_chooser"
         tools:layout="@layout/dialog_image_chooser" />
     <action
@@ -140,7 +140,7 @@
         app:destination="@id/imageChooserDialog2" />
     <dialog
         android:id="@+id/confirmDialog"
-        android:name="vn.sharkdms.util.ConfirmDialog"
+        android:name="vn.sharkdms.util.ConfirmDialogFragment"
         android:label="dialog_confirm"
         tools:layout="@layout/dialog_confirm">
         <argument
@@ -158,7 +158,7 @@
         app:destination="@id/confirmDialog" />
     <dialog
         android:id="@+id/messageDialog"
-        android:name="vn.sharkdms.util.MessageDialog"
+        android:name="vn.sharkdms.util.MessageDialogFragment"
         android:label="dialog_message"
         tools:layout="@layout/dialog_message">
         <argument

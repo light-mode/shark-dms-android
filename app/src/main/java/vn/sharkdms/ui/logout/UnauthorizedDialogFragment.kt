@@ -17,7 +17,7 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.DialogMessageBinding
 
 @AndroidEntryPoint
-class UnauthorizedDialog : DialogFragment(R.layout.dialog_unauthorized) {
+class UnauthorizedDialogFragment : DialogFragment(R.layout.dialog_unauthorized) {
 
     private val viewModel by viewModels<LogoutViewModel>()
 
