@@ -70,10 +70,6 @@ class CustomerAdapter(
     override fun onBindViewHolder(holder: CustomerViewHolder, position: Int) {
         if (!customers.contains(getItem(position))) customers.add(getItem(position)!!)
         holder.bind(getItem(position)!!)
-//        holder.itemView.setOnClickListener {
-//            val action = CustomerListFragmentDirections.actionCustomerListFragmentToCustomerInfoFragment(getItem(position)!!)
-//            it.findNavController().navigate(action)
-//        }
     }
 
     fun getDataList(): ArrayList<Customer> {
