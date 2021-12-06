@@ -17,6 +17,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.OrderDetailRequest
 import vn.sharkdms.databinding.FragmentOrderDetailBinding
+import vn.sharkdms.ui.base.history.info.OrderItem
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.HttpStatus

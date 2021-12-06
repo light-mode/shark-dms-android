@@ -20,5 +20,7 @@ data class Product(@SerializedName("stt") val index: Int,
 
 @Parcelize
 data class Discount(@SerializedName("number_product_min") val min: Long,
-    @SerializedName("number_product_max") val max: Long,
-    @SerializedName("discount_price") val value: Long) : Parcelable
+                    @SerializedName("number_product_max") val max: Long,
+                    @SerializedName("discount_price") val value: Long) : Parcelable
+
+

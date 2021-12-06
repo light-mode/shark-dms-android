@@ -1,5 +1,7 @@
 package vn.sharkdms.ui.history.info
 
+import vn.sharkdms.ui.base.history.info.OrderItem
+
 data class OrderDetail(
     val orderCode: String,
     val customerName: String,
@@ -10,12 +12,4 @@ data class OrderDetail(
     val discount: Double,
     val createdAt: String,
     val orderItems: List<OrderItem>
-)
-
-data class OrderItem(
-    val productSku: String,
-    val productName: String,
-    val totalPrice: Double,
-    val qty: Int,
-    val currency: String
 )

@@ -18,6 +18,7 @@ class HistoryOrderListFragmentCustomer: HistoryOrderListFragment(), HistoryOrder
         initViewModel("", "")
 
         binding.toolbarHeader.visibility = View.GONE
+        binding.etSearchOrder.visibility = View.GONE
     }
 
     override fun initViewModel(customerName: String, date: String) {

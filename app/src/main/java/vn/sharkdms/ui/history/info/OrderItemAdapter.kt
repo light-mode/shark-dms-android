@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemOrderProductBinding
+import vn.sharkdms.ui.base.history.info.OrderItem
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 
