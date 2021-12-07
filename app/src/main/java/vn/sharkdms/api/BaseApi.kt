@@ -3,12 +3,12 @@ package vn.sharkdms.api
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
-import vn.sharkdms.ui.history.info.OrderDetail
-import vn.sharkdms.ui.history.list.HistoryOrder
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.customer.create.CreateCustomerAccount
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.ui.history.info.OrderDetail
+import vn.sharkdms.ui.history.list.HistoryOrder
 import vn.sharkdms.ui.notification.list.Notification
 import vn.sharkdms.ui.overview.Amount
 import vn.sharkdms.ui.product.Product
@@ -16,7 +16,7 @@ import vn.sharkdms.ui.task.list.Task
 
 interface BaseApi {
     companion object {
-        const val BASE_URL = "https://be.sharkdms.vn/api/"
+        const val BASE_URL = "https://dms.gtechvn.org/api/"
         private const val AUTHORIZATION = "Authorization"
     }
 
@@ -24,11 +24,6 @@ interface BaseApi {
     suspend fun forgotPassword(
         @Body forgotPasswordRequest: ForgotPasswordRequest
     ): BaseResponse<Nothing>
-
-    @POST("customer/login")
-    suspend fun login(
-        @Body body: LoginRequest
-    ): BaseResponse<LoginResponse>
 
     @POST("change-password")
     suspend fun changePassword(
@@ -103,12 +98,6 @@ interface BaseApi {
 
     @POST("delete-item-cart")
     suspend fun removeFromCart(
-        @Header(AUTHORIZATION) authorization: String,
-        @Body body: RemoveFromCartRequest
-    ): BaseResponse<Cart?>
-
-    @HTTP(method = "DELETE", path = "customer/cart", hasBody = true)
-    suspend fun removeFromCartCustomer(
         @Header(AUTHORIZATION) authorization: String,
         @Body body: RemoveFromCartRequest
     ): BaseResponse<Cart?>

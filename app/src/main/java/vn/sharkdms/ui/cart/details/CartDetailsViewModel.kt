@@ -15,7 +15,7 @@ import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
-class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel() {
+class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi, private val branchApi: BranchApi) : ViewModel() {
 
     private val cartDetailsEventChannel = Channel<CartDetailsEvent>()
     val cartDetailsEvent = cartDetailsEventChannel.receiveAsFlow()
@@ -29,7 +29,7 @@ class CartDetailsViewModel @Inject constructor(private val baseApi: BaseApi) : V
         val body = RemoveFromCartRequest(cart!!.id.toString(), cartItemId.toString())
         viewModelScope.launch {
             try {
-                val response = if (customer == null) baseApi.removeFromCartCustomer(authorization,
+                val response = if (customer == null) branchApi.removeFromCartCustomer(authorization,
                     body) else baseApi.removeFromCart(authorization, body)
                 val message = response.message
                 when (response.code.toInt()) {
