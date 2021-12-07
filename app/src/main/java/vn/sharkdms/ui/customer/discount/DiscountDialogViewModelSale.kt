@@ -17,16 +17,34 @@ import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
-class DiscountDialogViewModel @Inject constructor(private val baseApi: BaseApi) : ViewModel(){
+class DiscountDialogViewModelSale @Inject constructor(private val baseApi: BaseApi) : ViewModel(){
 
     private val discountDialogEventChannel = Channel<DiscountDialogEvent>()
     val discountDialogEvent = discountDialogEventChannel.receiveAsFlow()
 
-    fun sendGetDiscountInfo(token: String, id: Int?) {
+    fun sendGetCompanyDiscountInfo(token: String) {
         viewModelScope.launch {
             val authorization = Constant.TOKEN_PREFIX + token
             try {
-                val response = baseApi.getDiscount(authorization, id)
+                val response = baseApi.getCompanyDiscountSale(authorization)
+                val code = response.code.toInt()
+                if (code == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
+                discountDialogEventChannel.send(DiscountDialogEvent.OnResponse(code, response.message, response.data))
+            } catch (nfe: NumberFormatException) {
+                Log.e(CreateCustomerViewModel.TAG, nfe.message, nfe)
+            } catch (ste: SocketTimeoutException) {
+                discountDialogEventChannel.send(DiscountDialogEvent.OnFailure)
+            } catch (ue: UnauthorizedException) {
+                discountDialogEventChannel.send(DiscountDialogEvent.ShowUnauthorizedDialog)
+            }
+        }
+    }
+
+    fun sendGetEachCustomerDiscountInfo(token: String, id: Int?) {
+        viewModelScope.launch {
+            val authorization = Constant.TOKEN_PREFIX + token
+            try {
+                val response = baseApi.getEachCustomerDiscountSale(authorization, id)
                 val code = response.code.toInt()
                 if (code == HttpStatus.UNAUTHORIZED) throw UnauthorizedException()
                 discountDialogEventChannel.send(DiscountDialogEvent.OnResponse(code, response.message, response.data))

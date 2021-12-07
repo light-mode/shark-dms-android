@@ -1,20 +1,35 @@
 package vn.sharkdms.ui.account
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentAccountBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
+import vn.sharkdms.ui.customer.discount.DiscountDialogViewModelCustomer
+import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.logout.LogoutDialogFragment
+import vn.sharkdms.util.HttpStatus
+import vn.sharkdms.util.Utils
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class AccountFragmentCustomer : AccountFragment() {
 
+    private lateinit var discountViewModelCustomer: DiscountDialogViewModelCustomer
+    private var discountInfo: String = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentAccountBinding.bind(view)
+        discountViewModelCustomer = ViewModelProvider(
+            requireActivity())[DiscountDialogViewModelCustomer::class.java]
+        discountViewModelCustomer.sendGetCompanyDiscountInfo(sharedViewModel.token)
         binding.apply {
             tvAccountTitle.text = getString(R.string.fragment_customer_info_title)
             tvAccountDiscount.text = getString(
@@ -25,6 +40,21 @@ class AccountFragmentCustomer : AccountFragment() {
         setChangePasswordCardViewListener(binding)
         setDiscountCardViewListener(binding)
         setLogoutCardViewListener(binding)
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+            discountViewModelCustomer.discountDialogEvent.collect { event ->
+                when (event) {
+                    is DiscountDialogViewModelCustomer.DiscountDialogEvent.OnResponse -> {
+                        if (event.data?.size != 0) handleGetDiscountInfoResponse(event.code,
+                            event.message, event.data?.get(event.data.size - 1))
+                        else handleGetDiscountInfoResponse(event.code, event.message, null)
+                    }
+                    is DiscountDialogViewModelCustomer.DiscountDialogEvent.OnFailure ->
+                        Utils.showConnectivityOffMessage(requireContext())
+                    is DiscountDialogViewModelCustomer.DiscountDialogEvent.ShowUnauthorizedDialog ->
+                        Utils.showUnauthorizedDialog(requireActivity())
+                }
+            }
+        }
     }
 
     private fun setAvatarImageViewListener(binding: FragmentAccountBinding) {
@@ -44,6 +74,7 @@ class AccountFragmentCustomer : AccountFragment() {
 
     private fun setDiscountCardViewListener(binding: FragmentAccountBinding) {
         binding.cardViewDiscount.setOnClickListener {
+            Toast.makeText(requireContext(), discountInfo, Toast.LENGTH_LONG).show()
             val dialog = DiscountDialogFragment().newInstance(discountInfo, 0)
             dialog.show(childFragmentManager, TAG)
         }
@@ -52,6 +83,18 @@ class AccountFragmentCustomer : AccountFragment() {
     private fun setLogoutCardViewListener(binding: FragmentAccountBinding) {
         binding.cardViewLogOut.setOnClickListener {
             LogoutDialogFragment().show(requireActivity().supportFragmentManager, "")
+        }
+    }
+
+    private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
+        when (code) {
+            HttpStatus.OK -> {
+                if (data != null) discountInfo = data.ruleCode
+            }
+            HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
+                Log.e(TAG, message)
+            }
+            else -> Log.e(TAG, code.toString())
         }
     }
 }

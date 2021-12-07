@@ -2,14 +2,12 @@ package vn.sharkdms.ui.account
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -18,9 +16,6 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.data.User
 import vn.sharkdms.databinding.FragmentAccountBinding
-import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
-import vn.sharkdms.ui.customer.discount.DiscountInfo
-import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 
 open class AccountFragment : Fragment(R.layout.fragment_account) {
@@ -29,15 +24,11 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
     }
 
     private val viewModel by viewModels<AccountViewModel>()
-    private val sharedViewModel by activityViewModels<SharedViewModel>()
-    private lateinit var discountViewModel: DiscountDialogViewModel
-    open var discountInfo: String = ""
+    open val sharedViewModel by activityViewModels<SharedViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentAccountBinding.bind(view)
-        discountViewModel = ViewModelProvider(
-            requireActivity())[DiscountDialogViewModel::class.java]
         binding.apply {
             iconBack.setOnClickListener {
                 findNavController().navigateUp()
@@ -49,19 +40,6 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
                     is AccountViewModel.AccountEvent.BindUserInfoView -> {
                         bindUserInfoView(binding, event.user)
                     }
-                }
-            }
-            discountViewModel.discountDialogEvent.collect { event ->
-                when (event) {
-                    is DiscountDialogViewModel.DiscountDialogEvent.OnResponse -> {
-                        if (event.data?.size != 0) handleGetDiscountInfoResponse(event.code,
-                            event.message, event.data?.get(0))
-                        else handleGetDiscountInfoResponse(event.code, event.message, null)
-                    }
-                    is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
-                        Utils.showConnectivityOffMessage(requireContext())
-                    is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
-                        Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
         }
@@ -97,18 +75,6 @@ open class AccountFragment : Fragment(R.layout.fragment_account) {
             textViewEmail.text = user.email
             textViewCompany.text = user.company
             textViewPosition.text = user.position
-        }
-    }
-
-    private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
-        when (code) {
-            HttpStatus.OK -> {
-                if (data != null) discountInfo = data.ruleCode
-            }
-            HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
-                Log.e(TAG, message)
-            }
-            else -> Log.e(TAG, code.toString())
         }
     }
 }

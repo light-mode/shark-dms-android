@@ -154,9 +154,19 @@ interface BaseApi {
     ): BaseResponse<CreateCustomerAccount>
 
     @GET("config/discount/{id}")
-    suspend fun getDiscount(
+    suspend fun getEachCustomerDiscountSale(
         @Header(AUTHORIZATION) authorization: String,
         @Path("id") id: Int?
+    ): BaseResponse<List<DiscountInfo>>
+
+    @GET("config/discount")
+    suspend fun getCompanyDiscountSale(
+        @Header(AUTHORIZATION) authorization: String
+    ): BaseResponse<List<DiscountInfo>>
+
+    @GET("customer/config/discount")
+    suspend fun getCompanyDiscountCustomer(
+        @Header(AUTHORIZATION) authorization: String
     ): BaseResponse<List<DiscountInfo>>
 
     @POST("checkin-customer")
