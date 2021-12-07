@@ -22,6 +22,9 @@ class AccountFragmentSale : AccountFragment() {
 
     private lateinit var discountViewModelSale: DiscountDialogViewModelSale
     private var discountInfo: String = ""
+    private var discountMinAmount: String? = ""
+    private var discountMaxAmount: String? = ""
+    private var discountRate: String? = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +61,7 @@ class AccountFragmentSale : AccountFragment() {
 
     private fun setDiscountCardViewListener(binding: FragmentAccountBinding) {
         binding.cardViewDiscount.setOnClickListener {
-            val dialog = DiscountDialogFragment().newInstance(discountInfo, 1)
+            val dialog = DiscountDialogFragment().newInstance(discountInfo, discountMinAmount, discountMaxAmount, discountRate, 1)
             dialog.show(childFragmentManager, TAG)
         }
     }
@@ -73,7 +76,12 @@ class AccountFragmentSale : AccountFragment() {
     private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
         when (code) {
             HttpStatus.OK -> {
-                if (data != null) discountInfo = data.ruleCode
+                if (data != null) {
+                    discountInfo = data.ruleCode
+                    discountMaxAmount = data.maxAmount.toString()
+                    discountMinAmount = data.minAmount.toString()
+                    discountRate = data.discountRate.toString()
+                }
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
                 Log.e(TAG, message)

@@ -54,7 +54,10 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     private lateinit var discountViewModelSale: DiscountDialogViewModelSale
     private lateinit var sharedViewModel : SharedViewModel
 
-    private var discountInfo: String = ""
+    private var discountRule: String = ""
+    private var discountMinAmount: String? = ""
+    private var discountMaxAmount: String? = ""
+    private var discountRate: String? = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,10 +88,12 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             discountViewModelSale.discountDialogEvent.collect { event ->
                 when(event) {
                     is DiscountDialogViewModelSale.DiscountDialogEvent.OnResponse -> {
-                        if (event.data?.size  != 0)
+                        if (event.data?.size != 0)
                             handleGetDiscountInfoResponse(event.code, event.message, event.data?.get(event.data.size - 1))
                         else
                             handleGetDiscountInfoResponse(event.code, event.message, null)
@@ -136,7 +141,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     private fun setBtnDiscountOnClickListener(binding: FragmentCustomerInfoBinding) {
         binding.btnCustomerInfoDiscount.setOnClickListener {
-            val dialog = DiscountDialogFragment().newInstance(discountInfo, 0)
+            val dialog = DiscountDialogFragment().newInstance(discountRule, discountMinAmount, discountMaxAmount, discountRate, 0)
             dialog.show(childFragmentManager, TAG)
         }
     }
@@ -277,7 +282,12 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
         when (code) {
             HttpStatus.OK -> {
-                if (data != null) discountInfo = data.ruleCode
+                if (data != null) {
+                    discountRule = data.ruleCode
+                    discountMaxAmount = data.maxAmount.toString()
+                    discountMinAmount = data.minAmount.toString()
+                    discountRate = data.discountRate.toString()
+                }
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
                 Log.e(TAG, message)

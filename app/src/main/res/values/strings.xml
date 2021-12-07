@@ -61,9 +61,9 @@
     <string name="fragment_customer_discount_threshold">Ngưỡng</string>
     <string name="fragment_customer_discount_percent">Giảm (%)</string>
     <string name="fragment_customer_discount_threshold_min">1.000.000 &lt; STDH</string>
-    <string name="fragment_customer_discount_percent_min">1%</string>
-    <string name="fragment_customer_discount_threshold_min_max">2.000.000 &lt;&#61; STDH &lt;&#61; 5.000.000</string>
-    <string name="fragment_customer_discount_percent_min_max">2%</string>
+    <string name="fragment_customer_discount_percent_min">4%</string>
+    <string name="fragment_customer_discount_threshold_min_max">1.000.000 &lt;&#61; STDH &lt;&#61; 10.000.000</string>
+    <string name="fragment_customer_discount_percent_min_max">5%</string>
     <string name="fragment_customer_discount_threshold_max">30.000.000 &lt; STDH</string>
     <string name="fragment_customer_discount_percent_max">10%</string>
     <string name="fragment_customer_discount_none_message">Chưa có bảng giá chiết khấu!</string>

@@ -23,5 +23,9 @@ class Constant {
         const val ORDER_STATUS_CANCEL_QUERY = "Huỷ"
         const val ORDER_STATUS_CANCEL = "Hủy"
         const val ORDER_STATUS_STOCK_OUT = "Đơn hàng xuất kho"
+
+        const val DISCOUNT_MIN = " < STDH"
+        const val DISCOUNT_MIN_MAX = " <= STDH <= "
+        const val DISCOUNT_MAX = "STDH < "
     }
 }
