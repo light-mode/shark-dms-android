@@ -29,7 +29,7 @@ import vn.sharkdms.SharedViewModel
 import vn.sharkdms.api.CheckInRequest
 import vn.sharkdms.databinding.FragmentCustomerInfoBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
-import vn.sharkdms.ui.customer.discount.DiscountDialogViewModel
+import vn.sharkdms.ui.customer.discount.DiscountDialogViewModelSale
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
@@ -51,7 +51,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     private val args by navArgs<CustomerInfoFragmentArgs>()
 
     private lateinit var checkInViewModel: CheckInViewModel
-    private lateinit var discountViewModel: DiscountDialogViewModel
+    private lateinit var discountViewModelSale: DiscountDialogViewModelSale
     private lateinit var sharedViewModel : SharedViewModel
 
     private var discountInfo: String = ""
@@ -62,7 +62,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         val binding = FragmentCustomerInfoBinding.bind(view)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        discountViewModel = ViewModelProvider(requireActivity())[DiscountDialogViewModel::class.java]
+        discountViewModelSale = ViewModelProvider(requireActivity())[DiscountDialogViewModelSale::class.java]
         checkInViewModel = ViewModelProvider(requireActivity())[CheckInViewModel::class.java]
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         authorization = Constant.TOKEN_PREFIX.plus(sharedViewModel.token)
@@ -85,17 +85,17 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
-            discountViewModel.discountDialogEvent.collect { event ->
+            discountViewModelSale.discountDialogEvent.collect { event ->
                 when(event) {
-                    is DiscountDialogViewModel.DiscountDialogEvent.OnResponse -> {
+                    is DiscountDialogViewModelSale.DiscountDialogEvent.OnResponse -> {
                         if (event.data?.size  != 0)
-                            handleGetDiscountInfoResponse(event.code, event.message, event.data?.get(0))
+                            handleGetDiscountInfoResponse(event.code, event.message, event.data?.get(event.data.size - 1))
                         else
                             handleGetDiscountInfoResponse(event.code, event.message, null)
                     }
-                    is DiscountDialogViewModel.DiscountDialogEvent.OnFailure ->
+                    is DiscountDialogViewModelSale.DiscountDialogEvent.OnFailure ->
                         Utils.showConnectivityOffMessage(requireContext())
-                    is DiscountDialogViewModel.DiscountDialogEvent.ShowUnauthorizedDialog ->
+                    is DiscountDialogViewModelSale.DiscountDialogEvent.ShowUnauthorizedDialog ->
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
@@ -171,7 +171,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                 Formatter.collapseDisplay(email, Constant.ADDRESS_LIMIT)
             }
         }
-        discountViewModel.sendGetDiscountInfo(sharedViewModel.token, args.customer.customerId)
+        discountViewModelSale.sendGetEachCustomerDiscountInfo(sharedViewModel.token, args.customer.customerId)
     }
 
     @SuppressLint("MissingPermission")
