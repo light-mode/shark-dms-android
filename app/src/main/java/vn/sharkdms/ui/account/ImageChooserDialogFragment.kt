@@ -55,6 +55,10 @@ class ImageChooserDialogFragment : DialogFragment() {
     private val cameraLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        if (sharedViewModel.connectivity.value != true) {
+            Utils.showConnectivityOffMessage(requireContext())
+            return@registerForActivityResult
+        }
         doBeforeRequest()
         viewModel.uploadAvatar(sharedViewModel.token)
     }
@@ -62,6 +66,10 @@ class ImageChooserDialogFragment : DialogFragment() {
     private val getImageLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode != Activity.RESULT_OK) return@registerForActivityResult
+        if (sharedViewModel.connectivity.value != true) {
+            Utils.showConnectivityOffMessage(requireContext())
+            return@registerForActivityResult
+        }
         doBeforeRequest()
         result.data?.data?.let { uri ->
             val file = createTempFile()

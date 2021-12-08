@@ -2,9 +2,12 @@ package vn.sharkdms.ui.customer.list
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import retrofit2.HttpException
 import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.CustomerListRequest
-import java.lang.Exception
+import vn.sharkdms.ui.logout.UnauthorizedException
+import vn.sharkdms.util.HttpStatus
+import java.io.IOException
 import java.text.Collator
 import java.util.*
 
@@ -26,13 +29,19 @@ class CustomerPagingSource(private val apiService: BaseApi, val token: String, v
             val body = CustomerListRequest(nextPage, customerName)
             val response = apiService.listCustomer(token, body)
 
+            if (response.code == HttpStatus.UNAUTHORIZED.toString()) throw UnauthorizedException()
+
             return LoadResult.Page(
                 data = response.data.sortedWith(comparator),
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
                 nextKey = nextPage + 1
             )
-        } catch (e: Exception) {
-            LoadResult.Error(e)
+        } catch (ioe: IOException) {
+            LoadResult.Error(ioe)
+        } catch (he: HttpException) {
+            LoadResult.Error(he)
+        } catch (ue: UnauthorizedException) {
+            LoadResult.Error(ue)
         }
     }
 }

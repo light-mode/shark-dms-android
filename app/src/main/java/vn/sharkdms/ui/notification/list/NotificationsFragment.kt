@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentNotificationsBinding
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
@@ -36,8 +37,12 @@ class NotificationsFragment : Fragment(
         }
         adapter.addLoadStateListener { combinedLoadStates ->
             binding.apply {
-                if (combinedLoadStates.source.refresh is LoadState.Error) {
-                    Utils.showUnauthorizedDialog(requireActivity())
+                val currentState = combinedLoadStates.source.refresh
+                if (currentState is LoadState.Error) {
+                    when (currentState.error) {
+                        is UnauthorizedException -> Utils.showUnauthorizedDialog(requireActivity())
+                        else -> Utils.showConnectivityOffMessage(requireContext())
+                    }
                 }
                 if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
                     combinedLoadStates.append.endOfPaginationReached && adapter.itemCount == 0) {

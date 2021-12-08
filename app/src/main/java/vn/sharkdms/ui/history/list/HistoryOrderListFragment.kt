@@ -20,6 +20,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
@@ -46,8 +47,12 @@ open class HistoryOrderListFragment : Fragment(R.layout.fragment_history_order_l
         initRecyclerView(binding)
 
         historyOrderAdapter.addLoadStateListener { combinedLoadStates ->
-            if (combinedLoadStates.source.refresh is LoadState.Error) {
-                Utils.showUnauthorizedDialog(requireActivity())
+            val currentState = combinedLoadStates.source.refresh
+            if (currentState is LoadState.Error) {
+                when (currentState.error) {
+                    is UnauthorizedException -> Utils.showUnauthorizedDialog(requireActivity())
+                    else -> Utils.showConnectivityOffMessage(requireContext())
+                }
             }
             binding.apply {
                 if (historyOrderAdapter.itemCount == 0) {

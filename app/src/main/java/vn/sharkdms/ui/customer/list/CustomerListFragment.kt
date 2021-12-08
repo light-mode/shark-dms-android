@@ -19,6 +19,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SaleActivity
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentCustomerListBinding
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Utils
@@ -48,8 +49,12 @@ open class CustomerListFragment : Fragment(R.layout.fragment_customer_list), Cus
             customerAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
         customerAdapter.addLoadStateListener { combinedLoadStates ->
-            if (combinedLoadStates.source.refresh is LoadState.Error) {
-                Utils.showUnauthorizedDialog(requireActivity())
+            val currentState = combinedLoadStates.source.refresh
+            if (currentState is LoadState.Error) {
+                when (currentState.error) {
+                    is UnauthorizedException -> Utils.showUnauthorizedDialog(requireActivity())
+                    else -> Utils.showConnectivityOffMessage(requireContext())
+                }
             }
             binding.apply {
                 if (customerAdapter.itemCount == 0) {

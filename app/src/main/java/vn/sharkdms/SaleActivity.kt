@@ -31,20 +31,17 @@ class SaleActivity : AppCompatActivity() {
     private val viewModel by viewModels<SharedViewModel>()
     private val connectivityChangeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent == null) {
-                return
-            }
-            if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)) {
-                viewModel.connectivity.postValue(false)
-            } else {
-                viewModel.connectivity.postValue(true)
-            }
+            if (intent == null) return
+            viewModel.connectivity.value =
+                !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)
         }
     }
     private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(connectivityChangeReceiver, filter)
         setContentView(R.layout.activity_sale)
         viewModel.token = intent.getStringExtra("token").toString()
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -88,14 +85,8 @@ class SaleActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        registerReceiver(connectivityChangeReceiver, filter)
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         unregisterReceiver(connectivityChangeReceiver)
     }
 

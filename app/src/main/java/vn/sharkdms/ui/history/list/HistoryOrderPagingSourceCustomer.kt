@@ -2,8 +2,11 @@ package vn.sharkdms.ui.history.list
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import retrofit2.HttpException
 import vn.sharkdms.api.BaseApi
-import java.lang.Exception
+import vn.sharkdms.ui.logout.UnauthorizedException
+import vn.sharkdms.util.HttpStatus
+import java.io.IOException
 
 class HistoryOrderPagingSourceCustomer(private val apiService: BaseApi, val token: String, val date: String): PagingSource<Int, HistoryOrder>() {
     companion object {
@@ -19,13 +22,19 @@ class HistoryOrderPagingSourceCustomer(private val apiService: BaseApi, val toke
             val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
             val response = apiService.getCustomerHistoryOrder(token, nextPage, date)
 
+            if (response.code == HttpStatus.UNAUTHORIZED.toString()) throw UnauthorizedException()
+
             return LoadResult.Page(
                 data = response.data,
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
                 nextKey = nextPage + 1
             )
-        } catch (e: Exception) {
-            LoadResult.Error(e)
+        } catch (ioe: IOException) {
+            LoadResult.Error(ioe)
+        } catch (he: HttpException) {
+            LoadResult.Error(he)
+        } catch (ue: UnauthorizedException) {
+            LoadResult.Error(ue)
         }
     }
 }

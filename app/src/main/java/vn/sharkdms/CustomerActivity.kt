@@ -31,19 +31,16 @@ class CustomerActivity : AppCompatActivity() {
     private val viewModel by viewModels<SharedViewModel>()
     private val connectivityChangeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent == null) {
-                return
-            }
-            if (intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)) {
-                viewModel.connectivity.postValue(false)
-            } else {
-                viewModel.connectivity.postValue(true)
-            }
+            if (intent == null) return
+            viewModel.connectivity.value =
+                !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false)
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(connectivityChangeReceiver, filter)
         setContentView(R.layout.activity_customer)
         viewModel.token = intent.getStringExtra("token").toString()
         val activityToolbar = findViewById<Toolbar>(R.id.activity_toolbar)
@@ -117,14 +114,8 @@ class CustomerActivity : AppCompatActivity() {
             .navigate(R.id.action_global_cartDetailsFragment2, bundle)
     }
 
-    override fun onStart() {
-        super.onStart()
-        val filter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        registerReceiver(connectivityChangeReceiver, filter)
-    }
-
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         unregisterReceiver(connectivityChangeReceiver)
     }
 

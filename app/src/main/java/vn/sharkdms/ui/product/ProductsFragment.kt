@@ -18,6 +18,7 @@ import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.databinding.FragmentProductsBinding
 import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Utils
 
@@ -48,8 +49,12 @@ abstract class ProductsFragment : Fragment(
         }
         adapter.addLoadStateListener { combinedLoadStates ->
             binding.apply {
-                if (combinedLoadStates.source.refresh is LoadState.Error) {
-                    Utils.showUnauthorizedDialog(requireActivity())
+                val currentState = combinedLoadStates.source.refresh
+                if (currentState is LoadState.Error) {
+                    when (currentState.error) {
+                        is UnauthorizedException -> Utils.showUnauthorizedDialog(requireActivity())
+                        else -> Utils.showConnectivityOffMessage(requireContext())
+                    }
                 }
                 if (combinedLoadStates.source.refresh is LoadState.NotLoading &&
                     combinedLoadStates.append.endOfPaginationReached && adapter.itemCount == 0) {
