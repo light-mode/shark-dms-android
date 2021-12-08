@@ -54,7 +54,9 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
     private lateinit var discountViewModelSale: DiscountDialogViewModelSale
     private lateinit var sharedViewModel : SharedViewModel
 
-    private var discountInfo: String = ""
+    private var infoMin: DiscountInfo? = null
+    private var infoMinMax: DiscountInfo? = null
+    private var infoMax: DiscountInfo? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,11 +87,13 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
                         Utils.showUnauthorizedDialog(requireActivity())
                 }
             }
+        }
+        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             discountViewModelSale.discountDialogEvent.collect { event ->
                 when(event) {
                     is DiscountDialogViewModelSale.DiscountDialogEvent.OnResponse -> {
-                        if (event.data?.size  != 0)
-                            handleGetDiscountInfoResponse(event.code, event.message, event.data?.get(event.data.size - 1))
+                        if (event.data?.size != 0)
+                            handleGetDiscountInfoResponse(event.code, event.message, event.data)
                         else
                             handleGetDiscountInfoResponse(event.code, event.message, null)
                     }
@@ -136,7 +140,7 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
 
     private fun setBtnDiscountOnClickListener(binding: FragmentCustomerInfoBinding) {
         binding.btnCustomerInfoDiscount.setOnClickListener {
-            val dialog = DiscountDialogFragment().newInstance(discountInfo, 0)
+            val dialog = DiscountDialogFragment().newInstance(infoMin, infoMinMax, infoMax, 0)
             dialog.show(childFragmentManager, TAG)
         }
     }
@@ -274,10 +278,18 @@ class CustomerInfoFragment : Fragment(R.layout.fragment_customer_info) {
         }
     }
 
-    private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
+    private fun handleGetDiscountInfoResponse(code: Int, message: String, data: List<DiscountInfo>?) {
         when (code) {
             HttpStatus.OK -> {
-                if (data != null) discountInfo = data.ruleCode
+                if (data != null) {
+                    for (info in data) {
+                        when (info.ruleCode) {
+                            "max" -> infoMax = info
+                            "min_max" -> infoMinMax = info
+                            "min" -> infoMin = info
+                        }
+                    }
+                }
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
                 Log.e(TAG, message)
