@@ -21,10 +21,9 @@ import vn.sharkdms.util.Utils
 class AccountFragmentSale : AccountFragment() {
 
     private lateinit var discountViewModelSale: DiscountDialogViewModelSale
-    private var discountInfo: String = ""
-    private var discountMinAmount: String? = ""
-    private var discountMaxAmount: String? = ""
-    private var discountRate: String? = ""
+    private var infoMin: DiscountInfo? = null
+    private var infoMinMax: DiscountInfo? = null
+    private var infoMax: DiscountInfo? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +39,7 @@ class AccountFragmentSale : AccountFragment() {
                 when (event) {
                     is DiscountDialogViewModelSale.DiscountDialogEvent.OnResponse -> {
                         if (event.data?.size != 0) handleGetDiscountInfoResponse(event.code,
-                            event.message, event.data?.get(event.data.size - 1))
+                            event.message, event.data)
                         else handleGetDiscountInfoResponse(event.code, event.message, null)
                     }
                     is DiscountDialogViewModelSale.DiscountDialogEvent.OnFailure ->
@@ -61,7 +60,7 @@ class AccountFragmentSale : AccountFragment() {
 
     private fun setDiscountCardViewListener(binding: FragmentAccountBinding) {
         binding.cardViewDiscount.setOnClickListener {
-            val dialog = DiscountDialogFragment().newInstance(discountInfo, discountMinAmount, discountMaxAmount, discountRate, 1)
+            val dialog = DiscountDialogFragment().newInstance(infoMin, infoMinMax, infoMax, 1)
             dialog.show(childFragmentManager, TAG)
         }
     }
@@ -73,14 +72,17 @@ class AccountFragmentSale : AccountFragment() {
         }
     }
 
-    private fun handleGetDiscountInfoResponse(code: Int, message: String, data: DiscountInfo?) {
+    private fun handleGetDiscountInfoResponse(code: Int, message: String, data: List<DiscountInfo>?) {
         when (code) {
             HttpStatus.OK -> {
                 if (data != null) {
-                    discountInfo = data.ruleCode
-                    discountMaxAmount = data.maxAmount.toString()
-                    discountMinAmount = data.minAmount.toString()
-                    discountRate = data.discountRate.toString()
+                    for (info in data) {
+                        when (info.ruleCode) {
+                            "max" -> infoMax = info
+                            "min_max" -> infoMinMax = info
+                            "min" -> infoMin = info
+                        }
+                    }
                 }
             }
             HttpStatus.BAD_REQUEST, HttpStatus.FORBIDDEN -> {
