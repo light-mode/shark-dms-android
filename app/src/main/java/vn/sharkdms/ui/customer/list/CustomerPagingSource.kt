@@ -22,9 +22,6 @@ class CustomerPagingSource(private val apiService: BaseApi, val token: String, v
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Customer> {
         return try {
-            val collator = Collator.getInstance(Locale("vi"))
-            val comparator = compareBy(collator) { c: Customer -> c.customerName.lowercase(Locale.getDefault()) }
-
             val nextPage: Int = params.key ?: FIRST_PAGE_INDEX
             val body = CustomerListRequest(nextPage, customerName)
             val response = apiService.listCustomer(token, body)
@@ -32,7 +29,7 @@ class CustomerPagingSource(private val apiService: BaseApi, val token: String, v
             if (response.code == HttpStatus.UNAUTHORIZED.toString()) throw UnauthorizedException()
 
             return LoadResult.Page(
-                data = response.data.sortedWith(comparator),
+                data = response.data,
                 prevKey = if (nextPage == FIRST_PAGE_INDEX) null else nextPage - 1,
                 nextKey = nextPage + 1
             )

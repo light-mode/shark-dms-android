@@ -82,6 +82,7 @@ class DiscountDialogFragment : DialogFragment() {
                 Utils.showConnectivityOffMessage(requireContext())
                 return
             }
+            if (listInfo.size == 0) tv_customer_discount_none_message.visibility = View.VISIBLE
             for (info in listInfo) {
                 when(info?.ruleCode) {
                     "max" -> {
@@ -100,7 +101,6 @@ class DiscountDialogFragment : DialogFragment() {
                         tv_customer_discount_threshold_min.text = Formatter.formatCurrency(info.minAmount.toString()) + Constant.DISCOUNT_MIN
                         tv_customer_discount_percent_min.text = "${info.discountRate}%"
                     }
-                    "" -> tv_customer_discount_none_message.visibility = View.VISIBLE
                 }
             }
         }
