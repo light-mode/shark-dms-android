@@ -30,7 +30,9 @@ class AccountFragmentSale : AccountFragment() {
         val binding = FragmentAccountBinding.bind(view)
         discountViewModelSale = ViewModelProvider(
             requireActivity())[DiscountDialogViewModelSale::class.java]
-        discountViewModelSale.sendGetCompanyDiscountInfo(sharedViewModel.token)
+        if (sharedViewModel.connectivity.value == true) {
+            discountViewModelSale.sendGetCompanyDiscountInfo(sharedViewModel.token)
+        }
         setChangePasswordCardViewListener(binding)
         setDiscountCardViewListener(binding)
         setAvatarImageViewListener(binding)

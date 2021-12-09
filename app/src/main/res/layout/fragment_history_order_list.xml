@@ -53,6 +53,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:drawableStart="@drawable/ic_customer_name"
+        android:elevation="4dp"
         android:hint="@string/fragment_history_search_bar_hint"
         android:importantForAutofill="no"
         android:inputType="text"
@@ -71,6 +72,7 @@
         android:layout_marginEnd="10dp"
         android:background="@drawable/bg_search_edit_text"
         android:drawablePadding="6dp"
+        android:elevation="4dp"
         android:gravity="center"
         android:paddingStart="9dp"
         android:paddingEnd="9dp"
@@ -83,13 +85,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_history_order"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="6dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tv_date_picker"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_date_picker"
         tools:listitem="@layout/item_order" />
 

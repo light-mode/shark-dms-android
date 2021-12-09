@@ -52,6 +52,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/bg_search_edit_text"
             android:drawablePadding="8dp"
+            android:elevation="4dp"
             android:gravity="center"
             android:padding="8dp"
             android:text="@string/fragment_tasks_text_view_date_default_text"
@@ -64,9 +65,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/text_view_date"
-            android:paddingStart="8dp"
+            android:overScrollMode="never"
+            android:paddingStart="4dp"
             android:paddingTop="8dp"
-            android:paddingEnd="8dp"
+            android:paddingEnd="4dp"
             tools:listitem="@layout/item_task" />
 
         <ImageView

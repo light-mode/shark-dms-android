@@ -31,7 +31,9 @@ class AccountFragmentCustomer : AccountFragment() {
         val binding = FragmentAccountBinding.bind(view)
         discountViewModelCustomer = ViewModelProvider(
             requireActivity())[DiscountDialogViewModelCustomer::class.java]
-        discountViewModelCustomer.sendGetCompanyDiscountInfo(sharedViewModel.token)
+        if (sharedViewModel.connectivity.value == true) {
+            discountViewModelCustomer.sendGetCompanyDiscountInfo(sharedViewModel.token)
+        }
         binding.apply {
             tvAccountTitle.text = getString(R.string.fragment_customer_info_title)
             tvAccountDiscount.text = getString(

@@ -85,6 +85,7 @@
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="10dp"
+                app:cardElevation="4dp"
                 tools:visibility="visible">
 
                 <TextView
