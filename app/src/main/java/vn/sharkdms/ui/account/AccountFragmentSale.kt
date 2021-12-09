@@ -3,7 +3,6 @@ package vn.sharkdms.ui.account
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -11,7 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.databinding.FragmentAccountBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
-import vn.sharkdms.ui.customer.discount.DiscountDialogViewModelCustomer
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModelSale
 import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.util.HttpStatus

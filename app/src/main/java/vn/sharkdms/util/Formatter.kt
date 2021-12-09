@@ -14,12 +14,6 @@ class Formatter {
             return DecimalFormat("#,###", dfs).format(currency.toBigDecimal())
         }
 
-        fun formatCurrencyDot(currency: String): String {
-            val dfs = DecimalFormatSymbols()
-            dfs.groupingSeparator = '.'
-            return DecimalFormat("#,###", dfs).format(currency.toBigDecimal())
-        }
-
         fun formatDate(context: Context, date: String): String {
             val dmy = date.split("-").toTypedArray()
             val year = dmy[2]

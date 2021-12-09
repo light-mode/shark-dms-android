@@ -5,11 +5,9 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -48,9 +46,9 @@ class DiscountDialogFragment : DialogFragment() {
         val rootView: View = inflater.inflate(R.layout.fragment_discount_dialog, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        infoMin = arguments?.getParcelable<DiscountInfo>("min")
-        infoMinMax = arguments?.getParcelable<DiscountInfo>("min_max")
-        infoMax = arguments?.getParcelable<DiscountInfo>("max")
+        infoMin = arguments?.getParcelable("min")
+        infoMinMax = arguments?.getParcelable("min_max")
+        infoMax = arguments?.getParcelable("max")
         if (infoMin != null) listInfo.add(infoMin)
         if (infoMinMax != null) listInfo.add(infoMinMax)
         if (infoMax != null) listInfo.add(infoMax)

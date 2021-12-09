@@ -8,8 +8,6 @@ import vn.sharkdms.api.CustomerListRequest
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.HttpStatus
 import java.io.IOException
-import java.text.Collator
-import java.util.*
 
 class CustomerPagingSource(private val apiService: BaseApi, val token: String, val customerName: String): PagingSource<Int, Customer>() {
     companion object {
