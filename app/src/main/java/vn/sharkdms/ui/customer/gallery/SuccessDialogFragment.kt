@@ -20,7 +20,7 @@ class SuccessDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val rootView: View = inflater.inflate(R.layout.fragment_upload_success_dialog, container, false)
+        val rootView: View = inflater.inflate(R.layout.dialog_upload_success, container, false)
 
         initializeDialog()
 

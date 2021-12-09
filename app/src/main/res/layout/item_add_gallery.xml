@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="108dp"
     android:layout_height="108dp"
-    android:background="@drawable/dotted_border">
+    android:background="@drawable/bg_dotted_border">
 
     <ImageView
         android:id="@+id/iv_add_gallery"

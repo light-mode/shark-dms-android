@@ -11,7 +11,7 @@
     </style>
 
     <style name="search_edit_text">
-        <item name="android:background">@drawable/bg_search_edit_text</item>
+        <item name="android:background">@drawable/bg_item_holder</item>
         <item name="android:drawablePadding">12dp</item>
         <item name="android:paddingEnd">12dp</item>
         <item name="android:paddingStart">12dp</item>

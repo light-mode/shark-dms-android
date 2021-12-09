@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import kotlinx.android.synthetic.main.fragment_create_avatar_dialog.view.*
+import kotlinx.android.synthetic.main.dialog_create_avatar.view.*
 import vn.sharkdms.R
 import vn.sharkdms.ui.customer.gallery.ErrorMessageDialogListener
 import vn.sharkdms.util.Utils
@@ -56,7 +56,7 @@ class AvatarDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val rootView: View = inflater.inflate(R.layout.fragment_create_avatar_dialog, container, false)
+        val rootView: View = inflater.inflate(R.layout.dialog_create_avatar, container, false)
 
         check = arguments?.getInt("check")
 

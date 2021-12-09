@@ -8,8 +8,8 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
-import vn.sharkdms.databinding.ItemHistoryOrderHeaderBinding
 import vn.sharkdms.databinding.ItemOrderBinding
+import vn.sharkdms.databinding.ItemOrderHeaderBinding
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 
@@ -65,7 +65,7 @@ class HistoryOrderAdapter(
     }
 
     inner class HeaderViewHolder(
-        private val binding: ItemHistoryOrderHeaderBinding
+        private val binding: ItemOrderHeaderBinding
     ) : RecyclerView.ViewHolder(
         binding.root) {
 
@@ -80,7 +80,7 @@ class HistoryOrderAdapter(
         getItem(position).let { uiModel ->
             return when (uiModel) {
                 is HistoryOrderUiModel.HistoryOrderItem -> R.layout.item_order
-                is HistoryOrderUiModel.HeaderItem -> R.layout.item_history_order_header
+                is HistoryOrderUiModel.HeaderItem -> R.layout.item_order_header
                 else -> 0
             }
         }
@@ -112,7 +112,7 @@ class HistoryOrderAdapter(
             val binding = ItemOrderBinding.inflate(inflater, parent, false)
             HistoryOrderViewHolder(binding)
         } else {
-            val binding = ItemHistoryOrderHeaderBinding.inflate(inflater, parent, false)
+            val binding = ItemOrderHeaderBinding.inflate(inflater, parent, false)
             HeaderViewHolder(binding)
         }
     }

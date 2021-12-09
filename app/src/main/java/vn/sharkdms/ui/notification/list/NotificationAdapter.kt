@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
 import vn.sharkdms.databinding.ItemNotificationBinding
-import vn.sharkdms.databinding.ItemNotificationsHeaderBinding
+import vn.sharkdms.databinding.ItemNotificationHeaderBinding
 
 class NotificationAdapter(
     private val listener: OnItemClickListener
@@ -20,7 +20,7 @@ class NotificationAdapter(
         getItem(position).let { uiModel ->
             return when (uiModel) {
                 is NotificationUiModel.NotificationItem -> R.layout.item_notification
-                is NotificationUiModel.HeaderItem -> R.layout.item_notifications_header
+                is NotificationUiModel.HeaderItem -> R.layout.item_notification_header
                 else -> 0
             }
         }
@@ -32,7 +32,7 @@ class NotificationAdapter(
             val binding = ItemNotificationBinding.inflate(inflater, parent, false)
             NotificationViewHolder(binding)
         } else {
-            val binding = ItemNotificationsHeaderBinding.inflate(inflater, parent, false)
+            val binding = ItemNotificationHeaderBinding.inflate(inflater, parent, false)
             HeaderViewHolder(binding)
         }
     }
@@ -71,7 +71,7 @@ class NotificationAdapter(
     }
 
     inner class HeaderViewHolder(
-        private val binding: ItemNotificationsHeaderBinding) : RecyclerView.ViewHolder(
+        private val binding: ItemNotificationHeaderBinding) : RecyclerView.ViewHolder(
         binding.root) {
 
         fun bind(text: String) {

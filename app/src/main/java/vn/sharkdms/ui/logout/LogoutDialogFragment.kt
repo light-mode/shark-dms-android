@@ -16,17 +16,17 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.MainActivity
 import vn.sharkdms.R
-import vn.sharkdms.databinding.FragmentLogoutDialogBinding
+import vn.sharkdms.databinding.DialogLogoutBinding
 import vn.sharkdms.util.Utils
 
 @AndroidEntryPoint
-class LogoutDialogFragment : DialogFragment(R.layout.fragment_logout_dialog) {
+class LogoutDialogFragment : DialogFragment(R.layout.dialog_logout) {
 
     private val viewModel by viewModels<LogoutViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.fragment_logout_dialog, container, false)
+        val view = inflater.inflate(R.layout.dialog_logout, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return view
     }
@@ -40,7 +40,7 @@ class LogoutDialogFragment : DialogFragment(R.layout.fragment_logout_dialog) {
                 }
             }
         }
-        val binding = FragmentLogoutDialogBinding.bind(view)
+        val binding = DialogLogoutBinding.bind(view)
         binding.apply {
             buttonNo.setOnClickListener {
                 dismiss()

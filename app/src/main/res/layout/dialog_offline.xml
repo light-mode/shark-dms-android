@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_logout_dialog"
+    android:background="@drawable/bg_item_holder"
     android:paddingStart="24dp"
     android:paddingEnd="24dp"
     android:paddingBottom="36dp">

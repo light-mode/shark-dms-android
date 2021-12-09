@@ -22,7 +22,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
-import kotlinx.android.synthetic.main.fragment_discount_dialog.view.*
+import kotlinx.android.synthetic.main.dialog_discount.view.*
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel

@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.fragment_discount_dialog.view.*
+import kotlinx.android.synthetic.main.dialog_discount.view.*
 import vn.sharkdms.R
 import vn.sharkdms.SharedViewModel
 import vn.sharkdms.util.Constant
@@ -43,7 +43,7 @@ class DiscountDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val rootView: View = inflater.inflate(R.layout.fragment_discount_dialog, container, false)
+        val rootView: View = inflater.inflate(R.layout.dialog_discount, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         infoMin = arguments?.getParcelable("min")
