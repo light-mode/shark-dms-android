@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import vn.sharkdms.api.BranchApi
+import vn.sharkdms.api.BaseApi
 import vn.sharkdms.api.LoginRequest
 import vn.sharkdms.api.LoginResponse
 import vn.sharkdms.data.User
@@ -16,7 +16,7 @@ import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val branchApi: BranchApi,
+class LoginViewModel @Inject constructor(private val baseApi: BaseApi,
     private val userDao: UserDao) : ViewModel() {
 
     private val loginEventChannel = Channel<LoginEvent>()
@@ -26,7 +26,7 @@ class LoginViewModel @Inject constructor(private val branchApi: BranchApi,
         viewModelScope.launch {
             val body = LoginRequest(username, password)
             try {
-                val response = branchApi.login(body)
+                val response = baseApi.login(body)
                 loginEventChannel.send(
                     LoginEvent.OnResponse(response.code, response.message, response.data))
             } catch (ste: SocketTimeoutException) {

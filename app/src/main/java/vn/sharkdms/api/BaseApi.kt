@@ -16,7 +16,7 @@ import vn.sharkdms.ui.task.list.Task
 
 interface BaseApi {
     companion object {
-        const val BASE_URL = "https://dms.gtechvn.org/api/"
+        const val BASE_URL = "https://be.sharkdms.vn/api/"
         private const val AUTHORIZATION = "Authorization"
     }
 
@@ -24,6 +24,11 @@ interface BaseApi {
     suspend fun forgotPassword(
         @Body forgotPasswordRequest: ForgotPasswordRequest
     ): BaseResponse<Nothing>
+
+    @POST("customer/login")
+    suspend fun login(
+        @Body body: LoginRequest
+    ): BaseResponse<LoginResponse>
 
     @POST("change-password")
     suspend fun changePassword(
@@ -98,6 +103,12 @@ interface BaseApi {
 
     @POST("delete-item-cart")
     suspend fun removeFromCart(
+        @Header(AUTHORIZATION) authorization: String,
+        @Body body: RemoveFromCartRequest
+    ): BaseResponse<Cart?>
+
+    @HTTP(method = "DELETE", path = "customer/cart", hasBody = true)
+    suspend fun removeFromCartCustomer(
         @Header(AUTHORIZATION) authorization: String,
         @Body body: RemoveFromCartRequest
     ): BaseResponse<Cart?>

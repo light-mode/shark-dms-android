@@ -11,7 +11,6 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import vn.sharkdms.api.BaseApi
-import vn.sharkdms.api.BranchApi
 import vn.sharkdms.data.Database
 import javax.inject.Singleton
 
@@ -21,17 +20,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideBaseApi(): BaseApi = provideRetrofit(BaseApi.BASE_URL).create(BaseApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideBranchApi(): BranchApi = provideRetrofit(BranchApi.BRANCH_URL).create(
-        BranchApi::class.java)
-
-    private fun provideRetrofit(url: String): Retrofit = Retrofit.Builder().baseUrl(url)
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl(BaseApi.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create(
             GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .setLenient().create())).build()
+
+    @Provides
+    @Singleton
+    fun provideBaseApi(retrofit: Retrofit): BaseApi = retrofit.create(BaseApi::class.java)
 
     @Provides
     @Singleton
