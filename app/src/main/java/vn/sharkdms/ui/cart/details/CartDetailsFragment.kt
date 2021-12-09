@@ -121,6 +121,8 @@ abstract class CartDetailsFragment : Fragment(
                 layoutCustomerInfo.visibility = View.GONE
                 textViewDiscount.visibility = View.GONE
                 editTextDiscount.visibility = View.GONE
+                textViewDiscountGeneral.visibility = View.INVISIBLE
+                textViewDiscountGeneralValue.visibility = View.INVISIBLE
                 buttonCancel.visibility = View.GONE
             } else {
                 Glide.with(requireContext()).load(customer!!.customerAvatar)

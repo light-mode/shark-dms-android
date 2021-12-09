@@ -89,7 +89,7 @@
                     app:layout_constraintLeft_toLeftOf="@id/guideline_1"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:background="@drawable/bg_item_status_new"
+                    tools:background="@drawable/bg_item_status_new_drop"
                     tools:text="@string/task_status_new" />
 
                 <ImageView
@@ -133,35 +133,11 @@
                         android:id="@+id/text_view_status_checking"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/task_checking"
+                        android:background="@drawable/bg_item_status_checking_drop"
                         android:fontFamily="@font/inter_semi_bold"
                         android:paddingTop="4dp"
                         android:paddingBottom="8dp"
                         android:text="@string/task_status_checking"
-                        android:textAlignment="center"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/text_view_status_completed"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/task_completed"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="8dp"
-                        android:text="@string/task_status_completed"
-                        android:textAlignment="center"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/text_view_status_not_completed"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_item_status_not_completed_drop"
-                        android:fontFamily="@font/inter_semi_bold"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="8dp"
-                        android:text="@string/task_status_not_completed"
                         android:textAlignment="center"
                         android:textColor="@color/white" />
                 </LinearLayout>

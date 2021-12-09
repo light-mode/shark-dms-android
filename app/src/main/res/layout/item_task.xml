@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    android:background="@drawable/bg_item_task_new"
+    android:background="@drawable/bg_item_task"
     android:paddingBottom="16dp">
 
     <TextView

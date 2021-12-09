@@ -140,9 +140,7 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
 
     private fun setStatusSelectorListener(binding: FragmentTaskDetailsBinding) {
         setAnotherStatusTextViewListener(binding)
-        setCompletedStatusTextViewListener(binding)
         setCheckingStatusTextViewListener(binding)
-        setNotCompletedStatusTextViewListener(binding)
     }
 
     private fun setAnotherStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
@@ -153,23 +151,9 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
         }
     }
 
-    private fun setCompletedStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
-        binding.textViewStatusCompleted.setOnClickListener {
-            viewModel.selectedStatus = Constant.TASK_STATUS_COMPLETED
-            updateTaskStatus()
-        }
-    }
-
     private fun setCheckingStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
         binding.textViewStatusChecking.setOnClickListener {
             viewModel.selectedStatus = Constant.TASK_STATUS_CHECKING
-            updateTaskStatus()
-        }
-    }
-
-    private fun setNotCompletedStatusTextViewListener(binding: FragmentTaskDetailsBinding) {
-        binding.textViewStatusNotCompleted.setOnClickListener {
-            viewModel.selectedStatus = Constant.TASK_STATUS_NOT_COMPLETED
             updateTaskStatus()
         }
     }
@@ -218,8 +202,6 @@ class TaskDetailsFragment : Fragment(R.layout.fragment_task_details) {
             Constant.TASK_STATUS_NEW -> R.string.task_status_new
             Constant.TASK_STATUS_PROCESSING -> R.string.task_status_processing
             Constant.TASK_STATUS_CHECKING -> R.string.task_status_checking
-            Constant.TASK_STATUS_COMPLETED -> R.string.task_status_completed
-            Constant.TASK_STATUS_NOT_COMPLETED -> R.string.task_status_not_completed
             else -> throw IllegalArgumentException()
         })
         val title = getString(R.string.fragment_task_details_dialog_change_task_status_title)
