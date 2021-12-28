@@ -17,7 +17,7 @@ import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentTaskDetailsBinding
 import vn.sharkdms.util.ConfirmDialogFragment
 import vn.sharkdms.util.Constant

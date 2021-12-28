@@ -64,7 +64,7 @@
         android:layout_marginEnd="16dp"
         android:drawableStart="@drawable/ic_username_invalid"
         android:elevation="4dp"
-        android:hint="@string/fragment_search_customer_by_name_phone_number"
+        android:hint="@string/fragment_search_customer_by_name"
         android:importantForAutofill="no"
         android:inputType="text"
         android:textSize="15sp"

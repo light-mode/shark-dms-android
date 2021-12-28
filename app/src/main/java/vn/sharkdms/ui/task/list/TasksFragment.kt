@@ -17,8 +17,8 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
-import vn.sharkdms.SaleActivity
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SaleActivity
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentTasksBinding
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Utils

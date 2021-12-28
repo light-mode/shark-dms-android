@@ -1,4 +1,4 @@
-package vn.sharkdms
+package vn.sharkdms.activity
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -18,6 +18,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import vn.sharkdms.R
 import vn.sharkdms.ui.customer.list.CustomerListFragment
 import vn.sharkdms.ui.history.list.HistoryOrderListFragmentSale
 import vn.sharkdms.ui.overview.OverviewFragment
@@ -51,8 +52,7 @@ class SaleActivity : AppCompatActivity() {
         usernameTextView.text = intent.getStringExtra("username").toString()
         val roleTextView = headerView.findViewById<TextView>(R.id.nav_header_text_view_role)
         roleTextView.text = intent.getStringExtra("role_name").toString()
-        val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(navView, navController)
         navView.setCheckedItem(R.id.overviewFragment)
@@ -94,8 +94,7 @@ class SaleActivity : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            val currentFragment = supportFragmentManager.findFragmentById(
-                R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
             if (currentFragment is OverviewFragment || currentFragment is CustomerListFragment ||
                 currentFragment is HistoryOrderListFragmentSale || currentFragment is ReportFragment
                 || currentFragment is TasksFragment || currentFragment is PolicyFragment) finish()

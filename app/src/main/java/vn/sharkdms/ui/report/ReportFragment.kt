@@ -16,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
-import vn.sharkdms.SaleActivity
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SaleActivity
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.api.GetReportResponse
 import vn.sharkdms.databinding.FragmentReportBinding
 import vn.sharkdms.util.ConfirmDialogFragment

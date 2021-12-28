@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import vn.sharkdms.MainActivity
+import vn.sharkdms.activity.MainActivity
 import vn.sharkdms.R
 import vn.sharkdms.databinding.DialogMessageBinding
 

@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.data.User
 import vn.sharkdms.databinding.FragmentAccountBinding
 import vn.sharkdms.util.Utils

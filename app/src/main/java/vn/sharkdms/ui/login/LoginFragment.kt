@@ -23,10 +23,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import vn.sharkdms.CustomerActivity
+import vn.sharkdms.activity.CustomerActivity
 import vn.sharkdms.R
-import vn.sharkdms.SaleActivity
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SaleActivity
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.api.LoginResponse
 import vn.sharkdms.databinding.FragmentLoginBinding
 import vn.sharkdms.util.HttpStatus

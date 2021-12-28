@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.collect
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentCustomerGalleryBinding
 import vn.sharkdms.ui.customer.avatar.AvatarDialogFragment
 import vn.sharkdms.ui.customer.avatar.OnPhotoSelectedListener

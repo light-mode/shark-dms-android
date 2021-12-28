@@ -1,4 +1,4 @@
-package vn.sharkdms
+package vn.sharkdms.activity
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_customer.*
 import kotlinx.coroutines.flow.collect
+import vn.sharkdms.R
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.history.list.HistoryOrderListFragmentCustomer
 import vn.sharkdms.util.Utils
@@ -61,14 +62,12 @@ class CustomerActivity : AppCompatActivity() {
         roleTextView.setOnClickListener {
             navigateToAccountScreen()
         }
-        val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.findNavController()
         bottom_nav.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val destinationId = destination.id
-            if (destinationId == R.id.productsFragment || destinationId == R.id
-                    .customerHistoryOrderListFragment) {
+            if (destinationId == R.id.productsFragment || destinationId == R.id.customerHistoryOrderListFragment) {
                 activityToolbar.visibility = View.VISIBLE
                 bottom_nav.visibility = View.VISIBLE
             } else {
@@ -120,8 +119,7 @@ class CustomerActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val currentFragment = supportFragmentManager.findFragmentById(
-            R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.childFragmentManager?.fragments?.get(0)
         if (currentFragment is HistoryOrderListFragmentCustomer) finish()
         else super.onBackPressed()
     }

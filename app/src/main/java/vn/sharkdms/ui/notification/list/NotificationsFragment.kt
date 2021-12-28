@@ -12,7 +12,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentNotificationsBinding
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.Utils

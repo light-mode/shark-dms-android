@@ -21,7 +21,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentForgotPasswordBinding
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils

@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.dialog_discount.view.*
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils

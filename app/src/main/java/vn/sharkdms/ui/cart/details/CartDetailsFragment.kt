@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentCartDetailsBinding
 import vn.sharkdms.ui.cart.Cart
 import vn.sharkdms.ui.cart.CartItem

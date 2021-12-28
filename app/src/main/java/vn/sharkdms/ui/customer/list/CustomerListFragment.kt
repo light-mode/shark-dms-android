@@ -16,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import vn.sharkdms.R
-import vn.sharkdms.SaleActivity
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SaleActivity
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentCustomerListBinding
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.AdapterDataObserver

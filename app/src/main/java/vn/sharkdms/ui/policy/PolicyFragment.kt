@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
-import vn.sharkdms.SaleActivity
+import vn.sharkdms.activity.SaleActivity
 import vn.sharkdms.databinding.FragmentPolicyBinding
 import vn.sharkdms.util.Utils
 

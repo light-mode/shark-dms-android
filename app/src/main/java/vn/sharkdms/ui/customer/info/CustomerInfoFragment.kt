@@ -25,7 +25,7 @@ import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.dialog_discount.view.*
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.api.CheckInRequest
 import vn.sharkdms.databinding.FragmentCustomerInfoBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment

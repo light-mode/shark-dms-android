@@ -24,9 +24,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import vn.sharkdms.MainActivity
+import vn.sharkdms.activity.MainActivity
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentChangePasswordBinding
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils

@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
-import vn.sharkdms.SharedViewModel
+import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.databinding.FragmentProductsBinding
 import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.logout.UnauthorizedException
