@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.*
 import androidx.paging.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import vn.sharkdms.api.HistoryOrder
 import vn.sharkdms.util.Formatter
 import javax.inject.Inject
 

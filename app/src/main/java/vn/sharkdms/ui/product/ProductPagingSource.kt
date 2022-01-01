@@ -5,8 +5,9 @@ import androidx.paging.PagingState
 import retrofit2.HttpException
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.api.BaseApi
+import vn.sharkdms.api.Customer
+import vn.sharkdms.api.Product
 import vn.sharkdms.api.ProductListRequest
-import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import java.io.IOException

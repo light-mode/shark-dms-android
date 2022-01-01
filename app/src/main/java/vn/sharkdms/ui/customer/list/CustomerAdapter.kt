@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import vn.sharkdms.R
+import vn.sharkdms.api.Customer
 import vn.sharkdms.databinding.ItemCustomerBinding
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter

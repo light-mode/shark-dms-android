@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
+import vn.sharkdms.api.CartItem
 import vn.sharkdms.databinding.ItemCartItemBinding
-import vn.sharkdms.ui.cart.CartItem
 import vn.sharkdms.ui.cart.result.OrderResultFragment
 import vn.sharkdms.util.Formatter
 

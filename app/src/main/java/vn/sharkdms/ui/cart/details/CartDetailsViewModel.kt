@@ -7,8 +7,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.api.*
-import vn.sharkdms.ui.cart.Cart
-import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException

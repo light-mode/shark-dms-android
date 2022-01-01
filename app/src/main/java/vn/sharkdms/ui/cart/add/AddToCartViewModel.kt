@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.api.AddToCartRequest
 import vn.sharkdms.api.BaseApi
-import vn.sharkdms.ui.cart.Cart
+import vn.sharkdms.api.Cart
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus
 import java.net.SocketTimeoutException

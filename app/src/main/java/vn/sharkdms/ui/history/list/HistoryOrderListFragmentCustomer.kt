@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import vn.sharkdms.api.HistoryOrder
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
 
 @AndroidEntryPoint

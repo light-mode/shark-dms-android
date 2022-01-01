@@ -8,6 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
+import vn.sharkdms.api.HistoryOrder
 import vn.sharkdms.databinding.ItemOrderBinding
 import vn.sharkdms.databinding.ItemOrderHeaderBinding
 import vn.sharkdms.util.Constant

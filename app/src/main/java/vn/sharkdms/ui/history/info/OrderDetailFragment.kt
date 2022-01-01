@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.activity.SharedViewModel
+import vn.sharkdms.api.OrderDetail
 import vn.sharkdms.api.OrderDetailRequest
 import vn.sharkdms.databinding.FragmentOrderDetailBinding
 import vn.sharkdms.util.Constant

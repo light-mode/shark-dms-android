@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.dialog_discount.view.*
 import vn.sharkdms.R
 import vn.sharkdms.activity.SharedViewModel
+import vn.sharkdms.api.DiscountInfo
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils

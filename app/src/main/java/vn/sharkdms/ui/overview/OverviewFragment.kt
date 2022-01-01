@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.activity.SaleActivity
 import vn.sharkdms.activity.SharedViewModel
+import vn.sharkdms.api.Amount
 import vn.sharkdms.databinding.FragmentOverviewBinding
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.OfflineDialogFragment

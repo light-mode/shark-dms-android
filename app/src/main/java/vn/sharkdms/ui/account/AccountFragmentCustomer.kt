@@ -11,11 +11,11 @@ import vn.sharkdms.R
 import vn.sharkdms.databinding.FragmentAccountBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModelCustomer
-import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.ui.logout.LogoutDialogFragment
 import vn.sharkdms.util.HttpStatus
 import vn.sharkdms.util.Utils
 import kotlinx.coroutines.flow.collect
+import vn.sharkdms.api.DiscountInfo
 
 @AndroidEntryPoint
 class AccountFragmentCustomer : AccountFragment() {

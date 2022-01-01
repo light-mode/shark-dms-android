@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import vn.sharkdms.R
 import vn.sharkdms.activity.SaleActivity
 import vn.sharkdms.activity.SharedViewModel
+import vn.sharkdms.api.HistoryOrder
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.AdapterDataObserver

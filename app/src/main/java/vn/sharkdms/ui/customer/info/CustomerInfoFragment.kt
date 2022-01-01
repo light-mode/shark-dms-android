@@ -27,10 +27,10 @@ import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.activity.SharedViewModel
 import vn.sharkdms.api.CheckInRequest
+import vn.sharkdms.api.DiscountInfo
 import vn.sharkdms.databinding.FragmentCustomerInfoBinding
 import vn.sharkdms.ui.customer.discount.DiscountDialogFragment
 import vn.sharkdms.ui.customer.discount.DiscountDialogViewModelSale
-import vn.sharkdms.ui.customer.discount.DiscountInfo
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.HttpStatus

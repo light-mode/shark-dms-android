@@ -10,8 +10,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
+import vn.sharkdms.api.CartItem
 import vn.sharkdms.databinding.FragmentOrderResultBinding
-import vn.sharkdms.ui.cart.CartItem
 import vn.sharkdms.ui.cart.details.CartItemAdapter
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils

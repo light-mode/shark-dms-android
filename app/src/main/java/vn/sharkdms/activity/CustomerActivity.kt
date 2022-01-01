@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_customer.*
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
-import vn.sharkdms.ui.cart.Cart
+import vn.sharkdms.api.Cart
 import vn.sharkdms.ui.history.list.HistoryOrderListFragmentCustomer
 import vn.sharkdms.util.Utils
 

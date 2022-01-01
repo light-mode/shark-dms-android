@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.api.BaseApi
+import vn.sharkdms.api.DiscountInfo
 import vn.sharkdms.ui.customer.create.CreateCustomerViewModel
 import vn.sharkdms.util.Constant
 import vn.sharkdms.util.HttpStatus

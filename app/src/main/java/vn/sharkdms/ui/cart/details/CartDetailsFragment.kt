@@ -20,10 +20,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import vn.sharkdms.R
 import vn.sharkdms.activity.SharedViewModel
+import vn.sharkdms.api.Cart
+import vn.sharkdms.api.CartItem
+import vn.sharkdms.api.Customer
 import vn.sharkdms.databinding.FragmentCartDetailsBinding
-import vn.sharkdms.ui.cart.Cart
-import vn.sharkdms.ui.cart.CartItem
-import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.util.ConfirmDialogFragment
 import vn.sharkdms.util.Formatter
 import vn.sharkdms.util.Utils

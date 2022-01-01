@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import vn.sharkdms.api.BaseApi
-import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.api.Customer
 import javax.inject.Inject
 import javax.inject.Singleton
 

@@ -2,7 +2,7 @@ package vn.sharkdms.ui.cart.details
 
 import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
-import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.api.Customer
 
 @AndroidEntryPoint
 class CartDetailsFragmentCustomer : CartDetailsFragment() {

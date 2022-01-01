@@ -3,16 +3,6 @@ package vn.sharkdms.api
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
-import vn.sharkdms.ui.cart.Cart
-import vn.sharkdms.ui.customer.create.CreateCustomerAccount
-import vn.sharkdms.ui.customer.discount.DiscountInfo
-import vn.sharkdms.ui.customer.list.Customer
-import vn.sharkdms.ui.history.info.OrderDetail
-import vn.sharkdms.ui.history.list.HistoryOrder
-import vn.sharkdms.ui.notification.list.Notification
-import vn.sharkdms.ui.overview.Amount
-import vn.sharkdms.ui.product.Product
-import vn.sharkdms.ui.task.list.Task
 
 interface BaseApi {
     companion object {

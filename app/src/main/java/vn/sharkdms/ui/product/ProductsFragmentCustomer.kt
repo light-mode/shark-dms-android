@@ -1,7 +1,7 @@
 package vn.sharkdms.ui.product
 
 import dagger.hilt.android.AndroidEntryPoint
-import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.api.Customer
 
 @AndroidEntryPoint
 class ProductsFragmentCustomer : ProductsFragment() {

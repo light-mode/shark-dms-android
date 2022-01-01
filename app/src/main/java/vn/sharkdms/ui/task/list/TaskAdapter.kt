@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
+import vn.sharkdms.api.Task
 import vn.sharkdms.databinding.ItemTaskBinding
 import vn.sharkdms.util.Constant
 

@@ -39,6 +39,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import vn.sharkdms.R
 import vn.sharkdms.activity.SharedViewModel
+import vn.sharkdms.api.CreateCustomerAccount
 import vn.sharkdms.databinding.FragmentCreateCustomerBinding
 import vn.sharkdms.ui.customer.avatar.AvatarDialogFragment
 import vn.sharkdms.ui.customer.avatar.OnPhotoSelectedListener

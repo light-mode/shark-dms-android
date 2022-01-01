@@ -16,8 +16,9 @@ import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import vn.sharkdms.R
 import vn.sharkdms.activity.SharedViewModel
+import vn.sharkdms.api.Customer
+import vn.sharkdms.api.Product
 import vn.sharkdms.databinding.FragmentProductsBinding
-import vn.sharkdms.ui.customer.list.Customer
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.AdapterDataObserver
 import vn.sharkdms.util.Utils

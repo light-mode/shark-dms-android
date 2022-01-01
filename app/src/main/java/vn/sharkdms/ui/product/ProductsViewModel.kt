@@ -6,7 +6,7 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import vn.sharkdms.ui.customer.list.Customer
+import vn.sharkdms.api.Customer
 import javax.inject.Inject
 
 @HiltViewModel

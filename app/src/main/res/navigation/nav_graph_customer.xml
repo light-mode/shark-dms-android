@@ -69,7 +69,7 @@
         tools:layout="@layout/fragment_order_detail">
         <argument
             android:name="order"
-            app:argType="vn.sharkdms.ui.history.list.HistoryOrder" />
+            app:argType="vn.sharkdms.api.HistoryOrder" />
     </fragment>
     <fragment
         android:id="@+id/addToCartCustomerFragment"
@@ -78,11 +78,11 @@
         tools:layout="@layout/fragment_add_to_cart">
         <argument
             android:name="product"
-            app:argType="vn.sharkdms.ui.product.Product" />
+            app:argType="vn.sharkdms.api.Product" />
         <argument
             android:name="customer"
             android:defaultValue="@null"
-            app:argType="vn.sharkdms.ui.customer.list.Customer"
+            app:argType="vn.sharkdms.api.Customer"
             app:nullable="true" />
         <action
             android:id="@+id/action_addToCartFragment2_to_cartDetailsFragment2"
@@ -101,7 +101,7 @@
         <argument
             android:name="cart"
             android:defaultValue="@null"
-            app:argType="vn.sharkdms.ui.cart.Cart"
+            app:argType="vn.sharkdms.api.Cart"
             app:nullable="true" />
         <action
             android:id="@+id/action_cartDetailsFragment2_to_orderResultFragment2"

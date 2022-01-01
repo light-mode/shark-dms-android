@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
 import vn.sharkdms.api.BaseApi
+import vn.sharkdms.api.HistoryOrder
 import vn.sharkdms.ui.logout.UnauthorizedException
 import vn.sharkdms.util.HttpStatus
 import java.io.IOException

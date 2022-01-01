@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import vn.sharkdms.api.HistoryOrder
 import vn.sharkdms.databinding.FragmentHistoryOrderListBinding
 
 @AndroidEntryPoint

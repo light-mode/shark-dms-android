@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import vn.sharkdms.R
+import vn.sharkdms.api.Notification
 import vn.sharkdms.databinding.ItemNotificationBinding
 import vn.sharkdms.databinding.ItemNotificationHeaderBinding
 
