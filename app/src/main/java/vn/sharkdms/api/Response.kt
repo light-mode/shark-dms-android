@@ -3,7 +3,6 @@ package vn.sharkdms.api
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import vn.sharkdms.ui.history.info.OrderItem
 
 data class BaseResponse<T>(
     val code: String,
@@ -73,6 +72,14 @@ data class OrderDetail(
     val discount: Double,
     val createdAt: String,
     val orderItems: List<OrderItem>
+)
+
+data class OrderItem(
+    val productSku: String,
+    val productName: String,
+    val totalPrice: Double,
+    val qty: Int,
+    val currency: String
 )
 
 @Parcelize
